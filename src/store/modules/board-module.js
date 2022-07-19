@@ -1,28 +1,5 @@
 import { boardService } from "../../../services/board-service.js"
 
-<<<<<<< HEAD
-const store = createStore({
-  strict: true,
-  state: {
-    boards: null,
-    currBoard: null,
-  },
-  getters: {
-    loggedInUser({ loggedInUser }) {
-      return loggedInUser
-    },
-    users({ users }) {
-      return users
-    },
-  },
-  mutations: {
-
-  },
-  actions: {},
-})
-
-export default store
-=======
 export default {
   state: {
     boards: [],
@@ -82,4 +59,3 @@ export default {
     },
   },
 }
->>>>>>> 2b386a3a48761243f46c7dd1bab902be9e48ae0a
