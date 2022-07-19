@@ -6,7 +6,7 @@
   </section>
 </template>
 <script>
-import taskPreview from '../components/task-preveiw.vue'
+import taskPreview from '../components/task-preview.vue'
 
 export default {
   name: 'board-group',

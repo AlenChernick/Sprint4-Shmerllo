@@ -1,5 +1,7 @@
 <template lang="">
-  <div></div>
+  <section class="task-edit">
+    <h2>this is task edit</h2>
+  </section>
 </template>
 <script>
 export default {

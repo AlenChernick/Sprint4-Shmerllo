@@ -1,6 +1,6 @@
 <template>
   <section class="board-preview">
-    <h2>This is board previw</h2>
+    <h2>This is board preview</h2>
   </section>
 </template>
 <script>
