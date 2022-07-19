@@ -1,10 +1,9 @@
-// import { userService } from '@/services/user-service.js'
+import { userService } from '../../../services/user-service.js'
 
-const store = createStore({
-  strict: true,
+export default {
   state: {
     users: null,
-    loggedInUser: userService.getLoggedinUser(),
+    loggedInUser: userService.getLoggedInUser(),
   },
   getters: {
     loggedInUser({ loggedInUser }) {
@@ -18,8 +17,6 @@ const store = createStore({
  
   },
   actions: {},
-  modules: {
-  },
-})
 
-export default store
+}
+

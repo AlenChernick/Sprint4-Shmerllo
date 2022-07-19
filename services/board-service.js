@@ -43,8 +43,9 @@ function _createBoards() {
         boards = [
             _createBoard('First Demo Board')
         ]
+        utilService.saveToStorage(STORAGE_KEY,boards)
     }
-    return boards
+    // return boards
 }
 
 

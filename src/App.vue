@@ -6,9 +6,12 @@
 </template>
 
 <script>
-import appHeader from './components/app-header.vue'
+import appHeader from "./components/app-header.vue"
 export default {
-  name: 'app',
+  name: "app",
+  created() {
+    this.$store.dispatch({type:'loadBoards'})
+  },
   components: {
     appHeader,
   },
