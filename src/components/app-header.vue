@@ -1,5 +1,6 @@
 <template lang="">
   <header class="app-header">
+    <h1>Let's rock!</h1>
     <router-link to="/">Home</router-link>
     <router-link to="/board">Boards</router-link>
     <router-link to="/login">Login</router-link>
