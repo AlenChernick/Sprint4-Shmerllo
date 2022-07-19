@@ -1,28 +1,23 @@
 // import { userService } from '@/services/user-service.js'
 
 const store = createStore({
-    strict: true,
-    state: {
-      boards: null,
-      currBoard:null,
+  strict: true,
+  state: {
+    boards: null,
+    currBoard: null,
+  },
+  getters: {
+    loggedInUser({ loggedInUser }) {
+      return loggedInUser
     },
-    getters: {
-      loggedInUser({ loggedInUser }) {
-        return loggedInUser
-      },
-      users({ users }) {
-        return users
-      },
+    users({ users }) {
+      return users
     },
-    mutations: {
-   
-    },
-    actions: {},
-    modules: {
-      boardStore,
-      userStore,
-    },
-  })
-  
-  export default store
-  
+  },
+  mutations: {
+
+  },
+  actions: {},
+})
+
+export default store
