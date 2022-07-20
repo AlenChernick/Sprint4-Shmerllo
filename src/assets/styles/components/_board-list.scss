@@ -4,3 +4,11 @@
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   background-color: $clr4;
 }
+
+.workspace-logo {
+  margin-top: 15rem;
+
+  .workspace-icon {
+    margin-right: 0.5rem;
+  }
+}

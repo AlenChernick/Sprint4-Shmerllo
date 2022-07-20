@@ -1,4 +1,9 @@
 .board-preview {
-  border: 1px solid $clr2;
+  border: 0.5rem solid $clr2;
   padding: 1rem;
+  transition: background-color 0.5s;
+  cursor: pointer;
+  &:hover {
+    background-color: $clr3;
+  }
 }
