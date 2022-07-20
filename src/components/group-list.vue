@@ -2,7 +2,7 @@
   <section class="group-list">
     <h2>this is group list</h2>
     <Container   @drop="onDrop">
-      <Draggable class="group-conteiner">
+      <Draggable >
         <group-preview v-for="group in groups" :group="group" :key="group.id" />
       </Draggable>
       </Container>
@@ -19,9 +19,8 @@ export default {
       type: Array,
     },
   },
-    methods: {  
+   methods: {  
     onDrop(dropResult){
-      console.log(dropResult);
       this.groups = this.applyDrag(this.groups, dropResult);
     },
     applyDrag(arr, dragResult){
@@ -37,7 +36,6 @@ export default {
       if (addedIndex !== null) {
         result.splice(addedIndex, 0, itemToAdd);
       }
-      console.log(result);
       return result;
     }
   },
