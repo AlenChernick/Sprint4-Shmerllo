@@ -1,17 +1,16 @@
 <template lang="">
   <section class="board-app">
     <h2>This is boards</h2>
-    <board-preview />
+    <board-list />
   </section>
 </template>
 <script>
-import boardPreview from '../components/board-preview.vue'
+import boardList from '../components/board-list.vue'
 
 export default {
   name: 'board-app',
   components: {
-    boardPreview,
+    boardList,
   },
 }
 </script>
-<style lang=""></style>
