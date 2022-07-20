@@ -1,0 +1,22 @@
+
+// COLOR PALETTE
+$clr1: #1D3557;
+$clr2: #457B9D;
+$clr3: #A8DADC;
+$clr4: #F1FAEE;
+$clr5: #E63946;
+
+//FONT
+$font: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+
+// LAYOUT
+$layoutPadding: 20px;
+
+// LAYOUT BREAKPOINTS
+$break-narrow: 1200px;
+$break-normal: 1360px;
+$break-wide: 1920px;
+
+$padded-break-narrow: $break-narrow + $layoutPadding * 2;
+$padded-break-normal: $break-normal + $layoutPadding * 2;
+$padded-break-wide: $break-wide + $layoutPadding * 2;

@@ -1,0 +1,27 @@
+// SETUP
+@import 'setup/typography';
+@import 'setup/variables';
+@import 'setup/mixins';
+@import 'setup/functions';
+
+// BASICS
+@import 'basic/helpers';
+@import 'basic/base';
+@import 'basic/layout';
+
+//PAGES
+@import 'pages/home';
+@import 'pages/board-app';
+@import 'pages/login';
+@import 'pages/task-edit';
+@import 'pages/dashboard';
+
+// COMPONENTS
+@import 'components/app-header';
+@import 'components/board-preview';
+@import 'components/board-header';
+@import 'components/borad-menu';
+@import 'components/filter';
+@import 'components/group';
+@import 'components/task-preview';
+
