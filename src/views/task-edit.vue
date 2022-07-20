@@ -1,6 +1,7 @@
-<template lang="">
+<template >
   <section class="task-edit">
-    <input v-model="task.title" type="text"> 
+    <h1>hello</h1>
+    <!-- <input v-model="task.title" type="text"> 
     <p>in List... to add when nestedroute</p>
     <h3>CreatedBy: {{task.byMember.fullname}}</h3>
     <img src="task.byMember.imgUrl"/>
@@ -10,6 +11,7 @@
           <p>{{member}}</p>
         </li>
     </ul> 
+ 
     <ul v-for="label in task.lavelIds">Activity
         <li>
           <p>{{label}}</p>
@@ -39,7 +41,7 @@
         </ul> 
     </div> 
 
-    <!-- <pre>{{task}}</pre> -->
+    <pre>{{task}}</pre> -->
 
 
   </section>
@@ -54,13 +56,15 @@ export default {
   },
   async created() {
     try {
-      const { id } = this.$route.params
-      const task = await this.$store.dispatch({ type: 'getTaskById', taskId: id })
+      const { boardId, groupId, taskId } = this.$route.params
+      console.log(boardId, groupId, taskId )
+      const task = await this.$store.dispatch({ type: 'getTaskById', boardId, groupId, taskId })
       this.task = task
     } catch (err) {
       console.log('Cannot load task', err)
       throw err
     }
+    
   },
   methods: {  
     saveTask() {
