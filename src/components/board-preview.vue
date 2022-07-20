@@ -1,7 +1,6 @@
 <template>
   <section class="board-preview">
-    <h2>This is board preview</h2>
-    <pre>{{ board.title }}</pre>
+    <h2>{{ board.title }}</h2>
     <router-link :to="'/board/' + board._id">Board Details</router-link>
   </section>
 </template>

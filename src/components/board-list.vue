@@ -1,6 +1,7 @@
 <template>
-  <section class="board-list"></section>
-  <board-preview v-for="board in boards" :key="board._id" :board="board" />
+  <section class="board-list">
+    <board-preview v-for="board in boards" :key="board._id" :board="board" />
+  </section>
 </template>
 <script>
 import boardPreview from '../components/board-preview.vue'

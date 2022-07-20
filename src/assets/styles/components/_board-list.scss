@@ -1,0 +1,6 @@
+.board-list {
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  background-color: $clr4;
+}
