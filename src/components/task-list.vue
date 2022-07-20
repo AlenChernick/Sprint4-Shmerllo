@@ -1,9 +1,9 @@
 <template>
-  <Container @drop="onDrop">
-    <Draggable>
+  <!-- <Container @drop="onDrop">
+    <Draggable> -->
       <task-preview v-for="task in tasks" :task="task" :key="task.id" />
-    </Draggable>
-  </Container>
+    <!-- </Draggable>
+  </Container> -->
 </template>
 <script>
 import taskPreview from "../components/task-preview.vue"
