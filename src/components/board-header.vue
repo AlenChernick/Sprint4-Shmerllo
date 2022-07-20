@@ -1,6 +1,6 @@
 <template>
   <section class="board-header">
-    <h2>I am board header</h2>
+    <h3>{{ getCurrBoard.title }}</h3>
     <board-menu />
     <board-filter />
   </section>
@@ -11,6 +11,11 @@ import boardFilter from '../components/board-filter.vue'
 
 export default {
   name: 'board-header',
+  computed: {
+    getCurrBoard() {
+      return this.$store.getters.getCurrBoard
+    },
+  },
   components: {
     boardMenu,
     boardFilter,

@@ -48,63 +48,63 @@ function saveBoard(board) {
 
 
 //group level functions
-async function getGroupById(boardId, groupId){
+async function getGroupById(boardId, groupId) {
     const board = await getBoardById(boardId)
     const group = board.groups.find((group) => group.id === groupId)
     return group
-    
+
 }
 
 
 
-async function saveGroup(group, boardId){
+async function saveGroup(group, boardId) {
     console.log(group, boardId)
 
-    try{
-    //GET BOARD
-    let board = await getBoardById(boardId)
+    try {
+        //GET BOARD
+        let board = await getBoardById(boardId)
 
-    //addgroup
-    if(!group.id){
-        group.id = utilService.makeId()
-        board.groups.push(group)
-    }
+        //addgroup
+        if (!group.id) {
+            group.id = utilService.makeId()
+            board.groups.push(group)
+        }
 
-    // or update group
-    else{
-        const groupIdx = board.groups.findIndex((g)=> g.id === group.id )
-        board.groups.splice(groupIdx, 1, group)
-    }
-    
-    await saveBoard(board)
+        // or update group
+        else {
+            const groupIdx = board.groups.findIndex((g) => g.id === group.id)
+            board.groups.splice(groupIdx, 1, group)
+        }
 
-    const savedGroup = getGroupById(boardId, group.id)
-    return savedGroup
+        await saveBoard(board)
+
+        const savedGroup = getGroupById(boardId, group.id)
+        return savedGroup
     }
-    catch (err){
+    catch (err) {
         console.log('cannot save task', err)
         throw err
     }
 }
 
 
-async function removeGroup(groupId, boardId){
+async function removeGroup(groupId, boardId) {
     console.log(groupId, boardId)
 
-    try{
-    //GET BOARD
-    let board = await getBoardById(boardId)
-   
-    
-    //remove group
-    const groupIdx = board.groups.findIndex((g)=> g.id === groupId )
-    board.groups.splice(groupIdx, 1)
+    try {
+        //GET BOARD
+        let board = await getBoardById(boardId)
 
-    await saveBoard(board)
 
-    return 'removed'
+        //remove group
+        const groupIdx = board.groups.findIndex((g) => g.id === groupId)
+        board.groups.splice(groupIdx, 1)
+
+        await saveBoard(board)
+
+        return 'removed'
     }
-    catch (err){
+    catch (err) {
         console.log('cannot remove task', err)
         throw err
     }
@@ -115,49 +115,49 @@ async function removeGroup(groupId, boardId){
 
 //task level functions:
 
-async function getTaskById(boardId, groupId, taskId){
+async function getTaskById(boardId, groupId, taskId) {
     const board = await getBoardById(boardId)
     const group = board.groups.find((group) => group.id === groupId)
     const task = group.tasks.find((task) => task.id === taskId)
     return task
-    
+
 }
 
 
 
-async function saveTask(task, groupId, boardId){
+async function saveTask(task, groupId, boardId) {
     console.log(groupId, boardId, task)
 
-    try{
-    //GET BOARD
-    let board = await getBoardById(boardId)
+    try {
+        //GET BOARD
+        let board = await getBoardById(boardId)
 
-    //DET GROUP
-    let group = await getGroupById(boardId, groupId)
+        //DET GROUP
+        let group = await getGroupById(boardId, groupId)
 
-    //addTask
-    if(!task.id){
-        task.id = utilService.makeId()
-        group.tasks.push(task)
-    }
+        //addTask
+        if (!task.id) {
+            task.id = utilService.makeId()
+            group.tasks.push(task)
+        }
 
-    // or update task
-    else{
-        const taskIdx = group.tasks.findIndex((t)=> t.id === task.id )
-        group.tasks.splice(taskIdx, 1, task)
-    }
-    
-    //update group
-        const groupIdx = board.groups.findIndex((g)=> g.id === groupId )
+        // or update task
+        else {
+            const taskIdx = group.tasks.findIndex((t) => t.id === task.id)
+            group.tasks.splice(taskIdx, 1, task)
+        }
+
+        //update group
+        const groupIdx = board.groups.findIndex((g) => g.id === groupId)
         board.groups.splice(groupIdx, 1, group)
 
 
-    await saveBoard(board)
+        await saveBoard(board)
 
-    const savedTask = getTaskById(boardId, groupId, task.id)
-    return savedTask
+        const savedTask = getTaskById(boardId, groupId, task.id)
+        return savedTask
     }
-    catch (err){
+    catch (err) {
         console.log('cannot save task', err)
         throw err
     }
@@ -165,29 +165,29 @@ async function saveTask(task, groupId, boardId){
 
 
 
-async function removeTask(taskId, groupId, boardId){
+async function removeTask(taskId, groupId, boardId) {
     console.log(groupId, boardId, taskId)
 
-    try{
-    //GET BOARD
-    let board = await getBoardById(boardId)
+    try {
+        //GET BOARD
+        let board = await getBoardById(boardId)
 
-    //DET GROUP
-    let group = await getGroupById(boardId, groupId)
+        //DET GROUP
+        let group = await getGroupById(boardId, groupId)
 
-    const taskIdx = group.tasks.findIndex((t)=> t.id === taskId )
-    group.tasks.splice(taskIdx, 1)
-    
-    
-    //update group
-    const groupIdx = board.groups.findIndex((g)=> g.id === groupId )
-    board.groups.splice(groupIdx, 1, group)
+        const taskIdx = group.tasks.findIndex((t) => t.id === taskId)
+        group.tasks.splice(taskIdx, 1)
 
-    await saveBoard(board)
 
-    return 'removed'
+        //update group
+        const groupIdx = board.groups.findIndex((g) => g.id === groupId)
+        board.groups.splice(groupIdx, 1, group)
+
+        await saveBoard(board)
+
+        return 'removed'
     }
-    catch (err){
+    catch (err) {
         console.log('cannot remove task', err)
         throw err
     }
@@ -226,7 +226,7 @@ function getEmptyBoard() {
         title: '',
         // style: {
         //     type: '',
-        //      backgroundImage: url('https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'),
+        //     backgroundImage: url('https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'),
         //     backgroundThumb: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHwzfHxjb2Rpbmd8ZW58MHx8fHwxNjQyMzU4NjIz&ixlib=rb-1.2.1&q=80&w=200'),
         //     isDark: true,
         //     customImages: []
@@ -339,8 +339,8 @@ function getEmptyBoard() {
 }
 
 
-function _getDemoTask(){
-    return   {
+function _getDemoTask() {
+    return {
         id: 'c104',
         title: 'Help me',
         status: 'in-progress',

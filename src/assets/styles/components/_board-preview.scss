@@ -2,6 +2,7 @@
   border: 0.5rem solid $clr2;
   padding: 1rem;
   transition: background-color 0.5s;
+  background-color: $clr4;
   cursor: pointer;
   &:hover {
     background-color: $clr3;
