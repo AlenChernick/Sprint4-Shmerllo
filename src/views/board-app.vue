@@ -1,7 +1,7 @@
 <template lang="">
   <section class="board-app">
     <h2>This is boards</h2>
-    <board-list />
+    <board-list :boards="getBoards" />
   </section>
 </template>
 <script>
@@ -11,6 +11,11 @@ export default {
   name: 'board-app',
   components: {
     boardList,
+  },
+  computed: {
+    getBoards() {
+      return this.$store.getters.getBoards
+    },
   },
 }
 </script>

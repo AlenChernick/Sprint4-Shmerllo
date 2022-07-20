@@ -1,8 +1,8 @@
 <template>
   <section class="board-header">
+    <h2>I am board header</h2>
     <board-menu />
     <board-filter />
-    <h2>I am board header</h2>
   </section>
 </template>
 <script>

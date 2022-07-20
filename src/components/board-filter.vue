@@ -1,6 +1,6 @@
 <template>
   <section class="board-filter">
-    <h2>I am board filter</h2>
+    <h3>I am board filter</h3>
   </section>
 </template>
 <script>

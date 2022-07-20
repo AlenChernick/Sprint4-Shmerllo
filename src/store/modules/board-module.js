@@ -3,19 +3,23 @@ import { boardService } from "../../../services/board-service.js"
 export default {
   state: {
     boards: [],
-    currBoard: null,
+    currBoard: {},
   },
   getters: {
     getBoards({ boards }) {
       return boards
     },
     getCurrBoard({ currBoard }) {
+      console.log(currBoard);
       return currBoard
     },
   },
   mutations: {
     setBoards(state, { boards }) {
       state.boards = boards
+    },
+    setCurrBoard(state, { currBoard }) {
+      state.currBoard = currBoard
     },
     removeBoard(state, { id }) {
       const idx = state.boards.findIndex((board) => board._id === id)
@@ -57,5 +61,15 @@ export default {
         throw err
       }
     },
+    async getBoardById({ commit }, { boardId }) {
+      try {
+        const currBoard = await boardService.getBoardById(boardId)
+        commit({ type: 'setCurrBoard', currBoard })
+        return currBoard
+      } catch (err) {
+        console.log('Cannot get currBoard', err);
+        throw err
+      }
+    }
   },
 }
