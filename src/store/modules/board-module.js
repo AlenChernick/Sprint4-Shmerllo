@@ -70,6 +70,26 @@ export default {
         console.log('Cannot get currBoard', err);
         throw err
       }
-    }
+    },
+    async getTaskById({ commit }, { taskId }) {
+      console.log(taskId)
+      try{
+        const task = await boardService.getTaskById(taskId)
+        return task
+      }
+      catch {
+        console.error('cannot get task', err)
+        throw err
+      }
   },
+  // async saveTask({ commit }, { task }) {
+  //   try {
+  //     const savedTask = await boardService.saveTask(task)
+  //     // commit({ type: "saveBoard", savedBoard })
+  //   } catch (err) {
+  //     console.log("Cannot save task", err)
+  //     throw err
+  //   }
+  // },
+}
 }
