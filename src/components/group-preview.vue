@@ -1,10 +1,10 @@
 <template>
-  <!-- <h2>I am group preview</h2> -->
-  <Container>
-    <Draggable @drop="onDrop">
+  <!-- <Container> -->
+    <!-- <Draggable class="group-preview" > -->
+      <!-- <h2>I am group preview</h2> -->
       <task-list :tasks="group.tasks" />
-    </Draggable>
-  </Container>
+    <!-- </Draggable> -->
+  <!-- </Container> -->
 </template>
 <script>
 import taskList from "../components/task-list.vue"
