@@ -25,27 +25,27 @@ const router = createRouter({
       component: loginPage,
     },
     {
-      path: '/board/:id',
+      path: '/board/:boardId',
       name: 'board-details',
       component: boardDetails,
-      // children: [
-      //   {
-      //     path: ':id',
-      //     name: 'task-edit',
-      //     component: taskEdit
-      //   },
-      //   {
-      //     path: 'dashboard',
-      //     name: 'dashboard',
-      //     component: dashboard
-      //   }
-      // ]
+      children: [
+        {
+          path: '/board/:boardId/:groupId/:taskId',
+          name: 'task-edit',
+          component: taskEdit
+        },
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: dashboard
+        }
+      ]
     },
-    {
-      path: '/board/edit/:id',
-      name: 'task-edit',
-      component: taskEdit,
-    } 
+    // {
+    //   path: '/board/edit/:id',
+    //   name: 'task-edit',
+    //   component: taskEdit,
+    // } 
   ]
 })
 

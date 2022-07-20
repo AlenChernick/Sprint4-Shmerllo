@@ -4,6 +4,7 @@
     <h4>{{ board.title }}</h4>
     <h4>{{ board._id }}</h4>
     <group-list :groups="board.groups" />
+    <router-view/>
   </section>
 </template>
 
@@ -20,9 +21,9 @@ export default {
   },
   async created() {
     try {
-      const { id } = this.$route.params
-      console.log(id)
-      const currBoard = await this.$store.dispatch({ type: 'getBoardById', boardId: id })
+      const { boardId } = this.$route.params
+      console.log(boardId)
+      const currBoard = await this.$store.dispatch({ type: 'getBoardById', boardId })
       console.log(currBoard)
       this.board = currBoard
     } catch (err) {
