@@ -11,28 +11,31 @@ _createBoards()
 
 export const boardService = {
     query,
-    remove,
-    save,
+    removeBoard,
+    saveBoard,
     getBoardById,
     getEmptyBoard,
     getTaskById,
+    saveTask,
+    getGroupById
 }
 
-
+//get boards
 function query() {
     return storageService.query(STORAGE_KEY)
 
 }
 
+//board level functions
 function getBoardById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
 }
 
-function remove(boardId) {
+function removeBoard(boardId) {
     return storageService.remove(STORAGE_KEY, boardId)
 }
 
-function save(board) {
+function saveBoard(board) {
     if (board._id) {
         return storageService.put(STORAGE_KEY, board)
     } else {
@@ -41,23 +44,40 @@ function save(board) {
 }
 
 
-async function getTaskById(boardId, groupId, taskId){
-    console.log(boardId, groupId, taskId)
+//group level functions
+async function getGroupById(boardId, groupId){
     const board = await getBoardById(boardId)
-    console.log(board)
+    const group = board.groups.find((group) => group.id === groupId)
+    return group
+    
+}
+
+
+//task level functions
+async function getTaskById(boardId, groupId, taskId){
+    const board = await getBoardById(boardId)
     const group = board.groups.find((group) => group.id === groupId)
     const task = group.tasks.find((task) => task.id === taskId)
-    console.log(task)
     return task
     
 }
 
 
-function saveTask(task){
-    const taskId = getTaskById()
-    utilService.saveToStorage(STORAGE_KEY, task)
-    return task
-}
+// async function saveTask(task, groupId, boardId){
+//     console.log(groupId, boardId, task)
+    
+//     //GET BOARD
+//     const board = await getBoardById(boardId)
+    
+//     //TODO replace task
+
+//     const taskIdx = group.tasks.find((task) => task.id === taskId)
+
+//     const savedBoard = saveBoard(board)
+
+//     const savedTask = getTaskById(boardId, groupId, task.id)
+//     return savedTask
+// }
 
 
 
