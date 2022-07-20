@@ -1,7 +1,12 @@
 <template >
   <section class="task-edit">
     <pre>{{groupId}}</pre>
-    <button @click="saveTask">Save</button>
+    <button @click="saveTask">SaveTask</button>
+    <button @click="removeTask">RemoveTask</button>
+
+
+    <div>
+   
     <input v-model="task.title" type="text"> 
     <p>in List... to add when nestedroute</p>
     <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
@@ -40,6 +45,8 @@
         </ul> 
     </div> 
 
+     </div>
+
     <pre>{{task}}</pre>
 
 
@@ -71,11 +78,13 @@ export default {
   methods: {  
     saveTask() {
       this.$store.dispatch({ type: 'saveTask', task: this.task, groupId: this.groupId, boardId: this.boardId })
-      }
     },
     removeTask(){
-      this.$store.dispatch({ type: 'saveTask', taskId: this.task._id })
+      console.log(this.task.id)
+      this.$store.dispatch({ type: 'removeTask', taskId: this.task.id, groupId: this.groupId, boardId: this.boardId })
+      this.$router.push('/board'+ boardId)
     }
+  }
 }
 
 

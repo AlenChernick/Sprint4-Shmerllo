@@ -55,7 +55,7 @@ export default {
     },
     async removeBoard({ commit }, { id }) {
       try {
-        await boardService.remove(id)
+        await boardService.removeBoard(id)
         commit({ type: "removeBoard", id })
       } catch (err) {
         console.log("Cannot remove board", err)
@@ -97,6 +97,16 @@ export default {
       // commit({ type: "saveTask", savedTask })
     } catch (err) {
       console.log("Cannot save task", err)
+      throw err
+    }
+  },
+  async removeTask({ commit }, { taskId, groupId, boardId }) {
+    console.log(taskId, groupId, boardId)
+    try {
+      await boardService.removeTask(taskId, groupId, boardId)
+      // commit({ type: "removeBoard", id })
+    } catch (err) {
+      console.log("Cannot remove board", err)
       throw err
     }
   },

@@ -11,13 +11,16 @@ _createBoards()
 
 export const boardService = {
     query,
-    removeBoard,
-    saveBoard,
     getBoardById,
+    saveBoard,
+    removeBoard,
     getEmptyBoard,
+    getGroupById,
+    saveGroup,
     getTaskById,
     saveTask,
-    getGroupById
+    removeTask,
+    removeGroup,
 }
 
 //get boards
@@ -53,7 +56,65 @@ async function getGroupById(boardId, groupId){
 }
 
 
-//task level functions
+
+async function saveGroup(group, boardId){
+    console.log(group, boardId)
+
+    try{
+    //GET BOARD
+    let board = await getBoardById(boardId)
+
+    //addgroup
+    if(!group.id){
+        group.id = utilService.makeId()
+        board.groups.push(group)
+    }
+
+    // or update group
+    else{
+        const groupIdx = board.groups.findIndex((g)=> g.id === group.id )
+        board.groups.splice(groupIdx, 1, group)
+    }
+    
+    await saveBoard(board)
+
+    const savedGroup = getGroupById(boardId, group.id)
+    return savedGroup
+    }
+    catch (err){
+        console.log('cannot save task', err)
+        throw err
+    }
+}
+
+
+async function removeGroup(groupId, boardId){
+    console.log(groupId, boardId)
+
+    try{
+    //GET BOARD
+    let board = await getBoardById(boardId)
+   
+    
+    //remove group
+    const groupIdx = board.groups.findIndex((g)=> g.id === groupId )
+    board.groups.splice(groupIdx, 1)
+
+    await saveBoard(board)
+
+    return 'removed'
+    }
+    catch (err){
+        console.log('cannot remove task', err)
+        throw err
+    }
+}
+
+
+
+
+//task level functions:
+
 async function getTaskById(boardId, groupId, taskId){
     const board = await getBoardById(boardId)
     const group = board.groups.find((group) => group.id === groupId)
@@ -63,11 +124,11 @@ async function getTaskById(boardId, groupId, taskId){
 }
 
 
+
 async function saveTask(task, groupId, boardId){
     console.log(groupId, boardId, task)
 
     try{
-
     //GET BOARD
     let board = await getBoardById(boardId)
 
@@ -101,6 +162,39 @@ async function saveTask(task, groupId, boardId){
         throw err
     }
 }
+
+
+
+async function removeTask(taskId, groupId, boardId){
+    console.log(groupId, boardId, taskId)
+
+    try{
+    //GET BOARD
+    let board = await getBoardById(boardId)
+
+    //DET GROUP
+    let group = await getGroupById(boardId, groupId)
+
+    const taskIdx = group.tasks.findIndex((t)=> t.id === taskId )
+    group.tasks.splice(taskIdx, 1)
+    
+    
+    //update group
+    const groupIdx = board.groups.findIndex((g)=> g.id === groupId )
+    board.groups.splice(groupIdx, 1, group)
+
+    await saveBoard(board)
+
+    return 'removed'
+    }
+    catch (err){
+        console.log('cannot remove task', err)
+        throw err
+    }
+}
+
+
+
 
 
 
