@@ -28,19 +28,24 @@ const router = createRouter({
       path: '/board/:id',
       name: 'board-details',
       component: boardDetails,
-      children: [
-        {
-          path: ':id',
-          name: 'task-edit',
-          component: taskEdit
-        },
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: dashboard
-        }
-      ]
+      // children: [
+      //   {
+      //     path: ':id',
+      //     name: 'task-edit',
+      //     component: taskEdit
+      //   },
+      //   {
+      //     path: 'dashboard',
+      //     name: 'dashboard',
+      //     component: dashboard
+      //   }
+      // ]
     },
+    {
+      path: '/board/edit/:id',
+      name: 'task-edit',
+      component: taskEdit,
+    } 
   ]
 })
 
