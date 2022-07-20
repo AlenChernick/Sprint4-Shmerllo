@@ -1,18 +1,17 @@
 <template >
   <section class="task-edit">
-     <h1>hello</h1>
-    <!-- <input v-model="task.title" type="text"> 
+    <pre>{{groupId}}</pre>
+    <button @click="saveTask">Save</button>
+    <input v-model="task.title" type="text"> 
     <p>in List... to add when nestedroute</p>
-    <h3>CreatedBy: {{task.byMember.fullname}}</h3>
-    <img src="task.byMember.imgUrl"/>
-    <pre>{{task.byMember.imgUrl}}</pre>
-    <ul v-for="member in task.memberIds">Activity
+    <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
+    <!-- <img src="task.byMember.imgUrl"/> -->
+    <ul v-for="member in task.memberIds">Member
         <li>
           <p>{{member}}</p>
         </li>
     </ul> 
- 
-    <ul v-for="label in task.lavelIds">Activity
+    <ul v-for="label in task.labelIds">Label
         <li>
           <p>{{label}}</p>
         </li>
@@ -20,7 +19,7 @@
     <h2>Dates:</h2>
     <p>CreatedAt: {{new Date (task.createdAt).toString()}}</p>
     <p>DueDate: {{new Date (task.dueDate).toString()}}</p>
-    <h2>Status: {{task.status}}</h2>
+    <h2>Status: {{task.status}}</h2> 
     <h2>Description: {{task.description}}</h2>
     <ul v-for="comment in task.comments">Activity
         <li>
@@ -38,10 +37,10 @@
           <p>{{todo.title}}</p>
           <p>{{todo.isDone}}</p>
         </li>
-        </ul>  -->
-    <!-- </div>   -->
+        </ul> 
+    </div> 
 
-    <pre>{{task}}</pre>
+    <!-- <pre>{{task}}</pre> -->
 
 
   </section>
@@ -52,12 +51,15 @@ export default {
   data() {
     return {
       task: {},
+      boardId: null,
+      groupId: null,
     }
   },
   async created() {
     try {
       const { boardId, groupId, taskId } = this.$route.params
-      console.log(boardId, groupId, taskId )
+      this.boardId = boardId
+      this.groupId = groupId
       const task = await this.$store.dispatch({ type: 'getTaskById', boardId, groupId, taskId })
       this.task = task
     } catch (err) {
@@ -68,7 +70,7 @@ export default {
   },
   methods: {  
     saveTask() {
-      this.$store.dispatch({ type: 'saveTask', task: this.task })
+      this.$store.dispatch({ type: 'saveTask', task: this.task, groupId, boardId })
       }
     },
     removeTask(){

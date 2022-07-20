@@ -63,21 +63,21 @@ async function getTaskById(boardId, groupId, taskId){
 }
 
 
-// async function saveTask(task, groupId, boardId){
-//     console.log(groupId, boardId, task)
+async function saveTask(task, groupId, boardId){
+    console.log(groupId, boardId, task)
     
-//     //GET BOARD
-//     const board = await getBoardById(boardId)
+    //GET BOARD
+    const board = await getBoardById(boardId)
     
-//     //TODO replace task
+    //TODO replace task
 
-//     const taskIdx = group.tasks.find((task) => task.id === taskId)
+    const taskIdx = group.tasks.find((task) => task.id === taskId)
 
-//     const savedBoard = saveBoard(board)
+    const savedBoard = saveBoard(board)
 
-//     const savedTask = getTaskById(boardId, groupId, task.id)
-//     return savedTask
-// }
+    const savedTask = getTaskById(boardId, groupId, task.id)
+    return savedTask
+}
 
 
 

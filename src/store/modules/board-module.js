@@ -30,8 +30,18 @@ export default {
         (currBoard) => currBoard._id === board_.id
       )
       if (idx !== -1) state.boards.splice(idx, 1, board)
-      else state.board.puse(board)
+      else state.board.push(board)
     },
+    // saveTask(state, { task }) {
+    //   const idx = state.boards.findIndex(
+    //     (currBoard) => currBoard._id === board_.id
+    //   )
+    //   if (idx !== -1) state.boards.splice(idx, 1, board)
+    //   else state.board.push(task)
+    // },
+    // removeTask(state, { taskId }){
+
+    // }
   },
   actions: {
     async loadBoards({ commit }) {
@@ -72,7 +82,6 @@ export default {
       }
     },
     async getTaskById({ commit }, { boardId, groupId, taskId }) {
-      console.log(boardId, groupId, taskId)
       try{
         const task = await boardService.getTaskById(boardId, groupId, taskId)
         return task
@@ -82,14 +91,14 @@ export default {
         throw err
       }
   },
-  // async saveTask({ commit }, { task }) {
-  //   try {
-  //     const savedTask = await boardService.saveTask(task)
-  //     // commit({ type: "saveBoard", savedBoard })
-  //   } catch (err) {
-  //     console.log("Cannot save task", err)
-  //     throw err
-  //   }
-  // },
+  async saveTask({ commit }, { task, groupId, boardId }) {
+    try {
+      const savedTask = await boardService.saveTask(task, groupId, boardId)
+      // commit({ type: "saveTask", savedTask })
+    } catch (err) {
+      console.log("Cannot save task", err)
+      throw err
+    }
+  },
 }
 }
