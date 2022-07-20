@@ -1,8 +1,10 @@
+import { createConditionalExpression } from '@vue/compiler-core'
 import { storageService } from './storage-service.js'
 import { utilService } from './util-service.js'
 
 
 const STORAGE_KEY = 'board_db'
+const TASK = 'task'
 
 _createBoards()
 
@@ -26,14 +28,6 @@ function getBoardById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
 }
 
-function getTaskById(taskId){
-    const task = _getDemoTask() 
-    return task
-}
-
-
-
-
 function remove(boardId) {
     return storageService.remove(STORAGE_KEY, boardId)
 }
@@ -45,6 +39,27 @@ function save(board) {
         return storageService.post(STORAGE_KEY, board)
     }
 }
+
+
+async function getTaskById(boardId, groupId, taskId){
+    console.log(boardId, groupId, taskId)
+    const board = await getBoardById(boardId)
+    console.log(board)
+    const group = board.groups.find((group) => group.id === groupId)
+    const task = group.tasks.find((task) => task.id === taskId)
+    console.log(task)
+    return task
+    
+}
+
+
+function saveTask(task){
+    const taskId = getTaskById()
+    utilService.saveToStorage(STORAGE_KEY, task)
+    return task
+}
+
+
 
 function _createBoards() {
     let boards = utilService.loadFromStorage(STORAGE_KEY)

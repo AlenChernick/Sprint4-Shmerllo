@@ -1,6 +1,6 @@
 <template >
   <section class="task-edit">
-    <h1>hello</h1>
+     <h1>hello</h1>
     <!-- <input v-model="task.title" type="text"> 
     <p>in List... to add when nestedroute</p>
     <h3>CreatedBy: {{task.byMember.fullname}}</h3>
@@ -38,10 +38,10 @@
           <p>{{todo.title}}</p>
           <p>{{todo.isDone}}</p>
         </li>
-        </ul> 
-    </div> 
+        </ul>  -->
+    <!-- </div>   -->
 
-    <pre>{{task}}</pre> -->
+    <pre>{{task}}</pre>
 
 
   </section>

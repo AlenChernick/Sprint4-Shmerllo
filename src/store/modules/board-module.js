@@ -71,13 +71,13 @@ export default {
         throw err
       }
     },
-    async getTaskById({ commit }, { taskId }) {
-      console.log(taskId)
+    async getTaskById({ commit }, { boardId, groupId, taskId }) {
+      console.log(boardId, groupId, taskId)
       try{
-        const task = await boardService.getTaskById(taskId)
+        const task = await boardService.getTaskById(boardId, groupId, taskId)
         return task
       }
-      catch {
+      catch (err) {
         console.error('cannot get task', err)
         throw err
       }
