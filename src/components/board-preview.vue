@@ -1,7 +1,6 @@
 <template>
-  <section class="board-preview">
+  <section @click="goToBoardDetails" class="board-preview">
     <h2>{{ board.title }}</h2>
-    <router-link :to="'/board/' + board._id">Board Details</router-link>
   </section>
 </template>
 
@@ -13,6 +12,11 @@ export default {
     },
   },
   name: 'board-preview',
+  methods: {
+    goToBoardDetails() {
+      this.$router.push(`/board/${this.board._id}`)
+    },
+  },
   components: {},
 }
 </script>

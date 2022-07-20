@@ -1,6 +1,6 @@
 <template lang="">
   <section class="board-app">
-    <h2>This is boards</h2>
+    <h3 class="workspace-logo"><font-awesome-icon class="workspace-icon" icon="fab fa-trello" />Workspace</h3>
     <board-list :boards="getBoards" />
   </section>
 </template>
