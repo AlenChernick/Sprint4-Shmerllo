@@ -1,0 +1,40 @@
+header.main-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  background-color: $clr1;
+  padding: 0.5rem;
+  a {
+    color: $clr4;
+    text-decoration: none;
+  }
+
+  .home-page-btn {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0 0.5rem;
+
+    img {
+      width: 6rem;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+    }
+  }
+
+  .boards-page-btn {
+    grid-column: 1;
+    grid-row: 1;
+    margin-inline-start: 7.5rem;
+    align-self: center;
+
+    .board-icon {
+      padding-right: 0.2rem;
+    }
+  }
+  .login-page-btn {
+    grid-column: 3;
+    margin: 0 1rem;
+    align-self: center;
+  }
+}
