@@ -41,7 +41,9 @@ function _createBoards() {
     let boards = utilService.loadFromStorage(STORAGE_KEY)
     if (!boards || !boards.length) {
         boards = [
-            _createBoard('First Demo Board')
+            _createBoard('First Demo Board'),
+            _createBoard('Seconed Demo Board'),
+            _createBoard('Third Demo Board'),
         ]
         utilService.saveToStorage(STORAGE_KEY,boards)
     }
@@ -64,7 +66,7 @@ function getEmptyBoard() {
         title: '',
         // style: {
         //     type: '',
-        //     backgroundImage: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHwzfHxjb2Rpbmd8ZW58MHx8fHwxNjQyMzU4NjIz&ixlib=rb-1.2.1&q=85'),
+            // backgroundImage: url('https://www.nestle.com/sites/default/files/styles/da_vinci_header_hero_desktop/public/2022-02/sustainability-nature-forest-river-article-header-fw.jpg?h=a612ed85&itok=1mqqgg1L'),
         //     backgroundThumb: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHwzfHxjb2Rpbmd8ZW58MHx8fHwxNjQyMzU4NjIz&ixlib=rb-1.2.1&q=80&w=200'),
         //     isDark: true,
         //     customImages: []

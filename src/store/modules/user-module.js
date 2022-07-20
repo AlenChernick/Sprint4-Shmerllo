@@ -2,16 +2,16 @@ import { userService } from '../../../services/user-service.js'
 
 export default {
   state: {
-    users: null,
-    loggedInUser: userService.getLoggedInUser(),
+      loggedInUser: userService.getLoggedInUser(),
+    //   users: null,
   },
   getters: {
     loggedInUser({ loggedInUser }) {
       return loggedInUser
     },
-    users({ users }) {
-      return users
-    },
+    // users({ users }) {
+    //   return users
+    // },
   },
   mutations: {
  
