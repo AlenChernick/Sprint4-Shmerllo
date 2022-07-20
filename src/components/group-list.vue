@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="card-scene">
     <Container
       orientation="horizontal"
@@ -23,11 +23,11 @@
             drop-class="card-ghost-drop"
             :drop-placeholder="dropPlaceholderOptions"
           >
-            <!-- <Draggable v-for="task in group.tasks" :key="task.id">
+            <Draggable v-for="task in group.tasks" :key="task.id">
               <div>
                 <p>{{ task.title }}</p>
               </div>
-            </Draggable> -->
+            </Draggable>
           </Container>
         </div>
       </Draggable>
@@ -145,14 +145,15 @@ export default {
     },
   },
 }
-</script>
+</script> -->
 
-<!-- <template lang="">
+<template lang="">
   <section class="group-list">
     <h2>this is group list</h2>
-    <Container  @drop="onDrop">
-      <Draggable class="group-container">
-        <group-preview v-for="group in groups" :group="group" :key="group.id" />
+    <Container v-if="groups" :get-child-payload="getChildPayload" group-name="1" @drop="onDrop($event)"
+>
+      <Draggable @mousedown.prevent class="group-container group-preview"  v-for="item in items" :key="item.id">
+        <group-preview  :group="item"  />
       </Draggable>
     </Container>
   </section>
@@ -160,6 +161,7 @@ export default {
 <script>
 import groupPreview from "../components/group-preview.vue"
 import { Container, Draggable } from "vue3-smooth-dnd"
+import {applyDrag} from "../../services/dnd-service.js"
 
 export default {
   name: "group-list",
@@ -168,31 +170,24 @@ export default {
       type: Array,
     },
   },
+  data(){
+return{
+  items:[],
+}
+  },
+  created() {
+        this.items = JSON.parse(JSON.stringify(this.groups))
+  
+  },
   methods: {
-    onDrop(dropResult) {
-      // this.groups = this.applyDrag(this.groups, dropResult);
-      const groups = this.applyDrag(this.groups, dropResult)
-      // console.log('group',group );
-      const groupId = group.id
-      const currBoard = this.$store.getters.getCurrBoard
-      const boardId = currBoard._id
-      this.$store.dispatch({ type: "saveGroups",groups, boardId })
-    },
-    applyDrag(arr, dragResult) {
-      const { removedIndex, addedIndex, payload } = dragResult
+    onDrop(dropRes) {
+            this.items = applyDrag(this.items, dropRes)
+            console.log('items', this.items)
+        },
+        getChildPayload(idx) {
+            return this.items[idx]
+        },
 
-      if (removedIndex === null && addedIndex === null) return arr
-      const result = [...arr]
-      let itemToAdd = payload
-
-      if (removedIndex !== null) {
-        itemToAdd = result.splice(removedIndex, 1)[0]
-      }
-      if (addedIndex !== null) {
-        result.splice(addedIndex, 0, itemToAdd)
-      }
-      return result
-    },
   },
   components: {
     groupPreview,
@@ -200,4 +195,4 @@ export default {
     Draggable,
   },
 }
-</script> -->
+</script> 
