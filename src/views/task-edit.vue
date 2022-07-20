@@ -1,6 +1,6 @@
 <template >
   <section class="task-edit">
-    <pre>{{groupId}}</pre>
+    <!-- <pre>{{groupId}}</pre> -->
     <button @click="saveTask">SaveTask</button>
     <button @click="removeTask">RemoveTask</button>
 
@@ -47,7 +47,7 @@
 
      </div>
 
-    <pre>{{task}}</pre>
+    <!-- <pre>{{task}}</pre> -->
 
 
   </section>

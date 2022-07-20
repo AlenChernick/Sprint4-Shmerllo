@@ -226,7 +226,7 @@ function getEmptyBoard() {
         title: '',
         // style: {
         //     type: '',
-        // backgroundImage: url('https://www.nestle.com/sites/default/files/styles/da_vinci_header_hero_desktop/public/2022-02/sustainability-nature-forest-river-article-header-fw.jpg?h=a612ed85&itok=1mqqgg1L'),
+        //      backgroundImage: url('https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'),
         //     backgroundThumb: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHwzfHxjb2Rpbmd8ZW58MHx8fHwxNjQyMzU4NjIz&ixlib=rb-1.2.1&q=80&w=200'),
         //     isDark: true,
         //     customImages: []
@@ -268,9 +268,9 @@ function getEmptyBoard() {
                     },
                     {
                         id: 'c104',
-                        title: 'Help me',
+                        title: 'Some stuff we need to do and its alot of stuff',
                         status: 'in-progress',
-                        description: 'description',
+                        description: 'hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn ',
                         comments: [
                             {
                                 id: 'ZdPnm',
@@ -307,7 +307,8 @@ function getEmptyBoard() {
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
                         },
                         style: {
-                            bgColor: '#26de81'
+                            bgColor: '#26de81',
+                            coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
                         }
                     }
                 ],
