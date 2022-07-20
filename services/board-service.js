@@ -226,7 +226,7 @@ function getEmptyBoard() {
         title: '',
         // style: {
         //     type: '',
-        //      backgroundImage: url('https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'),
+             backgroundImage: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
         //     backgroundThumb: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHwzfHxjb2Rpbmd8ZW58MHx8fHwxNjQyMzU4NjIz&ixlib=rb-1.2.1&q=80&w=200'),
         //     isDark: true,
         //     customImages: []
@@ -245,6 +245,7 @@ function getEmptyBoard() {
                 id: 'g101',
                 title: '',
                 archivedAt: 1589983468418,
+                type: "draggable",
                 tasks: [
                     {
                         id: 'c101',

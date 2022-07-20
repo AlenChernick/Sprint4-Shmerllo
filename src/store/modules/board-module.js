@@ -10,7 +10,7 @@ export default {
       return boards
     },
     getCurrBoard({ currBoard }) {
-      console.log(currBoard);
+      // console.log(currBoard);
       return currBoard
     },
   },
@@ -27,10 +27,21 @@ export default {
     },
     saveBoard(state, { board }) {
       const idx = state.boards.findIndex(
-        (currBoard) => currBoard._id === board_.id
-      )
+        (currBoard) => currBoard._id === board_.id)
       if (idx !== -1) state.boards.splice(idx, 1, board)
       else state.board.push(board)
+    },
+    saveGroup(state, { group }) {
+      const idx = state.boards.groups.findIndex(
+        (g) => g.id === group.id )
+      if (idx !== -1) state.boards.splice(idx, 1, board)
+      else state.board.push(board)
+    },
+    saveGroups(state, { savedGroup,boardId }) {
+      const idx = state.boards.findIndex(
+        (b) => b._id === boardId )
+        console.log(savedGroup);
+        state.boards[idx].groups = savedGroup
     },
     // saveTask(state, { task }) {
     //   const idx = state.boards.findIndex(
@@ -104,11 +115,42 @@ export default {
     console.log(taskId, groupId, boardId)
     try {
       await boardService.removeTask(taskId, groupId, boardId)
+
       // commit({ type: "removeBoard", id })
     } catch (err) {
-      console.log("Cannot remove board", err)
+      console.log("Cannot remove task", err)
+      throw err
+    }
+  },  async saveGroup({ commit }, { groupId, boardId }) {
+    try {
+      console.log(groupId);
+      const savedGroup = await boardService.saveGroup(groupId, boardId)
+      commit({ type: "saveGroup", savedGroup })
+    } catch (err) {
+      console.log("Cannot save group", err)
       throw err
     }
   },
+ async saveGroups({ commit }, { groups, boardId }) {
+  try {
+    const savedGroup = await boardService.getBoardById( boardId)
+    commit({ type: "saveGroups", groups,boardId })
+  } catch (err) {
+    console.log("Cannot save group", err)
+    throw err
+  }
+},
+  // async removeGroup({ commit }, { groupId, boardId }) {
+  //   console.log( groupId, boardId)
+  //   try {
+  //     await boardService.removeGroup( groupId, boardId)
+  //     commit({ type: "removeGroup", id })
+  //   } catch (err) {
+  //     console.log("Cannot remove group", err)
+  //     throw err
+  //   }
+  // },
 }
 }
+
+

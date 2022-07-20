@@ -97,8 +97,8 @@
                 "title": "StartUp",
                 "style": {
                     "type": "img",
-                    "backgroundImage": "url(https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHw2fHxTdGFydFVwfGVufDB8fHx8MTY0MjI3NzczMQ&ixlib=rb-1.2.1&q=85)",
-                    "backgroundThumb": "url(https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHw2fHxTdGFydFVwfGVufDB8fHx8MTY0MjI3NzczMQ&ixlib=rb-1.2.1&q=80&w=200)",
+                    "backgroundImage": "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHw2fHxTdGFydFVwfGVufDB8fHx8MTY0MjI3NzczMQ&ixlib=rb-1.2.1&q=85",
+                    "backgroundThumb": "https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyODE5MzB8MHwxfHNlYXJjaHw2fHxTdGFydFVwfGVufDB8fHx8MTY0MjI3NzczMQ&ixlib=rb-1.2.1&q=80&w=200",
                     "isDark": true,
                     "customImages": []
                 },
