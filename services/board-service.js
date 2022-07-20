@@ -65,18 +65,41 @@ async function getTaskById(boardId, groupId, taskId){
 
 async function saveTask(task, groupId, boardId){
     console.log(groupId, boardId, task)
-    
+
+    try{
+
     //GET BOARD
-    const board = await getBoardById(boardId)
+    let board = await getBoardById(boardId)
+
+    //DET GROUP
+    let group = await getGroupById(boardId, groupId)
+
+    //addTask
+    if(!task.id){
+        task.id = utilService.makeId()
+        group.tasks.push(task)
+    }
+
+    // or update task
+    else{
+        const taskIdx = group.tasks.findIndex((t)=> t.id === task.id )
+        group.tasks.splice(taskIdx, 1, task)
+    }
     
-    //TODO replace task
+    //update group
+        const groupIdx = board.groups.findIndex((g)=> g.id === groupId )
+        board.groups.splice(groupIdx, 1, group)
 
-    const taskIdx = group.tasks.find((task) => task.id === taskId)
 
-    const savedBoard = saveBoard(board)
+    await saveBoard(board)
 
     const savedTask = getTaskById(boardId, groupId, task.id)
     return savedTask
+    }
+    catch (err){
+        console.log('cannot save task', err)
+        throw err
+    }
 }
 
 

@@ -40,7 +40,7 @@
         </ul> 
     </div> 
 
-    <!-- <pre>{{task}}</pre> -->
+    <pre>{{task}}</pre>
 
 
   </section>
@@ -70,7 +70,7 @@ export default {
   },
   methods: {  
     saveTask() {
-      this.$store.dispatch({ type: 'saveTask', task: this.task, groupId, boardId })
+      this.$store.dispatch({ type: 'saveTask', task: this.task, groupId: this.groupId, boardId: this.boardId })
       }
     },
     removeTask(){
