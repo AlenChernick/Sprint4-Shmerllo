@@ -243,8 +243,9 @@ function getEmptyBoard() {
         groups: [
             {
                 id: 'g101',
-                title: '',
+                title: 'Group subject',
                 archivedAt: 1589983468418,
+                description: 'hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn ',
                 type: "draggable",
                 tasks: [
                     {
@@ -260,7 +261,7 @@ function getEmptyBoard() {
             },
             {
                 id: 'g102',
-                title: 'Group 2',
+                title: 'Group subject',
                 tasks: [
                     {
                         id: 'c103',
@@ -269,6 +270,80 @@ function getEmptyBoard() {
                     },
                     {
                         id: 'c104',
+                        title: 'Some stuff we need to do and its alot of stuff',
+                        status: 'in-progress',
+                        description: 'hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn ',
+                        comments: [
+                            {
+                                id: 'ZdPnm',
+                                txt: 'also @yaronb please CR this',
+                                createdAt: 1590999817436.0,
+                                byMember: {
+                                    _id: 'u101',
+                                    fullname: 'Tal Tarablus',
+                                    imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
+                                }
+                            }
+                        ],
+                        checklists: [
+                            {
+                                id: 'YEhmF',
+                                title: 'Checklist',
+                                todos: [
+                                    {
+                                        id: '212jX',
+                                        title: 'To Do 1',
+                                        isDone: false
+                                    }
+                                ]
+                            }
+                        ],
+                        memberIds: ['u101'],
+                        labelIds: ['l101', 'l102'],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            _id: 'u101',
+                            username: 'Tal',
+                            fullname: 'Tal Tarablus',
+                            imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
+                        },
+                        style: {
+                            bgColor: '#26de81',
+                            coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
+                        }
+                    }
+                ],
+                style: {}
+            },
+            {
+                id: 'g103',
+                title: 'Group subject',
+                archivedAt: 1589983468418,
+                type: "draggable",
+                tasks: [
+                    {
+                        id: 'c106',
+                        title: 'Replace logo'
+                    },
+                    {
+                        id: 'c107',
+                        title: 'Add Samples'
+                    }
+                ],
+                style: {}
+            },
+            {
+                id: 'g104',
+                title: 'Group subject',
+                tasks: [
+                    {
+                        id: 'c108',
+                        title: 'Do that',
+                        archivedAt: 1589983468418,
+                    },
+                    {
+                        id: 'c109',
                         title: 'Some stuff we need to do and its alot of stuff',
                         status: 'in-progress',
                         description: 'hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn ',

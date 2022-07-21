@@ -1,14 +1,30 @@
 .group-container {
   display: flex;
   flex-direction: row;
-  
-  
 }
-.group-preview{
-  padding: 20px;
-  background-color: lightgray;
-  color:black;
-  margin: 20px;
-  border:2px solid black;
-  gap: 20px;
+.group-preview {
+  // display: flex;
+  // flex-direction: column;
+  // // margin: 20px;
+  // padding: 20px;
+  // background-color: #ebecf0;
+  // color: black;
+  // border: 2px solid black;
+  // border-radius: 3px;
+  // width: 274px;
+  // height: auto;
+  // white-space: normal;
+  // overflow-y: auto;
+  width: 272px;
+  padding: 4px 4px;
+  margin: 8px 4px 10px 0;
+  color: black;
+  background-color: #ebecf0;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
+  border-radius: 3px;
+  white-space: normal;
+  max-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }

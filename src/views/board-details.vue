@@ -1,5 +1,5 @@
 <template lang="">
-  <section v-if="board" class="board-details">
+  <section v-if="board" class="board-details full">
     <board-header />
     <h4>{{ board.title }}</h4>
     <h4>{{ board._id }}</h4>
