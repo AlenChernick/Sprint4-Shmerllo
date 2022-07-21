@@ -3,6 +3,9 @@
     display: grid;
     grid-template-columns: 1fr 720px 1fr;
     position: fixed;
+    left: 50%;
+    // top: 50%;
+    transform: translateX(-50%);
     top: 50px;
     align-self: center;
     // position: relative;
