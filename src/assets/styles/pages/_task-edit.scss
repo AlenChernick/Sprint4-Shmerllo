@@ -7,13 +7,14 @@
   padding-bottom: em(32px);
   margin-bottom: em(48px);
   height: fit-content;
-  width: em(768px);
+  width: em(720px);
   display: block;
   color: $clr1;
   background-color: #f4f5f7;
   z-index: 40;
-  border-radius: em(2px);
+  border-radius: em(3px);
   cursor: auto;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.315);
 
   .task-edit-cover {
     height: em(160px);
@@ -33,7 +34,7 @@
     align-items: center;
 
     span {
-      padding-right: 0.2rem;
+      padding-left: 0.3rem;
     }
 
     input {
@@ -71,15 +72,22 @@
       ul {
         list-style-type: none;
       }
+
+      .main-editor-dates {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        margin-left: 1rem;
+        .main-editor-checkbox {
+          margin-right: 0.2rem;
+        }
+      }
     }
     .main-editor-btn-container {
       margin-left: 1.3rem;
       margin-bottom: 1.2rem;
     }
 
-    .main-editor-dates {
-      margin-left: 2.5rem;
-    }
     .main-task-edit-container {
       flex: 2 1;
       padding: 0 8px 8px 25px;
@@ -93,6 +101,13 @@
 
       .main-editor-description-title {
         margin-top: 0.1rem;
+      }
+
+      .main-editor-decription-edit-btn {
+        width: 50px;
+        padding: 0.2rem;
+        margin-inline-start: 0.5rem;
+        padding-inline-start: 0.5rem;
       }
 
       span {
@@ -119,11 +134,89 @@
       }
     }
 
+    .main-editor-checklist-container {
+      .main-editor-checklist-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .main-editor-checklist-header-info {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .main-editor-checklist-icon {
+        margin-right: 0.5rem;
+      }
+      .main-editor-checklist-title {
+        padding-top: 1rem;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0 0 0.8rem 0;
+      }
+      .main-editor-add-item-btn {
+        margin-left: 1.2rem;
+        margin-bottom: 3rem;
+      }
+      .main-editor-checklist-delete-btn {
+        justify-content: left;
+      }
+    }
+
+    .main-editor-activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .main-editor-activity-header-info {
+        display: flex;
+        align-items: center;
+        padding-top: 1rem;
+        .main-editor-activity-icon {
+          margin-right: 0.5rem;
+        }
+        .main-editor-activity-title {
+          padding-top: 1rem;
+        }
+      }
+    }
+    .main-editor-activity-comments {
+      display: flex;
+      .main-editor-activity-comment {
+        margin-left: 1.3rem;
+        width: 100%;
+        height: em(45px);
+        padding: em(12px) em(15px);
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: em(16px);
+        background-color: transparent;
+        resize: none;
+        border: none;
+        outline: none;
+        overflow: hidden;
+        background-color: white;
+      }
+      .main-editor-activity-icon {
+        display: flex;
+        align-items: center;
+      }
+    }
+
     .main-task-sidebar {
+      width: 15%;
       padding: 0 16px 8px 8px;
       display: flex;
       flex-direction: column;
-      button {
+      gap: 0.3rem;
+      .main-task-edit-btn {
+        background-color: $clr8;
+        width: 100%;
+        text-align: center;
         cursor: pointer;
       }
     }

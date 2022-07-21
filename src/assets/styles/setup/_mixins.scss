@@ -71,6 +71,14 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  background-color: $clr7;
+  border: none;
+  color: $clr1;
+
+  &:hover {
+    background-color: rgba(179, 179, 179, 0.88);
+    color: $clr1;
+  }
 }
 
 // Type
