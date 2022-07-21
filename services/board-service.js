@@ -308,7 +308,7 @@ function getEmptyBoard() {
                             imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
                         },
                         style: {
-                            bgColor: '#26de81',
+                            bgColor: '#D2C4A1',
                             coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
                         }
                     }
