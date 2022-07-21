@@ -1,11 +1,14 @@
 .group-container {
   display: flex;
-  // flex-direction: row;
-  height: 100%;
-  color:black;
-  background-color: lightgray;
+  flex-direction: row;
+  
+  
 }
 .group-preview{
-  margin: 20px;
   padding: 20px;
+  background-color: lightgray;
+  color:black;
+  margin: 20px;
+  border:2px solid black;
+  gap: 20px;
 }

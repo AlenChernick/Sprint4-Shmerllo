@@ -19,6 +19,7 @@ export default {
       state.boards = boards
     },
     setCurrBoard(state, { currBoard }) {
+      console.log('setCurrBoard',currBoard);
       state.currBoard = currBoard
     },
     removeBoard(state, { id }) {
@@ -37,11 +38,11 @@ export default {
       if (idx !== -1) state.boards.splice(idx, 1, board)
       else state.board.push(board)
     },
-    saveGroups(state, { savedGroup,boardId }) {
+    saveGroups(state, { groups,boardId }) {
       const idx = state.boards.findIndex(
         (b) => b._id === boardId )
-        console.log(savedGroup);
-        state.boards[idx].groups = savedGroup
+        console.log(groups);
+        state.boards[idx].groups = groups
     },
     // saveTask(state, { task }) {
     //   const idx = state.boards.findIndex(
@@ -131,10 +132,15 @@ export default {
       throw err
     }
   },
- async saveGroups({ commit }, { groups, boardId }) {
+ async saveGroups({commit,state,dispatch}, { groups }) {
   try {
-    const savedGroup = await boardService.getBoardById( boardId)
-    commit({ type: "saveGroups", groups,boardId })
+    console.log('store',state.currBoard);
+    let currBoard = JSON.parse( JSON.stringify(state.currBoard))
+    currBoard.groups = groups
+    const savedBoard = await boardService.saveBoard(currBoard)
+    commit({ type: "setCurrBoard", savedBoard })
+    dispatch({type:'loadBoards'})
+
   } catch (err) {
     console.log("Cannot save group", err)
     throw err
