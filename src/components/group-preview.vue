@@ -1,5 +1,5 @@
 <template>
-  <section class="group-preview">
+  <section >
     <h2>I am group preview</h2>
     <task-list :tasks="group.tasks" />
   </section>
