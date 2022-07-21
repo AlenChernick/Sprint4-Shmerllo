@@ -2,7 +2,6 @@
   <section class="group-list ">
     <h2>this is group list</h2>
     <Container class="group-container" orientation="horizontal"  v-if="groups" :get-child-payload="getChildPayload" group-name="1" @drop="onDrop($event)">
-     <!-- <Draggable @mousedown.prevent class="group-preview" v-if="items"  v-for="item in items" :key="item.id"> -->
       <Draggable @mousedown.prevent  v-if="items"  v-for="item in items" :key="item.id">
         <group-preview class="group-preview"  :group="item"  />
       </Draggable>
