@@ -1,6 +1,7 @@
 <template>
-  <pre >{{groupId}}</pre>
-   <Container class="tasks-container " orientation="vertical"  v-if="tasks" :get-child-payload="getChildPayload" group-name="2" @drop="onDrop($event)">     
+  <!-- <h3 >Group ID:{{groupId}}</h3> -->
+  <div class="group-title"></div>
+   <Container class="tasks-container " orientation="vertical"  v-if="tasks" :get-child-payload="getChildPayload" group-name="1" @drop="onDrop($event)">     
     <Draggable @mousedown.prevent class="task-preview" v-if="items"  v-for="item in items" :key="item.id">
           <task-preview :task="item"  />
       </Draggable>
