@@ -1,131 +1,148 @@
-<template>
-  <Container
-    class="h-full flex overflow-x-auto gap-8  p-8"
-    group-name="cols"
-    tag="div"
-    orientation="horizontal"
-    @drop="onColumnDrop($event)">
-    <Draggable class="bg-gray-200 dark:bg-gray-700 rounded-lg h-full w-96 flex-shrink-0 shadow-xl"
-      v-for="column in scene.children" :key="column.id">
-      <div class="h-full flex flex-col">
-
-        <!-- header-->
-        <div class="cursor-move rounded-t-lg p-4 space-x-4 bg-primary text-white flex space-x-2">
-          <HandIcon class="h-6 w-6"></HandIcon>
-          <span class="text-lg">{{ column.name }}</span>
+<!-- <template>
+  <div class="card-scene">
+    <Container
+      orientation="horizontal"
+      @drop="onColumnDrop($event)"
+      drag-handle-selector=".column-drag-handle"
+      @drag-start="dragStart"
+      :drop-placeholder="upperDropPlaceholderOptions"
+    >
+      <Draggable v-for="group in groups" :key="group.id">
+        <div>
+          <div class="card-column-header">
+            <span class="column-drag-handle">&#x2630;</span>
+            {{ group.id }}
+          </div>
+          <Container
+            group-name="col"
+            @drop="(e) => onCardDrop(group.id, e)"
+            @drag-start="(e) => log('drag start', e)"
+            @drag-end="(e) => log('drag end', e)"
+            :get-child-payload="getCardPayload(group.id)"
+            drag-class="card-ghost"
+            drop-class="card-ghost-drop"
+            :drop-placeholder="dropPlaceholderOptions"
+          >
+            <Draggable v-for="task in group.tasks" :key="task.id">
+              <div>
+                <p>{{ task.title }}</p>
+              </div>
+            </Draggable>
+          </Container>
         </div>
-        <!-- column -->
-        <Container
-          class="flex-grow overflow-y-auto overflow-x-hidden"
-          orientation="vertical"
-          group-name="col-items"
-          :shouldAcceptDrop="(e, payload) =>  (e.groupName === 'col-items' && !payload.loading)"
-          :get-child-payload="getCardPayload(column.id)"
-          :drop-placeholder="{ className: 
-            `bg-primary bg-opacity-20  
-            border-dotted border-2 
-            border-primary rounded-lg mx-4 my-2`, 
-          animationDuration: '200', 
-          showOnTop: true }"
-          drag-class="bg-primary dark:bg-primary 
-            border-2 border-primary-hover text-white 
-            transition duration-100 ease-in z-50
-            transform rotate-6 scale-110"
-          drop-class="transition duration-100 
-            ease-in z-50 transform 
-            -rotate-2 scale-90"
-          @drop="(e) => onCardDrop(column.id, e)">
-
-            <!-- Items -->
-            <KanbanItem v-for="item in column.children" :key="item.id" :item="item"></KanbanItem>
-        </Container>
-      </div>
-    </Draggable>
-  </Container>
+      </Draggable>
+    </Container>
+  </div>
 </template>
 
 <script>
-import { Container, Draggable } from 'vue3-smooth-dnd'
-import { HandIcon, CodeIcon } from '@heroicons/vue/outline'
-import { applyDrag, generateItems, generateWords } from '../utils/helpers'
-import KanbanItem from '../components/KanbanItem.vue'
+import { Container, Draggable } from "vue3-smooth-dnd"
+import { applyDrag, generateItems } from "../../services/dnd-service"
 
-// mock
+const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
+const columnNames = ["Lorem", "Ipsum", "Consectetur", "Eiusmod"]
+const cardColors = [
+  "azure",
+  "beige",
+  "bisque",
+  "blanchedalmond",
+  "burlywood",
+  "cornsilk",
+  "gainsboro",
+  "ghostwhite",
+  "ivory",
+  "khaki",
+]
+const pickColor = () => {
+  const rand = Math.floor(Math.random() * 10)
+  return cardColors[rand]
+}
 const scene = {
-  type: 'container',
+  type: "container",
   props: {
-    orientation: 'horizontal'
+    orientation: "horizontal",
   },
-  children: generateItems(8, i => ({
+  children: generateItems(4, (i) => ({
     id: `column${i}`,
-    type: 'container',
-    name: generateWords(Math.random() * 2 + 1),
+    type: "container",
+    name: columnNames[i],
     props: {
-      orientation: 'vertical',
+      orientation: "vertical",
+      className: "card-container",
     },
-    children: generateItems(+(Math.random() * 10).toFixed() + 5, j => ({
-      type: 'draggable',
+    children: generateItems(+(Math.random() * 10).toFixed() + 5, (j) => ({
+      type: "draggable",
       id: `${i}${j}`,
-      loading: false,
-      data: generateWords(Math.random() * 12 + 2)
-    }))
-  }))
+      props: {
+        className: "card",
+        style: { backgroundColor: pickColor() },
+      },
+      data: lorem.slice(0, Math.floor(Math.random() * 150) + 30),
+    })),
+  })),
 }
 export default {
-  components: { Container, Draggable, KanbanItem, HandIcon, CodeIcon},
-  data () {
+  name: "Cards",
+  props: {
+    groups: {
+      type: Array,
+    },
+  },
+  components: { Container, Draggable },
+
+  data() {
     return {
       scene,
+      upperDropPlaceholderOptions: {
+        className: "cards-drop-preview",
+        animationDuration: "150",
+        showOnTop: true,
+      },
+      dropPlaceholderOptions: {
+        className: "drop-preview",
+        animationDuration: "150",
+        showOnTop: true,
+      },
     }
   },
-  mounted(){},
   methods: {
-    getColumnHeightPx(){
-      let kanban = document.getElementById('kanbanContainer');
-      return kanban ? kanban.offsetHeight - 122 : 0;
+    onColumnDrop(dropResult) {
+      console.log(dropResult);
+      // const scene = Object.assign({}, this.scene)
+      let groups =Object.assign({}, this.groups)
+      groups = applyDrag(groups, dropResult)
+      console.log(groups);
+      let currBoard = this.$store.getters.getCurrBoard
+      let boardId = currBoard._id
+      this.$store.dispatch({ type: "saveGroups", groups, boardId })
     },
-    onColumnDrop (dropResult) {
-      const scene = Object.assign({}, this.scene)
-      scene.children = applyDrag(scene.children, dropResult)
-      this.scene = scene
-    },
-    onCardDrop (columnId, dropResult) {
-      
-      // check if element where ADDED or REMOVED in current collumn
+    onCardDrop(columnId, dropResult) {
+      console.log(dropResult);
       if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        
         const scene = Object.assign({}, this.scene)
-        const column = scene.children.filter(p => p.id === columnId)[0]
-        const itemIndex = scene.children.indexOf(column)
+        const column = scene.children.filter((p) => p.id === columnId)[0]
+        const columnIndex = scene.children.indexOf(column)
         const newColumn = Object.assign({}, column)
-        
-        // check if element was ADDED in current column
-        if((dropResult.removedIndex == null && dropResult.addedIndex >= 0)){
-          // your action / api call
-          dropResult.payload.loading = true
-          // simulate api call
-          setTimeout(function(){ dropResult.payload.loading = false }, (Math.random() * 5000) + 1000); 
-        }
-        
         newColumn.children = applyDrag(newColumn.children, dropResult)
-        scene.children.splice(itemIndex, 1, newColumn)
+        scene.children.splice(columnIndex, 1, newColumn)
         this.scene = scene
       }
     },
-    getCardPayload (columnId) {
-      return index => {
-        return this.scene.children.filter(p => p.id === columnId)[0].children[index]
+    getCardPayload(columnId) {
+      return (index) => {
+        return this.scene.children.filter((p) => p.id === columnId)[0].children[
+          index
+        ]
       }
     },
-  }
+    dragStart() {
+      console.log("drag started")
+    },
+    log(...params) {
+      console.log(...params)
+    },
+  },
 }
-</script>
-<style>
-/** NB: dont remove, 
-* When using orientation="horizontal" it auto sets "display: table"
-* In this case we need flex and not display table  
-*/
-.smooth-dnd-container.horizontal{
-  display: flex !important;
-}
-</style>
+</script> -->
