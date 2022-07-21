@@ -45,7 +45,7 @@
         </textarea>
         <div class="main-editor-btn-container">
           <el-button type="primary" v-if="isEdit" @click="saveTask">Save</el-button>
-          <el-button type="info" v-if="isEdit" @click="isEdit = false">Cancel</el-button>
+          <el-button type="info" v-if="isEdit" @change="saveTask" @click="isEdit = false">Cancel</el-button>
         </div>
         <div class="main-editor-checklist-container" v-for="checklist in task.checklists">
           <div class="main-editor-checklist-header">
@@ -57,7 +57,7 @@
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox>{{ todo.title }}</el-checkbox>
+              <el-checkbox v-model="isChecked" @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
             </li>
           </ul>
           <el-button type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
@@ -116,6 +116,7 @@ export default {
       isEdit: false,
       isWrite: false,
       dateValue: ref(''),
+      isChecked: false,
     }
   },
   async created() {
@@ -131,12 +132,12 @@ export default {
     }
   },
   methods: {
-    saveTask() {
+    saveTask(todo) {
       this.$store.dispatch({ type: 'saveTask', task: this.task, groupId: this.groupId, boardId: this.boardId })
       this.isEdit = false
+      todo.isDone = !todo.isDone
     },
     removeTask() {
-      console.log(this.task.id)
       this.$store.dispatch({ type: 'removeTask', taskId: this.task.id, groupId: this.groupId, boardId: this.boardId })
       this.$router.push('/board' + boardId)
     },
@@ -145,9 +146,6 @@ export default {
     },
     onEdit() {
       this.isEdit = true
-    },
-    notEdit() {
-      this.isEdit = false
     },
   },
 }
