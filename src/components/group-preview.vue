@@ -1,7 +1,7 @@
 <template>
   <section >
     <h2>I am group preview</h2>
-    <task-list :tasks="group.tasks" />
+    <task-list :tasks="group.tasks" :groupId="group.id" />
   </section>
 </template>
 <script>

@@ -146,6 +146,21 @@ export default {
     throw err
   }
 },
+async saveTasks({commit,state,dispatch}, { tasks, groupId }) {
+  try {
+    console.log('store',tasks, groupId);
+    let currBoard = JSON.parse( JSON.stringify(state.currBoard))
+    const idx = currBoard.findIndex((group) => group.id === groupId)
+    currBoard.groups[idx] = tasks
+    const savedBoard = await boardService.saveBoard(currBoard)
+    commit({ type: "setCurrBoard", savedBoard })
+    dispatch({type:'loadBoards'})
+
+  } catch (err) {
+    console.log("Cannot save group", err)
+    throw err
+  }
+},
   // async removeGroup({ commit }, { groupId, boardId }) {
   //   console.log( groupId, boardId)
   //   try {

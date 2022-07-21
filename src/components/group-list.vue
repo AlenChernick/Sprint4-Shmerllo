@@ -33,7 +33,7 @@ export default {
     onDrop(dropRes) {
       this.items = applyDrag(this.items, dropRes)
       this.$store.dispatch({ type: "saveGroups", groups: this.items })
-      console.log("items", this.items)
+      // console.log("items", this.items)
     },
     getChildPayload(idx) {
       return this.items[idx]
