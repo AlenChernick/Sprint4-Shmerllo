@@ -236,10 +236,31 @@ function getEmptyBoard() {
         // },
         members: [
             {
-                _id: '',
-                username: '',
-                fullname: '',
-                // imgUrl: 'https://lh3.googleusercontent.com/a-/AOh14GiJ70ctVlIg29JncAhgQTH6Jo22NtXQNdT5LK4u=s96-c',
+                id: 'm101',
+                username: 'THT',
+                fullname: 'Tal Hammer Topaz',
+                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
+                createdAt: '2021-12-11T10:01:48.000Z'
+            },
+            {
+                id: 'm102',
+                username: 'AK',
+                fullname: 'Alon Kolker',
+                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+                createdAt: '2021-12-11T10:01:48.000Z'
+            },
+            {
+                id: 'm103',
+                username: 'AC',
+                fullname: 'Alen Alen Chernick',
+                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
+                createdAt: '2021-12-11T10:01:48.000Z'
+            },
+            {
+                id: 'm104',
+                username: 'LS',
+                fullname: 'Lihi Sered',
+                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512',
                 createdAt: '2021-12-11T10:01:48.000Z'
             },
         ],
@@ -380,11 +401,12 @@ function getEmptyBoard() {
                         createdAt: 1590999730348,
                         dueDate: 16156215211,
                         byMember: {
-                            _id: 'u101',
-                            username: 'Tal',
-                            fullname: 'Tal Tarablus',
-                            imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
-                        },
+                                id: 'm102',
+                                username: 'AK',
+                                fullname: 'Alon Kolker',
+                                imgUrl: '../assets/img/AK.jpg',
+                                createdAt: '2021-12-11T10:01:48.000Z'
+                         },
                         style: {
                             bgColor: '#26de81',
                             coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
@@ -411,56 +433,16 @@ function getEmptyBoard() {
             }
         ],
         isDemoBoard: true,
+        byMember: {
+            id: 'm102',
+            username: 'AK',
+            fullname: 'Alon Kolker',
+            imgUrl: '../assets/img/AK.jpg',
+            createdAt: '2021-12-11T10:01:48.000Z'
+        },
         isFavorite: true,
         activityCount: 0,
         lastActivity: 1658239902711
     };
 }
 
-
-function _getDemoTask() {
-    return {
-        id: 'c104',
-        title: 'Help me',
-        status: 'in-progress',
-        description: 'description',
-        comments: [
-            {
-                id: 'ZdPnm',
-                txt: 'also @yaronb please CR this',
-                createdAt: 1590999817436.0,
-                byMember: {
-                    _id: 'u101',
-                    fullname: 'Tal Tarablus',
-                    imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
-                }
-            }
-        ],
-        checklists: [
-            {
-                id: 'YEhmF',
-                title: 'Checklist',
-                todos: [
-                    {
-                        id: '212jX',
-                        title: 'To Do 1',
-                        isDone: false
-                    }
-                ]
-            }
-        ],
-        memberIds: ['u101'],
-        labelIds: ['l101', 'l102'],
-        createdAt: 1590999730348,
-        dueDate: 16156215211,
-        byMember: {
-            _id: 'u101',
-            username: 'Tal',
-            fullname: 'Tal Tarablus',
-            imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
-        },
-        style: {
-            bgColor: '#26de81'
-        }
-    }
-}

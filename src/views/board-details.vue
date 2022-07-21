@@ -1,9 +1,12 @@
 <template lang="">
   <section v-if="board" class="board-details full">
-    <board-header />
+    <board-header :title="board.title"
+                  :isFavorite="board.isFavorite"
+                  :members = "board.members"
+                  :byMember = "board.byMember"/>
     <h4>{{ board.title }}</h4>
     <h4>{{ board._id }}</h4>
-    <group-list :groups="board.groups" />
+    <group-list :groups="board.groups"  />
     <router-view/>
   </section>
 </template>

@@ -1,6 +1,6 @@
 <template>
+  <button class="board-header-btn">Show menu</button>
   <section class="board-menu">
-    <h3>I am board menu</h3>
   </section>
 </template>
 <script>
