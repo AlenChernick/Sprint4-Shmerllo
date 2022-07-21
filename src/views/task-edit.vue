@@ -1,57 +1,77 @@
-<template >
-  <section v-if="task" class="task-edit full">
-
-    <div class="task-container">
-
-      <div v-if="task.style" class="task-edit-cover" 
-        :style="{ 'background-color': task.style.bgColor }" >
-       <img  :src="task.style.coverImgUrl"  /> 
-      </div>
-
-
-      <input v-model="task.title" type="text"> 
+<template>
+  <section v-if="task" class="task-edit">
+    <div v-if="task.style" class="task-edit-cover" :style="{ 'background-color': task.style.bgColor }">
+      <img :src="task.style.coverImgUrl" />
+    </div>
+    <div class="task-edit-header">
+      <span><font-awesome-icon icon="fa-solid fa-pager" /></span>
+      <input v-model="task.title" type="text" />
+    </div>
+    <div class="task-list-name">
       <p>in List... to add when nestedroute</p>
-    <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
-    <!-- <img src="task.byMember.imgUrl"/> -->
-      <ul v-for="member in task.memberIds">Member
-        <li>
-          <p>{{member}}</p>
-        </li>
-      </ul> 
-      <ul v-for="label in task.labelIds">Label
-        <li>
-          <p>{{label}}</p>
-        </li>
-      </ul> 
-      <h2>Dates:</h2>
-      <p>CreatedAt: {{new Date (task.createdAt).toString()}}</p>
-      <p>DueDate: {{new Date (task.dueDate).toString()}}</p>
-      <h2>Status: {{task.status}}</h2> 
-      <h2>Description: {{task.description}}</h2>
-      <ul v-for="comment in task.comments">Activity
-        <li>
-          <p>{{comment.byMember.fullName}}</p>
-          <p>{{comment.txt}}</p>
-          <p>{{new Date (comment.createdAt).toString()}}</p>
-          <!-- <img :src="comment.byMember.imgUrl"/> -->
-
-        </li>
-      </ul> 
-      <div v-for="checklist in task.checklists">checkLists:
-          <h4>{{checklist.title}}</h4>
-           <ul v-for="todo in checklist.todos">Activity
-        <li>
-          <p>{{todo.title}}</p>
-          <p>{{todo.isDone}}</p>
-        </li>
-        </ul> 
-      </div> 
-    <button @click="saveTask">SaveTask</button>
-    <button @click="removeTask">RemoveTask</button>
+    </div>
+    <div class="main-task-editor-container">
+      <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
+      <!-- <img src="task.byMember.imgUrl"/> -->
+      <div class="main-task-edit-container">
+        <div class="main-editor">
+          <ul class="main-task-members" v-for="member in task.memberIds">
+            Members
+            <li>
+              <p>{{ member }}</p>
+            </li>
+          </ul>
+          <ul v-for="label in task.labelIds">
+            Labels
+            <li>
+              <p>{{ label }}</p>
+            </li>
+          </ul>
+          <div class="main-editor-dates">
+            <h4>Dates:</h4>
+            <p>CreatedAt: {{ new Date(task.createdAt).toString() }}</p>
+            <p>DueDate: {{ new Date(task.dueDate).toString() }}</p>
+          </div>
+        </div>
+        <div class="main-editor-description">
+          <span><font-awesome-icon icon="fa-solid fa-bars" /></span>
+          <h4 class="main-editor-description-title">Description</h4>
+        </div>
+        <textarea @click="onEdit" v-model="task.description" class="main-editor-description-info">{{
+          task.description
+        }}</textarea>
+        <div class="main-editor-btn-container">
+          <el-button class="btn" type="primary" v-if="isEdit === true" @click="saveTask">Save</el-button>
+          <el-button type="info" v-if="isEdit === true" @click="isEdit = false">Cancel</el-button>
+        </div>
+        <h4>Status: {{ task.status }}</h4>
+        <ul v-for="comment in task.comments">
+          Activity
+          <li>
+            <p>{{ comment.byMember.fullName }}</p>
+            <p>{{ comment.txt }}</p>
+            <p>{{ new Date(comment.createdAt).toString() }}</p>
+            <!-- <img :src="comment.byMember.imgUrl"/> -->
+          </li>
+        </ul>
+        <div v-for="checklist in task.checklists">
+          checkLists:
+          <h4>{{ checklist.title }}</h4>
+          <ul v-for="todo in checklist.todos">
+            Activity
+            <li>
+              <p>{{ todo.title }}</p>
+              <p>{{ todo.isDone }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-task-sidebar">
+        <button @click="saveTask">SaveTask</button>
+        <button @click="removeTask">RemoveTask</button>
+      </div>
+    </div>
     <!-- <pre>{{task}}</pre> -->
-   </div>
-
-
   </section>
 </template>
 <script>
@@ -62,6 +82,7 @@ export default {
       task: {},
       boardId: null,
       groupId: null,
+      isEdit: false,
     }
   },
   async created() {
@@ -75,20 +96,24 @@ export default {
       console.log('Cannot load task', err)
       throw err
     }
-    
   },
-  methods: {  
+  methods: {
     saveTask() {
       this.$store.dispatch({ type: 'saveTask', task: this.task, groupId: this.groupId, boardId: this.boardId })
+      this.isEdit = false
     },
-    removeTask(){
+    removeTask() {
       console.log(this.task.id)
       this.$store.dispatch({ type: 'removeTask', taskId: this.task.id, groupId: this.groupId, boardId: this.boardId })
-      this.$router.push('/board'+ boardId)
-    }
-  }
+      this.$router.push('/board' + boardId)
+    },
+    onEdit() {
+      this.isEdit = true
+    },
+    notEdit() {
+      this.isEdit = false
+    },
+  },
 }
-
-
 </script>
-<style ></style>
+<style></style>
