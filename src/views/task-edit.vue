@@ -1,10 +1,14 @@
 <template >
-  <section class="task-edit full">
-    <!-- <pre>{{groupId}}</pre> -->
+  <section v-if="task" class="task-edit full">
+
     <div class="task-container">
-      <div class="task-edit-cover" :style="{ 'background-color': task.style.bgColor }">
-        <img  :src="task.style.coverImgUrl"/>
+
+      <div v-if="task.style" class="task-edit-cover" 
+        :style="{ 'background-color': task.style.bgColor }" >
+       <img  :src="task.style.coverImgUrl"  /> 
       </div>
+
+
       <input v-model="task.title" type="text"> 
       <p>in List... to add when nestedroute</p>
     <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
@@ -44,8 +48,8 @@
       </div> 
     <button @click="saveTask">SaveTask</button>
     <button @click="removeTask">RemoveTask</button>
-   </div>
     <!-- <pre>{{task}}</pre> -->
+   </div>
 
 
   </section>
