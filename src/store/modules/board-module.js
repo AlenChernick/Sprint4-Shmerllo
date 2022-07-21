@@ -134,7 +134,7 @@ export default {
   },
  async saveGroups({commit,state,dispatch}, { groups }) {
   try {
-    console.log('store',state.currBoard);
+    console.log('store',state.currBoard)
     let currBoard = JSON.parse( JSON.stringify(state.currBoard))
     currBoard.groups = groups
     const savedBoard = await boardService.saveBoard(currBoard)
@@ -148,13 +148,24 @@ export default {
 },
 async saveTasks({commit,state,dispatch}, { tasks, groupId }) {
   try {
-    console.log('store',tasks, groupId);
-    let currBoard = JSON.parse( JSON.stringify(state.currBoard))
-    const idx = currBoard.findIndex((group) => group.id === groupId)
-    currBoard.groups[idx] = tasks
-    const savedBoard = await boardService.saveBoard(currBoard)
-    commit({ type: "setCurrBoard", savedBoard })
-    dispatch({type:'loadBoards'})
+    console.log('store saveTasks',tasks, groupId)
+    const boardId = state.currBoard._id
+    let group = state.currBoard.groups.find((group) => group.id === groupId)
+    console.log('store group before change',group)
+    group = JSON.parse( JSON.stringify(group))
+    group.tasks = tasks
+    console.log('store group after change', group)
+    const savedGroup = await boardService.saveGroup(group, boardId)
+    console.log(savedGroup)
+
+    // let currBoard = JSON.parse( JSON.stringify(state.currBoard))
+    // const idx = currBoard.groups.findIndex((group) => group.id === groupId)
+    // currBoard.groups[idx].tasks = tasks
+    // console.log(currBoard)
+    // const savedBoard = await boardService.saveBoard(currBoard)
+    // console.log(savedBoard)
+    // commit({ type: "setCurrBoard", savedBoard })
+    // dispatch({type:'loadBoards'})
 
   } catch (err) {
     console.log("Cannot save group", err)

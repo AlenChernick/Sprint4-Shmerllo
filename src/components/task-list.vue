@@ -1,7 +1,11 @@
 <template>
   <!-- <h3 >Group ID:{{groupId}}</h3> -->
   <div class="group-title"></div>
-   <Container class="tasks-container " orientation="vertical"  v-if="tasks" :get-child-payload="getChildPayload" group-name="1" @drop="onDrop($event)">     
+   <Container class="tasks-container " 
+            orientation="vertical"  v-if="tasks" 
+            :get-child-payload="getChildPayload" 
+            group-name="col-items" 
+            @drop="onDrop($event)">     
     <Draggable @mousedown.prevent class="task-preview" v-if="items"  v-for="item in items" :key="item.id">
           <task-preview :task="item"  />
       </Draggable>
@@ -33,9 +37,10 @@ export default {
   },
   methods: {
     onDrop(dropRes) {
+      if (this.item === this.tasks) return
+      console.log("items", this.items)
       this.items = applyDrag(this.items, dropRes)
       this.$store.dispatch({ type: "saveTasks", tasks: this.items, groupId: this.groupId })
-      console.log("items", this.items)
     },
     getChildPayload(idx) {
       return this.items[idx]
