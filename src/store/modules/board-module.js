@@ -148,11 +148,13 @@ export default {
 },
 async saveTasks({commit,state,dispatch}, { tasks, groupId }) {
   try {
-    console.log('store',tasks, groupId);
+    console.log('store saveTasks',tasks, groupId);
     let currBoard = JSON.parse( JSON.stringify(state.currBoard))
-    const idx = currBoard.findIndex((group) => group.id === groupId)
-    currBoard.groups[idx] = tasks
+    const idx = currBoard.groups.findIndex((group) => group.id === groupId)
+    currBoard.groups[idx].tasks = tasks
+    console.log(currBoard)
     const savedBoard = await boardService.saveBoard(currBoard)
+    console.log(savedBoard)
     commit({ type: "setCurrBoard", savedBoard })
     dispatch({type:'loadBoards'})
 
