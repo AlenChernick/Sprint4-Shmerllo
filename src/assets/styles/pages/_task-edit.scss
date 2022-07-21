@@ -28,13 +28,17 @@
   }
 
   .task-edit-header {
-    padding: 20px 8px 0 16px;
+    padding: 15px 8px 0 16px;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    span {
-      padding-left: 0.3rem;
+    .task-edit-header-icon {
+      font-family: trellicons;
+      font-size: em(24px);
+      &::before {
+        content: '\e912';
+      }
     }
 
     input {
@@ -84,7 +88,7 @@
       }
     }
     .main-editor-btn-container {
-      margin-left: 1.3rem;
+      margin-left: 2rem;
       margin-bottom: 1.2rem;
     }
 
@@ -98,9 +102,11 @@
       overflow: hidden;
       overflow-wrap: break-word;
       resize: none;
+      align-items: center;
 
       .main-editor-description-title {
-        margin-top: 0.1rem;
+        margin-top: 1rem;
+        justify-items: center;
       }
 
       .main-editor-decription-edit-btn {
@@ -110,15 +116,19 @@
         padding-inline-start: 0.5rem;
       }
 
-      span {
+      .main-editor-description-icon {
         margin-right: 0.5rem;
+        font-family: trellicons;
+        font-size: em(24px);
+        &::before {
+          content: '\e922';
+        }
       }
     }
 
     .main-editor-description-info {
-      margin-left: 1.3rem;
-      width: 100%;
-      height: em(125px);
+      margin-left: 2rem;
+      width: 95%;
       padding: em(12px) em(15px);
       box-sizing: border-box;
       border: 2px solid #ccc;
@@ -128,6 +138,7 @@
       resize: none;
       border: none;
       outline: none;
+
       &:focus {
         background-color: #fff;
         box-shadow: inset 0 0 0 2px #0079bf;
@@ -147,7 +158,12 @@
       }
 
       .main-editor-checklist-icon {
-        margin-right: 0.5rem;
+        margin-right: 0.5em;
+        font-family: trellicons;
+        font-size: em(24px);
+        &::before {
+          content: '\e91a';
+        }
       }
       .main-editor-checklist-title {
         padding-top: 1rem;
@@ -155,10 +171,10 @@
       ul {
         list-style-type: none;
         margin: 0;
-        padding: 0 0 0.8rem 0;
+        padding: 0 0 0.8rem 0.2rem;
       }
       .main-editor-add-item-btn {
-        margin-left: 1.2rem;
+        margin-left: 1.5rem;
         margin-bottom: 3rem;
       }
       .main-editor-checklist-delete-btn {
@@ -176,10 +192,15 @@
         align-items: center;
         padding-top: 1rem;
         .main-editor-activity-icon {
-          margin-right: 0.5rem;
+          margin-right: 0.8rem;
+          font-family: trellicons;
+          font-size: em(24px);
+          &::before {
+            content: '\e900';
+          }
         }
         .main-editor-activity-title {
-          padding-top: 1rem;
+          padding-top: 0.9rem;
         }
       }
     }
@@ -214,7 +235,7 @@
       flex-direction: column;
       gap: 0.3rem;
       .main-task-edit-btn {
-        background-color: $clr8;
+        background-color: $clr9;
         width: 100%;
         text-align: center;
         cursor: pointer;

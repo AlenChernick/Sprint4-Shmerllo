@@ -1,10 +1,18 @@
 <template lang="">
-  <section v-if="board"  class="board-details full">
-    <board-header />
+  <section v-if="board" class="board-details full">
+    <board-header
+      :title="board.title"
+      :isFavorite="board.isFavorite"
+      :members="board.members"
+      :byMember="board.byMember"
+    />
     <h4>{{ board.title }}</h4>
     <h4>{{ board._id }}</h4>
-    <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
-    <pre>{{board}}</pre>
+    <group-list
+      v-if="board.groups"
+      :groups="board.groups"
+      :key="board.groups"
+    />
     <router-view />
   </section>
 </template>

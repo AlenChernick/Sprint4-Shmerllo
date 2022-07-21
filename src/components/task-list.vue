@@ -1,26 +1,35 @@
 <template>
   <!-- <h3 >Group ID:{{groupId}}</h3> -->
   <div class="group-title"></div>
-   <Container class="tasks-container " 
-            orientation="vertical"  v-if="tasks" 
-            :get-child-payload="getChildPayload" 
-            group-name="col-items" 
-            @drop="onDrop($event)">     
-    <Draggable @mousedown.prevent class="task-preview" v-if="items"  v-for="item in items" :key="item.id">
-          <task-preview :task="item"  />
-      </Draggable>
-    </Container>
-
+  <Container
+    class="tasks-container"
+    orientation="vertical"
+    v-if="tasks"
+    :get-child-payload="getChildPayload"
+    group-name="col-items"
+    @drop="onDrop($event)"
+  >
+    <Draggable
+      @mousedown.prevent
+      class="task-preview"
+      v-if="items"
+      v-for="item in items"
+      :key="item.id"
+      :groupId="groupId"
+    >
+      <task-preview :task="item" />
+    </Draggable>
+  </Container>
 </template>
 <script>
-import taskPreview from "../components/task-preview.vue"
-import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from "../../services/dnd-service.js"
+import taskPreview from '../components/task-preview.vue'
+import { Container, Draggable } from 'vue3-smooth-dnd'
+import { applyDrag } from '../../services/dnd-service.js'
 
 export default {
-  name: "task-list",
+  name: 'task-list',
   props: {
-    groupId:{
+    groupId: {
       type: String,
     },
     tasks: {
@@ -38,14 +47,13 @@ export default {
   methods: {
     onDrop(dropRes) {
       if (this.item === this.tasks) return
-      console.log("items", this.items)
+      console.log('items', this.items)
       this.items = applyDrag(this.items, dropRes)
-      this.$store.dispatch({ type: "saveTasks", tasks: this.items, groupId: this.groupId })
+      this.$store.dispatch({ type: 'saveTasks', tasks: this.items, groupId: this.groupId })
     },
     getChildPayload(idx) {
       return this.items[idx]
     },
-
 
     // onDrop(dropResult) {
     //   console.log(dropResult)
@@ -75,7 +83,6 @@ export default {
   },
 }
 </script>
-
 
 <style>
 .red {
