@@ -63,6 +63,7 @@ async function saveGroup(group, boardId) {
     try {
         //GET BOARD
         let board = await getBoardById(boardId)
+        console.log(board)
 
         //addgroup
         if (!group.id) {
@@ -76,9 +77,11 @@ async function saveGroup(group, boardId) {
             board.groups.splice(groupIdx, 1, group)
         }
 
+        console.log(board)
         await saveBoard(board)
 
         const savedGroup = getGroupById(boardId, group.id)
+       
         return savedGroup
     }
     catch (err) {

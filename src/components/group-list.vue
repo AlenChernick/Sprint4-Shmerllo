@@ -1,10 +1,13 @@
 <template>
   <section class="group-list ">
     <h2>this is group list</h2>
-    <Container class="group-container" orientation="horizontal"  v-if="groups" :get-child-payload="getChildPayload" group-name="1" @drop="onDrop($event)">
-     <!-- <Draggable @mousedown.prevent class="group-preview" v-if="items"  v-for="item in items" :key="item.id"> -->
-      <Draggable @mousedown.prevent  v-if="items"  v-for="item in items" :key="item.id">
-        <group-preview class="group-preview"  :group="item"  />
+    <Container class="group-container" 
+          orientation="horizontal"  
+          v-if="groups"        
+          group-name="cols" 
+          @drop="onDrop($event)">
+      <Draggable @mousedown.prevent  v-if="cols"  v-for="col in cols" :key="col.id">
+        <group-preview class="group-preview"  :group="col"  />
       </Draggable>
     </Container>
   </section>
@@ -16,7 +19,6 @@ import { applyDrag } from "../../services/dnd-service.js"
 
 export default {
   name: "group-list",
-  // props:['groups'],
   props: {
     groups: {
       type: Array,
@@ -24,20 +26,20 @@ export default {
   },
   data() {
     return {
-      items: [],
+      cols: [],
     }
   },
   created() {
-    this.items = JSON.parse(JSON.stringify(this.groups))
+    this.cols = JSON.parse(JSON.stringify(this.groups))
   },
   methods: {
     onDrop(dropRes) {
-      this.items = applyDrag(this.items, dropRes)
-      this.$store.dispatch({ type: "saveGroups", groups: this.items })
-      // console.log("items", this.items)
+      this.cols = applyDrag(this.cols, dropRes)
+      this.$store.dispatch({ type: "saveGroups", groups: this.cols })
+      console.log("cols", this.cols)
     },
     getChildPayload(idx) {
-      return this.items[idx]
+      return this.cols[idx]
     },
   },
   components: {
