@@ -4,8 +4,8 @@
       <img :src="task.style.coverImgUrl" />
     </div>
     <div class="task-edit-header">
-      <span><font-awesome-icon icon="fa-solid fa-pager" /></span>
-      <input spellcheck="false" v-model="task.title" type="text" />
+      <span class="task-edit-header-icon"></span>
+      <input @input="saveTask" spellcheck="false" v-model="task.title" type="text" />
     </div>
     <div class="task-list-name">
       <p>in List... to add when nestedroute</p>
@@ -36,21 +36,21 @@
           </div>
         </div>
         <div class="main-editor-description">
-          <span><font-awesome-icon icon="fa-solid fa-bars" /></span>
+          <span class="main-editor-description-icon"></span>
           <h4 class="main-editor-description-title">Description</h4>
-          <el-button class="btn main-editor-decription-edit-btn" type="info">Edit</el-button>
+          <el-button v-if="!isEdit" class="btn main-editor-decription-edit-btn" type="info">Edit</el-button>
         </div>
         <textarea spellcheck="false" @click="onEdit" v-model="task.description" class="main-editor-description-info"
           >{{ task.description }}
         </textarea>
         <div class="main-editor-btn-container">
-          <el-button type="primary" v-if="isEdit === true" @click="saveTask">Save</el-button>
-          <el-button type="info" class="btn" v-if="isEdit === true" @click="isEdit = false">Cancel</el-button>
+          <el-button type="primary" v-if="isEdit" @click="saveTask">Save</el-button>
+          <el-button type="info" v-if="isEdit" @click="isEdit = false">Cancel</el-button>
         </div>
         <div class="main-editor-checklist-container" v-for="checklist in task.checklists">
           <div class="main-editor-checklist-header">
             <div class="main-editor-checklist-header-info">
-              <span class="main-editor-checklist-icon"><font-awesome-icon icon="fa-solid fa-list-check" /></span>
+              <span class="main-editor-checklist-icon"></span>
               <h4 class="main-editor-checklist-title">{{ checklist.title }}</h4>
             </div>
             <el-button type="info" class="btn main-editor-checklist-delete-btn">Delete</el-button>
@@ -58,7 +58,6 @@
           <ul v-for="todo in checklist.todos">
             <li>
               <el-checkbox>{{ todo.title }}</el-checkbox>
-              <!-- <p>{{ todo.isDone }}</p> -->
             </li>
           </ul>
           <el-button type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
@@ -66,7 +65,7 @@
         <div class="main-editor-activity-contianer">
           <div class="main-editor-activity-header">
             <div class="main-editor-activity-header-info">
-              <span class="main-editor-activity-icon"><font-awesome-icon icon="fa-solid fa-list-ul" /></span>
+              <span class="main-editor-activity-icon"></span>
               <h4 class="main-editor-activity-title">Activity</h4>
             </div>
             <el-button class="btn" type="info">Show details</el-button>
