@@ -7,30 +7,32 @@
           <font-awesome-icon icon="fa-solid fa-ellipsis" />
         </div>
       </div>
+      <div class="group-remove-modal">
+
+      </div>
     </div>
     <task-list :tasks="group.tasks" :groupId="group.id" />
-    <div class="task-adding-conteiner flex" @click="oneNewTask(group.id)">
+    <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal=!newTaskModal">
       <div class="task-adding-btn">
         <font-awesome-icon icon="fa-solid fa-plus" />
       </div>
+    <div>Add new card</div>
     </div>
-
-    <div>
-      <form>
-    <textarea :options="{draggable: 'fasle',preventOnFilter: false, filter: '.form-control'}" cols="30" rows="2"  
+    <div v-else>
+    <textarea  cols="30" rows="2"  
       class="new-task-area"
       placeholder="Enter a title for this card..."
     ></textarea>
-    </form>
-    </div>
-    <div>Add new card</div>
+    <button @click="newTaskModal=!newTaskModal">x</button>
+    <button @click="oneNewTask(group.id)">add</button>
+  </div>
   </section>
 </template>
 <script>
-import taskList from '../components/task-list.vue'
+import taskList from "../components/task-list.vue"
 // import { newTask } from "../../services/eventBus.service.js"
 export default {
-  name: 'group-preview',
+  name: "group-preview",
   props: {
     group: {
       type: Object,
@@ -40,6 +42,7 @@ export default {
     return {
       currBoard: {},
       currTask: {},
+      newTaskModal:false,
     }
   },
   created() {
@@ -50,18 +53,17 @@ export default {
   methods: {
     oneNewTask(groupId) {
       // console.log('  this.currBoard', this.currBoard)
-      this.$store.dispatch({ type: 'saveTask', groupId })
+      this.$store.dispatch({ type: "saveTask", groupId })
       //  newTask("newTaskEvent", groupId)
+      newTaskModal=!newTaskModal
     },
     onRemoveGroup(groupId) {
       const boardId = this.currBoard._id
-      this.$store.dispatch({ type: 'removeGroup', groupId, boardId })
+      this.$store.dispatch({ type: "removeGroup", groupId, boardId })
     },
     // goToTaskDetails() {
     //   this.$router.push(`/board/${this.currBoard._id}/${this.group.id}`)
     // },
-    
-
   },
   components: {
     taskList,
