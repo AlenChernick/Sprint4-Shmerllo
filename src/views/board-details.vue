@@ -1,8 +1,8 @@
 <template lang="" >
   <section v-if="board" class="board-details full"
-       :style="{ 'background-color': board.style.bgColor }">
+       :style="{ 'background-color': board.style.bgColor, 'background-image': `url(${board.style.bgImgUrl})` }">
     <board-header :board="board" />
-    <pre>{{board.style}}</pre>
+    <!-- <pre>{{board.style}}</pre> -->
     <group-list
       v-if="board.groups"
       :groups="board.groups"

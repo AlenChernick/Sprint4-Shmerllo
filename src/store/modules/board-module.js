@@ -257,5 +257,19 @@ export default {
         throw err
       }
     },
+    async addActivity({ state, dispatch }, { activity }) {
+      console.log(activity)
+      try {
+        let board = JSON.parse(JSON.stringify(state.currBoard))
+        console.log(board)
+        board.activities.unshift(activity)
+        dispatch({ type: "saveBoard" , board})
+      } catch (err) {
+        console.log("Cannot change style", err)
+        throw err
+      }
+    },
+
+
   },
 }
