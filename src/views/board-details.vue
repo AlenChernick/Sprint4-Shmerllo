@@ -1,8 +1,8 @@
 <template lang="">
   <section v-if="board" class="board-details full">
     <board-header :board="board" />
-    <h4>{{ board.title }}</h4>
-    <h4>{{ board._id }}</h4>
+    <!-- <h4>{{ board.title }}</h4>
+    <h4>{{ board._id }}</h4> -->
     <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
     <router-view />
   </section>

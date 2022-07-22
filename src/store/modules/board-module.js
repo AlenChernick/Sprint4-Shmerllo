@@ -16,7 +16,7 @@ export default {
     },
     getCurrTask({ currTask }) {
       return currTask
-    }
+    },
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -53,7 +53,7 @@ export default {
       // saveTask(state, {newBoards }) {
       // state.boards = newBoards
       // return
-      console.log('savedTask, groupId, boardId', savedTask, groupId, boardId)
+      console.log("savedTask, groupId, boardId", savedTask, groupId, boardId)
 
       const groupIdx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
@@ -83,7 +83,9 @@ export default {
 
     removeGroup(state, { groupId, boardId }) {
       const boardIdx = state.boards.findIndex((board) => board._id === boardId)
-      const groupIdx = state.currBoard.groups.findIndex((group) => group.id === groupId)
+      const groupIdx = state.currBoard.groups.findIndex(
+        (group) => group.id === groupId
+      )
       const groups = JSON.parse(JSON.stringify(state.boards[boardIdx].groups))
       // console.log('boardIdx', boardIdx)
       // console.log('groupIdx', groupIdx)
@@ -132,8 +134,13 @@ export default {
     },
     async getTaskById({ commit }, { boardId, groupId, taskId }) {
       try {
-        const currTask = await boardService.getTaskById(boardId, groupId, taskId)
-        commit({ type: 'setCurrTask', currTask })
+        const currTask = await boardService.getTaskById(
+          boardId,
+          groupId,
+          taskId
+        )
+        commit({ type: "setCurrTask", currTask })
+        return currTask
       } catch (err) {
         console.error("cannot get task", err)
         throw err
@@ -143,7 +150,6 @@ export default {
       { commit, state },
       { task = null, groupId, boardId = null }
     ) {
-
       if (boardId === null)
         boardId = JSON.parse(JSON.stringify(state.currBoard._id))
       console.log(task, groupId, boardId)

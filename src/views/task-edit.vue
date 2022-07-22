@@ -1,11 +1,21 @@
 <template>
-  <section v-if="task" class="task-edit">
-    <div v-if="task.style" class="task-edit-cover" :style="{ 'background-color': task.style.bgColor }">
+  <section class="task-edit">
+    <div
+      v-if="task.style"
+      class="task-edit-cover"
+      :style="{ 'background-color': task.style.bgColor }"
+    >
       <img :src="task.style.coverImgUrl" />
     </div>
     <div class="task-edit-header">
       <span class="task-edit-header-icon"></span>
-      <input @input="saveTask" spellcheck="false" v-model="task.title" type="text" />
+      <input
+        @input="saveTask"
+        spellcheck="false"
+        v-model="task.title"
+        type="text"
+      />
+      <button @click="backToBoard">X</button>
     </div>
     <div class="task-list-name">
       <p>in List... to add when nestedroute</p>
@@ -38,29 +48,55 @@
         <div class="main-editor-description">
           <span class="main-editor-description-icon"></span>
           <h4 class="main-editor-description-title">Description</h4>
-          <el-button v-if="!isEdit" class="btn main-editor-decription-edit-btn" type="info">Edit</el-button>
+          <el-button
+            v-if="!isEdit"
+            class="btn main-editor-decription-edit-btn"
+            type="info"
+            >Edit</el-button
+          >
         </div>
-        <textarea spellcheck="false" @click="onEdit" v-model="task.description" class="main-editor-description-info"
+        <textarea
+          spellcheck="false"
+          @click="onEdit"
+          v-model="task.description"
+          class="main-editor-description-info"
           >{{ task.description }}
         </textarea>
         <div class="main-editor-btn-container">
-          <el-button type="primary" v-if="isEdit" @click="saveTask">Save</el-button>
-          <el-button type="info" v-if="isEdit" @change="saveTask" @click="isEdit = false">Cancel</el-button>
+          <el-button type="primary" v-if="isEdit" @click="saveTask"
+            >Save</el-button
+          >
+          <el-button
+            type="info"
+            v-if="isEdit"
+            @change="saveTask"
+            @click="isEdit = false"
+            >Cancel</el-button
+          >
         </div>
-        <div class="main-editor-checklist-container" v-for="checklist in task.checklists">
+        <div
+          class="main-editor-checklist-container"
+          v-for="checklist in task.checklists"
+        >
           <div class="main-editor-checklist-header">
             <div class="main-editor-checklist-header-info">
               <span class="main-editor-checklist-icon"></span>
               <h4 class="main-editor-checklist-title">{{ checklist.title }}</h4>
             </div>
-            <el-button type="info" class="btn main-editor-checklist-delete-btn">Delete</el-button>
+            <el-button type="info" class="btn main-editor-checklist-delete-btn"
+              >Delete</el-button
+            >
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox v-model="isChecked" @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
+              <el-checkbox v-model="isChecked" @change="saveTask(todo)">{{
+                todo.title
+              }}</el-checkbox>
             </li>
           </ul>
-          <el-button type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
+          <el-button type="info" class="btn main-editor-add-item-btn"
+            >Add an item</el-button
+          >
         </div>
         <div class="main-editor-activity-contianer">
           <div class="main-editor-activity-header">
@@ -71,7 +107,9 @@
             <el-button class="btn" type="info">Show details</el-button>
           </div>
           <div class="main-editor-activity-comments">
-            <span class="main-editor-activity-icon"><font-awesome-icon icon="fa-solid fa-user" /></span>
+            <span class="main-editor-activity-icon"
+              ><font-awesome-icon icon="fa-solid fa-user"
+            /></span>
             <textarea
               @click="onWriteComment"
               placeholder="Write a comment"
@@ -104,10 +142,10 @@
   </section>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref } from "vue"
 
 export default {
-  name: 'task-edit',
+  name: "task-edit",
   data() {
     return {
       task: {},
@@ -115,37 +153,57 @@ export default {
       groupId: null,
       isEdit: false,
       isWrite: false,
-      dateValue: ref(''),
+      dateValue: ref(""),
       isChecked: false,
     }
   },
   async created() {
     try {
       const { boardId, groupId, taskId } = this.$route.params
+      console.log(boardId, groupId, taskId)
       this.boardId = boardId
       this.groupId = groupId
-      const task = await this.$store.dispatch({ type: 'getTaskById', boardId, groupId, taskId })
+      const task = await this.$store.dispatch({
+        type: "getTaskById",
+        boardId,
+        groupId,
+        taskId,
+      })
       this.task = task
+      console.log(this.task)
     } catch (err) {
-      console.log('Cannot load task', err)
+      console.log("Cannot load task", err)
       throw err
     }
   },
   methods: {
     saveTask(todo) {
-      this.$store.dispatch({ type: 'saveTask', task: this.task, groupId: this.groupId, boardId: this.boardId })
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.task,
+        groupId: this.groupId,
+        boardId: this.boardId,
+      })
       this.isEdit = false
       todo.isDone = !todo.isDone
     },
     removeTask() {
-      this.$store.dispatch({ type: 'removeTask', taskId: this.task.id, groupId: this.groupId, boardId: this.boardId })
-      this.$router.push('/board' + boardId)
+      this.$store.dispatch({
+        type: "removeTask",
+        taskId: this.task.id,
+        groupId: this.groupId,
+        boardId: this.boardId,
+      })
+      this.$router.push("/board" + boardId)
     },
     onWriteComment() {
       this.isWrite = !this.isWrite
     },
     onEdit() {
       this.isEdit = true
+    },
+    backToBoard() {
+      this.$router.push(`/board/${this.boardId}`)
     },
   },
 }

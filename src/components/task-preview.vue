@@ -27,13 +27,15 @@ export default {
   },
   methods: {
     openTaskDetails() {
-      // this.$router.push(`/board/${getCurrBoard}/${this.groupId}/${this.task.id}`)
+
+      console.log(`/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
+      this.$router.push(`/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
       // this.$router.push('')
     },
   },
   computed: {
     getCurrBoard() {
-      return this.$store.getters.getCurrBoard._id
+      return this.$store.getters.getCurrBoard
     },
   },
 }
