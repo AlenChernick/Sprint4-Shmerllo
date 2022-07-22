@@ -82,16 +82,21 @@ export default {
     // }\
 
     removeGroup(state, { groupId, boardId }) {
+      console.log("removeGroup mutation", groupId, boardId)
       const boardIdx = state.boards.findIndex((board) => board._id === boardId)
-      const groupIdx = state.currBoard.groups.findIndex(
+      const groupIdx = state.boards[boardIdx].groups.findIndex(
         (group) => group.id === groupId
       )
-      const groups = JSON.parse(JSON.stringify(state.boards[boardIdx].groups))
-      // console.log('boardIdx', boardIdx)
-      // console.log('groupIdx', groupIdx)
-      // console.log('groups', groups)
+      console.log("boardIdx", boardIdx)
+      console.log("groupIdx", groupIdx)
+
       state.boards[boardIdx].groups.splice(groupIdx, 1)
-      state.boards[boardIdx].groups = groups
+      state.currBoard = state.boards[boardIdx]
+      console.log(state.currBoard) 
+
+      // console.log(state.currBoard.groups)
+      // state.currBoard.groups.splice(groupIdx, 1)
+      // console.log(state.currBoard.groups)
     },
   },
   actions: {
@@ -122,9 +127,10 @@ export default {
         throw err
       }
     },
-    async getBoardById({ commit }, { boardId }) {
+    async loadCurrBoard({ commit }, { boardId }) {
       try {
         const currBoard = await boardService.getBoardById(boardId)
+        console.log(currBoard);
         commit({ type: "setCurrBoard", currBoard })
         return currBoard
       } catch (err) {
@@ -225,7 +231,8 @@ export default {
     },
     async removeGroup({ commit }, { groupId, boardId }) {
       try {
-        await boardService.removeGroup(groupId, boardId)
+        let answer = await boardService.removeGroup(groupId, boardId)
+        console.log(answer)
         commit({ type: "removeGroup", groupId, boardId })
       } catch (err) {
         console.log("Cannot remove group", err)

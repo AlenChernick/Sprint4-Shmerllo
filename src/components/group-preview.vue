@@ -16,12 +16,12 @@
     </div>
 
     <div>
-      <!-- <form>
-    <textarea  cols="30" rows="2"  :non-drag-area-selecto="dragHandleSelector"
+      <form>
+    <textarea :options="{draggable: 'fasle',preventOnFilter: false, filter: '.form-control'}" cols="30" rows="2"  
       class="new-task-area"
       placeholder="Enter a title for this card..."
     ></textarea>
-    </form> -->
+    </form>
     </div>
     <div>Add new card</div>
   </section>
@@ -60,6 +60,8 @@ export default {
     // goToTaskDetails() {
     //   this.$router.push(`/board/${this.currBoard._id}/${this.group.id}`)
     // },
+    
+
   },
   components: {
     taskList,

@@ -1,23 +1,26 @@
-<template lang="">
+<template lang="" >
   <section v-if="board" class="board-details full">
-    <board-header :board="board" />
-    <!-- <h4>{{ board.title }}</h4>
-    <h4>{{ board._id }}</h4> -->
-    <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
+    <!-- <board-header :board="board" /> -->
+<!-- <pre>{{board}}</pre> -->
+    <group-list
+      v-if="board.groups"
+      :groups="board.groups"
+      :key="board.groups"
+    />
     <router-view />
+    <!-- <pre style="color: black">{{ this.board.groups }}</pre> -->
   </section>
 </template>
 
 <script>
-import boardHeader from '../components/board-header.vue'
-import groupList from '../components/group-list.vue'
-import { eventBus } from '../../services/eventBus.service.js'
+import boardHeader from "../components/board-header.vue"
+import groupList from "../components/group-list.vue"
 
 export default {
-  name: 'board-details',
+  name: "board-details",
   data() {
     return {
-      board: {},
+      // board:   {},
     }
   },
   async created() {
@@ -25,23 +28,30 @@ export default {
       const { boardId } = this.$route.params
       console.log(boardId)
       const currBoard = await this.$store.dispatch({
-        type: 'getBoardById',
+        type: "loadCurrBoard",
         boardId,
       })
       this.board = currBoard
     } catch (err) {
-      console.log('Cannot load board', err)
+      console.log("Cannot load board", err)
       throw err
     }
   },
-  methodes: {
+
+  methods: {
     newTask(groupId) {
-      console.log('newtask on Board', groupId)
+      console.log("newtask on Board", groupId)
     },
     updateBoard(board) {
-      this.$store.dispatch({ type: 'saveBoard', board })
+      this.$store.dispatch({ type: "saveBoard", board })
     },
+   
   },
+   computed: {
+      board() {
+        return JSON.parse((JSON.stringify (this.$store.getters.getCurrBoard)))
+      },
+    },
   components: {
     boardHeader,
     groupList,
