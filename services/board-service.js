@@ -431,13 +431,57 @@ function getEmptyBoard() {
             {
                 id: 'a101',
                 txt: 'Changed Color',
-                createdAt: 154514,
+                createdAt: 1589983468418,
                 byMember: {
                         id: 'm103',
                         username: 'AC',
-                        fullname: 'Alen Alen Chernick',
+                        fullname: 'Alen Chernick',
                         imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
-                        createdAt: '2021-12-11T10:01:48.000Z'
+                },
+                task: {
+                    id: 'c101',
+                    title: 'Replace Logo'
+                }
+            },
+            {
+                id: 'a102',
+                txt: 'did something',
+                createdAt: 1589983468418,
+                byMember: {
+                    id: 'm102',
+                    username: 'AK',
+                    fullname: 'Alon Kolker',
+                    imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+                },
+                task: {
+                    id: 'c103',
+                    title: 'Replace Logo'
+                }
+            },
+            {
+                id: 'a104',
+                txt: 'did something else',
+                createdAt: 1589983468418,
+                byMember: {
+                    id: 'm101',
+                    username: 'THT',
+                    fullname: 'Tal Hammer Topaz',
+                    imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
+                },
+                task: {
+                    id: 'c101',
+                    title: 'Replace Logo'
+                }
+            },
+            {
+                id: 'a105',
+                txt: 'and another thing',
+                createdAt: 1589983468418,
+                byMember: {
+                    id: 'm104',
+                    username: 'LS',
+                    fullname: 'Lihi Sered',
+                    imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512',
                 },
                 task: {
                     id: 'c101',
