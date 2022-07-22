@@ -1,7 +1,8 @@
 <template>
   <section class="group-list">
     <Container class="group-container" orientation="horizontal" v-if="groups" group-name="cols" @drop="onDrop($event)">
-      <Draggable @mousedown.prevent v-if="cols" v-for="col in cols" :key="col.id">
+      <!-- <Draggable @mousedown.prevent v-if="cols" v-for="col in cols" :key="col.id"> -->
+            <Draggable :drop-placeholder="{}" v-if="cols" v-for="col in cols" :key="col.id">
         <group-preview class="group-preview" :group="col" :key="col.id" />
       </Draggable>
     </Container>
