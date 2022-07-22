@@ -5,7 +5,8 @@
     <h4>Menu</h4>
     <span  @click="displayMenu='none'" class="close-icon"></span>
 
-    <div class="change-background">
+  <div :style="{ display: activityView }" class="activity-view">
+    <div @click="openCoverSelection" class="change-background">
       <div class="change-background-hover">
         <img src="https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg?auto=compress&cs=tinysrgb&w=1600"/>
         <h3>Change background</h3>
@@ -30,6 +31,14 @@
           </div>
         </ul>
       </div>
+  </div>
+
+  <div :style="{ display: coverSelectionView }" class="cover-selection">
+
+  <h1>hello!</h1>
+
+  </div>
+
   </section>
 </template>
 <script>
@@ -42,12 +51,19 @@ export default {
     return {
       activities: boardService.getEmptyBoard().activities,
       displayMenu: 'none',
+      activityView: 'block',
+      coverSelectionView: 'none',
     }
   },
   created() {
    
   },
   methods: {
+    openCoverSelection(){
+      this.activityView =  'none'
+      this.coverSelectionView =  'block'
+
+    }
    
   },
 }

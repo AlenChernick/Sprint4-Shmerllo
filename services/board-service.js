@@ -502,3 +502,9 @@ function getEmptyBoard() {
         lastActivity: 1658239902711
     };
 }
+
+
+function coverOptions(){
+    return{}
+
+}
