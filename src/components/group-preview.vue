@@ -10,11 +10,17 @@
         />
       </div>
       <div class="group-dots-options-box">
-        <div class="group-dots-options" @click="onRemoveGroup(group.id)">
-          <font-awesome-icon icon="fa-solid fa-ellipsis" />
+        <span
+          class="group-dots-options"
+          
+          @click="groupOptionsModal = !groupOptionsModal"
+        ></span>
+        <div v-if="groupOptionsModal" class="group-options-modal flex flex-column" >
+        <span class="group-options-modal-header">List Actions</span>
+          <span class="group-options-modal-delete" @click="onRemoveGroup(group.id)">Delete Group</span>
         </div>
       </div>
-      <div class="group-remove-modal"></div>
+      <!-- <div class="group-remove-modal"></div> -->
     </div>
     <task-list :tasks="group.tasks" :groupId="group.id" />
     <div
@@ -35,8 +41,15 @@
         placeholder="Enter a title for this card..."
         v-model="taskTitle"
       ></textarea>
-      <button @click="newTaskModal = !newTaskModal">x</button>
-      <button @click="oneNewTask(group.id)">add</button>
+      <div class="new-task-add-remove-conteiner flex">
+        <el-button type="primary" @click="oneNewTask(group.id)"
+          >Add Card</el-button
+        >
+        <span
+          class="cancel-add-task"
+          @click="newTaskModal = !newTaskModal"
+        ></span>
+      </div>
     </div>
   </section>
 </template>
@@ -55,6 +68,7 @@ export default {
       currBoard: {},
       currTask: {},
       newTaskModal: false,
+      groupOptionsModal: false,
       taskTitle: "",
     }
   },
@@ -77,7 +91,7 @@ export default {
     },
     onSaveGroup(groupId) {
       const boardId = this.currBoard._id
-      this.$store.dispatch({ type: "saveGroup",group:this.group, boardId })
+      this.$store.dispatch({ type: "saveGroup", group: this.group, boardId })
     },
     onRemoveGroup(groupId) {
       const boardId = this.currBoard._id
