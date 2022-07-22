@@ -128,10 +128,11 @@ async function getTaskById(boardId, groupId, taskId) {
 
 
 
-async function saveTask(task, groupId, boardId) {
+async function saveTask(task,taskTitle, groupId, boardId) {
     console.log(groupId, boardId, task)
    if (task === null) {
       task = _createTask()
+      task.title =taskTitle
    }
     try {
         //GET BOARD

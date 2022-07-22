@@ -1,8 +1,8 @@
 <template>
   <section class="group-list">
-    <Container class="group-container" orientation="horizontal" v-if="groups" group-name="cols" @drop="onDrop($event)">
+    <Container class="group-container" :drop-placeholder="dropPlaceholderOptions" orientation="horizontal" v-if="groups" group-name="cols" @drop="onDrop($event)">
       <!-- <Draggable @mousedown.prevent v-if="cols" v-for="col in cols" :key="col.id"> -->
-            <Draggable :drop-placeholder="{}" v-if="cols" v-for="col in cols" :key="col.id">
+            <Draggable  v-if="cols" v-for="col in cols" :key="col.id">
         <group-preview class="group-preview" :group="col" :key="col.id" />
       </Draggable>
     </Container>
@@ -39,6 +39,16 @@ export default {
     getChildPayload(idx) {
       return this.cols[idx]
     },
+  },
+  computed:{
+    dropPlaceholderOptions(){
+      return {
+        className:"group-drag",
+        animationDuration:"188",
+        showOnTop:false,
+
+      }
+    }
   },
   components: {
     groupPreview,
