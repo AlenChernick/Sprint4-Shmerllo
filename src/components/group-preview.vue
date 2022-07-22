@@ -12,7 +12,7 @@
       </div>
     </div>
     <task-list :tasks="group.tasks" :groupId="group.id" />
-    <div v-if="!openModal" class="task-adding-conteiner flex" @click="openModal=!openModal">
+    <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal=!newTaskModal">
       <div class="task-adding-btn">
         <font-awesome-icon icon="fa-solid fa-plus" />
       </div>
