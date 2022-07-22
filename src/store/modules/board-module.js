@@ -34,10 +34,11 @@ export default {
     },
     saveBoard(state, { board }) {
       const idx = state.boards.findIndex(
-        (currBoard) => currBoard._id === board_.id
+        (currBoard) => currBoard._id === board._id
       )
       if (idx !== -1) state.boards.splice(idx, 1, board)
-      else state.board.push(board)
+      else state.boards.push(board)
+      state.currBoard = board
     },
     saveGroup(state, { group }) {
       const idx = state.boards.groups.findIndex((g) => g.id === group.id)
@@ -92,7 +93,7 @@ export default {
 
       state.boards[boardIdx].groups.splice(groupIdx, 1)
       state.currBoard = state.boards[boardIdx]
-      console.log(state.currBoard) 
+      console.log(state.currBoard)
 
       // console.log(state.currBoard.groups)
       // state.currBoard.groups.splice(groupIdx, 1)
@@ -120,8 +121,8 @@ export default {
     },
     async saveBoard({ commit }, { board }) {
       try {
-        const savedBoard = await boardService.save(board)
-        commit({ type: "saveBoard", savedBoard })
+        const savedBoard = await boardService.saveBoard(board)
+        commit({ type: "saveBoard", board: savedBoard })
       } catch (err) {
         console.log("Cannot save board", err)
         throw err

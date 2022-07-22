@@ -1,20 +1,11 @@
 <template>
   <section class="task-edit">
-    <div
-      v-if="task.style"
-      class="task-edit-cover"
-      :style="{ 'background-color': task.style.bgColor }"
-    >
-      <img :src="task.style.coverImgUrl" />
+    <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
+      <img :src="getCurrTask.style.coverImgUrl" />
     </div>
     <div class="task-edit-header">
       <span class="task-edit-header-icon"></span>
-      <input
-        @input="saveTask"
-        spellcheck="false"
-        v-model="task.title"
-        type="text"
-      />
+      <input @input="saveTask" spellcheck="false" v-model="getCurrTask.title" type="text" />
       <button @click="backToBoard">X</button>
     </div>
     <div class="task-list-name">
@@ -25,13 +16,13 @@
       <!-- <img src="task.byMember.imgUrl"/> -->
       <div class="main-task-edit-container">
         <div class="main-editor">
-          <ul class="main-task-members" v-for="member in task.memberIds">
+          <ul class="main-task-members" v-for="member in getCurrTask.memberIds">
             Members
             <li>
               <p>{{ member }}</p>
             </li>
           </ul>
-          <ul v-for="label in task.labelIds">
+          <ul v-for="label in getCurrTask.labelIds">
             Labels
             <li>
               <p>{{ label }}</p>
@@ -48,55 +39,35 @@
         <div class="main-editor-description">
           <span class="main-editor-description-icon"></span>
           <h4 class="main-editor-description-title">Description</h4>
-          <el-button
-            v-if="!isEdit"
-            class="btn main-editor-decription-edit-btn"
-            type="info"
-            >Edit</el-button
-          >
+          <el-button v-if="!isEdit" class="btn main-editor-decription-edit-btn" type="info">Edit</el-button>
         </div>
         <textarea
           spellcheck="false"
           @click="onEdit"
-          v-model="task.description"
+          v-model="getCurrTask.description"
           class="main-editor-description-info"
-          >{{ task.description }}
+          >{{ getCurrTask.description }}
         </textarea>
         <div class="main-editor-btn-container">
-          <el-button type="primary" v-if="isEdit" @click="saveTask"
-            >Save</el-button
-          >
-          <el-button
-            type="info"
-            v-if="isEdit"
-            @change="saveTask"
-            @click="isEdit = false"
-            >Cancel</el-button
-          >
+          <el-button type="primary" v-if="isEdit" @click="saveTask">Save</el-button>
+          <el-button type="info" v-if="isEdit" @change="saveTask" @click="isEdit = false">Cancel</el-button>
         </div>
-        <div
-          class="main-editor-checklist-container"
-          v-for="checklist in task.checklists"
-        >
+        <div class="main-editor-checklist-container" v-for="checklist in getCurrTask.checklists">
           <div class="main-editor-checklist-header">
             <div class="main-editor-checklist-header-info">
               <span class="main-editor-checklist-icon"></span>
               <h4 class="main-editor-checklist-title">{{ checklist.title }}</h4>
             </div>
-            <el-button type="info" class="btn main-editor-checklist-delete-btn"
-              >Delete</el-button
-            >
+            <el-button type="info" class="btn main-editor-checklist-delete-btn">Delete</el-button>
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox v-model="isChecked" @change="saveTask(todo)">{{
-                todo.title
-              }}</el-checkbox>
+              <el-checkbox @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
+              <pre>{{ todo }}</pre>
             </li>
           </ul>
-          <el-button type="info" class="btn main-editor-add-item-btn"
-            >Add an item</el-button
-          >
+
+          <el-button type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
         </div>
         <div class="main-editor-activity-contianer">
           <div class="main-editor-activity-header">
@@ -107,9 +78,7 @@
             <el-button class="btn" type="info">Show details</el-button>
           </div>
           <div class="main-editor-activity-comments">
-            <span class="main-editor-activity-icon"
-              ><font-awesome-icon icon="fa-solid fa-user"
-            /></span>
+            <span class="main-editor-activity-icon"><font-awesome-icon icon="fa-solid fa-user" /></span>
             <textarea
               @click="onWriteComment"
               placeholder="Write a comment"
@@ -142,59 +111,54 @@
   </section>
 </template>
 <script>
-import { ref } from "vue"
+import { ref } from 'vue'
 
 export default {
-  name: "task-edit",
+  name: 'task-edit',
   data() {
     return {
-      task: {},
       boardId: null,
       groupId: null,
       isEdit: false,
       isWrite: false,
-      dateValue: ref(""),
-      isChecked: false,
+      dateValue: ref(''),
     }
   },
   async created() {
     try {
       const { boardId, groupId, taskId } = this.$route.params
-      console.log(boardId, groupId, taskId)
       this.boardId = boardId
       this.groupId = groupId
-      const task = await this.$store.dispatch({
-        type: "getTaskById",
+      await this.$store.dispatch({
+        type: 'getTaskById',
         boardId,
         groupId,
         taskId,
       })
-      this.task = task
-      console.log(this.task)
     } catch (err) {
-      console.log("Cannot load task", err)
+      console.log('Cannot load task', err)
       throw err
     }
   },
   methods: {
     saveTask(todo) {
       this.$store.dispatch({
-        type: "saveTask",
-        task: this.task,
+        type: 'saveTask',
+        task: this.getCurrTask,
         groupId: this.groupId,
         boardId: this.boardId,
       })
-      this.isEdit = false
       todo.isDone = !todo.isDone
+      // this.isEdit = false
     },
     removeTask() {
       this.$store.dispatch({
-        type: "removeTask",
-        taskId: this.task.id,
+        type: 'removeTask',
+        taskId: this.getCurrTask.id,
         groupId: this.groupId,
         boardId: this.boardId,
       })
-      this.$router.push("/board" + boardId)
+      this.$router.push('/board' + boardId)
     },
     onWriteComment() {
       this.isWrite = !this.isWrite
@@ -204,6 +168,11 @@ export default {
     },
     backToBoard() {
       this.$router.push(`/board/${this.boardId}`)
+    },
+  },
+  computed: {
+    getCurrTask() {
+      return JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
     },
   },
 }
