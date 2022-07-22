@@ -244,5 +244,19 @@ export default {
         throw err
       }
     },
+    async setBoardStyle({ state, dispatch }, { style }) {
+      console.log(style)
+      try {
+        let board = JSON.parse(JSON.stringify(state.currBoard))
+        console.log(board)
+        board.style = style
+        dispatch({ type: "saveBoard" , board})
+      } catch (err) {
+        console.log("Cannot change style", err)
+        throw err
+      }
+    },
+
+
   },
 }

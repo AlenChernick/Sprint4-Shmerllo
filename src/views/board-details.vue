@@ -1,7 +1,8 @@
 <template lang="" >
-  <section v-if="board" class="board-details full">
+  <section v-if="board" class="board-details full"
+       :style="{ 'background-color': board.style.bgColor }">
     <board-header :board="board" />
-<!-- <pre>{{board}}</pre> -->
+    <pre>{{board.style}}</pre>
     <group-list
       v-if="board.groups"
       :groups="board.groups"
@@ -51,6 +52,7 @@ export default {
       board() {
         return JSON.parse((JSON.stringify (this.$store.getters.getCurrBoard)))
       },
+
     },
   components: {
     boardHeader,

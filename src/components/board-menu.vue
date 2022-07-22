@@ -2,7 +2,7 @@
   <button @click="displayMenu='block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
   <section :style="{ display: displayMenu }" class="board-menu">
     <!-- <pre>{{activities}}</pre> -->
-    <h4>Menu</h4>
+    <h4>{{pageTitle}}</h4>
     <span  @click="displayMenu='none'" class="close-icon"></span>
 
   <div :style="{ display: activityView }" class="activity-view">
@@ -33,9 +33,16 @@
       </div>
   </div>
 
-  <div :style="{ display: coverSelectionView }" class="cover-selection">
+  <div :style="{ display: coverSelectionView }" class="board-cover-selection">
 
-  <h1>hello!</h1>
+   <span @click="closeCoverSelection" class="close-cover-selection"></span>
+  
+      <div v-for="color in coverOptions.coverColors" :style="{ 'background-color': color}"  class="color-box" @click="setBgColor(color)"> 
+          </div>
+    <div class="seperator"></div>
+  
+      <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click="setBgImgUrl(imgUrl)"/>
+  
 
   </div>
 
@@ -53,6 +60,13 @@ export default {
       displayMenu: 'none',
       activityView: 'block',
       coverSelectionView: 'none',
+      coverOptions: boardService.coverOptions(),
+      pageTitle: 'Menu',
+      style: {
+        bgColor: null,
+        bgImgUrl: null,
+      }
+
     }
   },
   created() {
@@ -62,8 +76,27 @@ export default {
     openCoverSelection(){
       this.activityView =  'none'
       this.coverSelectionView =  'block'
+      this.pageTitle = 'Choose Background'
+    },
+    closeCoverSelection(){
+      this.activityView =  'block'
+      this.coverSelectionView =  'none'
+      this.pageTitle = 'Menu'
+    },
+    setBgColor(color){
+      this.style.bgColor= color
+      this.style. bgImgUrl= null
+      console.log(this.style)
+      this.$store.dispatch({type: "setBoardStyle",style: this.style })
 
-    }
+    },
+    setBgImgUrl(imgUrl){
+      this.style.bgColor= null
+      this.style. bgImgUrl= imgUrl
+      console.log(this.style)
+      this.$store.dispatch({type: "setBoardStyle",style: this.style })
+    },
+   
    
   },
 }
