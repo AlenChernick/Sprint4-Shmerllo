@@ -433,9 +433,11 @@ function getEmptyBoard() {
                 txt: 'Changed Color',
                 createdAt: 154514,
                 byMember: {
-                    _id: 'u101',
-                    fullname: 'Abi Abambi',
-                    imgUrl: 'http://some-img'
+                        id: 'm103',
+                        username: 'AC',
+                        fullname: 'Alen Alen Chernick',
+                        imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
+                        createdAt: '2021-12-11T10:01:48.000Z'
                 },
                 task: {
                     id: 'c101',
