@@ -57,9 +57,9 @@ export default {
       const boardId = this.currBoard._id
       this.$store.dispatch({ type: 'removeGroup', groupId, boardId })
     },
-    goToTaskDetails() {
-      this.$router.push(`/board/${this.currBoard._id}/${this.group.id}`)
-    },
+    // goToTaskDetails() {
+    //   this.$router.push(`/board/${this.currBoard._id}/${this.group.id}`)
+    // },
   },
   components: {
     taskList,

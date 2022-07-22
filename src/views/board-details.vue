@@ -1,11 +1,6 @@
 <template lang="">
   <section v-if="board" class="board-details full">
-    <board-header
-      :title="board.title"
-      :isFavorite="board.isFavorite"
-      :members="board.members"
-      :byMember="board.byMember"
-    />
+    <board-header :board="board" />
     <h4>{{ board.title }}</h4>
     <h4>{{ board._id }}</h4>
     <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
@@ -39,8 +34,14 @@ export default {
       throw err
     }
   },
-
-  methods: {},
+  methodes: {
+    newTask(groupId) {
+      console.log('newtask on Board', groupId)
+    },
+    updateBoard(board) {
+      this.$store.dispatch({ type: 'saveBoard', board })
+    },
+  },
   components: {
     boardHeader,
     groupList,
