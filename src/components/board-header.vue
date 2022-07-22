@@ -1,6 +1,6 @@
 <template>
   <section class="board-header">
-    <!-- <pre>{{board}}</pre> -->
+    <!-- <pre>{{currBoard}}</pre> -->
 
     <div class="board-info">
       <input spellcheck="false" v-model="board.title" type="text" @input="updateTitle"/>
@@ -15,7 +15,7 @@
    
     <div class="board-header-buttons">
       <board-filter />
-      <board-menu />
+      <board-menu :activities="board.activities"/>
     </div>
   </section>
 </template>
@@ -31,13 +31,11 @@ export default {
     },
     data() {
     return {
-      boardToEdit: JSON.parse(JSON.stringify(this.board)),
+      currBoard: {},
     }
   },
-  mounted(){
-    console.log('created')
-    // this.boardToEdit = JSON.parse(JSON.stringify(this.board))
-    // console.log(this.boardToEdit)
+  created(){
+    this.currBoard = this.$store.getters.getCurrBoard
   },
    methods: {
     updateTitle() {
