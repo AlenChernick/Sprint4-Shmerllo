@@ -1,11 +1,8 @@
 <template>
   <section class="board-header">
-    <!-- <pre>{{currBoard}}</pre> -->
-
     <div class="board-info">
-      <input spellcheck="false" v-model="board.title" type="text" @input="updateTitle"/>
-      <span @click="toggeleIsFavorite" class="star-icon"></span>
-      <!-- <pre >{{isFavorite}}</pre>  -->
+      <input @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
+      <span @click="toggeleIsFavorite" :class="icon" ></span>
       <h5> {{board.byMember.fullname}}'s workspace</h5> 
       <ul class="members clean-list" v-for="member in board.members">
         <img :src="member.imgUrl"/>
@@ -29,30 +26,37 @@ export default {
     board: {
       type: Object,
     },
+   },
     data() {
     return {
       currBoard: {},
     }
   },
-  created(){
-    this.currBoard = this.$store.getters.getCurrBoard
-  },
    methods: {
-    updateTitle() {
-      console.log(this.board)
-      this.$emit('updateBoard', JSON.parse(JSON.stringify(this.board)))
-    },
+    saveBoard() {
+      console.log('im on', this.board.title)
+      this.$store.dispatch({type: "saveBoard",board: this.board })
+  },
     toggeleIsFavorite(){
-      console.log('hi')
-      // this.board.isFavorite = !this.board.isFavorite
-      // this.$emit('updateBoard', JSON.parse(JSON.stringify(this.board)))
+      this.board.isFavorite = !this.board.isFavorite
+      console.log(this.board.isFavorite)
+      this.$store.dispatch({type: "saveBoard",board: this.board })
     }
   },
+  computed: {
+    icon(){
+      let board = this.$store.getters.getCurrBoard
+      if (board.isFavorite) return 'full-star-icon' 
+      else return 'star-icon'
+    }
+
 
   },
   components: {
     boardMenu,
     boardFilter,
   },
+
 }
+
 </script>

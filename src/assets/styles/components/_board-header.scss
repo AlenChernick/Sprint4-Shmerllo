@@ -37,14 +37,35 @@
                 cursor: pointer;
         
             }
+        }
 
-            .active{
-                background-color: aqua;
-                // &::before {
-                //     content: '\e967';
-                //     color: #f2d600;
-                // }
-            }
+            .full-star-icon {
+                background-color: rgba(255, 255, 255, 0.37);
+                width: fit-content;
+                font-weight: 400;
+                font-size: em(14px);
+                // line-height: lh(25px);
+                padding: 0 em(4px);
+                margin: em(10px);
+                border-radius: em(2px);
+                text-align: center;
+                color:  #f2d600;;
+                margin-right: 0.5em;
+                font-family: trellicons;
+                font-size: em(24px);
+                &::before {
+                  content: '\e967';
+                }
+                &:hover {
+                    font-family: trellicons;
+                    &::before {
+                        content: '\e966';
+                      }
+
+                    // content: '\e966';
+                    cursor: pointer;      
+                }
+            
 
           }
 

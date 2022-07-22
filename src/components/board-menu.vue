@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       activities: boardService.getEmptyBoard().activities,
-      displayMenu: 'block',
+      displayMenu: 'none',
     }
   },
   created() {

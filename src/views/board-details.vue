@@ -1,6 +1,6 @@
 <template lang="" >
   <section v-if="board" class="board-details full">
-    <!-- <board-header :board="board" /> -->
+    <board-header :board="board" />
 <!-- <pre>{{board}}</pre> -->
     <group-list
       v-if="board.groups"
