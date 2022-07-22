@@ -13,7 +13,6 @@
       <div class="task-adding-btn">
         <font-awesome-icon icon="fa-solid fa-plus" />
       </div>
-      <div>Add new card</div>
     </div>
 
     <div>
@@ -24,13 +23,14 @@
     ></textarea>
     </form> -->
     </div>
+    <div>Add new card</div>
   </section>
 </template>
 <script>
-import taskList from "../components/task-list.vue"
+import taskList from '../components/task-list.vue'
 // import { newTask } from "../../services/eventBus.service.js"
 export default {
-  name: "group-preview",
+  name: 'group-preview',
   props: {
     group: {
       type: Object,
@@ -39,23 +39,26 @@ export default {
   data() {
     return {
       currBoard: {},
+      currTask: {},
     }
   },
   created() {
     this.currBoard = this.$store.getters.getCurrBoard
+    // this.currTask = this.$store.getters.getCurrTask
+    // console.log('currTask', this.currTask)
   },
   methods: {
     oneNewTask(groupId) {
-      console.log("  this.currBoard",   this.currBoard)
-      this.$store.dispatch({ type: "saveTask", groupId })
+      // console.log('  this.currBoard', this.currBoard)
+      this.$store.dispatch({ type: 'saveTask', groupId })
       //  newTask("newTaskEvent", groupId)
     },
     onRemoveGroup(groupId) {
-      
-      console.log(this.currBoard._id);
-      let boardId = this.currBoard._id
-      this.$store.dispatch({ type: "removeGroup", groupId,boardId })
-      
+      const boardId = this.currBoard._id
+      this.$store.dispatch({ type: 'removeGroup', groupId, boardId })
+    },
+    goToTaskDetails() {
+      this.$router.push(`/board/${this.currBoard._id}/${this.group.id}`)
     },
   },
   components: {
