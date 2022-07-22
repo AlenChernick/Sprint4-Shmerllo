@@ -156,7 +156,7 @@ export default {
         throw err
       }
     },
-    async saveTask({ commit, state },{ task = null, taskTitle, groupId, boardId = null }) {
+    async saveTask({ commit, state }, { task = null, taskTitle, groupId, boardId = null }) {
       // if (boardId === null) boardId = JSON.parse(JSON.stringify(state.currBoard._id))
       if (boardId === null) boardId = state.currBoard._id
 
@@ -263,7 +263,7 @@ export default {
         let board = JSON.parse(JSON.stringify(state.currBoard))
         console.log(board)
         board.activities.unshift(activity)
-        dispatch({ type: "saveBoard" , board})
+        dispatch({ type: "saveBoard", board })
       } catch (err) {
         console.log("Cannot change style", err)
         throw err
