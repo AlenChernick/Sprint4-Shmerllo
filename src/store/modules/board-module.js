@@ -92,7 +92,7 @@ export default {
 
       state.boards[boardIdx].groups.splice(groupIdx, 1)
       state.currBoard = state.boards[boardIdx]
-      console.log(state.currBoard) 
+      console.log(state.currBoard)
 
       // console.log(state.currBoard.groups)
       // state.currBoard.groups.splice(groupIdx, 1)
