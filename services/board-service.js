@@ -23,6 +23,7 @@ export const boardService = {
     removeTask,
     removeGroup,
     coverOptions,
+    getEmptyActivity,
 }
 
 //get boards
@@ -240,9 +241,9 @@ function getEmptyBoard() {
     return {
         _id: '',
         title: '',
-         style: {
-             backgroundImage: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
-             backgroundColor: 'red',
+        style: {
+            bgColor: '#26de81',
+            bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
         },
         members: [
             {
@@ -344,7 +345,7 @@ function getEmptyBoard() {
                         },
                         style: {
                             bgColor: '#26de81',
-                            coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
+                            bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
                         }
                     }
                 ],
@@ -501,6 +502,25 @@ function getEmptyBoard() {
         lastActivity: 1658239902711
     };
 }
+
+
+function getEmptyActivity(){
+    return {
+            id: utilService.makeId(),
+            txt: '',
+            createdAt: Date.now(),
+            //will replace later to loggedin user
+            byMember: {
+                id: 'm102',
+                username: 'AK',
+                fullname: 'Alon Kolker',
+                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+            },
+            task: '',
+
+    }
+}
+
 
 
 function coverOptions(){

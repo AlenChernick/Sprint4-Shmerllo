@@ -119,12 +119,13 @@
     .activity-log{
         overflow: scroll;
         overflow-x: hidden;
+        height: 60vh;
 
         .activity-list{
             display: flex;
             justify-items: flex-start;
             align-items: flex-start;
-            margin: em(20px) em(10px);
+            margin: em(2px) em(16px);
 
 
             img{

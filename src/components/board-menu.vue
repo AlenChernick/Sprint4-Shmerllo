@@ -27,7 +27,7 @@
             <h5>{{activity.byMember.fullname}}</h5>
             <h4>{{activity.txt}}</h4>
             <h3>{{activity.task.title}}</h3>
-            <p>{{new Date(activity.createdAt).toString()}}</p>
+            <p>{{timeFormat(activity.createdAt)}}</p>
           </div>
         </ul>
       </div>
@@ -51,12 +51,17 @@
 <script>
 import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
 import { boardService } from "../../services/board-service.js"
+import moment from "moment";
 
 export default {
   name: 'board-menu',
+  props: {
+    activities: {
+      type: Array,
+    },
+   },
   data() {
     return {
-      activities: boardService.getEmptyBoard().activities,
       displayMenu: 'none',
       activityView: 'block',
       coverSelectionView: 'none',
@@ -92,12 +97,15 @@ export default {
     },
     setBgImgUrl(imgUrl){
       this.style.bgColor= null
-      this.style. bgImgUrl= imgUrl
+      this.style.bgImgUrl= imgUrl
       console.log(this.style)
       this.$store.dispatch({type: "setBoardStyle",style: this.style })
+    }, 
+    timeFormat(time) {
+      return moment(time).fromNow()
     },
-   
-   
   },
+  computed: {
+  }
 }
 </script>
