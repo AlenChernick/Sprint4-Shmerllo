@@ -2,32 +2,34 @@
   <section class="task-edit">
     <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
       <img :src="getCurrTask.style.coverImgUrl" />
+      <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
+        <span class="close-task-edit-icon"></span>
+      </div>
+    </div>
+    <div v-else class="close-task-edit-no-img" @click="backToBoard">
+      <span class="close-task-edit-no-img-icon"></span>
     </div>
     <div class="task-edit-header">
       <span class="task-edit-header-icon"></span>
       <input @input="saveTask" spellcheck="false" v-model="getCurrTask.title" type="text" />
-      <button @click="backToBoard">X</button>
     </div>
     <div class="task-list-name">
       <p>in List... to add when nestedroute</p>
     </div>
     <div class="main-task-editor-container">
-      <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
-      <!-- <img src="task.byMember.imgUrl"/> -->
       <div class="main-task-edit-container">
         <div class="main-editor">
-          <ul class="main-task-members" v-for="member in getCurrTask.memberIds">
-            Members
-            <li>
-              <p>{{ member }}</p>
-            </li>
-          </ul>
-          <ul v-for="label in getCurrTask.labelIds">
-            Labels
-            <li>
-              <p>{{ label }}</p>
-            </li>
-          </ul>
+          <div class="main-task-members-container">
+            <div class="main-task-members-header">Members</div>
+            <div class="main-task-members">
+              <ul v-for="member in getCurrBoard.members">
+                <li>
+                  <img class="main-task-member-img" :src="`${member.imgUrl}`" alt="member" />
+                </li>
+              </ul>
+            </div>
+          </div>
+          <label-picker />
           <div class="main-editor-dates">
             Dates
             <div class="main-editor-dates-picker">
@@ -39,9 +41,12 @@
         <div class="main-editor-description">
           <span class="main-editor-description-icon"></span>
           <h4 class="main-editor-description-title">Description</h4>
-          <el-button v-if="!isEdit" class="btn main-editor-decription-edit-btn" type="info">Edit</el-button>
+          <el-button @click="onEdit" v-if="!isEdit" class="btn main-editor-decription-edit-btn" type="info"
+            >Edit</el-button
+          >
         </div>
         <textarea
+          :class="openTextArea"
           spellcheck="false"
           @click="onEdit"
           v-model="getCurrTask.description"
@@ -62,7 +67,7 @@
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
+              <el-checkbox @input=";[(todo.isDone = !todo.isDone), saveTask()]">{{ todo.title }}</el-checkbox>
               <pre>{{ todo }}</pre>
             </li>
           </ul>
@@ -88,23 +93,35 @@
             </textarea>
           </div>
         </div>
-        <!-- <ul v-for="comment in task.comments">
-          Activity
-          <li>
-            <p>{{ comment.byMember.fullName }}</p>
-            <p>{{ comment.txt }}</p>
-            <p>{{ new Date(comment.createdAt).toString() }}</p>
-            <img :src="comment.byMember.imgUrl" />
-          </li>
-        </ul> -->
       </div>
       <div class="main-task-sidebar">
-        <h6>Add to card</h6>
-        <div class="main-task-edit-btn"><h5>Members</h5></div>
-        <div class="main-task-edit-btn"><h5>Labels</h5></div>
-        <div class="main-task-edit-btn"><h5>Checklist</h5></div>
-        <div class="main-task-edit-btn"><h5>Dates</h5></div>
-        <div class="main-task-edit-btn"><h5>Attachment</h5></div>
+        <div class="main-task-header">Add to card</div>
+        <div class="main-task-edit-btn">
+          <span class="members-icon"></span>
+          Members
+        </div>
+        <div class="main-task-edit-btn">
+          <span class="labels-icon"></span>
+          Labels
+        </div>
+        <div class="main-task-edit-btn">
+          <span class="checklist-icon"></span>
+          Checklist
+        </div>
+        <div class="main-task-edit-btn">
+          <span class="dates-icon"
+            ><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock"
+          /></span>
+          Dates
+        </div>
+        <div class="main-task-edit-btn">
+          <span class="attachment-icon"></span>
+          Attachment
+        </div>
+        <div class="main-task-edit-btn">
+          <span class="cover-icon"></span>
+          Cover
+        </div>
       </div>
     </div>
     <!-- <pre>{{task}}</pre> -->
@@ -112,6 +129,7 @@
 </template>
 <script>
 import { ref } from 'vue'
+import labelPicker from '../components/label-picker.vue'
 
 export default {
   name: 'task-edit',
@@ -122,6 +140,7 @@ export default {
       isEdit: false,
       isWrite: false,
       dateValue: ref(''),
+      imgUrl: null,
     }
   },
   async created() {
@@ -141,15 +160,15 @@ export default {
     }
   },
   methods: {
-    saveTask(todo) {
+    saveTask() {
+      this.isEdit = false
+      console.log(this.getCurrTask)
       this.$store.dispatch({
         type: 'saveTask',
-        task: this.getCurrTask,
+        task: JSON.parse(JSON.stringify(this.getCurrTask)),
         groupId: this.groupId,
         boardId: this.boardId,
       })
-      todo.isDone = !todo.isDone
-      // this.isEdit = false
     },
     removeTask() {
       this.$store.dispatch({
@@ -174,7 +193,15 @@ export default {
     getCurrTask() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
     },
+    getCurrBoard() {
+      return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+    },
+    openTextArea() {
+      return this.isEdit ? 'open-text-area' : ''
+    },
+  },
+  components: {
+    labelPicker,
   },
 }
 </script>
-<style></style>

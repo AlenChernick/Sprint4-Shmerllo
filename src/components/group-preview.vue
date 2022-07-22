@@ -1,31 +1,56 @@
 <template>
   <section>
     <div class="group-header flex">
-      <div class="group-subject">{{ group.title }}</div>
+      <!-- <div class="">{{ group.title }}</div> -->
+      <div class="group-subject-header">
+        <input
+          type="text"
+          v-model="group.title"
+          @input="onSaveGroup(group.id)"
+        />
+      </div>
       <div class="group-dots-options-box">
-        <div class="group-dots-options" @click="onRemoveGroup(group.id)">
-          <font-awesome-icon icon="fa-solid fa-ellipsis" />
+        <span
+          class="group-dots-options"
+          
+          @click="groupOptionsModal = !groupOptionsModal"
+        ></span>
+        <div v-if="groupOptionsModal" class="group-options-modal flex flex-column" >
+        <span class="group-options-modal-header">List Actions</span>
+          <span class="group-options-modal-delete" @click="onRemoveGroup(group.id)">Delete Group</span>
         </div>
       </div>
-      <div class="group-remove-modal">
-
-      </div>
+      <!-- <div class="group-remove-modal"></div> -->
     </div>
     <task-list :tasks="group.tasks" :groupId="group.id" />
-    <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal=!newTaskModal">
+    <div
+      v-if="!newTaskModal"
+      class="task-adding-conteiner flex"
+      @click="newTaskModal = !newTaskModal"
+    >
       <div class="task-adding-btn">
         <font-awesome-icon icon="fa-solid fa-plus" />
       </div>
-    <div>Add new card</div>
+      <div>Add new card</div>
     </div>
     <div v-else>
-    <textarea  cols="30" rows="2"  
-      class="new-task-area"
-      placeholder="Enter a title for this card..."
-    ></textarea>
-    <button @click="newTaskModal=!newTaskModal">x</button>
-    <button @click="oneNewTask(group.id)">add</button>
-  </div>
+      <textarea
+        cols="30"
+        rows="2"
+        class="new-task-area"
+        placeholder="Enter a title for this card..."
+        v-model="taskTitle"
+      ></textarea>
+      <div class="new-task-add-remove-conteiner flex">
+        <el-button type="primary" @click="oneNewTask(group.id)"
+          >Add Card</el-button
+        >
+        <span
+          class="cancel-add-task"
+          @click="newTaskModal = !newTaskModal"
+        ></span>
+      </div>
+    </div>
   </section>
 </template>
 <script>
@@ -42,7 +67,9 @@ export default {
     return {
       currBoard: {},
       currTask: {},
-      newTaskModal:false,
+      newTaskModal: false,
+      groupOptionsModal: false,
+      taskTitle: "",
     }
   },
   created() {
@@ -52,10 +79,19 @@ export default {
   },
   methods: {
     oneNewTask(groupId) {
-      // console.log('  this.currBoard', this.currBoard)
-      this.$store.dispatch({ type: "saveTask", groupId })
-      //  newTask("newTaskEvent", groupId)
-      newTaskModal=!newTaskModal
+
+      this.$store.dispatch({
+        type: "saveTask",
+        groupId,
+        taskTitle: this.taskTitle,
+        userAction: "Add new card"
+      })
+      this.newTaskModal = !this.newTaskModal
+      this.taskTitle = ""
+    },
+    onSaveGroup(groupId) {
+      const boardId = this.currBoard._id
+      this.$store.dispatch({ type: "saveGroup", group: this.group, boardId })
     },
     onRemoveGroup(groupId) {
       const boardId = this.currBoard._id

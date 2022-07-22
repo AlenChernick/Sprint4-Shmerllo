@@ -20,6 +20,7 @@ html {
 
 body {
   margin: 0;
+  padding: 0;
   background-color: $clr2;
 
   @include for-normal-layout {
@@ -73,7 +74,7 @@ p {
     position: relative;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       display: block;
       top: 0;

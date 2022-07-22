@@ -131,10 +131,11 @@ async function getTaskById(boardId, groupId, taskId) {
 
 
 
-async function saveTask(task, groupId, boardId) {
+async function saveTask(task,taskTitle, groupId, boardId) {
     console.log(groupId, boardId, task)
    if (task === null) {
       task = _createTask()
+      task.title =taskTitle
    }
     try {
         //GET BOARD
@@ -516,7 +517,7 @@ function getEmptyActivity(){
                 fullname: 'Alon Kolker',
                 imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
             },
-            task: '',
+            task: {},
 
     }
 }
