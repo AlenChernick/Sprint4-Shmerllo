@@ -22,9 +22,12 @@
       <div class="activity-log">
         <ul class="activity-list clean-list" v-for="activity in activities">
           <img :src="activity.byMember.imgUrl"/>
-          <h5>{{activity.txt}}</h5>
-          <h5>{{activity.task.title}}</h5>
-          <h5>{{activity.createdAt}}</h5>
+          <div class="activity-details">
+            <h5>{{activity.byMember.fullname}}</h5>
+            <h4>{{activity.txt}}</h4>
+            <h3>{{activity.task.title}}</h3>
+            <p>{{new Date(activity.createdAt).toString()}}</p>
+          </div>
         </ul>
       </div>
   </section>
