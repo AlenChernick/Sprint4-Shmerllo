@@ -517,7 +517,7 @@ function getEmptyActivity(){
                 fullname: 'Alon Kolker',
                 imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
             },
-            task: '',
+            task: {},
 
     }
 }

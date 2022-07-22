@@ -79,12 +79,12 @@ export default {
   },
   methods: {
     oneNewTask(groupId) {
-      // console.log('  this.currBoard', this.currBoard)
 
       this.$store.dispatch({
         type: "saveTask",
         groupId,
         taskTitle: this.taskTitle,
+        userAction: "Add new card"
       })
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ""
