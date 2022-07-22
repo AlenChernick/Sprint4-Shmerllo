@@ -123,17 +123,24 @@
 
     .main-editor {
       display: flex;
-      grid-gap: 16px;
-      gap: 16px;
+      // gap: 16px;
       position: relative;
       flex-wrap: wrap;
 
-      .main-task-members {
-        display: flex;
-        .main-task-member-img {
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
+      .main-task-members-container {
+        flex-direction: column;
+        padding-top: 3px;
+        .main-task-members {
+          .main-task-members-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+          .main-task-member-img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+          }
         }
       }
 

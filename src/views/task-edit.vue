@@ -17,22 +17,19 @@
       <p>in List... to add when nestedroute</p>
     </div>
     <div class="main-task-editor-container">
-      <!-- <h3>CreatedBy: {{task.byMember.fullname}}</h3> -->
-      <!-- <img src="task.byMember.imgUrl"/> -->
       <div class="main-task-edit-container">
         <div class="main-editor">
-          Members
-          <ul class="main-task-members" v-for="member in getCurrBoard.members">
-            <li>
-              <img class="main-task-member-img" :src="`${member.imgUrl}`" alt="member" />
-            </li>
-          </ul>
-          <ul v-for="label in getCurrTask.labelIds">
-            Labels
-            <li>
-              <p>{{ label }}</p>
-            </li>
-          </ul>
+          <div class="main-task-members-container">
+            <div class="main-task-members-header">Members</div>
+            <div class="main-task-members">
+              <ul v-for="member in getCurrBoard.members">
+                <li>
+                  <img class="main-task-member-img" :src="`${member.imgUrl}`" alt="member" />
+                </li>
+              </ul>
+            </div>
+          </div>
+          <label-picker />
           <div class="main-editor-dates">
             Dates
             <div class="main-editor-dates-picker">
@@ -96,15 +93,6 @@
             </textarea>
           </div>
         </div>
-        <!-- <ul v-for="comment in task.comments">
-          Activity
-          <li>
-            <p>{{ comment.byMember.fullName }}</p>
-            <p>{{ comment.txt }}</p>
-            <p>{{ new Date(comment.createdAt).toString() }}</p>
-            <img :src="comment.byMember.imgUrl" />
-          </li>
-        </ul> -->
       </div>
       <div class="main-task-sidebar">
         <div class="main-task-header">Add to card</div>
@@ -141,6 +129,7 @@
 </template>
 <script>
 import { ref } from 'vue'
+import labelPicker from '../components/label-picker.vue'
 
 export default {
   name: 'task-edit',
@@ -210,6 +199,9 @@ export default {
     openTextArea() {
       return this.isEdit ? 'open-text-area' : ''
     },
+  },
+  components: {
+    labelPicker,
   },
 }
 </script>
