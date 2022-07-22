@@ -4,6 +4,7 @@ export default {
   state: {
     boards: [],
     currBoard: {},
+    currTask: {},
   },
   getters: {
     getBoards({ boards }) {
@@ -13,6 +14,9 @@ export default {
       // console.log(currBoard);
       return currBoard
     },
+    getCurrTask({ currTask }) {
+      return currTask
+    }
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -20,6 +24,9 @@ export default {
     },
     setCurrBoard(state, { currBoard }) {
       state.currBoard = currBoard
+    },
+    setCurrTask(state, { currTask }) {
+      state.currTask = currTask
     },
     removeBoard(state, { id }) {
       const idx = state.boards.findIndex((board) => board._id === id)
@@ -46,6 +53,8 @@ export default {
       // saveTask(state, {newBoards }) {
       // state.boards = newBoards
       // return
+      console.log('savedTask, groupId, boardId', savedTask, groupId, boardId)
+
       const groupIdx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
       )
@@ -56,15 +65,15 @@ export default {
       const boardIdx = state.boards.findIndex((board) => board._id === boardId)
       console.log(boardIdx)
       if (taskIdx !== -1) {
-        state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].splice(
-          taskIdx,
-          1,
-          savedTask
-        )
+        // state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].splice(
+        //   taskIdx,
+        //   1,
+        //   savedTask
+        // )
         state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
       } else {
-        console.log(state.boards[boardIdx].groups[groupIdx].tasks)
-        state.boards[boardIdx].groups[groupIdx].tasks.push(savedTask)
+        // console.log(state.boards[boardIdx].groups[groupIdx].tasks)
+        // state.boards[boardIdx].groups[groupIdx].tasks.push(savedTask)
         state.currBoard.groups[groupIdx].tasks.push(savedTask)
       }
     },
@@ -74,16 +83,13 @@ export default {
 
     removeGroup(state, { groupId, boardId }) {
       const boardIdx = state.boards.findIndex((board) => board._id === boardId)
-      console.log(state.boards[boardIdx])
-      const groupIdx = state.boards[boardIdx].groups.findIndex(
-        (group) => group.id === groupId
-      )
-      // console.log(boardIdx,groupIdx);
-      // console.log(state.boards[boardIdx].groups)
-      let temp = state.boards[boardIdx].groups.splice(groupIdx,1)
-      console.log(temp);
-      // console.log(state.boards[boardIdx].groups)
-
+      const groupIdx = state.currBoard.groups.findIndex((group) => group.id === groupId)
+      const groups = JSON.parse(JSON.stringify(state.boards[boardIdx].groups))
+      // console.log('boardIdx', boardIdx)
+      // console.log('groupIdx', groupIdx)
+      // console.log('groups', groups)
+      state.boards[boardIdx].groups.splice(groupIdx, 1)
+      state.boards[boardIdx].groups = groups
     },
   },
   actions: {
@@ -126,8 +132,8 @@ export default {
     },
     async getTaskById({ commit }, { boardId, groupId, taskId }) {
       try {
-        const task = await boardService.getTaskById(boardId, groupId, taskId)
-        return task
+        const currTask = await boardService.getTaskById(boardId, groupId, taskId)
+        commit({ type: 'setCurrTask', currTask })
       } catch (err) {
         console.error("cannot get task", err)
         throw err
@@ -137,6 +143,7 @@ export default {
       { commit, state },
       { task = null, groupId, boardId = null }
     ) {
+
       if (boardId === null)
         boardId = JSON.parse(JSON.stringify(state.currBoard._id))
       console.log(task, groupId, boardId)
@@ -210,13 +217,10 @@ export default {
         throw err
       }
     },
-    async removeGroup({ commit, state,dispatch }, { groupId, boardId }) {
-      // const boardId = state.currBoard._id
-      console.log(groupId, boardId)
+    async removeGroup({ commit }, { groupId, boardId }) {
       try {
         await boardService.removeGroup(groupId, boardId)
         commit({ type: "removeGroup", groupId, boardId })
-        // dispatch({ type: "loadBoards" })
       } catch (err) {
         console.log("Cannot remove group", err)
         throw err
