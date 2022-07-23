@@ -66,11 +66,11 @@ async function getGroupById(boardId, groupId) {
 
 
 
-async function saveGroup(group, boardId,subject) {
-if(!group){
-    group = _getEmptGroup()
-    group.title = subject
-}
+async function saveGroup(group, boardId, subject) {
+    if (!group) {
+        group = _getEmptGroup()
+        group.title = subject
+    }
 
     try {
         //GET BOARD
@@ -152,7 +152,7 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
         //DET GROUP
         let group = await getGroupById(boardId, groupId)
         console.log(group)
-        
+
 
         //addTask
         if (!task.id) {
@@ -234,7 +234,7 @@ async function addTodo(task, groupId, checkListId, todoTitle, board) {
         todo.title = todoTitle
         await board.groups[groupIdx].tasks[taskIdx].checklists[checkListIdx].todos.push(todo)
         await saveBoard(board)
-        return board.groups[groupIdx].tasks[taskIdx]
+        return todo
     } catch (err) {
         console.log('Cannot add todo', err)
         throw err
@@ -249,7 +249,7 @@ async function addCheckList(task, groupId, board, checkListTitle) {
         checkList.title = checkListTitle
         await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
         await saveBoard(board)
-        return board.groups[groupIdx].tasks[taskIdx]
+        return checkList
     } catch (err) {
         console.log('Cannot add checklist', err)
         throw err
@@ -303,17 +303,17 @@ function _createTask() {
         comments: [],
     }
 }
-function _getEmptGroup(){
-    return  {
+function _getEmptGroup() {
+    return {
         id: null,
         title: '',
         archivedAt: Date.now(),
         description: ' ',
         type: "draggable",
         tasks: [],
-        style:{},
+        style: {},
     }
-        
+
 }
 
 function getEmptyBoard() {
@@ -812,7 +812,7 @@ function coverOptions() {
 }
 
 
-function _labelOptions(){
+function _labelOptions() {
     return [
         {
             id: 'l101',

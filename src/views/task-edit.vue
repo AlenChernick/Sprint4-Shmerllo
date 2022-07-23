@@ -2,11 +2,11 @@
   <section class="task-edit">
     <!-- <pre>{{taskToEdit.labelIds}}</pre> -->
     <div
-      v-if="getCurrTask.style.bgImgUrl"
+      v-if="getCurrTask.style?.bgColor"
       class="task-edit-cover"
       :style="{ 'background-color': getCurrTask.style.bgColor }"
     >
-      <img :src="getCurrTask.style.bgImgUrl" />
+      <img v-if="getCurrTask.style.bgImgUrl" :src="getCurrTask.style.bgImgUrl" />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
         <span class="close-task-edit-icon"></span>
       </div>
@@ -121,24 +121,21 @@
       </div>
       <div class="main-task-sidebar">
         <div class="main-task-header">Add to card</div>
-        <div class="main-task-edit-btn">
-          <span class="members-icon"></span>
-          Members
-        </div>
-        <label-picker @toggleLabel="toggleLabel" />
 
         <member-picker @toggleMember="toggleMember" />
+        <label-picker @toggleLabel="toggleLabel" />
 
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
         </div>
-        <input
-          v-if="isCheckListAdded"
-          type="text"
-          v-model="checkListTitle"
-          @keyup.enter="addCheckList(checkListTitle)"
-        />
+        <div v-if="isCheckListAdded" class="checklist-modal">
+          <div class="checklist-header">Add checklist</div>
+          <div class="modal-options">
+            <div class="checklist-input-header">Title</div>
+            <input type="text" v-model="checkListTitle" @keyup.enter="addCheckList(checkListTitle)" />
+          </div>
+        </div>
         <div class="main-task-edit-btn">
           <span class="dates-icon"
             ><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock"
