@@ -34,7 +34,16 @@
               <div class="main-task-add-member"><span class="main-task-add-member-icon"></span></div>
             </div>
           </div>
-          <label-picker />
+
+          <!-- <The labels per task are here: /> -->
+          <ul v-for="label in getCurrTask.labelIds">
+                <li>
+                  <p>{{ label }}</p>
+                </li>
+              </ul>
+          <!-- /// -->
+
+
           <div class="main-editor-dates">
             Dates
             <div class="main-editor-dates-picker">
@@ -108,10 +117,13 @@
           <span class="members-icon"></span>
           Members
         </div>
-        <div class="main-task-edit-btn">
+        <label-picker />
+
+        <!-- <div @click="displayLabelPicker='block'" class="main-task-edit-btn">
           <span class="labels-icon"></span>
           Labels
-        </div>
+           <label-picker />
+        </div> -->
         <div @click="addCheckList" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
@@ -150,6 +162,7 @@ export default {
       dateValue: ref(''),
       imgUrl: null,
       isCheckListItemAdded: false,
+      displayLabelPicker: 'none',
     }
   },
   async created() {
@@ -197,6 +210,7 @@ export default {
     },
     backToBoard() {
       this.$router.push(`/board/${this.boardId}`)
+   
     },
     addCheckListItem() {
       this.isCheckListItemAdded = !this.isCheckListItemAdded
