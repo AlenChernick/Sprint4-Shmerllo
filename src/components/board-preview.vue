@@ -35,8 +35,8 @@ export default {
   },
    computed: {
     bgStyle(){
-      if (this.board.style.bgColor) return { 'background-color': this.board.style.bgColor}
       if (this.board.style.bgImgUrl) return {'background-image': `url(${this.board.style.bgImgUrl})` }
+      if (this.board.style.bgColor) return { 'background-color': this.board.style.bgColor}
     },
     isFavoriteIcon(){
       if (this.board.isFavorite) return 'full-star-icon' 

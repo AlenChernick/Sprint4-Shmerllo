@@ -1,5 +1,5 @@
 <template lang="">
-  <section class="board-details full" v-if="board.style" :style="bgStyle">
+  <section class="board-details full" v-if="board" :style="bgStyle">
     <board-header :board="board" />
     <div class="board-list-conteiner flex">
       <group-list
@@ -7,7 +7,6 @@
         :groups="board.groups"
         :key="board.groups"
       />
-
     </div>
     <router-view />
   </section>
@@ -56,8 +55,10 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
     bgStyle() {
-      if (this.board && this.board.style.bgColor) return { 'background-color': this.board.style.bgColor }
-      if (this.board && this.board.style.bgImgUrl) return { 'background-image': `url(${this.board.style.bgImgUrl})` }
+      if (this.board && this.board.style.bgColor)
+        return { "background-color": this.board.style.bgColor }
+      if (this.board && this.board.style.bgImgUrl)
+        return { "background-image": `url(${this.board.style.bgImgUrl})` }
     },
   },
   components: {

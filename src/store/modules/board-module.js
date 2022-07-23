@@ -142,10 +142,10 @@ export default {
     },
     async saveTask(
       { commit, state, dispatch },
-      { task = null, taskTitle = '', groupId, boardId, userAction = "" }
+      { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
-
-      console.log(task)
+      boardId = state.currBoard._id
+      console.log(boardId)
 
       try {
         const currBoard = await boardService.saveTask(
@@ -249,36 +249,53 @@ export default {
       }
     },
 
-    async addCheckListItem({ commit }, { task, groupId, checkListId, todoTitle, board }) {
+    async addCheckListItem(
+      { commit },
+      { task, groupId, checkListId, todoTitle, board }
+    ) {
       try {
-        const currTask = await boardService.addTodo(task, groupId, checkListId, todoTitle, board)
+        const currTask = await boardService.addTodo(
+          task,
+          groupId,
+          checkListId,
+          todoTitle,
+          board
+        )
         commit({ type: "setCurrTask", currTask })
       } catch (err) {
-        console.log('Cannot add checklist item', err);
+        console.log("Cannot add checklist item", err)
         throw err
       }
     },
     async addCheckList({ commit }, { task, groupId, board, checkListTitle }) {
       try {
-        const currTask = await boardService.addCheckList(task, groupId, board, checkListTitle)
+        const currTask = await boardService.addCheckList(
+          task,
+          groupId,
+          board,
+          checkListTitle
+        )
         commit({ type: "setCurrTask", currTask })
       } catch (err) {
-        console.log('Cannot add checklist', err);
+        console.log("Cannot add checklist", err)
         throw err
       }
     },
-    async removeCheckList({ commit, dispatch }, { task, groupId, board, checkListId }) {
-      const userAction = 'removed checklist'
+    async removeCheckList(
+      { commit, dispatch },
+      { task, groupId, board, checkListId }
+    ) {
+      const userAction = "removed checklist"
       const boardId = board._id
       try {
         await boardService.removeCheckList(task, groupId, board, checkListId)
         // commit({ type: "setCurrTask", currTask })
         // dispatch({ type: 'saveTask', task, groupId, boardId, userAction })
       } catch (err) {
-        console.log('Cannot remove check list', err);
+        console.log("Cannot remove check list", err)
         throw err
       }
-    }
+    },
 
     // async addActivity({ state, dispatch }, { userAction, savedTask }) {
     //   console.log('userAction', userAction)
