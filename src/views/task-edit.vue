@@ -1,11 +1,7 @@
 <template>
   <section class="task-edit">
-    <div
-      v-if="getCurrTask.style.bgImgUrl"
-      class="task-edit-cover"
-      :style="{ 'background-color': getCurrTask.style.bgColor }"
-    >
-      <img :src="getCurrTask.style.bgImgUrl" />
+    <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
+      <img v-if="getCurrTask.style.bgImgUrl" :src="getCurrTask.style.bgImgUrl" />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
         <span class="close-task-edit-icon"></span>
       </div>
@@ -84,11 +80,16 @@
               <el-checkbox @input=";[(todo.isDone = !todo.isDone), saveTask()]">{{ todo.title }}</el-checkbox>
             </li>
           </ul>
-          <el-button @click="addCheckListItem" type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
-          <div v-for="todo in checklist.todos" class="check-list-add-item-btn-container">
-            <textarea v-model="todo.title" spellcheck="false"></textarea>
-            <el-button type="primary" @click="saveTask">Save</el-button>
-            <el-button type="info" @click="saveTask">Cancel</el-button>
+          <el-button
+            @click="isCheckListItemAdded = !isCheckListItemAdded"
+            type="info"
+            class="btn main-editor-add-item-btn"
+            >Add an item</el-button
+          >
+          <div v-if="isCheckListItemAdded" class="check-list-add-item-btn-container">
+            <textarea v-model="todoTitle" spellcheck="false"></textarea>
+            <el-button type="primary" @click="addCheckListItem(checklist.id, todoTitle)">Save</el-button>
+            <el-button type="info" @click="addCheckListItem">Cancel</el-button>
           </div>
         </div>
         <div class="main-editor-activity-contianer">
@@ -163,6 +164,7 @@ export default {
       imgUrl: null,
       isCheckListItemAdded: false,
       displayLabelPicker: 'none',
+      todoTitle: '',
     }
   },
   async created() {
@@ -212,13 +214,18 @@ export default {
       this.$router.push(`/board/${this.boardId}`)
    
     },
-    addCheckListItem() {
+    addCheckListItem(checkListId, todoTitle) {
       this.isCheckListItemAdded = !this.isCheckListItemAdded
-      // this.$store.dispatch({ type: 'addCheckListItem' })
+      this.todoTitle = ''
+      this.$store.dispatch({
+        type: 'addCheckListItem',
+        task: JSON.parse(JSON.stringify(this.getCurrTask)),
+        groupId: this.groupId,
+        checkListId,
+        todoTitle,
+        board: this.getCurrBoard,
+      })
     },
-    // addCheckList() {
-    //   this.$store.dispatch({ type: 'addCheckList', title })
-    // },
   },
   computed: {
     getCurrTask() {
@@ -230,6 +237,9 @@ export default {
     openTextArea() {
       return this.isEdit ? 'open-text-area' : ''
     },
+    // boards() {
+    //   return JSON.parse(JSON.stringify(this.$store.getters.getBoards))
+    // },
   },
   components: {
     labelPicker,
