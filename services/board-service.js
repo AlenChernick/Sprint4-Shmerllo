@@ -42,6 +42,9 @@ function removeBoard(boardId) {
 }
 
 function saveBoard(board) {
+    console.log('updatedBoard', board)
+
+
     if (board._id) {
         return storageService.put(STORAGE_KEY, board)
     } else {
@@ -81,7 +84,7 @@ async function saveGroup(group, boardId) {
         await saveBoard(board)
 
         const savedGroup = getGroupById(boardId, group.id)
-       
+
         return savedGroup
     }
     catch (err) {
@@ -128,11 +131,11 @@ async function getTaskById(boardId, groupId, taskId) {
 
 
 
-async function saveTask(task,taskTitle, groupId, boardId) {
+async function saveTask(task, taskTitle, groupId, boardId, userAction) {
     if (task === null) {
         task = _createTask()
         task.title = taskTitle
-   }
+    }
     try {
         //GET BOARD
         let board = await getBoardById(boardId)
@@ -154,12 +157,15 @@ async function saveTask(task,taskTitle, groupId, boardId) {
         //update group
         const groupIdx = board.groups.findIndex((g) => g.id === groupId)
         board.groups.splice(groupIdx, 1, group)
-console.log(groupIdx);
+        board = addActivity(board, task, userAction)
 
         await saveBoard(board)
 
-        const savedTask = getTaskById(boardId, groupId, task.id)
-        return savedTask
+        // const savedTask = await getTaskById(boardId, groupId, task.id)
+        const updatedBoard = await getBoardById(boardId)
+
+        // return savedTask
+        return updatedBoard
     }
     catch (err) {
         console.log('cannot save task', err)
@@ -197,6 +203,16 @@ async function removeTask(taskId, groupId, boardId) {
     }
 }
 
+function addActivity(board, task, userAction) {
+    // console.log('board, task, userAction', board, task, userAction)
+    let activity = getEmptyActivity()
+    activity.txt = userAction || "change"
+    activity.task.id = task.id
+    activity.task.title = task.title
+    board.activities.unshift(activity)
+    return board
+}
+
 
 
 
@@ -225,12 +241,12 @@ function _createBoard(title) {
 
 
 function _createTask() {
-  return {
-    title: "new!",
-    status: "",
-    description: "",
-    comments: [],
-  }
+    return {
+        title: "new!",
+        status: "",
+        description: "",
+        comments: [],
+    }
 }
 
 function getEmptyBoard() {
@@ -288,7 +304,9 @@ function getEmptyBoard() {
                         title: 'Add Samples'
                     }
                 ],
-                style: {}
+                style: {
+                    bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'
+                }
             },
             {
                 id: 'g102',
@@ -329,16 +347,36 @@ function getEmptyBoard() {
                                 ]
                             }
                         ],
-                        memberIds: ['u101'],
+                        memberIds: ['m101', 'm102', 'm103', 'm104'],
                         labelIds: ['l101', 'l102'],
                         createdAt: 1590999730348,
                         dueDate: 16156215211,
-                        byMember: {
-                            _id: 'u101',
-                            username: 'Tal',
-                            fullname: 'Tal Tarablus',
-                            imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg'
-                        },
+                        byMember: [
+                            {
+                                id: 'm101',
+                                username: 'THT',
+                                fullname: 'Tal Hammer Topaz',
+                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
+                            },
+                            {
+                                id: 'm102',
+                                username: 'AK',
+                                fullname: 'Alon Kolker',
+                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+                            },
+                            {
+                                id: 'm103',
+                                username: 'AC',
+                                fullname: 'Alen Alen Chernick',
+                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
+                            },
+                            {
+                                id: 'm104',
+                                username: 'LS',
+                                fullname: 'Lihi Sered',
+                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512',
+                            },
+                        ],
                         style: {
                             bgColor: '#26de81',
                             bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
@@ -408,12 +446,12 @@ function getEmptyBoard() {
                         createdAt: 1590999730348,
                         dueDate: 16156215211,
                         byMember: {
-                                id: 'm102',
-                                username: 'AK',
-                                fullname: 'Alon Kolker',
-                                imgUrl: '../assets/img/AK.jpg',
-                                createdAt: '2021-12-11T10:01:48.000Z'
-                         },
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
                         style: {
                             bgColor: '#26de81',
                             coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
@@ -429,10 +467,10 @@ function getEmptyBoard() {
                 txt: 'Changed Color',
                 createdAt: 1589983468418,
                 byMember: {
-                        id: 'm103',
-                        username: 'AC',
-                        fullname: 'Alen Chernick',
-                        imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
+                    id: 'm103',
+                    username: 'AC',
+                    fullname: 'Alen Chernick',
+                    imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
                 },
                 task: {
                     id: 'c101',
@@ -500,42 +538,42 @@ function getEmptyBoard() {
 }
 
 
-function getEmptyActivity(){
+function getEmptyActivity() {
     return {
-            id: utilService.makeId(),
-            txt: '',
-            createdAt: Date.now(),
-            //will replace later to loggedin user
-            byMember: {
-                id: 'm102',
-                username: 'AK',
-                fullname: 'Alon Kolker',
-                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
-            },
-            task: {},
+        id: utilService.makeId(),
+        txt: '',
+        createdAt: Date.now(),
+        //will replace later to loggedin user
+        byMember: {
+            id: 'm102',
+            username: 'AK',
+            fullname: 'Alon Kolker',
+            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+        },
+        task: {},
 
     }
 }
 
 
 
-function coverOptions(){
-    return{
-        coverColors: [ '#277da1', '#4d908e', '#fb6f92', '#90be6d', '#f9c74f',
-                       '#f9844a' ,'#00b4d8' , '#3a5a40'],
+function coverOptions() {
+    return {
+        coverColors: ['#277da1', '#4d908e', '#fb6f92', '#90be6d', '#f9c74f',
+            '#f9844a', '#00b4d8', '#3a5a40'],
         coverImgs: ['https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
-                       'https://media.istockphoto.com/photos/the-sun-goes-down-behind-the-autumn-forest-picture-id1162998855?k=20&m=1162998855&s=612x612&w=0&h=JLbCH4hLaO5war1ipJXx7eoxXMdhcMXFO9pwXz1NR1Q=',
-                    'https://wallpaperaccess.com/full/1131217.jpg',
-                    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/close-up-of-tulips-blooming-in-field-royalty-free-image-1584131603.jpg',
-                    'https://media.istockphoto.com/photos/hydrangea-flowers-in-the-garden-picture-id927499422?k=20&m=927499422&s=612x612&w=0&h=9fZtBAXZ3I8qNRTi87SHTDEjbBjyn_eRoDoLAC7zVvg=',
-                    'https://i.pinimg.com/originals/18/28/4e/18284ec99d85c9ee5afaf05baf77083a.jpg',
-                    'https://media.istockphoto.com/photos/colored-ceiling-picture-id1208301897?k=20&m=1208301897&s=612x612&w=0&h=xXFlsJphxez3hgCYRxYmS7yxb5P4-HOtbnsjIVJSSWA=',
-                    'https://assets.weforum.org/global_future_council/image/xALg-7b0WN5aLOY6aejbKW3NepG-PEipzKnEuyS8ZlI.jpeg',
-                    'https://media.cntraveler.com/photos/5ca60f7f7b531a5e47949cde/master/w_4000,h_2400,c_limit/NYC_GettyImages-500619014.jpg',
-                    'https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg?auto=compress&cs=tinysrgb&w=1600',
+            'https://media.istockphoto.com/photos/the-sun-goes-down-behind-the-autumn-forest-picture-id1162998855?k=20&m=1162998855&s=612x612&w=0&h=JLbCH4hLaO5war1ipJXx7eoxXMdhcMXFO9pwXz1NR1Q=',
+            'https://wallpaperaccess.com/full/1131217.jpg',
+            'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/close-up-of-tulips-blooming-in-field-royalty-free-image-1584131603.jpg',
+            'https://media.istockphoto.com/photos/hydrangea-flowers-in-the-garden-picture-id927499422?k=20&m=927499422&s=612x612&w=0&h=9fZtBAXZ3I8qNRTi87SHTDEjbBjyn_eRoDoLAC7zVvg=',
+            'https://i.pinimg.com/originals/18/28/4e/18284ec99d85c9ee5afaf05baf77083a.jpg',
+            'https://media.istockphoto.com/photos/colored-ceiling-picture-id1208301897?k=20&m=1208301897&s=612x612&w=0&h=xXFlsJphxez3hgCYRxYmS7yxb5P4-HOtbnsjIVJSSWA=',
+            'https://assets.weforum.org/global_future_council/image/xALg-7b0WN5aLOY6aejbKW3NepG-PEipzKnEuyS8ZlI.jpeg',
+            'https://media.cntraveler.com/photos/5ca60f7f7b531a5e47949cde/master/w_4000,h_2400,c_limit/NYC_GettyImages-500619014.jpg',
+            'https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg?auto=compress&cs=tinysrgb&w=1600',
 
 
-                 ],
+        ],
 
     }
 
