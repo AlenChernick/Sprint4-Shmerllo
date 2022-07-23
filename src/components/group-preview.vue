@@ -90,6 +90,7 @@ export default {
         groupId,
         taskTitle: this.taskTitle,
         userAction: "Add new card",
+        currBoard:this.currBoard 
       })
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ""
