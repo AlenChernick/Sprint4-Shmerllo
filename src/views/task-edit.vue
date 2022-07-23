@@ -30,7 +30,16 @@
               <div class="main-task-add-member"><span class="main-task-add-member-icon"></span></div>
             </div>
           </div>
-          <label-picker />
+
+          <!-- <The labels per task are here: /> -->
+          <ul v-for="label in getCurrTask.labelIds">
+                <li>
+                  <p>{{ label }}</p>
+                </li>
+              </ul>
+          <!-- /// -->
+
+
           <div class="main-editor-dates">
             Dates
             <div class="main-editor-dates-picker">
@@ -111,11 +120,19 @@
           <span class="members-icon"></span>
           Members
         </div>
-        <div class="main-task-edit-btn">
+        <label-picker />
+
+        <!-- <div @click="displayLabelPicker='block'" class="main-task-edit-btn">
           <span class="labels-icon"></span>
           Labels
+<<<<<<< HEAD
         </div>
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
+=======
+           <label-picker />
+        </div> -->
+        <div @click="addCheckList" class="main-task-edit-btn">
+>>>>>>> 355c27584acbf8997aff8d771d630531fb9e3380
           <span class="checklist-icon"></span>
           Checklist
         </div>
@@ -159,7 +176,11 @@ export default {
       dateValue: ref(''),
       imgUrl: null,
       isCheckListItemAdded: false,
+<<<<<<< HEAD
       isCheckListAdded: false,
+=======
+      displayLabelPicker: 'none',
+>>>>>>> 355c27584acbf8997aff8d771d630531fb9e3380
       todoTitle: '',
       checkListTitle: '',
     }
@@ -209,6 +230,7 @@ export default {
     },
     backToBoard() {
       this.$router.push(`/board/${this.boardId}`)
+   
     },
     addCheckListItem(checkListId, todoTitle) {
       this.isCheckListItemAdded = !this.isCheckListItemAdded

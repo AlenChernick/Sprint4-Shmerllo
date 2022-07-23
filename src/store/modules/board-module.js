@@ -233,6 +233,16 @@ export default {
         throw err
       }
     },
+    async editLabels({ state, dispatch }, { labels }) {
+      try {
+        let board = JSON.parse(JSON.stringify(state.currBoard))
+        board.boardLabels = labels
+        dispatch({ type: "saveBoard", board })
+      } catch (err) {
+        console.log("Cannot change style", err)
+        throw err
+      }
+    },
 
     async addCheckListItem({ commit }, { task, groupId, checkListId, todoTitle, board }) {
       try {
