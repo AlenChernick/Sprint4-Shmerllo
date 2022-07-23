@@ -4,6 +4,7 @@
   grid-template-columns: repeat(auto-fit, minmax(100px, 350px));
   background-color: white;
 
+
   .board-preview {
     // border: 0.5rem solid $clr2;
     border-radius: 8px;
@@ -14,6 +15,7 @@
     padding: 1rem;
     position: relative;
     transition: opacity 0.5s;
+
     // background-color: $clr4;
     cursor: pointer;
   

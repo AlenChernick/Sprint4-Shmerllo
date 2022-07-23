@@ -4,27 +4,37 @@
 }
 .group-preview {
   width: 272px;
-  padding: 4px 4px;
-  margin: 8px 4px 10px 0;
+  padding: 4px 7px;
+  margin: 8px 4px 10px 4px;
   color: black;
   background-color: #ebecf0;
   box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
   border-radius: 3px;
   white-space: normal;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  .task-adding-conteiner{
+    padding: 1px 0px 6px 16px;
+    color: #5e6c84;
+  }
 }
 
 .group-header {
   justify-content: space-between;
+  align-items: center;
+  padding: 0 7px 5px  7px;
 }
 .group-subject-header {
-  width: 100%;
+  width: 90%;
   input {
+    font-size: 14px;
+padding: 5px;
+    font-weight: 600;
+    color: #5e6c84;
     border: none;
-    outline: none;
+    outline:none;
     background-color: transparent;
     width: 100%;
     &:focus {
@@ -45,16 +55,19 @@
     }
     &:hover {
       background-color: lightgrey;
-  
     }
   }
-
 }
 
 .new-task-area {
   width: 100%;
-  border: 2px solid blue;
-  outline:blue;
+  // border: 2px solid blue;
+  // outline: blue;
+    border: none;
+  outline: none;
+  // box-shadow: 0 1px 0 rgb(22 24 27 / 25%);
+box-shadow:  rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+padding: 6px;
 }
 
 .cancel-add-task {
@@ -93,7 +106,6 @@
     padding: 0 12px 12px;
     display: flex;
     justify-content: center;
-  
   }
   .group-options-modal-delete {
     display: flex;
@@ -101,7 +113,10 @@
     &:hover {
       border-radius: 3px;
       background-color: rgba(211, 211, 211, 0.521);
-  
     }
   }
+}
+
+.trello-plux-btn{
+  margin-inline-end: 5px;
 }

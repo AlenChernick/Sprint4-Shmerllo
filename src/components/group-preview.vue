@@ -35,20 +35,20 @@
       @click="newTaskModal = !newTaskModal"
     >
       <div class="task-adding-btn">
-        <font-awesome-icon icon="fa-solid fa-plus" />
+        <font-awesome-icon icon="fa-solid fa-plus" class="trello-plux-btn"/>
       </div>
-      <div>Add new card</div>
+      <div> Add a card</div>
     </div>
     <div v-else>
       <textarea
         cols="30"
-        rows="2"
+        rows="4"
         class="new-task-area"
         placeholder="Enter a title for this card..."
         v-model="taskTitle"
       ></textarea>
       <div class="new-task-add-remove-conteiner flex">
-        <el-button type="primary" @click="oneNewTask(group.id)"
+        <el-button class="trello-plux-btn" type="primary" @click="oneNewTask(group.id)"
           >Add Card</el-button
         >
         <span

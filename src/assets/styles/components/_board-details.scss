@@ -11,9 +11,9 @@
   background-color: #ffffff00;
   border-radius: 3px;
   max-height: calc(100vh - 200px);
-  margin: 10px ​4px 8px 3px;
 
   .add-new-group-btn {
+    margin-inline-start: 3px;
     color: white;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.0784313725490196);
