@@ -33,8 +33,7 @@ export default {
   methods: {
     onDrop(dropRes) {
       this.cols = applyDrag(this.cols, dropRes)
-      this.$store.dispatch({ type: 'saveGroups', groups: this.cols })
-      console.log('cols', this.cols)
+      this.$store.dispatch({ type: 'saveGroups', groups: this.cols ,currBoard:this.currBoard})
     },
     getChildPayload(idx) {
       return this.cols[idx]

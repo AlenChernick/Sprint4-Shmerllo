@@ -47,7 +47,6 @@ export default {
   methods: {
     onDrop(dropRes) {
       if (this.item === this.tasks) return
-      console.log("items", this.items)
       this.items = applyDrag(this.items, dropRes)
       this.$store.dispatch({
         type: "saveTasks",

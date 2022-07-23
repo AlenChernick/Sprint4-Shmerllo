@@ -46,7 +46,7 @@ export default {
   computed: {
     icon(){
       let board = this.$store.getters.getCurrBoard
-      if (board.isFavorite) return 'full-star-icon' 
+      if (board?.isFavorite) return 'full-star-icon' 
       else return 'star-icon'
     }
 

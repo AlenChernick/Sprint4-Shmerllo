@@ -61,12 +61,10 @@ async function getGroupById(boardId, groupId) {
 
 
 async function saveGroup(group, boardId) {
-    console.log(group, boardId)
 
     try {
         //GET BOARD
         let board = await getBoardById(boardId)
-        console.log(board)
 
         //addgroup
         if (!group.id) {
@@ -80,7 +78,6 @@ async function saveGroup(group, boardId) {
             board.groups.splice(groupIdx, 1, group)
         }
 
-        console.log(board)
         await saveBoard(board)
 
         const savedGroup = getGroupById(boardId, group.id)
@@ -132,10 +129,9 @@ async function getTaskById(boardId, groupId, taskId) {
 
 
 async function saveTask(task,taskTitle, groupId, boardId) {
-    console.log(groupId, boardId, task)
-   if (task === null) {
-      task = _createTask()
-      task.title =taskTitle
+    if (task === null) {
+        task = _createTask()
+        task.title = taskTitle
    }
     try {
         //GET BOARD
@@ -149,7 +145,6 @@ async function saveTask(task,taskTitle, groupId, boardId) {
             task.id = utilService.makeId()
             group.tasks.push(task)
         }
-
         // or update task
         else {
             const taskIdx = group.tasks.findIndex((t) => t.id === task.id)
@@ -159,7 +154,7 @@ async function saveTask(task,taskTitle, groupId, boardId) {
         //update group
         const groupIdx = board.groups.findIndex((g) => g.id === groupId)
         board.groups.splice(groupIdx, 1, group)
-
+console.log(groupIdx);
 
         await saveBoard(board)
 

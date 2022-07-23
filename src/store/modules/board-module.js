@@ -61,9 +61,9 @@ export default {
         (task) => task.id === savedTask.id
         )
         const boardIdx = state.boards.findIndex((board) => board._id === boardId)
-        console.log(taskIdx,groupIdx, boardIdx)
-      // console.log(boardIdx)
-      if (taskIdx !== -1) {
+        // console.log(boardIdx)
+        if (taskIdx !== -1) {
+        // console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
         state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].splice(taskIdx, 1,savedTask)
         state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
       } else {
@@ -152,7 +152,6 @@ export default {
       { task = null, taskTitle, groupId, boardId = null, userAction = "" }
     ) {
       if (boardId === null) boardId = state.currBoard._id
-
       try {
         const savedTask = await boardService.saveTask(
           task,
@@ -169,7 +168,7 @@ export default {
         dispatch({ type: "addActivity", activity })
 
         commit({ type: "saveTask", savedTask, groupId, boardId })
-        // commit({ type: "saveTask", newBoards })
+
       } catch (err) {
         console.log("Cannot save task", err)
         throw err
@@ -196,10 +195,12 @@ export default {
         throw err
       }
     },
-    async saveGroups({ commit, state, dispatch }, { groups }) {
+    async saveGroups({ commit, state, dispatch }, { groups,currBoard }) {
       try {
-        // console.log("store", state.currBoard)
-        let currBoard = JSON.parse(JSON.stringify(state.currBoard))
+        
+        // Notice! Before it was like mantion above, new code line is runnig without errors code 
+        // let currBoard = JSON.parse(JSON.stringify(state.currBoard))
+        currBoard = JSON.parse(JSON.stringify(currBoard))
         currBoard.groups = groups
         const savedBoard = await boardService.saveBoard(currBoard)
         commit({ type: "setCurrBoard", savedBoard })
@@ -257,10 +258,8 @@ export default {
       }
     },
     async addActivity({ state, dispatch }, { activity }) {
-      console.log(activity)
       try {
         let board = JSON.parse(JSON.stringify(state.currBoard))
-        console.log(board)
         board.activities.unshift(activity)
         dispatch({ type: "saveBoard", board })
       } catch (err) {

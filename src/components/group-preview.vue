@@ -12,12 +12,18 @@
       <div class="group-dots-options-box">
         <span
           class="group-dots-options"
-          
           @click="groupOptionsModal = !groupOptionsModal"
         ></span>
-        <div v-if="groupOptionsModal" class="group-options-modal flex flex-column" >
-        <span class="group-options-modal-header">List Actions</span>
-          <span class="group-options-modal-delete" @click="onRemoveGroup(group.id)">Delete Group</span>
+        <div
+          v-if="groupOptionsModal"
+          class="group-options-modal flex flex-column"
+        >
+          <span class="group-options-modal-header">List Actions</span>
+          <span
+            class="group-options-modal-delete"
+            @click="onRemoveGroup(group.id)"
+            >Delete Group</span
+          >
         </div>
       </div>
       <!-- <div class="group-remove-modal"></div> -->
@@ -79,12 +85,11 @@ export default {
   },
   methods: {
     oneNewTask(groupId) {
-
       this.$store.dispatch({
         type: "saveTask",
         groupId,
         taskTitle: this.taskTitle,
-        userAction: "Add new card"
+        userAction: "Add new card",
       })
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ""

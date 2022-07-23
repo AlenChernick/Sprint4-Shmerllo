@@ -1,6 +1,6 @@
 <template lang="" >
-  <section v-if="board" class="board-details full"
-       :style="{ 'background-color': board.style.bgColor, 'background-image': `url(${board.style.bgImgUrl})` }">
+  <section v-if=" board.style?.bgColor" class="board-details full"
+       :style="{ 'background-color': board.style.bgColor , 'background-image': `url(${board.style.bgImgUrl})` }">
     <board-header :board="board" />
     <!-- <pre>{{board.style}}</pre> -->
     <group-list
@@ -21,13 +21,12 @@ export default {
   name: "board-details",
   data() {
     return {
-      // board:   {},
+      board:   {},
     }
   },
   async created() {
     try {
       const { boardId } = this.$route.params
-      console.log(boardId)
       const currBoard = await this.$store.dispatch({
         type: "loadCurrBoard",
         boardId,
@@ -49,8 +48,9 @@ export default {
    
   },
    computed: {
-      board() {
-        return JSON.parse((JSON.stringify (this.$store.getters.getCurrBoard)))
+      currBoard() {
+        // return JSON.parse((JSON.stringify (this.$store.getters.getCurrBoard)))
+        this.board = JSON.parse((JSON.stringify (this.$store.getters.getCurrBoard)))
       },
 
     },
