@@ -1,7 +1,7 @@
 <template>
   <section class="task-edit">
     <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
-      <img :src="getCurrTask.style.coverImgUrl" />
+      <img :src="getCurrTask.style.bgImgUrl" />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
         <span class="close-task-edit-icon"></span>
       </div>
@@ -22,7 +22,7 @@
           <div class="main-task-members-container">
             <div class="main-task-members-header">Members</div>
             <div class="main-task-members">
-              <ul v-for="member in getCurrBoard.members">
+              <ul v-for="member in getCurrTask.byMember">
                 <li>
                   <img class="main-task-member-img" :src="`${member.imgUrl}`" alt="member" />
                 </li>
@@ -163,12 +163,13 @@ export default {
   methods: {
     saveTask() {
       this.isEdit = false
-      console.log(this.getCurrTask)
       this.$store.dispatch({
         type: 'saveTask',
         task: JSON.parse(JSON.stringify(this.getCurrTask)),
         groupId: this.groupId,
         boardId: this.boardId,
+        currBoard: this.getCurrBoard,
+        userAction: 'Task update',
       })
     },
     removeTask() {
