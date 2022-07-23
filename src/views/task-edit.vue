@@ -130,7 +130,7 @@
           Checklist
         </div>
         <div v-if="isCheckListAdded" class="checklist-modal">
-          <div class="checklist-header">Add checklist</div>
+          <div class="checklist-header">Add Checklist</div>
           <div class="modal-options">
             <div class="checklist-input-header">Title</div>
             <input type="text" v-model="checkListTitle" @keyup.enter="addCheckList(checkListTitle)" />
