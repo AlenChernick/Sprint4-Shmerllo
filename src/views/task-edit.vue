@@ -1,6 +1,10 @@
 <template>
   <section class="task-edit">
-    <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
+    <div
+      v-if="getCurrTask.style.bgImgUrl"
+      class="task-edit-cover"
+      :style="{ 'background-color': getCurrTask.style.bgColor }"
+    >
       <img :src="getCurrTask.style.bgImgUrl" />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
         <span class="close-task-edit-icon"></span>
@@ -69,11 +73,14 @@
           <ul v-for="todo in checklist.todos">
             <li>
               <el-checkbox @input=";[(todo.isDone = !todo.isDone), saveTask()]">{{ todo.title }}</el-checkbox>
-              <pre>{{ todo }}</pre>
             </li>
           </ul>
-
-          <el-button type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
+          <el-button @click="addCheckListItem" type="info" class="btn main-editor-add-item-btn">Add an item</el-button>
+          <div v-for="todo in checklist.todos" class="check-list-add-item-btn-container">
+            <textarea v-model="todo.title" spellcheck="false"></textarea>
+            <el-button type="primary" @click="saveTask">Save</el-button>
+            <el-button type="info" @click="saveTask">Cancel</el-button>
+          </div>
         </div>
         <div class="main-editor-activity-contianer">
           <div class="main-editor-activity-header">
@@ -105,7 +112,7 @@
           <span class="labels-icon"></span>
           Labels
         </div>
-        <div class="main-task-edit-btn">
+        <div @click="addCheckList" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
         </div>
@@ -142,6 +149,7 @@ export default {
       isWrite: false,
       dateValue: ref(''),
       imgUrl: null,
+      isCheckListItemAdded: false,
     }
   },
   async created() {
@@ -190,6 +198,13 @@ export default {
     backToBoard() {
       this.$router.push(`/board/${this.boardId}`)
     },
+    addCheckListItem() {
+      this.isCheckListItemAdded = !this.isCheckListItemAdded
+      // this.$store.dispatch({ type: 'addCheckListItem' })
+    },
+    // addCheckList() {
+    //   this.$store.dispatch({ type: 'addCheckList', title })
+    // },
   },
   computed: {
     getCurrTask() {

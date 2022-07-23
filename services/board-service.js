@@ -298,13 +298,51 @@ function getEmptyBoard() {
                     {
                         id: 'c101',
                         title: 'Replace logo',
-                        members: []
+                        status: '',
+                        description: '',
+                        comments: [],
+                        checklists: [],
+                        memberIds: [],
+                        labelIds: [],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
+                        members: [],
+                        style: {
+                            bgColor: '',
+                            bgImgUrl: '',
+                        }
                     },
                     {
                         id: 'c102',
                         title: 'Add Samples',
+                        status: '',
+                        description: '',
+                        comments: [],
+                        checklists: [],
+                        memberIds: [],
+                        labelIds: [],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
                         members: [],
-                    }
+                        style: {
+                            bgColor: '',
+                            bgImgUrl: '',
+                        }
+                    },
                 ],
                 style: {
                     bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg'
@@ -316,8 +354,27 @@ function getEmptyBoard() {
                 tasks: [
                     {
                         id: 'c103',
-                        title: 'Do that',
-                        archivedAt: 1589983468418,
+                        title: 'Add Samples',
+                        status: '',
+                        description: '',
+                        comments: [],
+                        checklists: [],
+                        memberIds: [],
+                        labelIds: [],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
+                        members: [],
+                        style: {
+                            bgColor: '',
+                            bgImgUrl: '',
+                        }
                     },
                     {
                         id: 'c104',
@@ -399,14 +456,52 @@ function getEmptyBoard() {
                 type: "draggable",
                 tasks: [
                     {
-                        id: 'c106',
-                        title: 'Replace logo',
-                        members: []
+                        id: 'c105',
+                        title: 'Add Samples',
+                        status: '',
+                        description: '',
+                        comments: [],
+                        checklists: [],
+                        memberIds: [],
+                        labelIds: [],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
+                        members: [],
+                        style: {
+                            bgColor: '',
+                            bgImgUrl: '',
+                        }
                     },
                     {
-                        id: 'c107',
+                        id: 'c106',
                         title: 'Add Samples',
-                        members: []
+                        status: '',
+                        description: '',
+                        comments: [],
+                        checklists: [],
+                        memberIds: [],
+                        labelIds: [],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
+                        members: [],
+                        style: {
+                            bgColor: '',
+                            bgImgUrl: '',
+                        }
                     }
                 ],
                 style: {}
@@ -416,12 +511,31 @@ function getEmptyBoard() {
                 title: 'Group subject',
                 tasks: [
                     {
-                        id: 'c108',
-                        title: 'Do that',
-                        archivedAt: 1589983468418,
+                        id: 'c107',
+                        title: 'Add Samples',
+                        status: '',
+                        description: '',
+                        comments: [],
+                        checklists: [],
+                        memberIds: [],
+                        labelIds: [],
+                        createdAt: 1590999730348,
+                        dueDate: 16156215211,
+                        byMember: {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: '../assets/img/AK.jpg',
+                            createdAt: '2021-12-11T10:01:48.000Z'
+                        },
+                        members: [],
+                        style: {
+                            bgColor: '',
+                            bgImgUrl: '',
+                        }
                     },
                     {
-                        id: 'c109',
+                        id: 'c108',
                         title: 'Some stuff we need to do and its alot of stuff',
                         status: 'in-progress',
                         description: 'hgfkgf bvkjgfv hjkgfkjhv khjghlb opup iojnm ytreuyteyitufvbn ',
