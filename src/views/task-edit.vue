@@ -64,7 +64,9 @@
               <span class="main-editor-checklist-icon"></span>
               <h4 class="main-editor-checklist-title">{{ checklist.title }}</h4>
             </div>
-            <el-button type="info" class="btn main-editor-checklist-delete-btn">Delete</el-button>
+            <el-button @click="removeCheckList(checklist.id)" type="info" class="btn main-editor-checklist-delete-btn"
+              >Delete</el-button
+            >
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
@@ -113,10 +115,16 @@
           <span class="labels-icon"></span>
           Labels
         </div>
-        <div @click="addCheckList" class="main-task-edit-btn">
+        <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
         </div>
+        <input
+          v-if="isCheckListAdded"
+          type="text"
+          v-model="checkListTitle"
+          @keyup.enter="addCheckList(checkListTitle)"
+        />
         <div class="main-task-edit-btn">
           <span class="dates-icon"
             ><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock"
@@ -137,7 +145,7 @@
   </section>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref, toHandlers } from 'vue'
 import labelPicker from '../components/label-picker.vue'
 
 export default {
@@ -151,7 +159,9 @@ export default {
       dateValue: ref(''),
       imgUrl: null,
       isCheckListItemAdded: false,
+      isCheckListAdded: false,
       todoTitle: '',
+      checkListTitle: '',
     }
   },
   async created() {
@@ -210,6 +220,25 @@ export default {
         checkListId,
         todoTitle,
         board: this.getCurrBoard,
+      })
+    },
+    addCheckList(checkListTitle) {
+      this.$store.dispatch({
+        type: 'addCheckList',
+        task: JSON.parse(JSON.stringify(this.getCurrTask)),
+        groupId: this.groupId,
+        board: this.getCurrBoard,
+        checkListTitle,
+      })
+      this.checkListTitle = ''
+    },
+    removeCheckList(checklistId) {
+      this.$store.dispatch({
+        type: 'removeCheckList',
+        task: JSON.parse(JSON.stringify(this.getCurrTask)),
+        groupId: this.groupId,
+        board: this.getCurrBoard,
+        checklistId,
       })
     },
   },

@@ -24,7 +24,9 @@ export const boardService = {
     removeGroup,
     coverOptions,
     getEmptyActivity,
-    addTodo
+    addTodo,
+    addCheckList,
+    removeCheckList
 }
 
 //get boards
@@ -226,6 +228,35 @@ async function addTodo(task, groupId, checkListId, todoTitle, board) {
         return board.groups[groupIdx].tasks[taskIdx]
     } catch (err) {
         console.log('Cannot add todo', err)
+        throw err
+    }
+}
+
+async function addCheckList(task, groupId, board, checkListTitle) {
+    try {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+        let checkList = getEmptyCheckList()
+        checkList.title = checkListTitle
+        await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
+        await saveBoard(board)
+        return board.groups[groupIdx].tasks[taskIdx]
+    } catch (err) {
+        console.log('Cannot add checklist', err)
+        throw err
+    }
+}
+
+async function removeCheckList(task, groupId, board, checkListId) {
+    try {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+        const checkListIdx = task.checklists.findIndex((checkList) => checkList.id === checkListId)
+        await board.groups[groupIdx].tasks[taskIdx].checklists.splice(checkListIdx, 1)
+        await saveBoard(board)
+        return board.groups[groupIdx].tasks[taskIdx]
+    } catch (err) {
+        console.log('Cannot remove checklist', err)
         throw err
     }
 }
@@ -705,6 +736,14 @@ function getEmptyTodo() {
         id: utilService.makeId(),
         title: '',
         isDone: false
+    }
+}
+
+function getEmptyCheckList() {
+    return {
+        id: utilService.makeId(),
+        title: '',
+        todos: []
     }
 }
 
