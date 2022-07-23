@@ -21,7 +21,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: $clr2;
+  background-color: white;
 
   @include for-normal-layout {
     &.sidebar-open {

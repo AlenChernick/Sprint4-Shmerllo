@@ -1,7 +1,82 @@
 .board-list {
   display: grid;
   text-align: center;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 350px));
+  background-color: white;
+
+  .board-preview {
+    // border: 0.5rem solid $clr2;
+    border-radius: 8px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: 20px;
+    margin-right: 20px;
+    padding: 1rem;
+    position: relative;
+    transition: opacity 0.5s;
+    // background-color: $clr4;
+    cursor: pointer;
+  
+        &:hover {
+          opacity: 0.8;
+          
+          // content: '\e966';
+          cursor: pointer;              
+        }
+
+        .non-star-icon{
+
+          font-family: trellicons;
+          color: transparent;
+          transition: color 0.1s;
+          font-weight: 300;
+          font-size: em(25px);
+          position: absolute;
+          right: 10px;
+          bottom: 5px;
+            &::before {
+                content: '\e966';
+              }
+
+          &:hover{
+            color:white;
+          }
+        }
+
+         .full-star-icon {
+          position: absolute;
+          // background-color: aqua;
+          right: 10px;
+          bottom: 5px;    
+          color:  #f2d600;; 
+          font-weight: 300;
+          font-size: em(25px);
+            font-family: trellicons;
+            &::before {
+              content: '\e967';
+            }
+            &:hover {
+                font-family: trellicons;
+                &::before {
+                    content: '\e966';
+                  }
+
+                // content: '\e966';
+                cursor: pointer;      
+            }
+        }
+        
+        h2{
+          color: white;
+          text-shadow: 3px 2px 2px rgba(4,2,1,0.88);
+          font-weight: 700;
+      
+        }
+      }
+      
+
+
+  
 }
 
 .workspace-logo {
