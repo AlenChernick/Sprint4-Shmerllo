@@ -83,10 +83,6 @@ export default {
 
       // state.currBoard.groups.splice(groupIdx, 1)
     },
-    addActivity(state, { activity }) {
-      state.currBoard.activities.unshift(activity)
-    }
-
   },
   actions: {
     async loadBoards({ commit }) {

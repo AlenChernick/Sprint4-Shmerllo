@@ -19,18 +19,15 @@ import groupList from '../components/group-list.vue'
 export default {
   name: 'board-details',
   data() {
-    return {
-      // board: {},
-    }
+    return {}
   },
   async created() {
     try {
       const { boardId } = this.$route.params
-      const currBoard = await this.$store.dispatch({
+      await this.$store.dispatch({
         type: 'loadCurrBoard',
         boardId,
       })
-      this.board = currBoard
     } catch (err) {
       console.log('Cannot load board', err)
       throw err
@@ -48,7 +45,6 @@ export default {
   computed: {
     board() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
-      // this.board = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
   },
   components: {
