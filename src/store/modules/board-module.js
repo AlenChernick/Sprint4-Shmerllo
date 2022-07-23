@@ -54,7 +54,7 @@ export default {
       const idx = state.boards.findIndex((b) => b._id === boardId)
       state.boards[idx].groups = groups
     },
-    saveTask(state, { savedTask, groupId, boardId }) {
+    saveTask(state, { savedTask, groupId }) {
       // state.currBoard = currBoard
       const groupIdx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
@@ -87,9 +87,6 @@ export default {
 
       // state.currBoard.groups.splice(groupIdx, 1)
     },
-    addCheckListItem(state, { task, groupId, checkListId, todoTitle, board }) {
-
-    }
   },
   actions: {
     async loadBoards({ commit }) {
@@ -246,6 +243,16 @@ export default {
         throw err
       }
     },
+    async editLabels({ state, dispatch }, { labels }) {
+      try {
+        let board = JSON.parse(JSON.stringify(state.currBoard))
+        board.boardLabels = labels
+        dispatch({ type: "saveBoard", board })
+      } catch (err) {
+        console.log("Cannot change style", err)
+        throw err
+      }
+    },
 
     async addCheckListItem({ commit }, { task, groupId, checkListId, todoTitle, board }) {
       try {
@@ -253,6 +260,24 @@ export default {
         commit({ type: "setCurrTask", currTask })
       } catch (err) {
         console.log('Cannot add checklist item', err);
+        throw err
+      }
+    },
+    async addCheckList({ commit }, { task, groupId, board, checkListTitle }) {
+      try {
+        const currTask = await boardService.addCheckList(task, groupId, board, checkListTitle)
+        commit({ type: "setCurrTask", currTask })
+      } catch (err) {
+        console.log('Cannot add checklist', err);
+        throw err
+      }
+    },
+    async removeCheckList({ commit }, { task, groupId, board, checkListId }) {
+      try {
+        const currTask = await boardService.removeCheckList(task, groupId, board, checkListId)
+        commit({ type: "setCurrTask", currTask })
+      } catch (err) {
+        console.log('Cannot remove check list', err);
         throw err
       }
     }

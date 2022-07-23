@@ -4,6 +4,7 @@ header.main-header {
   grid-template-rows: 1fr;
   background-color: $clr1;
   padding: 0.5rem;
+  z-index: 10;
   a {
     color: $clr4;
     text-decoration: none;
