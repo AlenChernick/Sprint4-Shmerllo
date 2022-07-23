@@ -142,11 +142,11 @@ export default {
     },
     async saveTask(
       { commit, state, dispatch },
-      { task = null, taskTitle='', groupId, boardId, userAction = "" }
-        ) {
-     
+      { task = null, taskTitle = '', groupId, boardId, userAction = "" }
+    ) {
+
       console.log(task)
-      
+
       try {
         const currBoard = await boardService.saveTask(
           task,
@@ -155,7 +155,7 @@ export default {
           boardId,
           userAction
         )
-        
+
         // commit({ type: "saveTask", savedTask, groupId, boardId })
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
@@ -267,10 +267,13 @@ export default {
         throw err
       }
     },
-    async removeCheckList({ commit }, { task, groupId, board, checkListId }) {
+    async removeCheckList({ commit, dispatch }, { task, groupId, board, checkListId }) {
+      const userAction = 'removed checklist'
+      const boardId = board._id
       try {
-        const currTask = await boardService.removeCheckList(task, groupId, board, checkListId)
-        commit({ type: "setCurrTask", currTask })
+        await boardService.removeCheckList(task, groupId, board, checkListId)
+        // commit({ type: "setCurrTask", currTask })
+        // dispatch({ type: 'saveTask', task, groupId, boardId, userAction })
       } catch (err) {
         console.log('Cannot remove check list', err);
         throw err
