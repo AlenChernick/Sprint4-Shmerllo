@@ -1,7 +1,12 @@
 <template>
   <section class="task-edit">
-    <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
-      <img v-if="getCurrTask.style.bgImgUrl" :src="getCurrTask.style.bgImgUrl" />
+    <!-- <pre>{{taskToEdit.labelIds}}</pre> -->
+    <div
+      v-if="getCurrTask.style.bgImgUrl"
+      class="task-edit-cover"
+      :style="{ 'background-color': getCurrTask.style.bgColor }"
+    >
+      <img :src="getCurrTask.style.bgImgUrl" />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
         <span class="close-task-edit-icon"></span>
       </div>
@@ -22,7 +27,8 @@
           <div class="main-task-members-container">
             <div class="main-task-members-header">Members</div>
             <div class="main-task-members">
-              <ul v-for="member in getCurrTask.members">
+              <!-- <pre>{{taskToEdit.members}}</pre> -->
+              <ul v-for="member in taskToEdit.members">
                 <li>
                   <img class="main-task-member-img" :src="member.imgUrl" alt="member" />
                 </li>
@@ -32,13 +38,12 @@
           </div>
 
           <!-- <The labels per task are here: /> -->
-          <ul v-for="label in getCurrTask.labelIds">
-                <li>
-                  <p>{{ label }}</p>
-                </li>
-              </ul>
+          <ul v-for="label in taskToEdit.labelIds">
+            <li>
+              <p>{{ label }}</p>
+            </li>
+          </ul>
           <!-- /// -->
-
 
           <div class="main-editor-dates">
             Dates
@@ -120,9 +125,10 @@
           <span class="members-icon"></span>
           Members
         </div>
-        <label-picker />
+        <label-picker @toggleLabel="toggleLabel" />
 
-       
+        <member-picker @toggleMember="toggleMember" />
+
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
@@ -155,6 +161,7 @@
 <script>
 import { ref, toHandlers } from 'vue'
 import labelPicker from '../components/label-picker.vue'
+import memberPicker from '../components/member-picker.vue'
 
 export default {
   name: 'task-edit',
@@ -165,12 +172,12 @@ export default {
       isEdit: false,
       isWrite: false,
       dateValue: ref(''),
-      imgUrl: null,
       isCheckListItemAdded: false,
       isCheckListAdded: false,
       displayLabelPicker: 'none',
       todoTitle: '',
       checkListTitle: '',
+      taskToEdit: {},
     }
   },
   async created() {
@@ -184,6 +191,7 @@ export default {
         groupId,
         taskId,
       })
+      this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
     } catch (err) {
       console.log('Cannot load task', err)
       throw err
@@ -218,7 +226,6 @@ export default {
     },
     backToBoard() {
       this.$router.push(`/board/${this.boardId}`)
-   
     },
     addCheckListItem(checkListId, todoTitle) {
       this.isCheckListItemAdded = !this.isCheckListItemAdded
@@ -251,6 +258,48 @@ export default {
         checklistId,
       })
     },
+    toggleLabel(labelId) {
+      const labels = this.taskToEdit.labelIds
+      const idx = labels.findIndex((label) => label === labelId)
+      let userAction = ''
+      if (idx === -1) {
+        userAction = 'Added label'
+        labels.push(labelId)
+      } else {
+        labels.splice(idx, 1)
+        userAction = 'Removed label'
+      }
+      console.log(this.taskToEdit, this.groupId, this.boardId)
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+    toggleMember(member) {
+      const members = this.taskToEdit.members
+      const idx = members.findIndex((m) => m.id === member.id)
+      let userAction = ''
+      if (idx === -1) {
+        userAction = 'Add member'
+        members.push(member)
+      } else {
+        members.splice(idx, 1)
+        userAction = 'Removed member'
+      }
+      console.log(this.taskToEdit, this.groupId, this.boardId)
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
   },
   computed: {
     getCurrTask() {
@@ -268,6 +317,7 @@ export default {
   },
   components: {
     labelPicker,
+    memberPicker,
   },
 }
 </script>

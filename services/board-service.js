@@ -143,12 +143,16 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
         task = _createTask()
         task.title = taskTitle
     }
+
     try {
         //GET BOARD
         let board = await getBoardById(boardId)
+        console.log(board)
 
         //DET GROUP
         let group = await getGroupById(boardId, groupId)
+        console.log(group)
+        
 
         //addTask
         if (!task.id) {
@@ -171,6 +175,7 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
         // const savedTask = await getTaskById(boardId, groupId, task.id)
         const updatedBoard = await getBoardById(boardId)
 
+        console.log(updatedBoard)
         // return savedTask
         return updatedBoard
     }
@@ -740,7 +745,6 @@ function getEmptyBoard() {
             imgUrl: '../assets/img/AK.jpg',
             createdAt: '2021-12-11T10:01:48.000Z'
         },
-        members: [],
         isFavorite: true,
         activityCount: 0,
         lastActivity: 1658239902711,
