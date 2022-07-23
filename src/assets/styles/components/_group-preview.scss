@@ -43,14 +43,18 @@
     &::before {
       content: "\e952";
     }
+    &:hover {
+      background-color: lightgrey;
+  
+    }
   }
-  :hover {
-    background-color: lightgrey;
-  }
+
 }
 
 .new-task-area {
   width: 100%;
+  border: 2px solid blue;
+  outline:blue;
 }
 
 .cancel-add-task {
@@ -70,7 +74,7 @@
 
 .group-options-modal {
   width: 281px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.891);
   font-weight: 400;
   line-height: 40px;
   color: #172b4b;
@@ -89,9 +93,15 @@
     padding: 0 12px 12px;
     display: flex;
     justify-content: center;
+  
   }
   .group-options-modal-delete {
     display: flex;
     justify-content: center;
+    &:hover {
+      border-radius: 3px;
+      background-color: rgba(211, 211, 211, 0.521);
+  
+    }
   }
 }
