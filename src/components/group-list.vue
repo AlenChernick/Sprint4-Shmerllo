@@ -6,6 +6,7 @@
         <group-preview class="group-preview" :group="col" :key="col.id" />
       </Draggable>
     </Container>
+    
   </section>
 </template>
 <script>

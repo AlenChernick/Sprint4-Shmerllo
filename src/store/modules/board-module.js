@@ -40,11 +40,15 @@ export default {
       state.currBoard = board
     },
     saveGroup(state, { savedGroup }) {
-      const idx = state.boards.groups.findIndex((g) => g.id === savedGroup.id)
+      const idx = state.currBoard.groups.findIndex(
+        (g) => g.id === savedGroup.id
+      )
+      console.log(idx)
       if (idx !== -1) {
-        state.boards.groups[idx].splice(idx, 1, savedGroup)
         state.currBoard.groups[idx].splice(idx, 1, savedGroup)
-      } else state.board.groups[idx].push(board)
+      } else {
+        state.currBoard.groups.push(savedGroup)
+      }
     },
     saveGroups(state, { groups, boardId }) {
       const idx = state.boards.findIndex((b) => b._id === boardId)
@@ -62,8 +66,7 @@ export default {
       if (taskIdx !== -1) {
         // state.boards[boardIdx].groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
         state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
-        // console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
-
+        console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
       } else {
         // state.boards[boardIdx].groups[groupIdx].tasks.push(savedTask)
         state.currBoard.groups[groupIdx].tasks.push(savedTask)
@@ -78,7 +81,6 @@ export default {
       const groupIdx = state.boards[boardIdx].groups.findIndex(
         (group) => group.id === groupId
       )
-
 
       state.boards[boardIdx].groups.splice(groupIdx, 1)
       state.currBoard = state.boards[boardIdx]
@@ -156,7 +158,6 @@ export default {
         
         // commit({ type: "saveTask", savedTask, groupId, boardId })
         commit({ type: "setCurrBoard", currBoard })
-
       } catch (err) {
         console.log("Cannot save task", err)
         throw err
@@ -172,10 +173,13 @@ export default {
         throw err
       }
     },
-    async saveGroup({ commit }, { group, groupId, boardId }) {
+    async saveGroup(
+      { commit },
+      { group = null, groupId, boardId, subject = null }
+    ) {
       // async saveGroup({ commit }, { group,groupId, boardId }) {
       try {
-        const savedGroup = await boardService.saveGroup(group, boardId)
+        const savedGroup = await boardService.saveGroup(group, boardId, subject)
         commit({ type: "saveGroup", savedGroup })
       } catch (err) {
         console.log("Cannot save group", err)
@@ -184,8 +188,7 @@ export default {
     },
     async saveGroups({ commit, state, dispatch }, { groups, currBoard }) {
       try {
-
-        // Notice! Before it was like mantion above, new code line is runnig without errors code 
+        // Notice! Before it was like mantion above, new code line is runnig without errors code
         // let currBoard = JSON.parse(JSON.stringify(state.currBoard))
         currBoard = JSON.parse(JSON.stringify(currBoard))
         currBoard.groups = groups

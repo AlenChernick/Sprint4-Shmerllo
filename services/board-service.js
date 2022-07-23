@@ -66,7 +66,11 @@ async function getGroupById(boardId, groupId) {
 
 
 
-async function saveGroup(group, boardId) {
+async function saveGroup(group, boardId,subject) {
+if(!group){
+    group = _getEmptGroup()
+    group.title = subject
+}
 
     try {
         //GET BOARD
@@ -298,6 +302,18 @@ function _createTask() {
         description: "",
         comments: [],
     }
+}
+function _getEmptGroup(){
+    return  {
+        id: null,
+        title: '',
+        archivedAt: Date.now(),
+        description: ' ',
+        type: "draggable",
+        tasks: [],
+        style:{},
+    }
+        
 }
 
 function getEmptyBoard() {

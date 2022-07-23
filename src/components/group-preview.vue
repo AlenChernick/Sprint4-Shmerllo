@@ -80,8 +80,8 @@ export default {
   },
   created() {
     this.currBoard = this.$store.getters.getCurrBoard
-    // this.currTask = this.$store.getters.getCurrTask
-    // console.log('currTask', this.currTask)
+    if(this.group.tasks === [])  this.newTaskModal = true
+  
   },
   methods: {
     oneNewTask(groupId) {
@@ -90,7 +90,7 @@ export default {
         groupId,
         taskTitle: this.taskTitle,
         userAction: "Add new card",
-        currBoard:this.currBoard 
+        currBoard:this.currBoard
       })
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ""
@@ -103,10 +103,9 @@ export default {
       const boardId = this.currBoard._id
       this.$store.dispatch({ type: "removeGroup", groupId, boardId })
     },
-    // goToTaskDetails() {
-    //   this.$router.push(`/board/${this.currBoard._id}/${this.group.id}`)
-    // },
+
   },
+ 
   components: {
     taskList,
   },
