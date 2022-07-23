@@ -122,17 +122,8 @@
         </div>
         <label-picker />
 
-        <!-- <div @click="displayLabelPicker='block'" class="main-task-edit-btn">
-          <span class="labels-icon"></span>
-          Labels
-<<<<<<< HEAD
-        </div>
+       
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
-=======
-           <label-picker />
-        </div> -->
-        <div @click="addCheckList" class="main-task-edit-btn">
->>>>>>> 355c27584acbf8997aff8d771d630531fb9e3380
           <span class="checklist-icon"></span>
           Checklist
         </div>
@@ -176,11 +167,8 @@ export default {
       dateValue: ref(''),
       imgUrl: null,
       isCheckListItemAdded: false,
-<<<<<<< HEAD
       isCheckListAdded: false,
-=======
       displayLabelPicker: 'none',
->>>>>>> 355c27584acbf8997aff8d771d630531fb9e3380
       todoTitle: '',
       checkListTitle: '',
     }
