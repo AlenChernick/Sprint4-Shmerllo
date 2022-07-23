@@ -1,5 +1,5 @@
 <template lang="">
-  <section class="board-details full" v-if="board" :style="bgStyle">
+  <section class="board-details full" v-if="board.style" :style="bgStyle">
     <board-header :board="board" />
     <div class="board-list-conteiner flex">
       <group-list

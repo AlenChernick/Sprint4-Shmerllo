@@ -68,8 +68,8 @@ export default {
       coverOptions: boardService.coverOptions(),
       pageTitle: 'Menu',
       style: {
-        bgColor: null,
-        bgImgUrl: null,
+        bgColor: '',
+        bgImgUrl: '',
       }
 
     }
@@ -90,13 +90,13 @@ export default {
     },
     setBgColor(color){
       this.style.bgColor= color
-      this.style.bgImgUrl= null
+      this.style.bgImgUrl= ''
       console.log(this.style)
       this.$store.dispatch({type: "setBoardStyle",style: this.style })
 
     },
     setBgImgUrl(imgUrl){
-      this.style.bgColor= null
+      this.style.bgColor= ''
       this.style.bgImgUrl= imgUrl
       console.log(this.style)
       this.$store.dispatch({type: "setBoardStyle",style: this.style })

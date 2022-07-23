@@ -27,7 +27,8 @@
           <div class="main-task-members-container">
             <div class="main-task-members-header">Members</div>
             <div class="main-task-members">
-              <ul v-for="member in getCurrTask.members">
+              <!-- <pre>{{taskToEdit.members}}</pre> -->
+              <ul v-for="member in taskToEdit.members">
                 <li>
                   <img class="main-task-member-img" :src="member.imgUrl" alt="member" />
                 </li>
@@ -126,6 +127,8 @@
         </div>
         <label-picker @toggleLabel="toggleLabel" />
 
+        <member-picker @toggleMember="toggleMember" />
+
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
@@ -158,6 +161,7 @@
 <script>
 import { ref, toHandlers } from 'vue'
 import labelPicker from '../components/label-picker.vue'
+import memberPicker from '../components/member-picker.vue'
 
 export default {
   name: 'task-edit',
@@ -173,7 +177,7 @@ export default {
       displayLabelPicker: 'none',
       todoTitle: '',
       checkListTitle: '',
-      taskToEdit: null,
+      taskToEdit: {},
     }
   },
   async created() {
@@ -275,6 +279,27 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
+    toggleMember(member) {
+      const members = this.taskToEdit.members
+      const idx = members.findIndex((m) => m.id === member.id)
+      let userAction = ''
+      if (idx === -1) {
+        userAction = 'Add member'
+        members.push(member)
+      } else {
+        members.splice(idx, 1)
+        userAction = 'Removed member'
+      }
+      console.log(this.taskToEdit, this.groupId, this.boardId)
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
   },
   computed: {
     getCurrTask() {
@@ -292,6 +317,7 @@ export default {
   },
   components: {
     labelPicker,
+    memberPicker,
   },
 }
 </script>

@@ -745,7 +745,6 @@ function getEmptyBoard() {
             imgUrl: '../assets/img/AK.jpg',
             createdAt: '2021-12-11T10:01:48.000Z'
         },
-        members: [],
         isFavorite: true,
         activityCount: 0,
         lastActivity: 1658239902711,
