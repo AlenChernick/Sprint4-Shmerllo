@@ -22,9 +22,9 @@
           <div class="main-task-members-container">
             <div class="main-task-members-header">Members</div>
             <div class="main-task-members">
-              <ul v-for="member in getCurrTask.byMember">
+              <ul v-for="member in getCurrTask.members">
                 <li>
-                  <img class="main-task-member-img" :src="`${member.imgUrl}`" alt="member" />
+                  <img class="main-task-member-img" :src="member.imgUrl" alt="member" />
                 </li>
               </ul>
               <div class="main-task-add-member"><span class="main-task-add-member-icon"></span></div>

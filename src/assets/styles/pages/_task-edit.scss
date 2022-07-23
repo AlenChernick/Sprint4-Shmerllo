@@ -127,6 +127,10 @@
       position: relative;
       flex-wrap: wrap;
 
+      .label-picker {
+        display: flex;
+      }
+
       .main-task-members-container {
         flex-direction: column;
         padding-top: 3px;

@@ -297,11 +297,13 @@ function getEmptyBoard() {
                 tasks: [
                     {
                         id: 'c101',
-                        title: 'Replace logo'
+                        title: 'Replace logo',
+                        members: []
                     },
                     {
                         id: 'c102',
-                        title: 'Add Samples'
+                        title: 'Add Samples',
+                        members: [],
                     }
                 ],
                 style: {
@@ -351,32 +353,37 @@ function getEmptyBoard() {
                         labelIds: ['l101', 'l102'],
                         createdAt: 1590999730348,
                         dueDate: 16156215211,
-                        byMember: [
-                            {
-                                id: 'm101',
-                                username: 'THT',
-                                fullname: 'Tal Hammer Topaz',
-                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
-                            },
-                            {
-                                id: 'm102',
-                                username: 'AK',
-                                fullname: 'Alon Kolker',
-                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
-                            },
-                            {
-                                id: 'm103',
-                                username: 'AC',
-                                fullname: 'Alen Alen Chernick',
-                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
-                            },
-                            {
-                                id: 'm104',
-                                username: 'LS',
-                                fullname: 'Lihi Sered',
-                                imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512',
-                            },
-                        ],
+                        byMember:
+                        {
+                            id: 'm101',
+                            username: 'THT',
+                            fullname: 'Tal Hammer Topaz',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
+                        },
+                        members: [{
+                            id: 'm101',
+                            username: 'THT',
+                            fullname: 'Tal Hammer Topaz',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
+                        },
+                        {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+                        },
+                        {
+                            id: 'm103',
+                            username: 'AC',
+                            fullname: 'Alen Alen Chernick',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
+                        },
+                        {
+                            id: 'm104',
+                            username: 'LS',
+                            fullname: 'Lihi Sered',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512',
+                        }],
                         style: {
                             bgColor: '#26de81',
                             bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
@@ -393,11 +400,13 @@ function getEmptyBoard() {
                 tasks: [
                     {
                         id: 'c106',
-                        title: 'Replace logo'
+                        title: 'Replace logo',
+                        members: []
                     },
                     {
                         id: 'c107',
-                        title: 'Add Samples'
+                        title: 'Add Samples',
+                        members: []
                     }
                 ],
                 style: {}
@@ -452,9 +461,33 @@ function getEmptyBoard() {
                             imgUrl: '../assets/img/AK.jpg',
                             createdAt: '2021-12-11T10:01:48.000Z'
                         },
+                        members: [{
+                            id: 'm101',
+                            username: 'THT',
+                            fullname: 'Tal Hammer Topaz',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512',
+                        },
+                        {
+                            id: 'm102',
+                            username: 'AK',
+                            fullname: 'Alon Kolker',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512',
+                        },
+                        {
+                            id: 'm103',
+                            username: 'AC',
+                            fullname: 'Alen Alen Chernick',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512',
+                        },
+                        {
+                            id: 'm104',
+                            username: 'LS',
+                            fullname: 'Lihi Sered',
+                            imgUrl: 'https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512',
+                        }],
                         style: {
                             bgColor: '#26de81',
-                            coverImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
+                            bgImgUrl: 'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
                         }
                     }
                 ],
@@ -531,6 +564,7 @@ function getEmptyBoard() {
             imgUrl: '../assets/img/AK.jpg',
             createdAt: '2021-12-11T10:01:48.000Z'
         },
+        members: [],
         isFavorite: true,
         activityCount: 0,
         lastActivity: 1658239902711
