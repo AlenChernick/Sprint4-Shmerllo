@@ -62,6 +62,8 @@ export default {
       if (taskIdx !== -1) {
         // state.boards[boardIdx].groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
         state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
+        console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
+
       } else {
         // state.boards[boardIdx].groups[groupIdx].tasks.push(savedTask)
         state.currBoard.groups[groupIdx].tasks.push(savedTask)
