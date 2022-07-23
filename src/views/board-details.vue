@@ -8,6 +8,7 @@
     <!-- <pre>{{board.style}}</pre> -->
     <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
     <router-view />
+    <h2>test</h2>
     <!-- <pre style="color: black">{{ this.board.groups }}</pre> -->
   </section>
 </template>
