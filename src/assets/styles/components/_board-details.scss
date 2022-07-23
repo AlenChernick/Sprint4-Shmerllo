@@ -36,11 +36,10 @@
       font-family: trellicons;
       font-size: em(24px);
       &::before {
-        content: "\e91c";
+        content: '\e91c';
       }
       font-size: 25px;
       padding-inline-start: em(4px);
     }
   }
 }
-

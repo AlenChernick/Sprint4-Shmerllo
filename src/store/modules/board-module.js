@@ -66,16 +66,12 @@ export default {
       if (taskIdx !== -1) {
         // state.boards[boardIdx].groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
         state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
-        console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
+        // console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
       } else {
         // state.boards[boardIdx].groups[groupIdx].tasks.push(savedTask)
         state.currBoard.groups[groupIdx].tasks.push(savedTask)
       }
     },
-    // removeTask(state, { taskId }){
-
-    // }\
-
     removeGroup(state, { groupId, boardId }) {
       const boardIdx = state.boards.findIndex((board) => board._id === boardId)
       const groupIdx = state.boards[boardIdx].groups.findIndex(
@@ -87,6 +83,31 @@ export default {
 
       // state.currBoard.groups.splice(groupIdx, 1)
     },
+    removeCheckList(state, { task, groupId, board, checklistId }) {
+      const boardIdx = state.boards.findIndex((b) => b._id === board._id)
+      const groupIdx = state.boards[boardIdx].groups.findIndex((group) => group.id === groupId)
+      const taskIdx = state.boards[boardIdx].groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+      const checkListIdx = state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].checklists.findIndex((checkList) => checkList.id === checklistId)
+      state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].checklists.splice(checkListIdx, 1)
+      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks[taskIdx]
+    },
+
+    addCheckList(state, { newCheckList, task, groupId, board, }) {
+      const boardIdx = state.boards.findIndex((b) => b._id === board._id)
+      const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+      const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+      state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].checklists.push(newCheckList)
+      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks[taskIdx]
+    },
+    addCheckListItem(state, { newTodo, task, groupId, checkListId, board }) {
+      const boardIdx = state.boards.findIndex((b) => b._id === board._id)
+      const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+      const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+      const checkListIdx = task.checklists.findIndex((checkList) => checkList.id === checkListId)
+      state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].checklists[checkListIdx].todos.push(newTodo)
+      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks[taskIdx]
+    }
+
   },
   actions: {
     async loadBoards({ commit }) {
@@ -254,14 +275,9 @@ export default {
       { task, groupId, checkListId, todoTitle, board }
     ) {
       try {
-        const currTask = await boardService.addTodo(
-          task,
-          groupId,
-          checkListId,
-          todoTitle,
-          board
-        )
-        commit({ type: "setCurrTask", currTask })
+        const newTodo = await boardService.addTodo(task, groupId, checkListId, todoTitle, board)
+        // commit({ type: "setCurrTask", currTask })
+        commit({ type: 'addCheckListItem', newTodo, task, groupId, checkListId, board })
       } catch (err) {
         console.log("Cannot add checklist item", err)
         throw err
@@ -269,28 +285,18 @@ export default {
     },
     async addCheckList({ commit }, { task, groupId, board, checkListTitle }) {
       try {
-        const currTask = await boardService.addCheckList(
-          task,
-          groupId,
-          board,
-          checkListTitle
-        )
-        commit({ type: "setCurrTask", currTask })
+        const newCheckList = await boardService.addCheckList(task, groupId, board, checkListTitle)
+        // commit({ type: "setCurrTask", currTask })
+        commit({ type: 'addCheckList', newCheckList, task, groupId, board })
       } catch (err) {
         console.log("Cannot add checklist", err)
         throw err
       }
     },
-    async removeCheckList(
-      { commit, dispatch },
-      { task, groupId, board, checkListId }
-    ) {
-      const userAction = "removed checklist"
-      const boardId = board._id
+    async removeCheckList({ commit, dispatch }, { task, groupId, board, checklistId }) {
       try {
-        await boardService.removeCheckList(task, groupId, board, checkListId)
-        // commit({ type: "setCurrTask", currTask })
-        // dispatch({ type: 'saveTask', task, groupId, boardId, userAction })
+        await boardService.removeCheckList(task, groupId, board, checklistId)
+        commit({ type: 'removeCheckList', task, groupId, board, checklistId })
       } catch (err) {
         console.log("Cannot remove check list", err)
         throw err

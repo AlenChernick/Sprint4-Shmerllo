@@ -152,6 +152,8 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
 
     await saveBoard(board)
 
+
+
     // const savedTask = await getTaskById(boardId, groupId, task.id)
     const updatedBoard = await getBoardById(boardId)
 
@@ -201,42 +203,34 @@ function addActivity(board, task, userAction) {
 }
 
 async function addTodo(task, groupId, checkListId, todoTitle, board) {
-  try {
-    const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-    const taskIdx = board.groups[groupIdx].tasks.findIndex(
-      (t) => t.id === task.id
-    )
-    const checkListIdx = task.checklists.findIndex(
-      (checkList) => checkList.id === checkListId
-    )
-    let todo = getEmptyTodo()
-    todo.title = todoTitle
-    await board.groups[groupIdx].tasks[taskIdx].checklists[
-      checkListIdx
-    ].todos.push(todo)
-    await saveBoard(board)
-    return board.groups[groupIdx].tasks[taskIdx]
-  } catch (err) {
-    console.log("Cannot add todo", err)
-    throw err
-  }
+    try {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+        const checkListIdx = task.checklists.findIndex((checkList) => checkList.id === checkListId)
+        let todo = getEmptyTodo()
+        todo.title = todoTitle
+        await board.groups[groupIdx].tasks[taskIdx].checklists[checkListIdx].todos.push(todo)
+        await saveBoard(board)
+        return todo
+    } catch (err) {
+        console.log('Cannot add todo', err)
+        throw err
+    }
 }
 
 async function addCheckList(task, groupId, board, checkListTitle) {
-  try {
-    const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-    const taskIdx = board.groups[groupIdx].tasks.findIndex(
-      (t) => t.id === task.id
-    )
-    let checkList = getEmptyCheckList()
-    checkList.title = checkListTitle
-    await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
-    await saveBoard(board)
-    return board.groups[groupIdx].tasks[taskIdx]
-  } catch (err) {
-    console.log("Cannot add checklist", err)
-    throw err
-  }
+    try {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+        let checkList = getEmptyCheckList()
+        checkList.title = checkListTitle
+        await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
+        await saveBoard(board)
+        return checkList
+    } catch (err) {
+        console.log('Cannot add checklist', err)
+        throw err
+    }
 }
 
 async function removeCheckList(task, groupId, board, checkListId) {
@@ -1145,57 +1139,58 @@ function coverOptions() {
   }
 }
 
+
 function _labelOptions() {
-  return [
-    {
-      id: "l101",
-      bgColor: "#e63946",
-      txt: "Urgent",
-    },
-    {
-      id: "l102",
-      bgColor: "#2a9d8f",
-      txt: "Important",
-    },
-    {
-      id: "l103",
-      bgColor: "#e9c46a",
-      txt: "New",
-    },
-    {
-      id: "l104",
-      bgColor: "#48cae4",
-      txt: "Nice to have",
-    },
-    {
-      id: "l106",
-      bgColor: "#adc178",
-      txt: "Delayed",
-    },
-    {
-      id: "l107",
-      bgColor: "#9c89b8",
-      txt: "In progress",
-    },
-    {
-      id: "l108",
-      bgColor: "#0ead69",
-      txt: "Done",
-    },
-    {
-      id: "l109",
-      bgColor: "#16697a",
-      txt: "Do not forget",
-    },
-    {
-      id: "l110",
-      bgColor: "#70e000",
-      txt: "Bug",
-    },
-    {
-      id: "l111",
-      bgColor: "#00a8e8",
-      txt: "Take care togay",
-    },
-  ]
+    return [
+        {
+            id: 'l101',
+            bgColor: '#e63946',
+            txt: 'Urgent',
+        },
+        {
+            id: 'l102',
+            bgColor: '#2a9d8f',
+            txt: 'Important',
+        },
+        {
+            id: 'l103',
+            bgColor: '#e9c46a',
+            txt: 'New',
+        },
+        {
+            id: 'l104',
+            bgColor: '#48cae4',
+            txt: 'Nice to have',
+        },
+        {
+            id: 'l106',
+            bgColor: '#adc178',
+            txt: 'Delayed',
+        },
+        {
+            id: 'l107',
+            bgColor: '#9c89b8',
+            txt: 'In progress',
+        },
+        {
+            id: 'l108',
+            bgColor: '#0ead69',
+            txt: 'Done',
+        },
+        {
+            id: 'l109',
+            bgColor: '#16697a',
+            txt: 'Do not forget',
+        },
+        {
+            id: 'l110',
+            bgColor: '#70e000',
+            txt: 'Bug',
+        },
+        {
+            id: 'l111',
+            bgColor: '#00a8e8',
+            txt: 'Take care togay',
+        },
+    ]
 }
