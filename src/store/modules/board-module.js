@@ -64,9 +64,11 @@ export default {
         const boardIdx = state.boards.findIndex((board) => board._id === boardId)
         console.log(taskIdx,groupIdx,boardIdx);
         if (taskIdx !== -1) {
-        // console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
+        console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
         state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].splice(taskIdx, 1,savedTask)
         state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
+        console.log(state.boards[boardIdx].groups[groupIdx].tasks[taskIdx])
+
       } else {
         // console.log(state.boards[boardIdx].groups[groupIdx].tasks)
         state.boards[boardIdx].groups[groupIdx].tasks.push(savedTask)
