@@ -29,7 +29,7 @@ export default {
   methods: {
     toggleLabel(labelId){
       console.log(labelId)
-      this.$emit('toggeleLabel', labelId)
+      this.$emit('toggleLabel', labelId)
     },
     editLabels(){
       console.log(this.labelsToEdit)

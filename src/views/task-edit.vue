@@ -1,5 +1,7 @@
 <template>
+
   <section class="task-edit">
+    <!-- <pre>{{taskToEdit.labelIds}}</pre> -->
     <div v-if="getCurrTask.style" class="task-edit-cover" :style="{ 'background-color': getCurrTask.style.bgColor }">
       <img v-if="getCurrTask.style.bgImgUrl" :src="getCurrTask.style.bgImgUrl" />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
@@ -32,7 +34,7 @@
           </div>
 
           <!-- <The labels per task are here: /> -->
-          <ul v-for="label in getCurrTask.labelIds">
+          <ul v-for="label in taskToEdit.labelIds">
                 <li>
                   <p>{{ label }}</p>
                 </li>
@@ -120,7 +122,7 @@
           <span class="members-icon"></span>
           Members
         </div>
-        <label-picker />
+        <label-picker @toggleLabel="toggleLabel"/>
 
        
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
@@ -171,6 +173,7 @@ export default {
       displayLabelPicker: 'none',
       todoTitle: '',
       checkListTitle: '',
+      taskToEdit: null,
     }
   },
   async created() {
@@ -184,6 +187,7 @@ export default {
         groupId,
         taskId,
       })
+      this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
     } catch (err) {
       console.log('Cannot load task', err)
       throw err
@@ -250,6 +254,27 @@ export default {
         board: this.getCurrBoard,
         checklistId,
       })
+    },
+    toggleLabel(labelId){
+      const labels = this.taskToEdit.labelIds
+      const idx = labels.findIndex((label) => label === labelId)
+      let userAction = ''
+      if(idx === -1 ) {
+        userAction = 'Added label'
+        labels.push(labelId)
+      }
+      else {
+        labels.splice(idx, 1)
+        userAction = 'Removed label'
+      }
+      console.log(this.taskToEdit, this.groupId, this.boardId  )
+      this.$store.dispatch({type: 'saveTask', task: this.taskToEdit, 
+                           groupId: this.groupId,
+                           boardId: this.boardId,
+                           userAction,
+                           taskTitle: this.taskToEdit.title
+                            })
+
     },
   },
   computed: {
