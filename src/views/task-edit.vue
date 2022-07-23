@@ -27,6 +27,7 @@
                   <img class="main-task-member-img" :src="`${member.imgUrl}`" alt="member" />
                 </li>
               </ul>
+              <div class="main-task-add-member"><span class="main-task-add-member-icon"></span></div>
             </div>
           </div>
           <label-picker />

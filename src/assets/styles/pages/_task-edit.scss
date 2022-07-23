@@ -130,7 +130,34 @@
       .main-task-members-container {
         flex-direction: column;
         padding-top: 3px;
+
+        .main-task-members-header {
+          margin-top: 0.8rem;
+        }
         .main-task-members {
+          display: flex;
+          .main-task-add-member {
+            margin-top: 1.1rem;
+            margin-left: em(3px);
+            .main-task-add-member-icon {
+              border-radius: 50%;
+              padding: em(8px);
+              background-color: $clr9;
+              font-family: trellicons;
+              font-size: em(16px);
+              transition: background-color 0.2s;
+              cursor: pointer;
+              &::before {
+                content: '\e901';
+              }
+              &:hover {
+                background-color: $clr10;
+              }
+            }
+          }
+          ul {
+            margin-inline-start: em(-39px);
+          }
           .main-task-members-list {
             display: flex;
             flex-direction: row;
