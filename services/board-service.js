@@ -24,6 +24,7 @@ export const boardService = {
     removeGroup,
     coverOptions,
     getEmptyActivity,
+    addTodo
 }
 
 //get boards
@@ -217,7 +218,21 @@ function addActivity(board, task, userAction) {
     return board
 }
 
-
+async function addTodo(task, groupId, checkListId, todoTitle, board) {
+    try {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex((t) => t.id === task.id)
+        const checkListIdx = task.checklists.findIndex((checkList) => checkList.id === checkListId)
+        let todo = getEmptyTodo()
+        todo.title = todoTitle
+        await board.groups[groupIdx].tasks[taskIdx].checklists[checkListIdx].todos.push(todo)
+        await saveBoard(board)
+        return board.groups[groupIdx].tasks[taskIdx]
+    } catch (err) {
+        console.log('Cannot add todo', err)
+        throw err
+    }
+}
 
 
 
@@ -701,6 +716,13 @@ function getEmptyBoard() {
     };
 }
 
+function getEmptyTodo() {
+    return {
+        id: utilService.makeId(),
+        title: '',
+        isDone: false
+    }
+}
 
 function getEmptyActivity() {
     return {
@@ -718,6 +740,8 @@ function getEmptyActivity() {
 
     }
 }
+
+
 
 
 

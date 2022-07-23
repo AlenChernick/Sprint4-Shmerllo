@@ -11,7 +11,7 @@
     </div>
    
     <div class="board-header-buttons">
-      <board-filter />
+      <!-- <board-filter /> -->
       <board-menu :activities="board.activities"/>
     </div>
   </section>

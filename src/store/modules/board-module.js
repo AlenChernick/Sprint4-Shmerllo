@@ -87,6 +87,9 @@ export default {
 
       // state.currBoard.groups.splice(groupIdx, 1)
     },
+    addCheckListItem(state, { task, groupId, checkListId, todoTitle, board }) {
+
+    }
   },
   actions: {
     async loadBoards({ commit }) {
@@ -243,6 +246,16 @@ export default {
         throw err
       }
     },
+
+    async addCheckListItem({ commit }, { task, groupId, checkListId, todoTitle, board }) {
+      try {
+        const currTask = await boardService.addTodo(task, groupId, checkListId, todoTitle, board)
+        commit({ type: "setCurrTask", currTask })
+      } catch (err) {
+        console.log('Cannot add checklist item', err);
+        throw err
+      }
+    }
 
     // async addActivity({ state, dispatch }, { userAction, savedTask }) {
     //   console.log('userAction', userAction)
