@@ -140,10 +140,11 @@ export default {
     },
     async saveTask(
       { commit, state, dispatch },
-      { task = null, taskTitle, groupId, boardId = null, userAction = "", currBoard }
-    ) {
-      if (boardId === null) boardId = currBoard._id
-
+      { task = null, taskTitle='', groupId, boardId, userAction = "" }
+        ) {
+     
+      console.log(task)
+      
       try {
         const currBoard = await boardService.saveTask(
           task,
@@ -152,6 +153,7 @@ export default {
           boardId,
           userAction
         )
+        
         // commit({ type: "saveTask", savedTask, groupId, boardId })
         commit({ type: "setCurrBoard", currBoard })
 
