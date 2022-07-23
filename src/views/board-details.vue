@@ -1,8 +1,8 @@
 <template lang="">
   <section
-    v-if="board.style?.bgColor"
     class="board-details full"
-    :style="{ 'background-color': board.style.bgColor, 'background-image': `url(${board.style.bgImgUrl})` }"
+    v-if="board"
+    :style= "bgStyle"
   >
     <board-header :board="board" />
     <!-- <pre>{{board.style}}</pre> -->
@@ -47,6 +47,11 @@ export default {
     board() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
+    bgStyle(){
+      if (this.board.style.bgColor) return { 'background-color': this.board.style.bgColor}
+      if (this.board.style.bgImgUrl) return {'background-image': `url(${this.board.style.bgImgUrl})` }
+    }
+
   },
   components: {
     boardHeader,

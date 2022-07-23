@@ -90,7 +90,7 @@ export default {
     },
     setBgColor(color){
       this.style.bgColor= color
-      this.style. bgImgUrl= null
+      this.style.bgImgUrl= null
       console.log(this.style)
       this.$store.dispatch({type: "setBoardStyle",style: this.style })
 
