@@ -14,6 +14,7 @@
      <div class="quickEdit" :style="{ display: quickEditDisplay}">
 
         <div class="title-edit">
+         <img v-if="task.style.bgImgUrl" :src="task.style.bgImgUrl" />
           <h5>{{task.title}}</h5>
         </div>
       
