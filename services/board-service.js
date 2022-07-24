@@ -258,10 +258,10 @@ function _createBoards() {
   let boards = utilService.loadFromStorage(STORAGE_KEY)
   if (!boards || !boards.length) {
     boards = [
-      _createBoard("First Demo Board"),
-      _createBoard("Seconed Demo Board"),
-      _createBoard("Third Demo Board"),
-      _createBoard("Forth Demo Board"),
+      _createBoard("My first Board"),
+      _createBoard("My Second Board"),
+      _createBoard("My Third Board"),
+      _createBoard("My firth Board"),
     ]
     utilService.saveToStorage(STORAGE_KEY, boards)
   }
