@@ -493,3 +493,32 @@
 .open-text-area {
   height: 100px;
 }
+
+
+.label-preview-container{
+  margin-top: 50px;
+  padding: 0;
+  margin-left: 20px;
+  display: flex;
+  height: fit-content;
+  justify-items: flex-end;
+  align-items: flex-end;
+
+  .label-preview{
+    padding: 0;
+    margin: 0;
+    li {
+      border: black;
+      height: 40px;
+      color: transparent;
+      width: 50px;
+      margin: 2px;
+      padding: 0;
+      border-radius: 3px;
+     
+    }
+
+  }
+
+ 
+}

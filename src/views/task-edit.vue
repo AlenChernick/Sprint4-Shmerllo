@@ -38,11 +38,13 @@
           </div>
 
           <!-- <The labels per task are here: /> -->
-          <ul v-for="label in taskToEdit.labelIds">
-            <li>
-              <p>{{ label }}</p>
-            </li>
-          </ul>
+          <div class="label-preview-container">
+            <ul class="label-preview" v-for="labelId in taskToEdit.labelIds">
+              <li :style="{'background-color': labelColor(labelId)}" >
+                <p>{{ labelColor(labelId) }}</p>
+              </li>
+            </ul>
+          </div>
           <!-- /// -->
 
           <div class="main-editor-dates">
@@ -301,6 +303,12 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
+    labelColor(labelId){
+      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+      const label = boardLabels.find((l) => l.id === labelId)
+      return label.bgColor
+
+    }
   },
   computed: {
     getCurrTask() {
