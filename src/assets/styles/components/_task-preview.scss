@@ -7,9 +7,200 @@
     max-width: 300px;
     min-height: 20px;
     padding: 6px 8px 4px 8px;
+    position: relative;
+
+    h5 {
+      font-size:em(14px) ;
+      font-weight: 400;
+      margin-top: 5px;
+      margin-bottom: 2px;
+      margin-right: 25px;
+    }
   
     :hover {
         background-color: #f6f4f0;
+        
       }
+
+    .edit-icon{
+      font-family: trellicons;
+      transition: color 0.1s;
+      font-weight: 200;
+      font-size: em(15px);
+      color: transparent;
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      
+      &:hover{
+        color: rgba(0, 0, 0, 0.288);
+        background-color: transparent;
+      }
+    }
 }
+
+
+.quickEditScreen{
+  height: 100%;
+  width:100%;
+  background-color: rgb(63, 62, 62);
+  opacity: 0.6;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 20;
+
+  &:hover{
+    background-color: rgb(63, 62, 62);
+
+  }
+  
+}
+
+.quickEdit{
+  position: fixed;
+  top: 180px;
+  background-color: white;
+  z-index: 30;
+  width: 265px;
+  margin-right: 10px;
+  height: fit-content;
+  overflow: visible;
+  border-radius: 3px;
+  
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: fit-content;
+
+    top:0;
+    left:270px;
+    &:hover{
+      background-color: transparent;
+    }
+
+    button{
+      width: fit-content;
+      color: white;
+      background-color: rgb(63, 62, 62);
+      border: none;
+      padding: em(8px) em(15px);
+      margin: em(2px);
+      border-radius: em(4px);
+      font-size: em(14px);
+      letter-spacing: 0.8px;
+      font-weight: 200;
+      transition: transform 1s background-color 0.5s;
+      &:hover{
+        transform: translateX(8%);
+        background-color: black;
+        cursor: pointer;
+      }
+
+      .card-icon{
+        font-family: trellicons;
+        font-size: em(16px);
+        padding-right: em(5px) ;
+        &::before {
+          content: '\e912';
+        }
+      }
+
+      .labels-icon{
+        font-family: trellicons;
+        font-size: em(16px);
+        padding-right: em(5px) ;
+        &::before {
+          content: '\e93f';
+        }
+      }
+
+      .members-icon{
+        font-family: trellicons;
+        font-size: em(16px);
+        padding-right: em(5px) ;
+        &::before {
+          content: '\e946';
+        }
+      }
+
+      .cover-icon{
+        font-family: trellicons;
+        font-size: em(16px);
+        padding-right: em(5px) ;
+          &::before {
+                content: '\e914';
+            }
+      }
+
+      .dates-icon{
+        font-family: trellicons;
+        font-size: em(16px);
+        padding-right: em(5px) ;
+          &::before {
+                content: '\e91b';
+            }
+      }
+
+      .archive-icon{
+        font-family: trellicons;
+        font-size: em(16px);
+        padding-right: em(5px) ;
+          &::before {
+                content: '\e907';
+            }
+      }
+
+
+    }
+
+  }
+  
+  .save-button{
+   
+    position: relative;
+    bottom: -50px;
+    left: -10px;
+    &:hover{
+      background-color: transparent;
+      border: none;
+
+    }
+
+    
+     button {
+        background-color: #0079bf;
+        margin: 10px;
+        border: none;
+        padding: em(8px) em(20px);
+        border-radius: 3px;
+        box-shadow: none;
+        color: #fff;
+        &:hover{
+          background-color:#0393e6;
+          border: none;
+        }
+        
+      }
+    
+
+  }
+
+  .title-edit {
+    width: 280px ;
+    border-radius: 3px;
+    height: fit-content;
+    padding-bottom: 50px;
+
+    h5 {
+      padding: 7px;
+    }
+
+    
+  }
+  
+}
+
 
