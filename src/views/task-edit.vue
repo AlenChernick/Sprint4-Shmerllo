@@ -40,7 +40,7 @@
           <!-- <The labels per task are here: /> -->
           <div class="label-preview-container">
             <ul class="label-preview" v-for="labelId in taskToEdit.labelIds">
-              <li :style="{'background-color': labelColor(labelId)}" >
+              <li :style="{ 'background-color': labelColor(labelId) }">
                 <p>{{ labelColor(labelId) }}</p>
               </li>
             </ul>
@@ -129,49 +129,14 @@
           </div>
         </div>
       </div>
-      <div class="main-task-sidebar">
-        <div class="main-task-header">Add to card</div>
-
-        <member-picker @toggleMember="toggleMember" />
-        <label-picker @toggleLabel="toggleLabel" />
-
-        <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
-          <span class="checklist-icon"></span>
-          Checklist
-        </div>
-        <div v-if="isCheckListAdded" class="checklist-modal">
-          <div class="checklist-header">Add Checklist</div>
-          <div v-if="getCurrTask" class="close-task-edit" @click="isCheckListAdded = false">
-            <span class="close-checklist-modal"></span>
-          </div>
-          <div class="modal-options">
-            <div class="checklist-input-header">Title</div>
-            <input type="text" v-model="checkListTitle" @keyup.enter="addCheckList(checkListTitle)" />
-            <el-button type="primary" @click="addCheckList(checkListTitle)">Add</el-button>
-          </div>
-        </div>
-        <div class="main-task-edit-btn">
-          <span class="dates-icon"
-            ><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock"
-          /></span>
-          Dates
-        </div>
-        <div class="main-task-edit-btn">
-          <span class="attachment-icon"></span>
-          Attachment
-        </div>
-        <div class="main-task-edit-btn">
-          <span class="cover-icon"></span>
-          Cover
-        </div>
-      </div>
+      <edit-task-actions />
     </div>
   </section>
 </template>
 <script>
-import { ref, toHandlers } from 'vue'
-import labelPicker from '../components/label-picker.vue'
-import memberPicker from '../components/member-picker.vue'
+import { ref } from 'vue'
+
+import editTaskActions from '../components/edit-task-actions.vue'
 
 export default {
   name: 'task-edit',
@@ -182,12 +147,9 @@ export default {
       isEdit: false,
       isWrite: false,
       dateValue: ref(''),
-      isCheckListItemAdded: false,
-      isCheckListAdded: false,
-      displayLabelPicker: 'none',
-      todoTitle: '',
-      checkListTitle: '',
       taskToEdit: {},
+      toggleDatePicker: false,
+      isCheckListItemAdded: false,
       format: (percentage) => (percentage === 100 ? 'Full' : `${percentage}%`),
     }
   },
@@ -315,12 +277,11 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-    labelColor(labelId){
+    labelColor(labelId) {
       const boardLabels = this.$store.getters.getCurrBoard.boardLabels
       const label = boardLabels.find((l) => l.id === labelId)
       return label.bgColor
-
-    }
+    },
   },
   computed: {
     getCurrTask() {
@@ -337,8 +298,7 @@ export default {
     // },
   },
   components: {
-    labelPicker,
-    memberPicker,
+    editTaskActions,
   },
 }
 </script>
