@@ -55,11 +55,11 @@ import moment from "moment";
 
 export default {
   name: 'board-menu',
-  props: {
-    activities: {
-      type: Array,
-    },
-   },
+  // props: {
+  //   activities: {
+  //     type: Array,
+  //   },
+  //  },
   data() {
     return {
       displayMenu: 'none',
@@ -70,11 +70,13 @@ export default {
       style: {
         bgColor: '',
         bgImgUrl: '',
-      }
+      },
+      activities: [],
 
     }
   },
   created() {
+     this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
    
   },
   methods: {
