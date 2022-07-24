@@ -24,13 +24,13 @@
           <textarea
             cols="30"
             rows="1"
-            class="new-task-area"
+            class="new-group-text-area"
             placeholder="Enter list titile..."
             v-model="newGroupSubject"
           ></textarea>
           <div class="new-task-add-remove-conteiner flex">
             <el-button type="primary" @click="oneNewGroup()"
-              >Add Group</el-button
+              >Add List</el-button
             >
             <span
               class="cancel-add-group"
