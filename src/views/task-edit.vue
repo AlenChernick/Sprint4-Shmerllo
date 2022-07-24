@@ -38,11 +38,13 @@
           </div>
 
           <!-- <The labels per task are here: /> -->
-          <ul v-for="label in taskToEdit.labelIds">
-            <li>
-              <p>{{ label }}</p>
-            </li>
-          </ul>
+          <div class="label-preview-container">
+            <ul class="label-preview" v-for="labelId in taskToEdit.labelIds">
+              <li :style="{'background-color': labelColor(labelId)}" >
+                <p>{{ labelColor(labelId) }}</p>
+              </li>
+            </ul>
+          </div>
           <!-- /// -->
 
           <div class="main-editor-dates">
@@ -82,12 +84,16 @@
               >Delete</el-button
             >
           </div>
+          <div class="checklist-progressbar-contianer">
+            <el-progress :percentage="50" class="checklist-progressbar" />
+          </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox @input=";[(todo.isDone = !todo.isDone), saveTask()]">{{ todo.title }}</el-checkbox>
+              <el-checkbox @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
             </li>
           </ul>
           <el-button
+            v-if="!isCheckListItemAdded"
             @click="isCheckListItemAdded = !isCheckListItemAdded"
             type="info"
             class="btn main-editor-add-item-btn"
@@ -96,8 +102,10 @@
           <div v-if="isCheckListItemAdded" class="check-list-add-item-btn-container">
             <div class="checklist-todo-add-container">
               <textarea v-model="todoTitle" spellcheck="false"></textarea>
-              <el-button type="primary" @click="addCheckListItem(checklist.id, todoTitle)">Save</el-button>
-              <el-button type="info" @click="addCheckListItem">Cancel</el-button>
+              <div class="checklist-todo-add-btns">
+                <el-button type="primary" @click="addCheckListItem(checklist.id, todoTitle)">Add</el-button>
+                <el-button type="info" @click="isCheckListItemAdded = false">Cancel</el-button>
+              </div>
             </div>
           </div>
         </div>
@@ -126,6 +134,7 @@
 
         <member-picker @toggleMember="toggleMember" />
         <label-picker @toggleLabel="toggleLabel" />
+
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
@@ -138,6 +147,7 @@
           <div class="modal-options">
             <div class="checklist-input-header">Title</div>
             <input type="text" v-model="checkListTitle" @keyup.enter="addCheckList(checkListTitle)" />
+            <el-button type="primary" @click="addCheckList(checkListTitle)">Add</el-button>
           </div>
         </div>
         <div class="main-task-edit-btn">
@@ -156,7 +166,6 @@
         </div>
       </div>
     </div>
-    <!-- <pre>{{task}}</pre> -->
   </section>
 </template>
 <script>
@@ -179,6 +188,7 @@ export default {
       todoTitle: '',
       checkListTitle: '',
       taskToEdit: {},
+      format: (percentage) => (percentage === 100 ? 'Full' : `${percentage}%`),
     }
   },
   async created() {
@@ -199,7 +209,8 @@ export default {
     }
   },
   methods: {
-    saveTask() {
+    saveTask(todo) {
+      todo.isDone = !todo.isDone
       this.isEdit = false
       this.$store.dispatch({
         type: 'saveTask',
@@ -229,6 +240,7 @@ export default {
       this.$router.push(`/board/${this.boardId}`)
     },
     addCheckListItem(checkListId, todoTitle) {
+      if (todoTitle === '') return
       this.isCheckListItemAdded = !this.isCheckListItemAdded
       this.todoTitle = ''
       this.$store.dispatch({
@@ -241,6 +253,7 @@ export default {
       })
     },
     addCheckList(checkListTitle) {
+      if (checkListTitle === '') return
       this.$store.dispatch({
         type: 'addCheckList',
         task: JSON.parse(JSON.stringify(this.getCurrTask)),
@@ -248,6 +261,7 @@ export default {
         board: this.getCurrBoard,
         checkListTitle,
       })
+      this.isCheckListAdded = false
       this.checkListTitle = ''
     },
     removeCheckList(checklistId) {
@@ -301,6 +315,12 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
+    labelColor(labelId){
+      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+      const label = boardLabels.find((l) => l.id === labelId)
+      return label.bgColor
+
+    }
   },
   computed: {
     getCurrTask() {
