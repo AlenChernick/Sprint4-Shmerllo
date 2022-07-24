@@ -12,7 +12,7 @@
    
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
-      <board-menu :activities="board.activities"/>
+      <board-menu />
     </div>
   </section>
 </template>
