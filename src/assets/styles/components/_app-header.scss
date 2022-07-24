@@ -1,10 +1,10 @@
 header.main-header {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  background-color: $clr1;
-  padding: 0.5rem;
+  grid-template-rows: 48px;
+  background-color: $clr14;
   z-index: 10;
+  backdrop-filter: blur(6px);
   a {
     color: $clr4;
     text-decoration: none;
@@ -13,31 +13,33 @@ header.main-header {
   .home-page-btn {
     grid-column: 1;
     grid-row: 1;
-    margin: 0 0.5rem;
+    margin-inline-start: 1rem;
+    margin-block-start: 0.1rem;
+    // padding: 0.1rem 0 1rem 0;
+    align-self: center;
+    font-size: 18px;
+    font-weight: 750;
+    font-family: NunitoSans-Bold;
+    width: em(100px);
+    text-align: center;
 
-    img {
-      width: 6rem;
-      display: flex;
-      flex-flow: column wrap;
-      justify-content: center;
-      transition: background-color 0.2s, border-radius 0.2s;
-
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.37);
-        border-radius: 0.2rem;
-      }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.37);
+      border-radius: 0.2rem;
     }
   }
 
   .boards-page-btn {
     grid-column: 1;
     grid-row: 1;
-    margin-inline-start: 7rem;
+    margin-inline-start: 8.5rem;
+    margin-block-start: 0.01rem;
     align-self: center;
     transition: background-color 0.2s, border-radius 0.2s;
-    width: 5rem;
+    width: 4rem;
     padding: 0.1rem;
     text-align: center;
+    margin-block-end: 0.1rem;
 
     .board-icon {
       padding-right: 0.2rem;
