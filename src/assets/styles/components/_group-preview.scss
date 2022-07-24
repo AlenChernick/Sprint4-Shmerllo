@@ -129,3 +129,66 @@ padding: 6px;
 .trello-plux-btn{
   margin-inline-end: 5px;
 }
+
+
+
+
+
+.add-new-group-btn-warp {
+  width: 290px;
+  background-color: #ffffff00;
+  border-radius: 3px;
+  max-height: calc(100vh - 200px);
+
+  .add-new-group-btn {
+    margin-inline-start: 3px;
+    color: rgb(21, 14, 14);
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.0784313725490196);
+    padding: 10px 10px;
+    min-height: 44px;
+    border-radius: 3px;
+    align-items: center;
+    margin-top: 8px;
+    &:hover {
+      background-color: rgba(251, 248, 248, 0.193);
+    }
+  }
+  .new-group-add-modal {
+    background-color: #ebecf06f;
+    border-radius: 3px;
+    padding: 4px 4px 1px 4px;
+    margin: 8px 0 0 4px;
+    display: flex;
+    flex-direction: column;
+
+    .new-group-text-area {
+      outline: 1px solid rgba(71, 71, 234, 0.95);
+
+     padding: 6px;
+      height: 33px;
+      border-radius: 2px;
+      box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px,
+        rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+        margin: 2px 0 2px 0;
+        font-family: $font;    
+      }
+    .cancel-add-group {
+      color: black;
+      font-family: trellicons;
+      font-size: em(24px);
+      &::before {
+        content: "\e91c";
+      }
+      font-size: 25px;
+      padding-inline-start: em(4px);
+    }
+
+
+    // .new-group-add-remove-conteiner{
+
+//   }
+
+    
+  }
+}
