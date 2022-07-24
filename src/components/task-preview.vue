@@ -1,42 +1,64 @@
 <template>
   <section @click="openTaskDetails">
+    <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
+      <font-awesome-icon icon="fa-solid fa-pen"
+    /></span>
+    <div v-if="task.style?.bgImgUrl">
+      <img :src="task.style.bgImgUrl" alt="" />
+    </div>
+    <div class="task-prev-details-conteiner">
+      <div v-if="taskToEdit?.labelIds" class="label-task-preview-container">
+        <ul v-for="labelId in taskToEdit.labelIds" class="clean-list flex">
+          <li
+            :class="labelStaus"
+            @click.stop="openLables"
+            :style="{ 'background-color': labelColor(labelId) }">
+            <span v-if="boardToEdit.isLabelsOpen">{{ labelTxt(labelId) }}</span>
+          </li>
+        </ul>
+      </div>
 
-    <span @click.stop="quickEditDisplay = 'block'"  class="edit-icon">
-    <font-awesome-icon icon="fa-solid fa-pen" /></span>
-    <div><h5>{{ task.title }}</h5></div>
-    <div v-if="task.style?.bgImgUrl"><img :src ="task.style.bgImgUrl" alt=""></div>
+      <div class="prev-task-title">{{ task.title }}</div>
+    </div>
+    <!-- Tal's part -->
 
+    <div
+      @click.stop="quickEditDisplay = 'none'"
+      class="quickEditScreen"
+      :style="{ display: quickEditDisplay }"
+    ></div>
 
+    <div class="quickEdit" :style="{ display: quickEditDisplay }">
+      <div class="title-edit">
+        <img v-if="task.style?.bgImgUrl" :src="task.style.bgImgUrl" />
+        <h5>{{ task.title }}</h5>
+      </div>
 
-
-<!-- Tal's part -->
-
-    <div @click.stop="quickEditDisplay = 'none'"  
-    class="quickEditScreen" :style="{ display: quickEditDisplay}">
-       </div>
-     
-     <div class="quickEdit" :style="{ display: quickEditDisplay}">
-
-        <div class="title-edit">
-         <img v-if="task.style?.bgImgUrl" :src="task.style.bgImgUrl" />
-          <h5>{{task.title}}</h5>
-        </div>
-      
       <div class="action-buttons">
-        
-        <button @click="openTaskDetails"><span class="card-icon"></span>Open card</button>
-        <button @click="editLabels"><span class="labels-icon"></span>Edit lables</button>
-        <button @click="editMembers"><span class="members-icon"></span>Change members</button>
-        <button  @click="changeCover"><span class="cover-icon"></span>Change cover</button>
-        <button @click="editDates"><span class="dates-icon"></span>Edit dates</button>
-        <button @click="removeTask"><span class="archive-icon"></span>Archive</button>
+        <button @click="openTaskDetails">
+          <span class="card-icon"></span>Open card
+        </button>
+        <button @click="editLabels">
+          <span class="labels-icon"></span>Edit lables
+        </button>
+        <button @click="editMembers">
+          <span class="members-icon"></span>Change members
+        </button>
+        <button @click="changeCover">
+          <span class="cover-icon"></span>Change cover
+        </button>
+        <button @click="editDates">
+          <span class="dates-icon"></span>Edit dates
+        </button>
+        <button @click="removeTask">
+          <span class="archive-icon"></span>Archive
+        </button>
       </div>
 
       <div class="save-button">
         <button>Save</button>
       </div>
- 
-    </div>  
+    </div>
   </section>
 </template>
 <script>
@@ -52,9 +74,17 @@ export default {
   },
   data() {
     return {
-       quickEditDisplay: 'none',
-
+      quickEditDisplay: "none",
+      taskToEdit: {},
+      boardToEdit: {},
+      labelOpen: false,
     }
+  },
+  created() {
+    this.taskToEdit = JSON.parse(JSON.stringify(this.task))
+    this.boardToEdit = JSON.parse(
+      JSON.stringify(this.$store.getters.getCurrBoard)
+    )
   },
   methods: {
     openTaskDetails() {
@@ -66,16 +96,38 @@ export default {
       )
       // this.$router.push('')
     },
-    removeTask(){
-      console.log('remove task')
-      this.$store.dispatch({type:'removeTask', taskId: this.task.id})
-    }
+    removeTask() {
+      console.log("remove task")
+      this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
+    },
+
+    labelColor(labelId) {
+      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+      const label = boardLabels.find((l) => l.id === labelId)
+      return label.bgColor
+    },
+    labelTxt(labelId) {
+      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+      const label = boardLabels.find((l) => l.id === labelId)
+      console.log(label.txt)
+      return label.txt
+    },
+    openLables() {
+      // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+      this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
+      this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
+    },
   },
   computed: {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
+    labelStaus() {
+      if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
+      if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
+    },
   },
+  components: {},
 }
 </script>
 <style lang=""></style>
