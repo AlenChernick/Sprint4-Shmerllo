@@ -1,12 +1,10 @@
 <template lang="">
 
-    <div  @click.stop="displayMemberPicker='block'" class="main-task-edit-btn">
-          <span class="members-icon"></span>
-          Members    
+  
 
-  <section class="member-picker" :style="{ display: displayMemberPicker }">
+  <section class="member-picker">
     <h4>Members</h4>
-    <span  @click.stop="displayMemberPicker='none'" class="close-icon"></span>
+    <span  @click.stop="closeModal" class="close-icon"></span>
     <ul class="clean-list" v-for="member in membersToEdit">
         <li  @click="toggleMember(member)" > 
         <img :src="member.imgUrl"/>
@@ -14,18 +12,15 @@
         </li>
     </ul>
   </section>
-  </div>
 
     
 </template>
 <script>
 export default {
-  name: 'label-picker',
+  name: 'member-picker',
   data() {
     return {
-      displayMemberPicker: 'none',
       membersToEdit: null,
-    
     }
   },
   methods: {
@@ -33,6 +28,9 @@ export default {
       console.log(member)
       this.$emit('toggleMember', member)
     },
+    closeModal(){
+      this.$emit("closeModal")
+    }
    
   },
   created(){
