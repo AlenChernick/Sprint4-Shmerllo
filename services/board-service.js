@@ -1096,6 +1096,7 @@ function getEmptyBoard() {
     activityCount: 0,
     lastActivity: 1658239902711,
     boardLabels: _labelOptions(),
+    isLabelsOpen:false,
   }
 }
 
