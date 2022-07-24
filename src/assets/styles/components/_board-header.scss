@@ -83,14 +83,14 @@
       background-color: rgba(223, 224, 219, 0.23529411764705882);
       border: none;
       outline: none;
-      padding: 0.289em 0.1em;
-      font-weight: 600;
-      font-family: NunitoSans-Bold;
+      padding: em(7px) em(8px);
+      font-weight: 550;
+      color: #172b4d;
       font-size: em(16.5px);
       width: em(170px);
       max-width: fit-content;
       text-align: center;
-      margin: 0 12px;
+      margin: 0 em(12px);
       border-radius: em(3px);
       transition: background-color 0.2s;
       &:hover {
