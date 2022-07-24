@@ -2,3 +2,15 @@
   font-family: trellicons;
   src: local(trellicons), url('/src/assets/styles/assets/fonts/trellicons.ttf');
 }
+@font-face {
+  font-family: NunitoSans-Bold;
+  src: local(NunitoSans-Bold), url('/src/assets/styles/assets/fonts/NunitoSans-Bold.ttf');
+}
+@font-face {
+  font-family: NunitoSans-regular;
+  src: local(NunitoSans-regular), url('/src/assets/styles/assets/fonts/NunitoSans-Regular.ttf');
+}
+@font-face {
+  font-family: NunitoSans-ExtraBold;
+  src: local(NunitoSans-ExtraBold), url('/src/assets/styles/assets/fonts/NunitoSans-ExtraBold.ttf');
+}
