@@ -1,6 +1,6 @@
 <template>
   <section @click="goToBoardDetails" class="board-preview" v-if="board" :style="bgStyle">
-    <h2>{{ board.title }}</h2>
+    <span class="board-preview-board-title">{{ board.title }}</span>
     <span @click.stop="toggeleIsFavorite" :class="isFavoriteIcon"></span>
   </section>
 </template>

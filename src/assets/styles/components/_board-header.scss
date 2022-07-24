@@ -1,177 +1,168 @@
-.board-header{
+.board-header {
+  height: em(51px);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
 
+  .board-info {
     display: flex;
-    justify-content: space-between;
-    background-color: $clr8;
-    color:$clr1;
-  
-    
-    
-    .board-info{
-        display: flex;
-        align-items: center;
+    align-items: center;
 
-        .star-icon {
-            background-color: rgba(255, 255, 255, 0.5);
-            width: fit-content;
-            font-weight: 400;
-            font-size: em(14px);
-            // line-height: lh(25px);
-            padding: 0 em(4px);
-            margin: em(10px);
-            border-radius: em(2px);
-            text-align: center;
-            color: $clr6;
-            margin-right: 0.5em;
-            font-family: trellicons;
-            font-size: em(24px);
-            &::before {
-              content: '\e966';
-            //   \e966
-            // '\e967'
-            }
-            &:hover {
-                color: #f2d600;
-                background-color: rgba(255, 255, 255, 0.37);
-                border-radius: 0.2rem;
-                cursor: pointer;
-        
-            }
-        }
-
-            .full-star-icon {
-                background-color: rgba(255, 255, 255, 0.37);
-                width: fit-content;
-                font-weight: 400;
-                font-size: em(14px);
-                // line-height: lh(25px);
-                padding: 0 em(4px);
-                margin: em(10px);
-                border-radius: em(2px);
-                text-align: center;
-                color:  #f2d600;;
-                margin-right: 0.5em;
-                font-family: trellicons;
-                font-size: em(24px);
-                &::before {
-                  content: '\e967';
-                }
-                &:hover {
-                    font-family: trellicons;
-                    &::before {
-                        content: '\e966';
-                      }
-
-                    // content: '\e966';
-                    cursor: pointer;      
-                }
-            
-
-          }
-
-        input {
-            color: $clr1;
-            outline: none;
-            border: none;
-            background-color: transparent;
-            width: fit-content;
-            font-weight: 600;
-            font-size: em(18px);
-            line-height: lh(25px);
-            padding:  em(5px) 0;
-            margin-left: 5px;
-            border-radius: em(3px);
-            text-align: center;
-    
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.37);
-                border-radius: 0.2rem;
-                cursor: pointer;
-        
-            }
-        }
-    
-        h5 {
-            color: $clr1;
-            background-color: rgba(255, 255, 255, 0.5);
-            width: fit-content;
-            font-weight: 400;
-            font-size: em(14px);
-            line-height: lh(25px);
-            padding: em(10px) em(12px);
-            margin: em(10px);
-            border-radius: em(3px);
-            text-align: center;
-    
-            &:hover {
-                background-color: rgba(255, 255, 255, 0.37);
-                border-radius: 0.2rem;
-                cursor: pointer;
-        
-            }
-
-        }
-        .members {
-            width:fit-content;
-            height: fit-content;
-            
-
-            img{
-                width: 28px;
-                height: 28px;
-                border-radius: 50%;
-                // transform: translateX(-20px);
-            }
-            // flex-direction: row;
-        }
-    
-        
+    .board-type-select {
+      background-color: rgba(223, 224, 219, 0.23529411764705882);
+      padding: em(9px) em(20px);
+      color: black;
+      border-radius: em(3px);
+      margin-inline-start: 1.5rem;
+      min-width: fit-content;
+      border: none;
+      outline: none;
+      border-radius: em(3px);
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: rgba(132, 132, 132, 0.344);
+      }
     }
-    
+
+    .star-icon {
+      background-color: rgba(223, 224, 219, 0.23529411764705882);
+      width: fit-content;
+      font-weight: 400;
+      font-size: em(14px);
+      padding: em(3px) em(8px);
+      margin: em(10px);
+      border-radius: em(2px);
+      text-align: center;
+      color: $clr1;
+      margin-inline-start: em(-2px);
+      font-family: trellicons;
+      font-size: em(17px);
+      transition: background-color 0.2s;
+
+      &::before {
+        content: '\e966';
+      }
+      &:hover {
+        color: #f2d600;
+        cursor: pointer;
+        background-color: rgba(132, 132, 132, 0.344);
+      }
+    }
+
+    .full-star-icon {
+      background-color: rgba(223, 224, 219, 0.23529411764705882);
+      width: fit-content;
+      font-weight: 400;
+      font-size: em(14px);
+      // line-height: lh(25px);
+      padding: em(3px) em(8px);
+      margin: em(10px);
+      text-align: center;
+      margin-inline-start: em(-2px);
+      font-family: trellicons;
+      font-size: em(17px);
+      color: #f2d600;
+      transition: background-color 0.2s;
+      font-size: em(17px);
+      cursor: pointer;
+      &::before {
+        content: '\e967';
+      }
+      &:hover {
+        background-color: rgba(132, 132, 132, 0.344);
+        font-family: trellicons;
+        &::before {
+          content: '\e966';
+        }
+
+        // content: '\e966';
+      }
+    }
+
+    input {
+      background-color: rgba(223, 224, 219, 0.23529411764705882);
+      border: none;
+      outline: none;
+      padding: 0.289em 0.1em;
+      font-weight: 600;
+      font-family: NunitoSans-Bold;
+      font-size: em(16.5px);
+      width: em(170px);
+      max-width: fit-content;
+      text-align: center;
+      margin: 0 12px;
+      border-radius: em(3px);
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: rgba(132, 132, 132, 0.344);
+        // border-radius: 0.2rem;
+      }
+    }
+
+    h5 {
+      color: $clr1;
+      background-color: rgba(223, 224, 219, 0.23529411764705882);
+      width: fit-content;
+      font-weight: 400;
+      font-size: em(14px);
+      line-height: lh(25px);
+      padding: em(8px) em(20px);
+      margin: em(10px);
+      border-radius: em(3px);
+      text-align: center;
+      cursor: pointer;
+      margin-inline-end: 1.2rem;
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: rgba(132, 132, 132, 0.344);
+      }
+    }
+    .members {
+      display: flex;
+      img {
+        width: em(28px);
+        height: em(28px);
+        border-radius: 50%;
+        // transform: translateX(-20px);
+      }
+      // flex-direction: row;
+    }
+  }
 }
 
-.board-header-buttons{
-    padding: 9px;
+.board-header-buttons {
+  align-self: center;
+  margin-inline-end: 0.3rem;
+  .board-header-btn {
+    color: $clr1;
+    background-color: rgba(223, 224, 219, 0.23529411764705882);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: em(9px) em(20px);
+    margin: em(4px);
+    border-radius: em(3px);
+    border: none;
+    text-align: center;
     display: flex;
+    cursor: pointer;
+    align-items: center;
+    transition: background-color 0.2s;
 
-    .board-header-btn{
-        color: $clr1;
-        background-color: rgba(255, 255, 255, 0.5);
-        width: fit-content;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        font-size: em(14px);
-        // line-height: lh(25px);
-        padding: em(0px) em(24px);
-        margin: em(4px);
-        border-radius: em(3px);
-        border: none;
-        text-align: center;
-        display: flex;
-        align-items: center;
-
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.37);
-            border-radius: 0.2rem;
-            cursor: pointer;
-
-        }
-
-        .menu-icon {
-            padding-right:em(5px) ;
-            font-family: trellicons;
-            font-size: em(24px);
-            &::before {
-                content: "\e952";
-              }
-        }
-
-        .filter-icon{
-            padding-right:em(5px) ;
-        }
-       
+    &:hover {
+      background-color: rgba(132, 132, 132, 0.344);
     }
 
-    
+    .menu-icon {
+      padding-right: em(5px);
+      font-family: trellicons;
+      font-size: em(24px);
+      &::before {
+        content: '\e952';
+      }
+    }
+
+    .filter-icon {
+      padding-right: em(5px);
+    }
+  }
 }

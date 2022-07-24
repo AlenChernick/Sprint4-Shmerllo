@@ -2,7 +2,7 @@
   <section class="board-app">
     <div class="starred-boards">
       <span class="full-star-icon"></span>
-      <h3>Starred</h3>
+      <h3>Starred workspaces</h3>
       <h5 v-if="!starredBoards.length">No starred boards yet...</h5>
       <board-list :boards="starredBoards" />
     </div>

@@ -1,55 +1,7 @@
 .board-app {
-    height: 97vh;
-    display: flex;
-    flex-direction: column;
-    align-items: space-around;
-    color: $clr1;
-
-    .starred-boards{
-        margin-top: 80px;
-
-        h3 { 
-            display: inline;
-            margin-bottom: px;
-        }
-     
-        h5{
-            padding: em(25px);
-            font-size: em(20px);
-        }
-        .full-star-icon {
-       
-            font-weight: 400;
-            font-size: em(20px);
-               
-            color:  #f2d600;;
-           
-            font-family: trellicons;
-            font-size: em(24px);
-            &::before {
-              content: '\e967';
-            }
-
-
-
-    }
-   
-   
-
-    
-
-  }
-    
-
+  height: 97vh;
+  display: flex;
+  flex-direction: column;
+  color: $clr1;
+  margin: 0 120px;
 }
-
-
-// &:hover {
-//     font-family: trellicons;
-//     &::before {
-//         content: '\e966';
-//       }
-
-//     // content: '\e966';
-//     cursor: pointer;      
-// }

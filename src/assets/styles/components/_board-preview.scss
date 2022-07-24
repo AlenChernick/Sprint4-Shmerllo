@@ -1,1 +1,104 @@
-//in board-list
+.board-preview {
+  background-position: 50%;
+  background-size: cover;
+  line-height: lh(20px);
+  height: em(150px);
+  width: em(290px);
+  position: relative;
+  margin-inline-start: 1rem;
+  margin-block-end: 1.5rem;
+  display: flex;
+  cursor: pointer;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(0.9);
+    .non-star-icon {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+
+  .board-preview-board-title {
+    position: absolute;
+    left: em(12px);
+    top: em(8px);
+    color: white;
+    font-size: em(17px);
+    font-weight: 800;
+    text-shadow: 0px 0px 1px rgb(0, 0, 0);
+  }
+
+  .non-star-icon {
+    font-family: trellicons;
+    color: transparent;
+    transition: color 0.1s;
+    font-weight: 300;
+    font-size: em(25px);
+    position: absolute;
+    right: em(10px);
+    color: white;
+    bottom: em(5px);
+    transform: translateX(50%);
+    opacity: 0;
+    transition: transform 0.2s, opacity 0.2s;
+
+    &:hover {
+      color: #f2d600;
+    }
+
+    &::before {
+      content: '\e966';
+    }
+  }
+
+  .full-star-icon {
+    position: absolute;
+    right: em(5px);
+    bottom: em(5px);
+    color: #f2d600;
+    font-weight: 300;
+    font-size: em(25px);
+    font-family: trellicons;
+    &::before {
+      content: '\e967';
+    }
+    &:hover {
+      &::before {
+        content: '\e966';
+      }
+    }
+  }
+}
+
+.starred-boards {
+  margin-top: em(80px);
+
+  h3 {
+    display: inline-block;
+    margin-bottom: em(5px);
+    font-family: NunitoSans-Bold;
+  }
+
+  .full-star-icon {
+    margin-right: 5px;
+    font-size: em(25px);
+    font-family: trellicons;
+    &::before {
+      color: #f2d600;
+      content: '\e967';
+    }
+  }
+
+  h5 {
+    padding: em(25px);
+    font-size: em(20px);
+  }
+}
+.workspace-logo {
+  margin-top: 2%;
+  margin-left: em(-6px);
+  .workspace-icon {
+    margin-right: em(5px);
+  }
+}

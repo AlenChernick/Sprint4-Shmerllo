@@ -1,15 +1,17 @@
 <template>
   <section class="board-header">
     <div class="board-info">
+      <select class="board-type-select">
+        <option value="board">Board</option>
+      </select>
       <input @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
-      <span @click="toggeleIsFavorite" :class="icon" ></span>
-      <h5> {{board.byMember?.fullname}}'s workspace</h5> 
+      <span @click="toggeleIsFavorite" :class="icon"></span>
+      <h5>{{ board.byMember?.fullname }}'s workspace</h5>
       <ul class="members clean-list" v-for="member in board.members">
-        <img :src="member.imgUrl"/>
+        <img :src="member.imgUrl" />
       </ul>
-
     </div>
-   
+
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
       <board-menu />
@@ -22,41 +24,37 @@ import boardFilter from '../components/board-filter.vue'
 
 export default {
   name: 'board-header',
-   props: {
+  props: {
     board: {
       type: Object,
     },
-   },
-    data() {
+  },
+  data() {
     return {
       currBoard: {},
     }
   },
-   methods: {
+  methods: {
     saveBoard() {
       console.log('im on', this.board.title)
-      this.$store.dispatch({type: "saveBoard",board: this.board })
-  },
-    toggeleIsFavorite(){
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+    },
+    toggeleIsFavorite() {
       this.board.isFavorite = !this.board.isFavorite
       console.log(this.board.isFavorite)
-      this.$store.dispatch({type: "saveBoard",board: this.board })
-    }
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+    },
   },
   computed: {
-    icon(){
+    icon() {
       let board = this.$store.getters.getCurrBoard
-      if (board?.isFavorite) return 'full-star-icon' 
+      if (board?.isFavorite) return 'full-star-icon'
       else return 'star-icon'
-    }
-
-
+    },
   },
   components: {
     boardMenu,
     boardFilter,
   },
-
 }
-
 </script>
