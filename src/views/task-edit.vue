@@ -129,7 +129,8 @@
           </div>
         </div>
       </div>
-      <edit-task-actions />
+      <edit-task-actions @toggleLabel="toggleLabel" 
+                          @toggleMember="toggleMember"/>
     </div>
   </section>
 </template>
@@ -236,6 +237,7 @@ export default {
       })
     },
     toggleLabel(labelId) {
+      console.log('yes ', labelId)
       const labels = this.taskToEdit.labelIds
       const idx = labels.findIndex((label) => label === labelId)
       let userAction = ''

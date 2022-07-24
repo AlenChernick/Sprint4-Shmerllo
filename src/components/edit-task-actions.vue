@@ -3,10 +3,24 @@
     <div class="main-task-sidebar">
       <div class="main-task-header">Add to card</div>
 
-      <member-picker @toggleMember="toggleMember" />
-      <label-picker @toggleLabel="toggleLabel" />
 
-      <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
+      
+      <div v-for="btn in actionBtns" @click.stop="openModal(btn.type)" class="main-task-edit-btn">
+        <span :class="btn.icon"></span>
+         {{btn.txt}}
+      </div>
+       <component :is="cmpType"  @closeModal="closeModal" 
+                                 @toggleLabel="toggleLabel"
+                                 @toggleMember="toggleMember">
+       </component>
+
+
+<!--     
+
+      <member-picker @toggleMember="toggleMember" />
+      <label-picker @toggleLabel="toggleLabel" /> -->
+
+      <!-- <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
         <span class="checklist-icon"></span>
         Checklist
       </div>
@@ -32,26 +46,49 @@
       <div class="main-task-edit-btn">
         <span class="cover-icon"></span>
         Cover
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
 <script>
+
 import labelPicker from '../components/label-picker.vue'
 import memberPicker from '../components/member-picker.vue'
 export default {
   data() {
     return {
-      isCheckListItemAdded: false,
-      isCheckListAdded: false,
-      displayLabelPicker: 'none',
-      todoTitle: '',
-      checkListTitle: '',
+      actionBtns: [
+        {txt: 'Labels', icon: 'labels-icon', type:'labelPicker'}, 
+      {txt: 'Members', icon: 'members-icon', type:'memberPicker'}
+      ],
+      cmpType: null,
+      displayModal: 'none'
+      // isCheckListItemAdded: false,
+      // isCheckListAdded: false,
+      // displayLabelPicker: 'none',
+      // todoTitle: '',
+      // checkListTitle: '',
     }
+  },
+  methods:{
+    openModal(cmpType){
+      this.cmpType = cmpType
+    },
+    closeModal(){
+      this.cmpType = null
+    },
+    toggleLabel(labelId){
+      this.$emit('toggleLabel', labelId)
+    },
+     toggleMember(member){
+      this.$emit('toggleMember', member)
+    },
+
   },
   components: {
     labelPicker,
     memberPicker,
+    // actionsModal,
   },
 }
 </script>
