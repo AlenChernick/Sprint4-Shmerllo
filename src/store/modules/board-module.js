@@ -250,8 +250,10 @@ export default {
       }
     },
     async setBoardStyle({ state, dispatch }, { style }) {
+      console.log(style)
       try {
         let board = JSON.parse(JSON.stringify(state.currBoard))
+        console.log(board)
         board.style = style
         dispatch({ type: "saveBoard", board })
       } catch (err) {

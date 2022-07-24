@@ -3,7 +3,7 @@
     <div class="board-info">
       <input @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
       <span @click="toggeleIsFavorite" :class="icon" ></span>
-      <h5> {{board.byMember.fullname}}'s workspace</h5> 
+      <h5> {{board.byMember?.fullname}}'s workspace</h5> 
       <ul class="members clean-list" v-for="member in board.members">
         <img :src="member.imgUrl"/>
       </ul>
