@@ -94,9 +94,11 @@
             >Add an item</el-button
           >
           <div v-if="isCheckListItemAdded" class="check-list-add-item-btn-container">
-            <textarea v-model="todoTitle" spellcheck="false"></textarea>
-            <el-button type="primary" @click="addCheckListItem(checklist.id, todoTitle)">Save</el-button>
-            <el-button type="info" @click="addCheckListItem">Cancel</el-button>
+            <div class="checklist-todo-add-container">
+              <textarea v-model="todoTitle" spellcheck="false"></textarea>
+              <el-button type="primary" @click="addCheckListItem(checklist.id, todoTitle)">Save</el-button>
+              <el-button type="info" @click="addCheckListItem">Cancel</el-button>
+            </div>
           </div>
         </div>
         <div class="main-editor-activity-contianer">
@@ -124,13 +126,15 @@
 
         <member-picker @toggleMember="toggleMember" />
         <label-picker @toggleLabel="toggleLabel" />
-
         <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
           <span class="checklist-icon"></span>
           Checklist
         </div>
         <div v-if="isCheckListAdded" class="checklist-modal">
           <div class="checklist-header">Add Checklist</div>
+          <div v-if="getCurrTask" class="close-task-edit" @click="isCheckListAdded = false">
+            <span class="close-checklist-modal"></span>
+          </div>
           <div class="modal-options">
             <div class="checklist-input-header">Title</div>
             <input type="text" v-model="checkListTitle" @keyup.enter="addCheckList(checkListTitle)" />

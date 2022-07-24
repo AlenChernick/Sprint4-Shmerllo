@@ -248,6 +248,13 @@
     }
 
     .main-editor-checklist-container {
+      .checklist-todo-add-container {
+        display: flex;
+        // flex-direction: column;
+        width: 350px;
+        margin: 0 auto;
+      }
+
       .main-editor-checklist-header {
         display: flex;
         justify-content: space-between;
@@ -277,7 +284,7 @@
       }
       .main-editor-add-item-btn {
         margin-left: 1.5rem;
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
       }
       .main-editor-checklist-delete-btn {
         justify-content: left;
@@ -343,8 +350,22 @@
         box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
         background-color: #fff;
         z-index: 10;
+        position: absolute;
+        top: em(260px);
         .modal-options {
           padding: em(11px);
+        }
+
+        .close-checklist-modal {
+          font-family: trellicons;
+          font-size: em(16px);
+          position: absolute;
+          top: em(8px);
+          right: em(10px);
+          cursor: pointer;
+          &::before {
+            content: '\e91c';
+          }
         }
 
         .checklist-header {
