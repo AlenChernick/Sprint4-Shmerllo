@@ -11,35 +11,42 @@
   box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
   border-radius: 3px;
   white-space: normal;
-  max-height: calc(100vh - 140px);
+  max-height:80vh;
+  // max-height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  .task-adding-conteiner{
+  // overflow-y: auto;
+  .task-adding-conteiner {
     padding: 1px 0px 6px 16px;
     color: #5e6c84;
     cursor: pointer;
-    &:hover{
-      background-color:#b4b5b9af ;
+    &:hover {
+      background-color: #b4b5b9af;
     }
-
   }
 }
 
+// .content-scroll{
+//   // max-height: calc(100vh - 200px);
+//   // height:400px;
+//   max-height: calc(100vh - 240px);
+//      overflow-y: auto;
+
+// }
 .group-header {
   justify-content: space-between;
   align-items: center;
-  padding: 0 7px 5px  7px;
+  padding: 0 7px 5px 7px;
 }
 .group-subject-header {
   width: 90%;
   input {
     font-size: 14px;
-padding: 5px;
+    padding: 5px;
     font-weight: 600;
     color: #5e6c84;
     border: none;
-    outline:none;
+    outline: none;
     background-color: transparent;
     width: 100%;
     cursor: grab;
@@ -69,14 +76,15 @@ padding: 5px;
 }
 
 .new-task-area {
-  width: 100%;
-  // border: 2px solid blue;
-  // outline: blue;
-    border: none;
+  // width: 100%;
+  margin-top:10px;
+  width: 93%;
+
+  border: none;
   outline: none;
-  // box-shadow: 0 1px 0 rgb(22 24 27 / 25%);
-box-shadow:  rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
-padding: 6px;
+  box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px,
+    rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+  padding: 6px;
 }
 
 .cancel-add-task {
@@ -126,13 +134,9 @@ padding: 6px;
   }
 }
 
-.trello-plux-btn{
+.trello-plux-btn {
   margin-inline-end: 5px;
 }
-
-
-
-
 
 .add-new-group-btn-warp {
   width: 290px;
@@ -165,14 +169,14 @@ padding: 6px;
     .new-group-text-area {
       outline: 1px solid rgba(71, 71, 234, 0.95);
 
-     padding: 6px;
+      padding: 6px;
       height: 33px;
       border-radius: 2px;
       box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px,
         rgb(60 64 67 / 15%) 0px 1px 3px 1px;
-        margin: 2px 0 2px 0;
-        font-family: $font;    
-      }
+      margin: 2px 0 2px 0;
+      font-family: $font;
+    }
     .cancel-add-group {
       color: black;
       font-family: trellicons;
@@ -184,11 +188,8 @@ padding: 6px;
       padding-inline-start: em(4px);
     }
 
-
     // .new-group-add-remove-conteiner{
 
-//   }
-
-    
+    //   }
   }
 }

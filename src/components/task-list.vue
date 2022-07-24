@@ -1,6 +1,6 @@
 <template>
-  <!-- <h3 >Group ID:{{groupId}}</h3> -->
-  <div class="group-title"></div>
+
+  <!-- <div class="group-title"></div> -->
   <Container
     class="tasks-container"
     orientation="vertical"

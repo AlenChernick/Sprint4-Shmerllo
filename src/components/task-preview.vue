@@ -12,13 +12,26 @@
           <li
             :class="labelStaus"
             @click.stop="openLables"
-            :style="{ 'background-color': labelColor(labelId) }">
+            :style="{ 'background-color': labelColor(labelId) }"
+          >
             <span v-if="boardToEdit.isLabelsOpen">{{ labelTxt(labelId) }}</span>
           </li>
         </ul>
       </div>
 
       <div class="prev-task-title">{{ task.title }}</div>
+
+      <div class="flex space-between">
+        <div class="flex prev-members-imgs">
+          <ul
+            v-if="task.members"
+            class="clean-list flex"
+            v-for="member in task.members"
+          >
+            <img class="prev-member-img" :src="member.imgUrl" />
+          </ul>
+        </div>
+      </div>
     </div>
     <!-- Tal's part -->
 

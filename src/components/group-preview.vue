@@ -1,7 +1,6 @@
 <template>
-  <section>
-    <div class="group-header flex">
-      <!-- <div class="">{{ group.title }}</div> -->
+      <section>
+    <div class="group-header flex ">
       <div class="group-subject-header">
         <input
           type="text"
@@ -26,18 +25,20 @@
           >
         </div>
       </div>
-      <!-- <div class="group-remove-modal"></div> -->
     </div>
+    <div>
+      <div>
     <task-list :tasks="group.tasks" :groupId="group.id" />
+    </div>
     <div
       v-if="!newTaskModal"
       class="task-adding-conteiner flex"
       @click="newTaskModal = !newTaskModal"
     >
       <div class="task-adding-btn">
-        <font-awesome-icon icon="fa-solid fa-plus" class="trello-plux-btn"/>
+        <font-awesome-icon icon="fa-solid fa-plus" class="trello-plux-btn" />
       </div>
-      <div> Add a card</div>
+      <div>Add a card</div>
     </div>
     <div v-else>
       <textarea
@@ -48,7 +49,10 @@
         v-model="taskTitle"
       ></textarea>
       <div class="new-task-add-remove-conteiner flex">
-        <el-button class="trello-plux-btn" type="primary" @click="oneNewTask(group.id)"
+        <el-button
+          class="trello-plux-btn"
+          type="primary"
+          @click="oneNewTask(group.id)"
           >Add Card</el-button
         >
         <span
@@ -56,6 +60,7 @@
           @click="newTaskModal = !newTaskModal"
         ></span>
       </div>
+    </div>
     </div>
   </section>
 </template>
@@ -80,17 +85,17 @@ export default {
   },
   created() {
     this.currBoard = this.$store.getters.getCurrBoard
-    if(this.group.tasks === [])  this.newTaskModal = true
-  
+    if (this.group.tasks === []) this.newTaskModal = true
   },
   methods: {
     oneNewTask(groupId) {
+      if( !this.taskTitle ) return
       this.$store.dispatch({
         type: "saveTask",
         groupId,
         taskTitle: this.taskTitle,
         userAction: "Add new card",
-        currBoard:this.currBoard
+        boardId: this.currBoard._id,
       })
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ""
@@ -103,9 +108,8 @@ export default {
       const boardId = this.currBoard._id
       this.$store.dispatch({ type: "removeGroup", groupId, boardId })
     },
-
   },
- 
+
   components: {
     taskList,
   },

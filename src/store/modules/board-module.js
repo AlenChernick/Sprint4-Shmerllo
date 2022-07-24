@@ -165,7 +165,7 @@ export default {
       { commit, state, dispatch },
       { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
-      boardId = state.currBoard._id
+      // boardId = state.currBoard._id
       console.log(boardId)
 
       try {

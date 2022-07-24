@@ -1,0 +1,6 @@
+.tasks-container{
+    max-height:55vh ;
+    // max-height: calc(100vh - 380px);
+    overflow-y: auto;
+    padding-right: 2px ;
+}

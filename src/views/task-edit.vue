@@ -6,7 +6,10 @@
       class="task-edit-cover"
       :style="{ 'background-color': getCurrTask.style.bgColor }"
     >
-      <img v-if="getCurrTask.style.bgImgUrl" :src="getCurrTask.style.bgImgUrl" />
+      <img
+        v-if="getCurrTask.style.bgImgUrl"
+        :src="getCurrTask.style.bgImgUrl"
+      />
       <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
         <span class="close-task-edit-icon"></span>
       </div>
@@ -16,7 +19,12 @@
     </div>
     <div class="task-edit-header">
       <span class="task-edit-header-icon"></span>
-      <input @input="saveTask" spellcheck="false" v-model="getCurrTask.title" type="text" />
+      <input
+        @input="saveTask"
+        spellcheck="false"
+        v-model="getCurrTask.title"
+        type="text"
+      />
     </div>
     <div class="task-list-name">
       <p>in List... to add when nestedroute</p>
@@ -30,10 +38,16 @@
               <!-- <pre>{{taskToEdit.members}}</pre> -->
               <ul v-for="member in taskToEdit.members">
                 <li>
-                  <img class="main-task-member-img" :src="member.imgUrl" alt="member" />
+                  <img
+                    class="main-task-member-img"
+                    :src="member.imgUrl"
+                    alt="member"
+                  />
                 </li>
               </ul>
-              <div class="main-task-add-member"><span class="main-task-add-member-icon"></span></div>
+              <div class="main-task-add-member">
+                <span class="main-task-add-member-icon"></span>
+              </div>
             </div>
           </div>
 
@@ -58,7 +72,11 @@
         <div class="main-editor-description">
           <span class="main-editor-description-icon"></span>
           <h4 class="main-editor-description-title">Description</h4>
-          <el-button @click="onEdit" v-if="!isEdit" class="btn main-editor-decription-edit-btn" type="info"
+          <el-button
+            @click="onEdit"
+            v-if="!isEdit"
+            class="btn main-editor-decription-edit-btn"
+            type="info"
             >Edit</el-button
           >
         </div>
@@ -71,25 +89,44 @@
           >{{ getCurrTask.description }}
         </textarea>
         <div class="main-editor-btn-container">
-          <el-button type="primary" v-if="isEdit" @click="saveTask">Save</el-button>
-          <el-button type="info" v-if="isEdit" @change="saveTask" @click="isEdit = false">Cancel</el-button>
+          <el-button type="primary" v-if="isEdit" @click="saveTask"
+            >Save</el-button
+          >
+          <el-button
+            type="info"
+            v-if="isEdit"
+            @change="saveTask"
+            @click="isEdit = false"
+            >Cancel</el-button
+          >
         </div>
-        <div class="main-editor-checklist-container" v-for="checklist in getCurrTask.checklists">
+        <div
+          class="main-editor-checklist-container"
+          v-for="checklist in getCurrTask.checklists"
+        >
           <div class="main-editor-checklist-header">
             <div class="main-editor-checklist-header-info">
               <span class="main-editor-checklist-icon"></span>
               <h4 class="main-editor-checklist-title">{{ checklist.title }}</h4>
             </div>
-            <el-button @click="removeCheckList(checklist.id)" type="info" class="btn main-editor-checklist-delete-btn"
+            <el-button
+              @click="removeCheckList(checklist.id)"
+              type="info"
+              class="btn main-editor-checklist-delete-btn"
               >Delete</el-button
             >
           </div>
-          <div class="checklist-progressbar-contianer">
-            <el-progress :percentage="50" class="checklist-progressbar" />
+           <div  class="checklist-progressbar-contianer">
+            <el-progress
+              :percentage="90"
+              class="checklist-progressbar"
+            />
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
+              <el-checkbox @change="saveTask(todo)">{{
+                todo.title
+              }}</el-checkbox>
             </li>
           </ul>
           <el-button
@@ -99,12 +136,21 @@
             class="btn main-editor-add-item-btn"
             >Add an item</el-button
           >
-          <div v-if="isCheckListItemAdded" class="check-list-add-item-btn-container">
+          <div
+            v-if="isCheckListItemAdded"
+            class="check-list-add-item-btn-container"
+          >
             <div class="checklist-todo-add-container">
               <textarea v-model="todoTitle" spellcheck="false"></textarea>
               <div class="checklist-todo-add-btns">
-                <el-button type="primary" @click="addCheckListItem(checklist.id, todoTitle)">Add</el-button>
-                <el-button type="info" @click="isCheckListItemAdded = false">Cancel</el-button>
+                <el-button
+                  type="primary"
+                  @click="addCheckListItem(checklist.id, todoTitle)"
+                  >Add</el-button
+                >
+                <el-button type="info" @click="isCheckListItemAdded = false"
+                  >Cancel</el-button
+                >
               </div>
             </div>
           </div>
@@ -118,7 +164,9 @@
             <el-button class="btn" type="info">Show details</el-button>
           </div>
           <div class="main-editor-activity-comments">
-            <span class="main-editor-activity-icon"><font-awesome-icon icon="fa-solid fa-user" /></span>
+            <span class="main-editor-activity-icon"
+              ><font-awesome-icon icon="fa-solid fa-user"
+            /></span>
             <textarea
               @click="onWriteComment"
               placeholder="Write a comment"
@@ -129,29 +177,31 @@
           </div>
         </div>
       </div>
-      <edit-task-actions @toggleLabel="toggleLabel" 
-                          @toggleMember="toggleMember"/>
+      <edit-task-actions
+        @toggleLabel="toggleLabel"
+        @toggleMember="toggleMember"
+      />
     </div>
   </section>
 </template>
 <script>
-import { ref } from 'vue'
+import { ref } from "vue"
 
-import editTaskActions from '../components/edit-task-actions.vue'
+import editTaskActions from "../components/edit-task-actions.vue"
 
 export default {
-  name: 'task-edit',
+  name: "task-edit",
   data() {
     return {
       boardId: null,
       groupId: null,
       isEdit: false,
       isWrite: false,
-      dateValue: ref(''),
+      dateValue: ref(""),
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
-      format: (percentage) => (percentage === 100 ? 'Full' : `${percentage}%`),
+      todosPresntage: null,
     }
   },
   async created() {
@@ -160,14 +210,16 @@ export default {
       this.boardId = boardId
       this.groupId = groupId
       await this.$store.dispatch({
-        type: 'getTaskById',
+        type: "getTaskById",
         boardId,
         groupId,
         taskId,
       })
-      this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
+      this.taskToEdit = JSON.parse(
+        JSON.stringify(this.$store.getters.getCurrTask)
+      )
     } catch (err) {
-      console.log('Cannot load task', err)
+      console.log("Cannot load task", err)
       throw err
     }
   },
@@ -176,22 +228,22 @@ export default {
       todo.isDone = !todo.isDone
       this.isEdit = false
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: JSON.parse(JSON.stringify(this.getCurrTask)),
         groupId: this.groupId,
         boardId: this.boardId,
         currBoard: this.getCurrBoard,
-        userAction: 'Task update',
+        userAction: "Task update",
       })
     },
     removeTask() {
       this.$store.dispatch({
-        type: 'removeTask',
+        type: "removeTask",
         taskId: this.getCurrTask.id,
         groupId: this.groupId,
         boardId: this.boardId,
       })
-      this.$router.push('/board' + boardId)
+      this.$router.push("/board" + boardId)
     },
     onWriteComment() {
       this.isWrite = !this.isWrite
@@ -203,11 +255,11 @@ export default {
       this.$router.push(`/board/${this.boardId}`)
     },
     addCheckListItem(checkListId, todoTitle) {
-      if (todoTitle === '') return
+      if (todoTitle === "") return
       this.isCheckListItemAdded = !this.isCheckListItemAdded
-      this.todoTitle = ''
+      this.todoTitle = ""
       this.$store.dispatch({
-        type: 'addCheckListItem',
+        type: "addCheckListItem",
         task: JSON.parse(JSON.stringify(this.getCurrTask)),
         groupId: this.groupId,
         checkListId,
@@ -216,20 +268,20 @@ export default {
       })
     },
     addCheckList(checkListTitle) {
-      if (checkListTitle === '') return
+      if (checkListTitle === "") return
       this.$store.dispatch({
-        type: 'addCheckList',
+        type: "addCheckList",
         task: JSON.parse(JSON.stringify(this.getCurrTask)),
         groupId: this.groupId,
         board: this.getCurrBoard,
         checkListTitle,
       })
       this.isCheckListAdded = false
-      this.checkListTitle = ''
+      this.checkListTitle = ""
     },
     removeCheckList(checklistId) {
       this.$store.dispatch({
-        type: 'removeCheckList',
+        type: "removeCheckList",
         task: JSON.parse(JSON.stringify(this.getCurrTask)),
         groupId: this.groupId,
         board: this.getCurrBoard,
@@ -237,20 +289,20 @@ export default {
       })
     },
     toggleLabel(labelId) {
-      console.log('yes ', labelId)
+      console.log("yes ", labelId)
       const labels = this.taskToEdit.labelIds
       const idx = labels.findIndex((label) => label === labelId)
-      let userAction = ''
+      let userAction = ""
       if (idx === -1) {
-        userAction = 'Added label'
+        userAction = "Added label"
         labels.push(labelId)
       } else {
         labels.splice(idx, 1)
-        userAction = 'Removed label'
+        userAction = "Removed label"
       }
       console.log(this.taskToEdit, this.groupId, this.boardId)
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -261,17 +313,17 @@ export default {
     toggleMember(member) {
       const members = this.taskToEdit.members
       const idx = members.findIndex((m) => m.id === member.id)
-      let userAction = ''
+      let userAction = ""
       if (idx === -1) {
-        userAction = 'Add member'
+        userAction = "Add member"
         members.push(member)
       } else {
         members.splice(idx, 1)
-        userAction = 'Removed member'
+        userAction = "Removed member"
       }
       console.log(this.taskToEdit, this.groupId, this.boardId)
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -293,11 +345,16 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
     openTextArea() {
-      return this.isEdit ? 'open-text-area' : ''
+      return this.isEdit ? "open-text-area" : ""
     },
     // boards() {
     //   return JSON.parse(JSON.stringify(this.$store.getters.getBoards))
     // },
+    doneTodos() {
+      // let chackListLen = checkList.todos.length
+      // let complited = checkList.todos.filter(todo=> todo.isDone === true)
+      return 50
+    },
   },
   components: {
     editTaskActions,
