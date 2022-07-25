@@ -8,10 +8,10 @@
 
    <div  class="cover-selection">
     <div v-for="color in coverOptions.coverColors" :style="{ 'background-color': color}"  
-        class="color-box" @click="setBgColor(color)"> 
+        class="color-box" @click.stop="setBgColor(color)"> 
           </div>
     <div class="seperator"></div>
-    <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click="setBgImgUrl(imgUrl)"/>
+    <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click.stop="setBgImgUrl(imgUrl)"/>
   
   </div>
   </section>
@@ -64,13 +64,11 @@ export default {
       this.style.bgColor= color
       this.style.bgImgUrl= ''
       this.$emit('setTaskStyle', this.style)
-      // this.$store.dispatch({type: "setBoardStyle",style: this.style })
     },
     setBgImgUrl(imgUrl){
       this.style.bgColor= ''
       this.style.bgImgUrl= imgUrl
        this.$emit('setTaskStyle', this.style)
-      // this.$store.dispatch({type: "setBoardStyle",style: this.style })
     }, 
     closeModal(){
       this.$emit("closeModal")

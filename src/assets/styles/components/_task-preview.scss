@@ -7,6 +7,7 @@
   max-width: 300px;
   min-height: 20px;
   position: relative;
+
   .task-prev-details-conteiner {
     padding: 10px;
     position: relative;
@@ -101,8 +102,8 @@
 }
 
 .quickEdit {
-  position: fixed;
-  top: 180px;
+  position: absolute;
+  // top: 180px;
   background-color: white;
   z-index: 30;
   width: 265px;
