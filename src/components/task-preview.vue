@@ -1,5 +1,5 @@
 <template>
-  <section @click="openTaskDetails">
+  <section class="task-preview" @click="openTaskDetails">
     <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
       <font-awesome-icon icon="fa-solid fa-pen"
     /></span>
@@ -53,18 +53,20 @@
         <button @click="openTaskDetails">
           <span class="card-icon"></span>Open card
         </button>
-        <button @click="editLabels">
-          <span class="labels-icon"></span>Edit lables
-        </button>
-        <button @click="editMembers">
-          <span class="members-icon"></span>Change members
-        </button>
-        <button @click="changeCover">
-          <span class="cover-icon"></span>Change cover
-        </button>
-        <button @click="editDates">
-          <span class="dates-icon"></span>Edit dates
-        </button>
+
+         <button v-for="btn in actionBtns" @click.stop="openModal(btn.type)" >
+        <span :class="btn.icon"></span>
+        {{ btn.txt }}
+         </button>
+
+       <component :is="cmpType"  @closeModal="closeModal" 
+                                 @toggleLabel="toggleLabel"
+                                 @toggleMember="toggleMember"
+                                 @setTaskStyle="setTaskStyle"
+                                 @addAttachment="addAttachment">
+       </component>
+      
+
         <button @click="removeTask">
           <span class="archive-icon"></span>Archive
         </button>
@@ -77,6 +79,10 @@
   </section>
 </template>
 <script>
+import labelPicker from '../components/label-picker.vue'
+import memberPicker from '../components/member-picker.vue'
+import datePicker from '../components/date-picker.vue'
+import coverPicker from '../components/cover-picker.vue'
 import taskPreviewDetails from "../components/task-preview-details.vue"
 
 export default {
@@ -92,9 +98,22 @@ export default {
   data() {
     return {
       quickEditDisplay: "none",
-      // taskToEdit: {},
-      // boardToEdit: {},
-      // labelOpen: false,
+        actionBtns: [
+        { txt: 'Labels', icon: 'labels-icon', type: 'labelPicker' },
+        { txt: 'Members', icon: 'members-icon', type: 'memberPicker' },
+        { txt: 'Cover', icon: 'cover-icon', type: 'coverPicker' },
+        { txt: 'Dates', icon: 'dates-icon', type: 'datePicker' },
+      ],
+      cmpType: null,
+      displayModal: 'none',
+      // isCheckListItemAdded: false,
+      // isCheckListAdded: false,
+      // displayLabelPicker: 'none',
+      // todoTitle: '',
+      // checkListTitle: '',
+      taskToEdit: {},
+      boardToEdit: {},
+      labelOpen: false,
     }
   },
   created() {
@@ -105,47 +124,99 @@ export default {
   },
   methods: {
     openTaskDetails() {
-      console.log(
-        `/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`
-      )
       this.$router.push(
-        `/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`
-      )
-      // this.$router.push('')
+        `/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
+        this.quickEditDisplay = 'none'
     },
     removeTask() {
       console.log("remove task")
       this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
     },
 
-    // labelColor(labelId) {
-    //   const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-    //   const label = boardLabels.find((l) => l.id === labelId)
-    //   return label.bgColor
-    // },
-    // labelTxt(labelId) {
-    //   const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-    //   const label = boardLabels.find((l) => l.id === labelId)
-    //   console.log(label.txt)
-    //   return label.txt
-    // },
-    // openLables() {
-    //   // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
-    //   this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
-    //   this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
-    // },
+    openModal(cmpType) {
+      this.cmpType = cmpType
+    },
+    closeModal() {
+      this.cmpType = null
+    },
+     toggleLabel(labelId) {
+      console.log("yes ", labelId)
+      const labels = this.taskToEdit.labelIds
+      const idx = labels.findIndex((label) => label === labelId)
+      let userAction = ""
+      if (idx === -1) {
+        userAction = "Added label"
+        labels.push(labelId)
+      } else {
+        labels.splice(idx, 1)
+        userAction = "Removed label"
+      }
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+    toggleMember(member) {
+      const members = this.taskToEdit.members
+      const idx = members.findIndex((m) => m.id === member.id)
+      let userAction = ""
+      if (idx === -1) {
+        userAction = "Add member"
+        members.push(member)
+      } else {
+        members.splice(idx, 1)
+        userAction = "Removed member"
+      }
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+    setTaskStyle(style){
+      this.taskToEdit.style = style
+      console.log(this.taskToEdit)
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+        userAction: 'Changed cover',
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+     addAttachment(attachment){
+      this.taskToEdit.attachments.push(attachment)
+      console.log(this.taskToEdit)
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+        userAction: 'Added attchment',
+        taskTitle: this.taskToEdit.title,
+      })
+     },
   },
   computed: {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
-    // labelStaus() {
-    //   if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
-    //   if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
-    // },
+ 
   },
   components: {
     taskPreviewDetails,
+    labelPicker,
+    memberPicker,
+    datePicker,
+    coverPicker,
   },
 }
 </script>
