@@ -48,8 +48,7 @@
           placeholder="Enter a title for this card..."
           v-model="taskToEdit.title"
           @click.stop=""
-            ></textarea>
-    
+        ></textarea>
       </div>
 
       <div class="action-buttons">
@@ -126,10 +125,9 @@ export default {
       this.$router.push(`/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
       this.quickEditDisplay = 'none'
     },
-<<<<<<< HEAD
-    saveTask(userAction){
-       this.$store.dispatch({
-        type: "saveTask",
+    saveTask(userAction) {
+      this.$store.dispatch({
+        type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.getCurrBoard._id,
@@ -137,19 +135,16 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-    editTitle(){
-        this.saveTask('Edit title')
-    },   
+    editTitle() {
+      this.saveTask('Edit title')
+    },
     removeTask() {
-      this.$store.dispatch({ type: "removeTask", 
-                              taskId: this.task.id,
-                              groupId:this.groupId,
-                              boardId: this.getCurrBoard._id,})
-=======
-    removeTask() {
-      console.log('remove task')
-      this.$store.dispatch({ type: 'removeTask', taskId: this.task.id })
->>>>>>> 5102cd9e89c2f7b625297319e8910f7ce38ee4ca
+      this.$store.dispatch({
+        type: 'removeTask',
+        taskId: this.task.id,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+      })
     },
     openModal(cmpType) {
       this.cmpType = cmpType
@@ -170,9 +165,6 @@ export default {
         labels.splice(idx, 1)
         userAction = 'Removed label'
       }
-<<<<<<< HEAD
-      this.saveTask(userAction)
-=======
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
@@ -181,7 +173,6 @@ export default {
         userAction,
         taskTitle: this.taskToEdit.title,
       })
->>>>>>> 5102cd9e89c2f7b625297319e8910f7ce38ee4ca
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
@@ -194,9 +185,6 @@ export default {
         members.splice(idx, 1)
         userAction = 'Removed member'
       }
-<<<<<<< HEAD
-      this.saveTask(userAction)
-=======
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
@@ -205,13 +193,9 @@ export default {
         userAction,
         taskTitle: this.taskToEdit.title,
       })
->>>>>>> 5102cd9e89c2f7b625297319e8910f7ce38ee4ca
     },
     setTaskStyle(style) {
       this.taskToEdit.style = style
-<<<<<<< HEAD
-      this.saveTask('Changed cover')
-=======
       console.log(this.taskToEdit)
       this.$store.dispatch({
         type: 'saveTask',
@@ -221,14 +205,9 @@ export default {
         userAction: 'Changed cover',
         taskTitle: this.taskToEdit.title,
       })
->>>>>>> 5102cd9e89c2f7b625297319e8910f7ce38ee4ca
     },
     addAttachment(attachment) {
       this.taskToEdit.attachments.push(attachment)
-<<<<<<< HEAD
-       this.saveTask('Added attchement')
-     },
-=======
       console.log(this.taskToEdit)
       this.$store.dispatch({
         type: 'saveTask',
@@ -239,7 +218,6 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
->>>>>>> 5102cd9e89c2f7b625297319e8910f7ce38ee4ca
   },
   computed: {
     getCurrBoard() {

@@ -1,4 +1,5 @@
 <template>
+  <div class="task-edit-screen" @click="backToBoard"></div>
   <section class="task-edit">
     <div
       v-if="taskToEdit.style?.bgColor !== '' || taskToEdit.style?.bgImgUrl !== ''"
@@ -165,6 +166,7 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
+      taskEditScreen: 'none',
     }
   },
   async created() {

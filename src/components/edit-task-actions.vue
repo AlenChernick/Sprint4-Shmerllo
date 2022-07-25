@@ -18,7 +18,8 @@
       >
       </component>
 
-      <!-- <div @click="toggleDatePicker = !toggleDatePicker" class="main-task-edit-btn">
+      <!-- <font-awesome-icon icon="fa-regular fa-clock" /> -->
+      <!-- <div @click="toggleDatePicker = !toggleDatePicker" class="main-task-edit-btn"
         <span class="dates-icon"><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock" /></span>
         Dates
       </div>
