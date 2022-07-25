@@ -12,7 +12,8 @@
        <component :is="cmpType"  @closeModal="closeModal" 
                                  @toggleLabel="toggleLabel"
                                  @toggleMember="toggleMember"
-                                 @setTaskStyle="setTaskStyle">
+                                 @setTaskStyle="setTaskStyle"
+                                 @addAttachment="addAttachment">
        </component>
 
   
@@ -87,6 +88,9 @@ export default {
      setTaskStyle(style){
       this.$emit('setTaskStyle', style)
     },
+    addAttachment(attachment){
+       this.$emit('addAttachment', attachment)
+    }
 
   },
   components: {

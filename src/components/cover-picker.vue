@@ -3,7 +3,7 @@
   
 
   <section class="actions-modal-container cover-picker">
-    <h4>cover-picker</h4>
+    <h4>cover</h4>
     <span  @click.stop="closeModal" class="close-icon"></span>
 
    <div  class="cover-selection">
@@ -63,14 +63,12 @@ export default {
     setBgColor(color){
       this.style.bgColor= color
       this.style.bgImgUrl= ''
-      console.log(this.style)
       this.$emit('setTaskStyle', this.style)
       // this.$store.dispatch({type: "setBoardStyle",style: this.style })
     },
     setBgImgUrl(imgUrl){
       this.style.bgColor= ''
       this.style.bgImgUrl= imgUrl
-      console.log(this.style)
        this.$emit('setTaskStyle', this.style)
       // this.$store.dispatch({type: "setBoardStyle",style: this.style })
     }, 

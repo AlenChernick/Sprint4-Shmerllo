@@ -177,11 +177,15 @@
           </div>
         </div>
       </div>
+  
+      
       <edit-task-actions
         @toggleLabel="toggleLabel"
         @toggleMember="toggleMember"
         @setTaskStyle="setTaskStyle"
+        @addAttachment="addAttachment"
       />
+
     </div>
   </section>
 </template>
@@ -301,7 +305,6 @@ export default {
         labels.splice(idx, 1)
         userAction = "Removed label"
       }
-      console.log(this.taskToEdit, this.groupId, this.boardId)
       this.$store.dispatch({
         type: "saveTask",
         task: this.taskToEdit,
@@ -322,7 +325,6 @@ export default {
         members.splice(idx, 1)
         userAction = "Removed member"
       }
-      console.log(this.taskToEdit, this.groupId, this.boardId)
       this.$store.dispatch({
         type: "saveTask",
         task: this.taskToEdit,
@@ -333,7 +335,6 @@ export default {
       })
     },
     setTaskStyle(style){
-      console.log(style)
       this.taskToEdit.style = style
       console.log(this.taskToEdit)
       this.$store.dispatch({
@@ -345,6 +346,18 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
+     addAttachment(attachment){
+      this.taskToEdit.attachments.push(attachment)
+      console.log(this.taskToEdit)
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: 'Added attchment',
+        taskTitle: this.taskToEdit.title,
+      })
+     },
     labelColor(labelId) {
       const boardLabels = this.$store.getters.getCurrBoard.boardLabels
       const label = boardLabels.find((l) => l.id === labelId)
