@@ -7,14 +7,12 @@
         <span :class="btn.icon"></span>
         {{ btn.txt }}
       </div>
-      <component
-        :is="cmpType"
-        @closeModal="closeModal"
-        @toggleLabel="toggleLabel"
-        @toggleMember="toggleMember"
-        @setTaskStyle="setTaskStyle"
-      >
-      </component>
+       <component :is="cmpType"  @closeModal="closeModal" 
+                                 @toggleLabel="toggleLabel"
+                                 @toggleMember="toggleMember"
+                                 @setTaskStyle="setTaskStyle"
+                                 @addAttachment="addAttachment">
+       </component>
 
       <!-- TODO WITH ALEN -->
       <!-- <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
@@ -85,6 +83,10 @@ export default {
     setTaskStyle(style) {
       this.$emit('setTaskStyle', style)
     },
+    addAttachment(attachment){
+       this.$emit('addAttachment', attachment)
+    }
+
   },
   components: {
     labelPicker,

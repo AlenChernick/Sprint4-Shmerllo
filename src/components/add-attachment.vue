@@ -3,14 +3,18 @@
   
 
   <section class="actions-modal-container add-attachment">
-    <h4>add-attachment</h4>
+    <h4>Attach from...</h4>
     <span  @click.stop="closeModal" class="close-icon"></span>
-    <!-- <ul class="clean-list" v-for="member in membersToEdit">
-        <li  @click="toggleMember(member)" > 
-        <img :src="member.imgUrl"/>
-       <h5>{{member.fullname}}</h5>
-        </li>
-    </ul> -->
+    <h4 class="attach-from"> Computer</h4>
+    
+  
+    <!-- <input type="file" name="filename" class="file-input btn"   @change="uploadAttachment"> -->
+    
+    <h4 class="attach-link-txt">Attach a link </h4>
+    <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment.url" type="text" />
+    <button @click="addAttachment">Attach</button>
+  
+   
   </section>
 
     
@@ -20,17 +24,28 @@ export default {
   name: 'add-attachment',
   data() {
     return {
-    //   membersToEdit: null,
+       attachment: {
+        url:'',
+        fileData:{},
+
+       }, 
     }
   },
   methods: {
-    // toggleMember(member){
-    //   console.log(member)
-    //   this.$emit('toggleMember', member)
-    // },
+    addAttachment(){
+      console.log('attching', this.attachment)
+      this.$emit('addAttachment', this.attachment)
+    },
     closeModal(){
       this.$emit("closeModal")
-    }
+    },
+    // uploadAttachment(ev){
+    //   console.log(ev.target.files[0])
+    //   this.attachment.fileData = ev.target.files[0]
+    //   console.log(this.attachment)
+    //   this.$emit('addAttachment', this.attachment)
+    // }
+
    
   },
   created(){
