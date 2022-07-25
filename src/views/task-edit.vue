@@ -18,8 +18,10 @@
       <span class="task-edit-header-icon"></span>
       <input @input="saveTask" spellcheck="false" v-model="getCurrTask.title" type="text" />
     </div>
-    <div class="task-list-name">
-      <p>in list</p>
+    <div class="group-list-inlist-container">
+      <p class="group-list-title">
+        in list <span>{{ getCurrGroup.title }}</span>
+      </p>
     </div>
     <div class="main-task-editor-container">
       <div class="main-task-edit-container">
@@ -177,6 +179,11 @@ export default {
         taskId,
       })
       this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
+      await this.$store.dispatch({
+        type: 'getGroupById',
+        boardId,
+        groupId,
+      })
     } catch (err) {
       console.log('Cannot load task', err)
       throw err
@@ -338,6 +345,9 @@ export default {
     },
     getCurrBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+    },
+    getCurrGroup() {
+      return JSON.parse(JSON.stringify(this.$store.getters.getCurrGroup))
     },
     openTextArea() {
       return this.isEdit ? 'open-text-area' : ''

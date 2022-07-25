@@ -109,8 +109,13 @@
     }
   }
 
-  .task-list-name {
-    padding-left: em(46px);
+  .group-list-inlist-container {
+    padding-left: em(55px);
+    .group-list-title {
+      span {
+        text-decoration: underline;
+      }
+    }
   }
 
   .main-task-editor-container {
