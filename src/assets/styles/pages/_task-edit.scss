@@ -1,14 +1,12 @@
 .task-edit {
-  position: absolute;
-  top: em(5px);
+  position: fixed;
+  top: em(50px);
   left: 50%;
   transform: translateX(-50%);
   padding-bottom: em(32px);
   margin-bottom: em(48px);
-  height: fit-content;
-  max-width: calc(100vw - 720px);
-  min-width: 700px;
-  min-height: 100vh;
+  max-height: 100vh;
+  width: em(768px);
   display: block;
   color: $clr1;
   background-color: #f4f5f7;
