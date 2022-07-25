@@ -1,14 +1,12 @@
 .task-edit {
-  position: absolute;
-  top: em(5px);
+  position: fixed;
+  top: em(50px);
   left: 50%;
   transform: translateX(-50%);
   padding-bottom: em(32px);
   margin-bottom: em(48px);
-  height: fit-content;
-  max-width: calc(100vw - 720px);
-  min-width: 700px;
-  min-height: 100vh;
+  max-height: 100vh;
+  width: em(768px);
   display: block;
   color: $clr1;
   background-color: #f4f5f7;
@@ -54,12 +52,9 @@
     border-radius: 50%;
     transition: background-color 0.1s, color 0.1s;
     padding: em(8px);
-    font-family: trellicons;
-    font-size: em(20px);
     cursor: pointer;
     font-family: trellicons;
     font-size: em(20px);
-    cursor: pointer;
     background-color: transparent;
     &::before {
       content: '\e91c';
@@ -81,7 +76,7 @@
   }
 
   .task-edit-header {
-    padding: 15px 8px 0 16px;
+    padding: 15px 8px 0 13px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,9 +118,9 @@
 
     .main-editor {
       display: flex;
-      // gap: 16px;
-      position: relative;
       flex-wrap: wrap;
+      margin-top: -1rem;
+      margin-bottom: em(15px);
 
       .label-picker {
         display: flex;
@@ -134,14 +129,21 @@
       .main-task-members-container {
         flex-direction: column;
         padding-top: 3px;
+        margin-left: em(20px);
 
         .main-task-members-header {
           margin-top: 0.8rem;
+          font-size: em(12px);
+          font-weight: 500;
+          color: $clr12;
         }
         .main-task-members {
           display: flex;
+          margin-top: -0.8rem;
+          margin-left: -0.1rem;
+          margin-bottom: em(-20px);
           .main-task-add-member {
-            margin-top: 1.1rem;
+            margin-top: 1.2rem;
             margin-left: em(3px);
             .main-task-add-member-icon {
               border-radius: 50%;
@@ -168,8 +170,8 @@
             flex-wrap: wrap;
           }
           .main-task-member-img {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
           }
         }
@@ -182,10 +184,23 @@
       .main-editor-dates {
         display: flex;
         flex-direction: column;
-        margin-top: 1rem;
+        margin-top: 1.1rem;
+        align-self: center;
         margin-left: 1rem;
+
+        .main-task-dates-header {
+          font-size: em(12px);
+          font-weight: 500;
+          color: $clr12;
+          margin-inline-start: 5px;
+        }
+        .main-editor-date-picker {
+          margin-top: em(6px);
+        }
+
         .main-editor-checkbox {
-          margin-right: 0.2rem;
+          margin-right: 0.3rem;
+          margin-left: 0.3rem;
         }
       }
     }
@@ -240,6 +255,7 @@
       resize: none;
       border: none;
       outline: none;
+      overflow-y: auto;
 
       &:focus {
         background-color: #fff;
@@ -293,7 +309,7 @@
       }
 
       .main-editor-checklist-icon {
-        margin-right: 0.5em;
+        margin-right: 0.4em;
         font-family: trellicons;
         font-size: em(24px);
         &::before {
@@ -370,25 +386,59 @@
 }
 
 .label-preview-container {
-  margin-top: 50px;
-  padding: 0;
-  margin-left: 20px;
   display: flex;
-  height: fit-content;
-  justify-items: flex-end;
-  align-items: flex-end;
+  flex-direction: column;
+  align-self: center;
+  margin-top: em(15px);
+  margin-left: em(20px);
+  // margin-bottom: em(15px);
+
+  .label-preview-header {
+    font-size: em(12px);
+    font-weight: 500;
+    margin-top: em(1.5px);
+    color: $clr12;
+  }
+  .labels-preview-list {
+    display: flex;
+    margin-top: em(5px);
+  }
 
   .label-preview {
     padding: 0;
     margin: 0;
     li {
-      border: black;
-      height: 40px;
-      color: transparent;
-      width: 50px;
-      margin: 2px;
+      // border: black;
+      color: white;
+      // margin: 2px;
       padding: 0;
+      border-radius: em(3px);
+      height: em(31px);
+      line-height: em(32px);
+      margin: 0 em(4px) em(4px) 0;
+      // min-width: 40px;
+      padding: 0 em(12px);
+      width: auto;
+    }
+  }
+
+  .main-task-add-label {
+    margin-top: 0.2rem;
+    margin-left: em(2px);
+    .main-task-add-label-icon {
       border-radius: 3px;
+      padding: em(8px);
+      background-color: $clr9;
+      font-family: trellicons;
+      font-size: em(16px);
+      transition: background-color 0.2s;
+      cursor: pointer;
+      &::before {
+        content: '\e901';
+      }
+      &:hover {
+        background-color: $clr10;
+      }
     }
   }
 }
