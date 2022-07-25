@@ -7,43 +7,29 @@
         <span :class="btn.icon"></span>
         {{ btn.txt }}
       </div>
-      
-       <component :is="cmpType"  @closeModal="closeModal" 
-                                 @toggleLabel="toggleLabel"
-                                 @toggleMember="toggleMember"
-                                 @setTaskStyle="setTaskStyle"
-                                 @addAttachment="addAttachment">
-       </component>
+      <component
+        :is="cmpType"
+        @closeModal="closeModal"
+        @toggleLabel="toggleLabel"
+        @toggleMember="toggleMember"
+        @setTaskStyle="setTaskStyle"
+        @addAttachment="addAttachment"
+        @addCheckList="addCheckList"
+      >
+      </component>
 
-      <!-- TODO WITH ALEN -->
-      <!-- <div @click="this.isCheckListAdded = !this.isCheckListAdded" class="main-task-edit-btn">
-        <span class="checklist-icon"></span>
-        Checklist
-      </div>
-      <div v-if="isCheckListAdded" class="checklist-modal">
-        <div class="checklist-header">Add Checklist</div>
-        <div v-if="getCurrTask" class="close-task-edit" @click="isCheckListAdded = false">
-          <span class="close-checklist-modal"></span>
-        </div> -->
-
-      <!-- TODO WITH ALEN -->
-      <!-- <div class="modal-options">
-          <div class="checklist-input-header">Title</div>
-          <input type="text" v-model="checkListTitle" @keyup.enter="addCheckList(checkListTitle)" />
-          <el-button type="primary" @click="addCheckList(checkListTitle)">Add</el-button>
-        </div>
-      </div>
-      <div @click="toggleDatePicker = !toggleDatePicker" class="main-task-edit-btn">
+      <!-- <div @click="toggleDatePicker = !toggleDatePicker" class="main-task-edit-btn">
         <span class="dates-icon"><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock" /></span>
         Dates
-      </div> -->
+      </div>
+      -->
     </div>
   </section>
 </template>
 <script>
 import labelPicker from '../components/label-picker.vue'
 import memberPicker from '../components/member-picker.vue'
-import addChecklist from '../components/add-checklist.vue'
+import addCheckList from '../components/add-checklist.vue'
 import datePicker from '../components/date-picker.vue'
 import addAttachment from '../components/add-attachment.vue'
 import coverPicker from '../components/cover-picker.vue'
@@ -54,7 +40,7 @@ export default {
       actionBtns: [
         { txt: 'Labels', icon: 'labels-icon', type: 'labelPicker' },
         { txt: 'Members', icon: 'members-icon', type: 'memberPicker' },
-        { txt: 'Checklist', icon: 'checklist-icon', type: 'addChecklist' },
+        { txt: 'Checklist', icon: 'checklist-icon', type: 'addCheckList' },
         { txt: 'Dates', icon: 'dates-icon', type: 'datePicker' },
         { txt: 'Attachment', icon: 'attachment-icon', type: 'addAttachment' },
         { txt: 'Cover', icon: 'cover-icon', type: 'coverPicker' },
@@ -84,15 +70,17 @@ export default {
     setTaskStyle(style) {
       this.$emit('setTaskStyle', style)
     },
-    addAttachment(attachment){
-       this.$emit('addAttachment', attachment)
-    }
-
+    addAttachment(attachment) {
+      this.$emit('addAttachment', attachment)
+    },
+    addCheckList(checkListTitle) {
+      this.$emit('addCheckList', checkListTitle)
+    },
   },
   components: {
     labelPicker,
     memberPicker,
-    addChecklist,
+    addCheckList,
     datePicker,
     addAttachment,
     coverPicker,
