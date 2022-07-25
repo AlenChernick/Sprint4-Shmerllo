@@ -180,9 +180,9 @@ async function removeTask(taskId, groupId, boardId) {
     const groupIdx = board.groups.findIndex((g) => g.id === groupId)
     board.groups.splice(groupIdx, 1, group)
 
-    await saveBoard(board)
+    return await saveBoard(board)
 
-    return "removed"
+    
   } catch (err) {
     console.log("cannot remove task", err)
     throw err

@@ -5,7 +5,7 @@
     <h4>Members</h4>
     <span  @click.stop="closeModal" class="close-icon"></span>
     <ul class="clean-list" v-for="member in membersToEdit">
-        <li class="member-picker-list" @click="toggleMember(member)" > 
+        <li class="member-picker-list" @click.stop="toggleMember(member)" > 
         <img :src="member.imgUrl"/>
        <h5>{{member.fullname}}</h5>
         </li>

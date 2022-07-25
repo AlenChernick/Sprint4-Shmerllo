@@ -5,6 +5,7 @@ export default {
     boards: [],
     currBoard: {},
     currTask: {},
+    currGroup: {},
   },
   getters: {
     getBoards({ boards }) {
@@ -16,6 +17,9 @@ export default {
     getCurrTask({ currTask }) {
       return currTask
     },
+    getCurrGroup({ currGroup }) {
+      return currGroup
+    },
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -26,6 +30,9 @@ export default {
     },
     setCurrTask(state, { currTask }) {
       state.currTask = currTask
+    },
+    setCurrGroup(state, { currGroup }) {
+      state.currGroup = currGroup
     },
     removeBoard(state, { id }) {
       const idx = state.boards.findIndex((board) => board._id === id)
@@ -161,12 +168,25 @@ export default {
         throw err
       }
     },
+    async getGroupById({ commit }, { boardId, groupId }) {
+      try {
+        const currGroup = await boardService.getGroupById(
+          boardId,
+          groupId,
+        )
+        commit({ type: "setCurrGroup", currGroup })
+        return currGroup
+      } catch (err) {
+        console.error("cannot get task", err)
+        throw err
+      }
+    },
     async saveTask(
       { commit, state, dispatch },
       { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
       // boardId = state.currBoard._id
-      console.log(task,'store-davetask');
+      console.log(task, 'store-davetask');
 
       try {
         const currBoard = await boardService.saveTask(
@@ -186,9 +206,8 @@ export default {
     },
     async removeTask({ commit }, { taskId, groupId, boardId }) {
       try {
-        await boardService.removeTask(taskId, groupId, boardId)
-
-        // commit({ type: "removeBoard", id })
+        const currBoard = await boardService.removeTask(taskId, groupId, boardId)
+        commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
         console.log("Cannot remove task", err)
         throw err

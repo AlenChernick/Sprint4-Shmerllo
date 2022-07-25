@@ -1,4 +1,5 @@
 <template>
+  <div class="task-edit-screen" @click="backToBoard"></div>
   <section class="task-edit">
     <div
       v-if="
@@ -25,8 +26,10 @@
         type="text"
       />
     </div>
-    <div class="task-list-name">
-      <p>in list</p>
+    <div class="group-list-inlist-container">
+      <p class="group-list-title">
+        in list <span>{{ getCurrGroup.title }}</span>
+      </p>
     </div>
     <div class="main-task-editor-container">
       <div class="main-task-edit-container">
@@ -202,6 +205,7 @@
         @toggleMember="toggleMember"
         @setTaskStyle="setTaskStyle"
         @addAttachment="addAttachment"
+        @addCheckList="addCheckList"
       />
     </div>
   </section>
@@ -223,6 +227,7 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
+      taskEditScreen: 'none',
     }
   },
   async created() {
@@ -236,17 +241,19 @@ export default {
         groupId,
         taskId,
       })
-      this.taskToEdit = JSON.parse(
-        JSON.stringify(this.$store.getters.getCurrTask)
-      )
+      this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
+      await this.$store.dispatch({
+        type: 'getGroupById',
+        boardId,
+        groupId,
+      })
     } catch (err) {
       console.log("Cannot load task", err)
       throw err
     }
   },
   methods: {
-    saveTask(todo) {
-      // todo.isDone = !todo.isDone
+    saveTask() {
       this.isEdit = false
       this.$store.dispatch({
         type: "saveTask",
@@ -388,13 +395,10 @@ export default {
       return label.txt
     },
     doneTodos(checklist) {
-      let chackListLen = checklist.todos.length
-      let complited = checklist.todos.filter((todo) => todo.isDone === true)
-      let complitedLen = complited.length
-
-
-   
-      return (complitedLen / chackListLen) * 100
+      let checkListLen = checklist.todos.length
+      let completed = checklist.todos.filter((todo) => todo.isDone === true)
+      let commentLen = completed.length
+      return (commentLen / checkListLen) * 100 || 0
     },
   },
   computed: {
@@ -403,6 +407,9 @@ export default {
     },
     getCurrBoard() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+    },
+    getCurrGroup() {
+      return JSON.parse(JSON.stringify(this.$store.getters.getCurrGroup))
     },
     openTextArea() {
       return this.isEdit ? "open-text-area" : ""

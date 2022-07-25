@@ -8,7 +8,7 @@
     <h4 class="attach-from"> Computer</h4>
     
   
-    <!-- <input type="file" name="filename" class="file-input btn"   @change="uploadAttachment"> -->
+    <input type="file" @change="handleFile" />
     
     <h4 class="attach-link-txt">Attach a link </h4>
     <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment.url" type="text" />
@@ -20,36 +20,40 @@
     
 </template>
 <script>
+import { uploadImg } from '../../services/img-upload.service'; 
+
 export default {
   name: 'add-attachment',
   data() {
     return {
-       attachment: {
-        url:'',
-        fileData:{},
-
-       }, 
+       attachment: '', 
     }
   },
   methods: {
     addAttachment(){
+      if (!this.attachment) return
       console.log('attching', this.attachment)
       this.$emit('addAttachment', this.attachment)
     },
     closeModal(){
       this.$emit("closeModal")
     },
-    // uploadAttachment(ev){
-    //   console.log(ev.target.files[0])
-    //   this.attachment.fileData = ev.target.files[0]
-    //   console.log(this.attachment)
-    //   this.$emit('addAttachment', this.attachment)
-    // }
-
+    handleFile(ev) {
+      console.log(ev);
+      var file
+      file = ev.target.files[0]
+      this.onUploadFile(file)
+    },
+    async onUploadFile(file) {
+      const res = await uploadImg(file)
+      console.log(res.url)
+      this.$emit('addAttachment', res.url)
+    }
+ 
    
   },
   created(){
-    // this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
+    
   },
   computed: {
     

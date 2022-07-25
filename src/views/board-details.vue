@@ -2,7 +2,7 @@
   <section class="board-details full" v-if="board" :style="bgStyle">
     <board-header :board="board" />
     <div class="board-list-conteiner flex">
-      <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
+      <group-list v-if="board.groups" :groups="board.groups"  :key="board.groups" />
     </div>
     <router-view />
   </section>
