@@ -165,14 +165,7 @@ export default {
         labels.splice(idx, 1)
         userAction = 'Removed label'
       }
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask(userAction)
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
@@ -185,38 +178,15 @@ export default {
         members.splice(idx, 1)
         userAction = 'Removed member'
       }
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask(userAction)
     },
     setTaskStyle(style) {
       this.taskToEdit.style = style
-      console.log(this.taskToEdit)
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction: 'Changed cover',
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Changed cover')
     },
     addAttachment(attachment) {
       this.taskToEdit.attachments.push(attachment)
-      console.log(this.taskToEdit)
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction: 'Added attchment',
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Added attchement')
     },
   },
   computed: {
