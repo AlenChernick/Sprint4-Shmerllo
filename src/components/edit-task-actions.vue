@@ -7,6 +7,7 @@
         <span :class="btn.icon"></span>
         {{ btn.txt }}
       </div>
+      
        <component :is="cmpType"  @closeModal="closeModal" 
                                  @toggleLabel="toggleLabel"
                                  @toggleMember="toggleMember"
