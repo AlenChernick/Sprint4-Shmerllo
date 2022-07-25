@@ -11,7 +11,8 @@
       </div>
        <component :is="cmpType"  @closeModal="closeModal" 
                                  @toggleLabel="toggleLabel"
-                                 @toggleMember="toggleMember">
+                                 @toggleMember="toggleMember"
+                                 @setTaskStyle="setTaskStyle">
        </component>
 
   
@@ -82,6 +83,9 @@ export default {
     },
      toggleMember(member){
       this.$emit('toggleMember', member)
+    },
+     setTaskStyle(style){
+      this.$emit('setTaskStyle', style)
     },
 
   },

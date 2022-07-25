@@ -180,6 +180,7 @@
       <edit-task-actions
         @toggleLabel="toggleLabel"
         @toggleMember="toggleMember"
+        @setTaskStyle="setTaskStyle"
       />
     </div>
   </section>
@@ -328,6 +329,19 @@ export default {
         groupId: this.groupId,
         boardId: this.boardId,
         userAction,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+    setTaskStyle(style){
+      console.log(style)
+      this.taskToEdit.style = style
+      console.log(this.taskToEdit)
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: 'Changed cover',
         taskTitle: this.taskToEdit.title,
       })
     },
