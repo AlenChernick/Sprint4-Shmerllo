@@ -60,13 +60,13 @@
       }
     }
     .dates-icon {
-      padding-right: em(5px);
-      padding-top: em(6px);
+      padding-right: em(7px);
+      padding-top: em(3px);
       font-family: trellicons;
-      font-size: em(12px);
-      .dates-icon-font-awesome {
-        padding-left: em(3px);
-        padding-right: em(5px);
+      font-size: em(14px);
+      &::before {
+        content: '\e91b';
+        margin-left: 2px;
       }
     }
     .attachment-icon {

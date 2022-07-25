@@ -182,7 +182,7 @@ async function removeTask(taskId, groupId, boardId) {
 
     return await saveBoard(board)
 
-    
+
   } catch (err) {
     console.log("cannot remove task", err)
     throw err
@@ -290,26 +290,26 @@ function _createBoard(title) {
 
 function _createTask() {
   return {
-            status: "",
-            description: "",
-            comments: [],
-            checklists: [],
-            labelIds: [],
-            attachments: [],
-            createdAt: Date.now(),
-            dueDate: 16156215211,
-            byMember: {
-              id: "m102",
-              username: "AK",
-              fullname: "Alon Kolker",
-              imgUrl: "../assets/img/AK.jpg",
-              createdAt: "2021-12-11T10:01:48.000Z",
-            },
-            members: [],
-            style: {
-              bgColor: "",
-              bgImgUrl: "",
-            },
+    status: "",
+    description: "",
+    comments: [],
+    checklists: [],
+    labelIds: [],
+    attachments: [],
+    createdAt: Date.now(),
+    dueDate: '',
+    byMember: {
+      id: "m102",
+      username: "AK",
+      fullname: "Alon Kolker",
+      imgUrl: "../assets/img/AK.jpg",
+      createdAt: "2021-12-11T10:01:48.000Z",
+    },
+    members: [],
+    style: {
+      bgColor: "",
+      bgImgUrl: "",
+    },
   }
 }
 function _getEmptyGroup() {
@@ -386,7 +386,7 @@ function getEmptyBoard() {
             labelIds: [],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -411,7 +411,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -436,7 +436,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -461,7 +461,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -486,7 +486,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -511,7 +511,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -546,7 +546,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -572,7 +572,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -597,7 +597,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -622,7 +622,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -647,7 +647,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -672,7 +672,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -722,7 +722,7 @@ function getEmptyBoard() {
             labelIds: ["l101", "l102"],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m101",
               username: "THT",
@@ -788,7 +788,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -812,7 +812,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -844,7 +844,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -894,7 +894,7 @@ function getEmptyBoard() {
             memberIds: ["u101"],
             labelIds: ["l101", "l102"],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -974,7 +974,7 @@ function getEmptyBoard() {
             labelIds: ["l101", "l102"],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -1100,7 +1100,7 @@ function getEmptyBoard() {
     activityCount: 0,
     lastActivity: 1658239902711,
     boardLabels: _labelOptions(),
-    isLabelsOpen:false,
+    isLabelsOpen: false,
   }
 }
 

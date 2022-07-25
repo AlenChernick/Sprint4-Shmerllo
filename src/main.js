@@ -4,6 +4,8 @@ import router from './router'
 import store from './store/store.js'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
@@ -20,6 +22,7 @@ import './assets/styles/styles.scss'
 
 library.add(fas, far, fab)
 const app = createApp(App)
+    .component('Datepicker', Datepicker)
     .component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
 app.use(store)

@@ -201,10 +201,17 @@
           margin-inline-start: 5px;
         }
         .main-editor-date-picker {
-          margin-top: em(6px);
+          margin-top: em(1px);
+          display: flex;
+          .dp__input {
+            font-size: 13px;
+            line-height: 0;
+            background-color: rgba(9, 30, 66, 0.04);
+          }
         }
 
         .main-editor-checkbox {
+          margin-top: em(2px);
           margin-right: 0.3rem;
           margin-left: 0.3rem;
         }
@@ -269,11 +276,34 @@
       }
     }
     .checklist-progressbar-contianer {
-      margin-left: 1.6rem;
-      width: 100%;
+      margin-top: em(-5px);
+      .el-progress {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-left: em(-55px);
+        width: 110%;
+        .el-progress__text {
+          margin-left: em(65px);
+          margin-right: em(-10px);
+        }
+      }
+      .checklist-checkbox {
+        .el-checkbox__label {
+          display: flex;
+          .el-checkbox__inner {
+            margin-right: -10px;
+          }
+        }
+      }
     }
 
     .main-editor-checklist-container {
+      .checklist-checkbox {
+        margin-top: em(5px);
+        margin-bottom: em(5px);
+        margin-left: em(4px);
+        padding: 0;
+      }
       .checklist-todo-add-container {
         .checklist-todo-add-btns {
           margin-left: 1.5rem;
