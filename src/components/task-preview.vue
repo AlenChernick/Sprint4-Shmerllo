@@ -1,5 +1,5 @@
 <template>
-  <section @click="openTaskDetails">
+  <section class="task-preview-container" @click="openTaskDetails">
     <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
       <font-awesome-icon icon="fa-solid fa-pen"
     /></span>
@@ -128,6 +128,7 @@ export default {
       this.cmpType = cmpType
     },
     closeModal() {
+      console.log('closing')
       this.cmpType = null
     },
     toggleLabel(labelId) {
