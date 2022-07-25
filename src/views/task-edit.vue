@@ -92,16 +92,11 @@
             >
           </div>
           <div class="checklist-progressbar-contianer">
-            <el-progress
-              :percentage="doneTodos(checklist)"
-              class="checklist-progressbar"
-            />
+            <el-progress :percentage="doneTodos(checklist)" class="checklist-progressbar" />
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox v-model="todo.isDone" @change="saveTask(todo)">{{
-                todo.title
-              }}</el-checkbox>
+              <el-checkbox v-model="todo.isDone" @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
             </li>
           </ul>
           <el-button
@@ -324,6 +319,11 @@ export default {
       const boardLabels = this.$store.getters.getCurrBoard.boardLabels
       const label = boardLabels.find((l) => l.id === labelId)
       return label.bgColor
+    },
+    labelText(labelId) {
+      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+      const label = boardLabels.find((l) => l.id === labelId)
+      return label.txt
     },
     doneTodos(checklist) {
       let chackListLen = checklist.todos.length
