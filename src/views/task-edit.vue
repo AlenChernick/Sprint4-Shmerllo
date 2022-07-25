@@ -61,7 +61,14 @@
             <div class="main-task-dates-header">Due date</div>
             <div class="main-editor-date-picker">
               <el-checkbox class="main-editor-checkbox"></el-checkbox>
-              <Datepicker class="main-editor-date-picker" v-model="dateValue" textInput inlineWithInput />
+              <Datepicker
+                class="main-editor-date-picker"
+                v-model="taskToEdit.dueDate"
+                textInput
+                inlineWithInput
+                :autoApply="false"
+                :lowerLimit="new Date()"
+              />
             </div>
           </div>
         </div>
@@ -151,6 +158,7 @@
   </section>
 </template>
 <script>
+import { now } from 'lodash'
 import { ref } from 'vue'
 
 import editTaskActions from '../components/edit-task-actions.vue'
@@ -166,7 +174,6 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
-      dateValue: new Date(),
     }
   },
   async created() {
@@ -340,9 +347,7 @@ export default {
       return (commentLen / checkListLen) * 100 || 0
     },
     setDate(dateValue) {
-      console.log('dateValue', dateValue)
       this.taskToEdit.dueDate = dateValue
-      this.dateValue = dateValue
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,

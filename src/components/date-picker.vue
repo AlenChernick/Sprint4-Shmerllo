@@ -17,7 +17,7 @@ export default {
   name: 'date-picker',
   data() {
     return {
-      dateValue: new Date().toLocaleDateString(),
+      dateValue: new Date(),
     }
   },
   methods: {
@@ -25,8 +25,6 @@ export default {
       this.$emit('closeModal')
     },
     setDate() {
-      console.log('dateValue', this.dateValue)
-
       this.$emit('setDate', this.dateValue)
     },
   },

@@ -41,7 +41,7 @@ function removeBoard(boardId) {
 }
 
 function saveBoard(board) {
-  // console.log("updatedBoard", board)
+  console.log("updatedBoard", board)
 
   if (board._id) {
     return storageService.put(STORAGE_KEY, board)
