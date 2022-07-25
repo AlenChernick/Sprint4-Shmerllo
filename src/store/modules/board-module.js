@@ -206,9 +206,8 @@ export default {
     },
     async removeTask({ commit }, { taskId, groupId, boardId }) {
       try {
-        await boardService.removeTask(taskId, groupId, boardId)
-
-        // commit({ type: "removeBoard", id })
+        const currBoard = await boardService.removeTask(taskId, groupId, boardId)
+        commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
         console.log("Cannot remove task", err)
         throw err
