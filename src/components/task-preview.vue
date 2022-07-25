@@ -46,11 +46,18 @@
     <div class="quickEdit" :style="{ display: quickEditDisplay }">
       <div class="title-edit">
         <img v-if="task.style?.bgImgUrl" :src="task.style.bgImgUrl" />
-        <h5>{{ task.title }}</h5>
+        <textarea
+          cols="30"
+          rows="4"
+          placeholder="Enter a title for this card..."
+          v-model="taskToEdit.title"
+          @click.stop=""
+            ></textarea>
+    
       </div>
 
       <div class="action-buttons">
-        
+
         <button @click="openTaskDetails">
           <span class="card-icon"></span>Open card
         </button>
@@ -68,13 +75,13 @@
        </component>
       
 
-        <button @click="removeTask">
+        <button @click.stop="removeTask">
           <span class="archive-icon"></span>Archive
         </button>
       </div>
 
       <div class="save-button">
-        <button>Save</button>
+        <button @click.stop="editTitle">Save</button>
       </div>
     </div>
   </section>
@@ -129,11 +136,25 @@ export default {
         `/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
         this.quickEditDisplay = 'none'
     },
-    removeTask() {
-      console.log("remove task")
-      this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
+    saveTask(userAction){
+       this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+      })
     },
-
+    editTitle(){
+        this.saveTask('Edit title')
+    },   
+    removeTask() {
+      this.$store.dispatch({ type: "removeTask", 
+                              taskId: this.task.id,
+                              groupId:this.groupId,
+                              boardId: this.getCurrBoard._id,})
+    },
     openModal(cmpType) {
       this.cmpType = cmpType
     },
@@ -152,14 +173,7 @@ export default {
         labels.splice(idx, 1)
         userAction = "Removed label"
       }
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask(userAction)
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
@@ -172,38 +186,15 @@ export default {
         members.splice(idx, 1)
         userAction = "Removed member"
       }
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask(userAction)
     },
     setTaskStyle(style){
       this.taskToEdit.style = style
-      console.log(this.taskToEdit)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction: 'Changed cover',
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Changed cover')
     },
      addAttachment(attachment){
       this.taskToEdit.attachments.push(attachment)
-      console.log(this.taskToEdit)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
-        userAction: 'Added attchment',
-        taskTitle: this.taskToEdit.title,
-      })
+       this.saveTask('Added attchement')
      },
   },
   computed: {
