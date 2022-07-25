@@ -1,5 +1,6 @@
 .main-task-sidebar {
   width: em(200px);
+  min-width: fit-content;
   padding: 1px 10px 1px 10px;
   display: flex;
   flex-direction: column;
