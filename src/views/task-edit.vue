@@ -116,7 +116,7 @@
               >Delete</el-button
             >
           </div>
-           <div  class="checklist-progressbar-contianer">
+          <div class="checklist-progressbar-contianer">
             <el-progress
               :percentage="doneTodos(checklist)"
               class="checklist-progressbar"
@@ -124,7 +124,7 @@
           </div>
           <ul v-for="todo in checklist.todos">
             <li>
-              <el-checkbox @change="saveTask(todo)">{{
+              <el-checkbox v-model="todo.isDone" @change="saveTask(todo)">{{
                 todo.title
               }}</el-checkbox>
             </li>
@@ -225,7 +225,7 @@ export default {
   },
   methods: {
     saveTask(todo) {
-      todo.isDone = !todo.isDone
+      // todo.isDone = !todo.isDone
       this.isEdit = false
       this.$store.dispatch({
         type: "saveTask",
@@ -336,12 +336,11 @@ export default {
       const label = boardLabels.find((l) => l.id === labelId)
       return label.bgColor
     },
-       doneTodos(checklist) {
+    doneTodos(checklist) {
       let chackListLen = checklist.todos.length
-      let complited = checklist.todos.filter(todo=> todo.isDone === true)
+      let complited = checklist.todos.filter((todo) => todo.isDone === true)
       let commentLen = complited.length
-console.log(commentLen,chackListLen);
-      return (commentLen/chackListLen)*100
+      return (commentLen / chackListLen) * 100
     },
   },
   computed: {
@@ -357,7 +356,6 @@ console.log(commentLen,chackListLen);
     // boards() {
     //   return JSON.parse(JSON.stringify(this.$store.getters.getBoards))
     // },
-
   },
   components: {
     editTaskActions,

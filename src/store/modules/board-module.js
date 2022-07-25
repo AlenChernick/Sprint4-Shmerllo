@@ -166,7 +166,7 @@ export default {
       { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
       // boardId = state.currBoard._id
-      console.log(boardId)
+      console.log(task,'store-davetask');
 
       try {
         const currBoard = await boardService.saveTask(

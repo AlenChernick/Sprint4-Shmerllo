@@ -6,7 +6,9 @@
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
-    <div class="task-prev-details-conteiner">
+    <task-preview-details :task="task" :key="task.id"/>
+
+    <!-- <div class="task-prev-details-conteiner">
       <div v-if="taskToEdit?.labelIds" class="label-task-preview-container">
         <ul v-for="labelId in taskToEdit.labelIds" class="clean-list flex">
           <li
@@ -32,7 +34,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Tal's part -->
 
     <div
@@ -75,6 +77,8 @@
   </section>
 </template>
 <script>
+import taskPreviewDetails from "../components/task-preview-details.vue"
+
 export default {
   name: "task-preview",
   props: {
@@ -88,9 +92,9 @@ export default {
   data() {
     return {
       quickEditDisplay: "none",
-      taskToEdit: {},
-      boardToEdit: {},
-      labelOpen: false,
+      // taskToEdit: {},
+      // boardToEdit: {},
+      // labelOpen: false,
     }
   },
   created() {
@@ -114,33 +118,34 @@ export default {
       this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
     },
 
-    labelColor(labelId) {
-      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-      const label = boardLabels.find((l) => l.id === labelId)
-      return label.bgColor
-    },
-    labelTxt(labelId) {
-      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-      const label = boardLabels.find((l) => l.id === labelId)
-      console.log(label.txt)
-      return label.txt
-    },
-    openLables() {
-      // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
-      this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
-      this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
-    },
+    // labelColor(labelId) {
+    //   const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+    //   const label = boardLabels.find((l) => l.id === labelId)
+    //   return label.bgColor
+    // },
+    // labelTxt(labelId) {
+    //   const boardLabels = this.$store.getters.getCurrBoard.boardLabels
+    //   const label = boardLabels.find((l) => l.id === labelId)
+    //   console.log(label.txt)
+    //   return label.txt
+    // },
+    // openLables() {
+    //   // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+    //   this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
+    //   this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
+    // },
   },
   computed: {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
-    labelStaus() {
-      if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
-      if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
-    },
+    // labelStaus() {
+    //   if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
+    //   if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
+    // },
   },
-  components: {},
+  components: {
+    taskPreviewDetails,
+  },
 }
 </script>
-<style lang=""></style>
