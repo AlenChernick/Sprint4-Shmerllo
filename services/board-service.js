@@ -41,7 +41,7 @@ function removeBoard(boardId) {
 }
 
 function saveBoard(board) {
-  console.log("updatedBoard", board)
+  // console.log("updatedBoard", board)
 
   if (board._id) {
     return storageService.put(STORAGE_KEY, board)
@@ -91,7 +91,7 @@ async function saveGroup(group, boardId, subject) {
 }
 
 async function removeGroup(groupId, boardId) {
-  console.log(groupId, boardId)
+  // console.log(groupId, boardId)
 
   try {
     //GET BOARD
@@ -128,11 +128,11 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
   try {
     //GET BOARD
     let board = await getBoardById(boardId)
-    console.log(board)
+    // console.log(board)
 
     //DET GROUP
     let group = await getGroupById(boardId, groupId)
-    console.log(group)
+    // console.log(group)
 
     //addTask
     if (!task.id) {
@@ -155,7 +155,6 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
     // const savedTask = await getTaskById(boardId, groupId, task.id)
     const updatedBoard = await getBoardById(boardId)
 
-    console.log(updatedBoard)
     // return savedTask
     return updatedBoard
   } catch (err) {
@@ -165,7 +164,7 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
 }
 
 async function removeTask(taskId, groupId, boardId) {
-  console.log(groupId, boardId, taskId)
+  // console.log(groupId, boardId, taskId)
 
   try {
     //GET BOARD

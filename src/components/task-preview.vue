@@ -6,7 +6,9 @@
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
-    <div class="task-prev-details-conteiner">
+    <task-preview-details :task="task" :key="task.id"/>
+
+    <!-- <div class="task-prev-details-conteiner">
       <div v-if="taskToEdit?.labelIds" class="label-task-preview-container">
         <ul v-for="labelId in taskToEdit.labelIds" class="clean-list flex">
           <li
@@ -32,7 +34,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Tal's part -->
 
     <div
@@ -81,6 +83,7 @@ import labelPicker from '../components/label-picker.vue'
 import memberPicker from '../components/member-picker.vue'
 import datePicker from '../components/date-picker.vue'
 import coverPicker from '../components/cover-picker.vue'
+import taskPreviewDetails from "../components/task-preview-details.vue"
 
 export default {
   name: "task-preview",
@@ -130,22 +133,6 @@ export default {
       this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
     },
 
-    labelColor(labelId) {
-      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-      const label = boardLabels.find((l) => l.id === labelId)
-      return label.bgColor
-    },
-    labelTxt(labelId) {
-      const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-      const label = boardLabels.find((l) => l.id === labelId)
-      console.log(label.txt)
-      return label.txt
-    },
-    openLables() {
-      // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
-      this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
-      this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
-    },
     openModal(cmpType) {
       this.cmpType = cmpType
     },
@@ -222,12 +209,10 @@ export default {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
-    labelStaus() {
-      if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
-      if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
-    },
+ 
   },
   components: {
+    taskPreviewDetails,
     labelPicker,
     memberPicker,
     datePicker,
@@ -235,4 +220,3 @@ export default {
   },
 }
 </script>
-<style lang=""></style>
