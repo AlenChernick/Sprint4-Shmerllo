@@ -1,12 +1,12 @@
 <template>
-  <section class="task-preview" @click="openTaskDetails">
+  <section @click="openTaskDetails">
     <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
       <font-awesome-icon icon="fa-solid fa-pen"
     /></span>
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
-    <task-preview-details :task="task" :key="task.id"/>
+    <task-preview-details :task="task" :key="task.id" />
 
     <!-- <div class="task-prev-details-conteiner">
       <div v-if="taskToEdit?.labelIds" class="label-task-preview-container">
@@ -37,11 +37,7 @@
     </div> -->
     <!-- Tal's part -->
 
-    <div
-      @click.stop="quickEditDisplay = 'none'"
-      class="quickEditScreen"
-      :style="{ display: quickEditDisplay }"
-    ></div>
+    <div @click.stop="quickEditDisplay = 'none'" class="quickEditScreen" :style="{ display: quickEditDisplay }"></div>
 
     <div class="quickEdit" :style="{ display: quickEditDisplay }">
       <div class="title-edit">
@@ -50,26 +46,24 @@
       </div>
 
       <div class="action-buttons">
-        <button @click="openTaskDetails">
-          <span class="card-icon"></span>Open card
+        <button @click="openTaskDetails"><span class="card-icon"></span>Open card</button>
+
+        <button v-for="btn in actionBtns" @click.stop="openModal(btn.type)">
+          <span :class="btn.icon"></span>
+          {{ btn.txt }}
         </button>
 
-         <button v-for="btn in actionBtns" @click.stop="openModal(btn.type)" >
-        <span :class="btn.icon"></span>
-        {{ btn.txt }}
-         </button>
+        <component
+          :is="cmpType"
+          @closeModal="closeModal"
+          @toggleLabel="toggleLabel"
+          @toggleMember="toggleMember"
+          @setTaskStyle="setTaskStyle"
+          @addAttachment="addAttachment"
+        >
+        </component>
 
-       <component :is="cmpType"  @closeModal="closeModal" 
-                                 @toggleLabel="toggleLabel"
-                                 @toggleMember="toggleMember"
-                                 @setTaskStyle="setTaskStyle"
-                                 @addAttachment="addAttachment">
-       </component>
-      
-
-        <button @click="removeTask">
-          <span class="archive-icon"></span>Archive
-        </button>
+        <button @click="removeTask"><span class="archive-icon"></span>Archive</button>
       </div>
 
       <div class="save-button">
@@ -83,10 +77,10 @@ import labelPicker from '../components/label-picker.vue'
 import memberPicker from '../components/member-picker.vue'
 import datePicker from '../components/date-picker.vue'
 import coverPicker from '../components/cover-picker.vue'
-import taskPreviewDetails from "../components/task-preview-details.vue"
+import taskPreviewDetails from '../components/task-preview-details.vue'
 
 export default {
-  name: "task-preview",
+  name: 'task-preview',
   props: {
     task: {
       type: Object,
@@ -97,8 +91,8 @@ export default {
   },
   data() {
     return {
-      quickEditDisplay: "none",
-        actionBtns: [
+      quickEditDisplay: 'none',
+      actionBtns: [
         { txt: 'Labels', icon: 'labels-icon', type: 'labelPicker' },
         { txt: 'Members', icon: 'members-icon', type: 'memberPicker' },
         { txt: 'Cover', icon: 'cover-icon', type: 'coverPicker' },
@@ -118,19 +112,16 @@ export default {
   },
   created() {
     this.taskToEdit = JSON.parse(JSON.stringify(this.task))
-    this.boardToEdit = JSON.parse(
-      JSON.stringify(this.$store.getters.getCurrBoard)
-    )
+    this.boardToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
   },
   methods: {
     openTaskDetails() {
-      this.$router.push(
-        `/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
-        this.quickEditDisplay = 'none'
+      this.$router.push(`/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
+      this.quickEditDisplay = 'none'
     },
     removeTask() {
-      console.log("remove task")
-      this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
+      console.log('remove task')
+      this.$store.dispatch({ type: 'removeTask', taskId: this.task.id })
     },
 
     openModal(cmpType) {
@@ -139,20 +130,20 @@ export default {
     closeModal() {
       this.cmpType = null
     },
-     toggleLabel(labelId) {
-      console.log("yes ", labelId)
+    toggleLabel(labelId) {
+      console.log('yes ', labelId)
       const labels = this.taskToEdit.labelIds
       const idx = labels.findIndex((label) => label === labelId)
-      let userAction = ""
+      let userAction = ''
       if (idx === -1) {
-        userAction = "Added label"
+        userAction = 'Added label'
         labels.push(labelId)
       } else {
         labels.splice(idx, 1)
-        userAction = "Removed label"
+        userAction = 'Removed label'
       }
       this.$store.dispatch({
-        type: "saveTask",
+        type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.getCurrBoard._id,
@@ -163,16 +154,16 @@ export default {
     toggleMember(member) {
       const members = this.taskToEdit.members
       const idx = members.findIndex((m) => m.id === member.id)
-      let userAction = ""
+      let userAction = ''
       if (idx === -1) {
-        userAction = "Add member"
+        userAction = 'Add member'
         members.push(member)
       } else {
         members.splice(idx, 1)
-        userAction = "Removed member"
+        userAction = 'Removed member'
       }
       this.$store.dispatch({
-        type: "saveTask",
+        type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.getCurrBoard._id,
@@ -180,11 +171,11 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-    setTaskStyle(style){
+    setTaskStyle(style) {
       this.taskToEdit.style = style
       console.log(this.taskToEdit)
       this.$store.dispatch({
-        type: "saveTask",
+        type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.getCurrBoard._id,
@@ -192,24 +183,23 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-     addAttachment(attachment){
+    addAttachment(attachment) {
       this.taskToEdit.attachments.push(attachment)
       console.log(this.taskToEdit)
       this.$store.dispatch({
-        type: "saveTask",
+        type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.getCurrBoard._id,
         userAction: 'Added attchment',
         taskTitle: this.taskToEdit.title,
       })
-     },
+    },
   },
   computed: {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
- 
   },
   components: {
     taskPreviewDetails,

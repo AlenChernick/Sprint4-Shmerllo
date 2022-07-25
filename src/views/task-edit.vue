@@ -143,6 +143,7 @@
         @toggleMember="toggleMember"
         @setTaskStyle="setTaskStyle"
         @addAttachment="addAttachment"
+        @addCheckList="addCheckList"
       />
     </div>
   </section>
@@ -164,7 +165,6 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
-      todosPresntage: null,
     }
   },
   async created() {
@@ -190,8 +190,7 @@ export default {
     }
   },
   methods: {
-    saveTask(todo) {
-      // todo.isDone = !todo.isDone
+    saveTask() {
       this.isEdit = false
       this.$store.dispatch({
         type: 'saveTask',
@@ -333,10 +332,10 @@ export default {
       return label.txt
     },
     doneTodos(checklist) {
-      let chackListLen = checklist.todos.length
-      let complited = checklist.todos.filter((todo) => todo.isDone === true)
-      let commentLen = complited.length
-      return (commentLen / chackListLen) * 100
+      let checkListLen = checklist.todos.length
+      let completed = checklist.todos.filter((todo) => todo.isDone === true)
+      let commentLen = completed.length
+      return (commentLen / checkListLen) * 100 || 0
     },
   },
   computed: {

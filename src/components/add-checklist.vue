@@ -1,43 +1,34 @@
-<template lang="">
-
-  
+<template>
   <section class="actions-modal-container add-checklist">
-    <h4>add-checklist</h4>
-    <span  @click.stop="closeModal" class="close-icon"></span>
-    <!-- <ul class="clean-list" v-for="member in membersToEdit">
-        <li  @click="toggleMember(member)" > 
-        <img :src="member.imgUrl"/>
-       <h5>{{member.fullname}}</h5>
-        </li>
-    </ul> -->
+    <div class="checklist-modal">
+      <h4>Add checklist</h4>
+      <span @click.stop="closeModal" class="close-icon"></span>
+      <div class="modal-options">
+        <div class="checklist-input-header">Title</div>
+        <input autofocus spellcheck="false" type="text" v-model="checkListTitle" @keyup.enter="addCheckList" />
+        <el-button @click.stop="closeModal" type="primary" @click="addCheckList">Add</el-button>
+      </div>
+    </div>
   </section>
-
-    
 </template>
 <script>
 export default {
   name: 'add-checklist',
   data() {
     return {
-    //   membersToEdit: null,
+      checkListTitle: '',
     }
   },
   methods: {
-    // toggleMember(member){
-    //   console.log(member)
-    //   this.$emit('toggleMember', member)
-    // },
-    closeModal(){
-      this.$emit("closeModal")
-    }
-   
+    addCheckList() {
+      this.$emit('addCheckList', this.checkListTitle)
+    },
+    closeModal() {
+      this.$emit('closeModal')
+    },
   },
-  created(){
-    // this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
-  },
-  computed: {
-    
-  },
+  created() {},
+  computed: {},
 }
 </script>
 <style lang=""></style>
