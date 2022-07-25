@@ -4,7 +4,7 @@
     <h4>Labels</h4>
     <span  @click.stop="closeModal" class="close-icon"></span>
     <ul class="clean-list" v-for="label in labelsToEdit">
-        <li  class="label-picker-list" @click="toggleLabel(label.id)" :style="{ 'background-color': label.bgColor }"> 
+        <li  class="label-picker-list" @click.stop="toggleLabel(label.id)" :style="{ 'background-color': label.bgColor }"> 
         <input @input="editLabels" v-model="label.txt"/> 
         </li>
     </ul>
