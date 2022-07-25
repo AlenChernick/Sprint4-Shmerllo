@@ -118,7 +118,7 @@
           </div>
            <div  class="checklist-progressbar-contianer">
             <el-progress
-              :percentage="90"
+              :percentage="doneTodos(checklist)"
               class="checklist-progressbar"
             />
           </div>
@@ -350,6 +350,13 @@ export default {
       const label = boardLabels.find((l) => l.id === labelId)
       return label.bgColor
     },
+       doneTodos(checklist) {
+      let chackListLen = checklist.todos.length
+      let complited = checklist.todos.filter(todo=> todo.isDone === true)
+      let commentLen = complited.length
+console.log(commentLen,chackListLen);
+      return (commentLen/chackListLen)*100
+    },
   },
   computed: {
     getCurrTask() {
@@ -364,11 +371,7 @@ export default {
     // boards() {
     //   return JSON.parse(JSON.stringify(this.$store.getters.getBoards))
     // },
-    doneTodos() {
-      // let chackListLen = checkList.todos.length
-      // let complited = checkList.todos.filter(todo=> todo.isDone === true)
-      return 50
-    },
+
   },
   components: {
     editTaskActions,
