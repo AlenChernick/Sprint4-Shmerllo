@@ -1,25 +1,10 @@
 <template lang="">
-
-  <!-- <div @click.stop="displayLabelPicker='block'" class="main-task-edit-btn">
-     <span class="labels-icon"></span>
-     Labels
-  </div> -->
-
-   <!-- <section class="label-picker" :style="{ display: displayModal }">
-    <h4>Labels</h4>
-    <span  @click.stop=closeModal()" class="close-icon"></span>
-    <ul class="clean-list" v-for="label in labelsToEdit">
-        <li  @click="toggleLabel(label.id)" :style="{ 'background-color': label.bgColor }"> 
-        <input @input="editLabels" v-model="label.txt"/>
-        </li>
-    </ul>
-  </section> -->
   
-  <section class="label-picker" >
+  <section class="actions-modal-container label-picker" >
     <h4>Labels</h4>
     <span  @click.stop="closeModal" class="close-icon"></span>
     <ul class="clean-list" v-for="label in labelsToEdit">
-        <li  @click="toggleLabel(label.id)" :style="{ 'background-color': label.bgColor }"> 
+        <li  class="label-picker-list" @click="toggleLabel(label.id)" :style="{ 'background-color': label.bgColor }"> 
         <input @input="editLabels" v-model="label.txt"/> 
         </li>
     </ul>

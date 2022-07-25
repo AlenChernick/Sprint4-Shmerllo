@@ -29,10 +29,17 @@
 @import 'components/group-list';
 @import 'components/group-preview';
 @import 'components/task-preview';
+@import 'components/task-list';
+
+//task actions btns & modal
+@import 'components/edit-task-actions';
+@import 'components/actions-modal';
 @import 'components/label-picker';
 @import 'components/member-picker';
-@import 'components/edit-task-actions';
-@import 'components/task-list';
+@import 'components/add-checklist';
+@import 'components/date-picker';
+@import 'components/add-attachment';
+@import 'components/cover-picker';
 
 
 
