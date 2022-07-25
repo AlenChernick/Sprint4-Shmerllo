@@ -21,7 +21,9 @@
       </div>
       <div v-if="task.checklists.length > 0" class="prev-task-checklists">
         <span class="prev-task-checklists-icon"></span>
-        <span>{{ todosCount(task.checklists) }}</span>
+        <span  class="prev-task-checklists-count">{{ todosCount(task.checklists) }}</span>
+                <!-- <span  :class="prev-task-checklists-count">{{ todosCount(task.checklists) }}</span> -->
+
       </div>
 
       <div class="flex prev-members-imgs">

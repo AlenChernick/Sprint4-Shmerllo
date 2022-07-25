@@ -35,35 +35,50 @@
     display: flex;
     align-items: center;
   }
-
-  .prev-task-desk-icon {
-    font-family: trellicons;
-    font-size: em(18px);
-    &::before {
-      content: "\e922";
+  .prev-fetchers-conteiner {
+    align-items: center;
+    .prev-task-desk-icon {
+      font-family: trellicons;
+      font-size: em(14px);
+      &::before {
+        content: "\e922";
+      }
     }
-  }
 
-  .prev-task-checklists-icon {
-    font-family: trellicons;
-    font-size: em(18px);
-    &::before {
-      content: "\e91a"
-      ;
+    .prev-task-checklists-icon {
+      font-family: trellicons;
+      font-size: em(14px);
+      &::before {
+        content: "\e91a";
+      }
     }
-  }
+    .prev-task-checklists-count{
+        font-size: em(13px);
 
-
-  .prev-members-imgs {
-    flex: 1 1;
-    justify-content: flex-end;
-    ul {
-      float: right;
     }
-    .prev-member-img {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
+
+    .prev-members-imgs {
+      flex: 1 1;
+      justify-content: flex-end;
+      ul {
+        float: right;
+      }
+      .prev-member-img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+      }
+    }
+
+    .prev-dueDate {
+      font-size: em(12px);
+      padding: 0;
+      line-height: 12px;
+      background-color: green;
+      height: 16px;
+      width: auto;
+      color: white;
+      border-radius: 3px;
     }
   }
 }
