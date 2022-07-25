@@ -7,7 +7,13 @@
         <span :class="btn.icon"></span>
         {{ btn.txt }}
       </div>
-      <component :is="cmpType" @closeModal="closeModal" @toggleLabel="toggleLabel" @toggleMember="toggleMember">
+      <component
+        :is="cmpType"
+        @closeModal="closeModal"
+        @toggleLabel="toggleLabel"
+        @toggleMember="toggleMember"
+        @setTaskStyle="setTaskStyle"
+      >
       </component>
 
       <!-- TODO WITH ALEN -->
@@ -75,6 +81,9 @@ export default {
     },
     toggleMember(member) {
       this.$emit('toggleMember', member)
+    },
+    setTaskStyle(style) {
+      this.$emit('setTaskStyle', style)
     },
   },
   components: {
