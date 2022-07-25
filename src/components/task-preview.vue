@@ -6,37 +6,11 @@
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
+    <div v-else-if="task.style?.bgColor"  class="prev-task-color" :style="{'background-color':task.style.bgColor}"></div>
     <task-preview-details :task="task" :key="task.id"/>
 
-    <!-- <div class="task-prev-details-conteiner">
-      <div v-if="taskToEdit?.labelIds" class="label-task-preview-container">
-        <ul v-for="labelId in taskToEdit.labelIds" class="clean-list flex">
-          <li
-            :class="labelStaus"
-            @click.stop="openLables"
-            :style="{ 'background-color': labelColor(labelId) }"
-          >
-            <span v-if="boardToEdit.isLabelsOpen">{{ labelTxt(labelId) }}</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="prev-task-title">{{ task.title }}</div>
-
-      <div class="flex space-between">
-        <div class="flex prev-members-imgs">
-          <ul
-            v-if="task.members"
-            class="clean-list flex"
-            v-for="member in task.members"
-          >
-            <img class="prev-member-img" :src="member.imgUrl" />
-          </ul>
-        </div>
-      </div>
-    </div> -->
+   
     <!-- Tal's part -->
-
     <div
       @click.stop="quickEditDisplay = 'none'"
       class="quickEditScreen"
@@ -118,31 +92,13 @@ export default {
       this.$store.dispatch({ type: "removeTask", taskId: this.task.id })
     },
 
-    // labelColor(labelId) {
-    //   const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-    //   const label = boardLabels.find((l) => l.id === labelId)
-    //   return label.bgColor
-    // },
-    // labelTxt(labelId) {
-    //   const boardLabels = this.$store.getters.getCurrBoard.boardLabels
-    //   const label = boardLabels.find((l) => l.id === labelId)
-    //   console.log(label.txt)
-    //   return label.txt
-    // },
-    // openLables() {
-    //   // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
-    //   this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
-    //   this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
-    // },
+  
   },
   computed: {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
-    // labelStaus() {
-    //   if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
-    //   if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
-    // },
+
   },
   components: {
     taskPreviewDetails,
