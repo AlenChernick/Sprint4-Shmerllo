@@ -81,7 +81,7 @@ export default {
       oneNewGroup() {
       if (!this.newGroupSubject) return
       this.addGroupModal = !this.addGroupModal
-      this.$store.dispatch({ type: "saveGroup", boardId:this.currBoard._id,subject:this.newGroupSubject })
+      this.$store.dispatch({ type: "saveGroup", board:this.currBoard._id,subject:this.newGroupSubject })
     },
   },
   computed: {

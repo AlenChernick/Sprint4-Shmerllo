@@ -1,11 +1,15 @@
-import { createConditionalExpression } from "@vue/compiler-core"
-import { storageService } from "./storage-service.js"
+// import { createConditionalExpression } from "@vue/compiler-core" ..not in use?
+// import { storageService } from "./storage-service.js"
 import { utilService } from "./util-service.js"
 
-const STORAGE_KEY = "board_db"
-const TASK = "task"
+import { httpService } from './http.service'
+import Axios from "axios"
+const axios = Axios.create({ withCredentials: true })//withCredentials???
 
-_createBoards()
+const STORAGE_KEY = "board_db"
+// const TASK = "task"  ..not in use?
+
+// _createBoards()
 
 export const boardService = {
   query,
@@ -27,32 +31,68 @@ export const boardService = {
 }
 
 //get boards
-function query() {
-  return storageService.query(STORAGE_KEY)
+function query(filterBy) {
+  try {
+    return await httpService.get('board')
+    // return await httpService.get('board',filterBy)
+  } catch (err) {
+    throw err
+  }
+  // return storageService.query(STORAGE_KEY)
 }
 
 //board level functions
 function getBoardById(boardId) {
-  return storageService.get(STORAGE_KEY, boardId)
+
+  try {
+    return await httpService.get(`board/${boardId}`)
+  } catch (err) {
+    throw err
+  }
+  // return storageService.get(STORAGE_KEY, boardId)
 }
 
 function removeBoard(boardId) {
-  return storageService.remove(STORAGE_KEY, boardId)
+  try {
+    return await httpService.delete(`board/${boardId}`)
+  } catch (err) {
+    throw err
+  }
+  // return storageService.remove(STORAGE_KEY, boardId)
 }
 
 function saveBoard(board) {
-  console.log("updatedBoard", board)
 
-  if (board._id) {
-    return storageService.put(STORAGE_KEY, board)
-  } else {
-    return storageService.post(STORAGE_KEY, board)
+  try {
+    if (board._id) {
+      return await httpService.put(`toy/${board._id}`,board)
+
+    } else {
+      return await httpService.post(`board`,board)
+      
+    }
+  } catch (err) {
+    throw err
   }
+  
+  // if (board._id) {
+  //   return storageService.put(STORAGE_KEY, board)
+  // } else {
+  //   return storageService.post(STORAGE_KEY, board)
+  // }
 }
 
 //group level functions
 async function getGroupById(boardId, groupId) {
-  const board = await getBoardById(boardId)
+
+  try {
+    const board = await httpService.get(`board/${boardId}`)
+ 
+  } catch (err) {
+    throw err
+  }
+
+  // const board = await getBoardById(boardId)
   const group = board.groups.find((group) => group.id === groupId)
   return group
 }
@@ -66,11 +106,10 @@ async function saveGroup(group, boardId, subject) {
   try {
     //GET BOARD
     let board = await getBoardById(boardId)
-console.log(board);
+
     //addgroup
     if (!group.id) {
       group.id = utilService.makeId()
-      console.log(board);
       board.groups.push(group)
     }
 
@@ -86,7 +125,7 @@ console.log(board);
 
     return savedGroup
   } catch (err) {
-    console.log("cannot save task", err)
+    console.log("cannot save Group", err)
     throw err
   }
 }
@@ -106,7 +145,7 @@ async function removeGroup(groupId, boardId) {
 
     return "removed"
   } catch (err) {
-    console.log("cannot remove task", err)
+    console.log("cannot remove Group", err)
     throw err
   }
 }
@@ -114,10 +153,15 @@ async function removeGroup(groupId, boardId) {
 //task level functions:
 
 async function getTaskById(boardId, groupId, taskId) {
+  try{
   const board = await getBoardById(boardId)
   const group = board.groups.find((group) => group.id === groupId)
   const task = group.tasks.find((task) => task.id === taskId)
   return task
+} catch(err) {
+  console.log('cannot get tadk by id');
+  throw err
+}
 }
 
 async function saveTask(task, taskTitle, groupId, boardId, userAction) {
@@ -230,7 +274,8 @@ async function addCheckList(task, groupId, board, checkListTitle) {
     )
     let checkList = getEmptyCheckList()
     checkList.title = checkListTitle
-    await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
+    // await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
+     board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
     await saveBoard(board)
     return checkList
   } catch (err) {
@@ -248,7 +293,11 @@ async function removeCheckList(task, groupId, board, checkListId) {
     const checkListIdx = task.checklists.findIndex(
       (checkList) => checkList.id === checkListId
     )
-    await board.groups[groupIdx].tasks[taskIdx].checklists.splice(
+    // await board.groups[groupIdx].tasks[taskIdx].checklists.splice(
+    //   checkListIdx,
+    //   1
+    // )
+     board.groups[groupIdx].tasks[taskIdx].checklists.splice(
       checkListIdx,
       1
     )
@@ -274,13 +323,8 @@ function _createBoards() {
   // return boards
 }
 
-// let imgUrls = [
-//   "https://stfturist-lajka.imgix.net/v1/image/citybreak/7063032?w=505&h=300&fit=full",
-//   "https://www.computerhope.com/jargon/p/program.png",
-//   "https://yt3.ggpht.com/ytc/AKedOLTjart41CJD8HljbC_tU92LeVsLRoazRKyZkXEv=s900-c-k-c0x00ffffff-no-rj",
-//   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK36k3PBvKaH3_Ikd36AfeTcjVHDUrlDmsZQ&usqp=CAU",
-//   "https://blog.vantagecircle.com/content/images/2020/08/teamwork-and-team-building.png",
-// ]
+
+
 function _createBoard(title) {
   const board = getEmptyBoard()
   board._id = utilService.makeId()

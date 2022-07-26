@@ -19,6 +19,7 @@
         v-if="task.dueDate"
         class="prev-dueDate-conteiner flex"
         :style="{ 'background-color': dueDateColor }"
+        title="Due-Date"
       >
         <div class="prev-dueDate-clock-icon"></div>
         <div class="prev-dueDate">
@@ -26,7 +27,10 @@
         </div>
       </div>
       <div v-if="task.description" class="prev-task-desk-icon"></div>
-      <div v-if="task.attachments.length > 0" class="prev-task-attachments-conteiner">
+      <div
+        v-if="task.attachments.length > 0"
+        class="prev-task-attachments-conteiner"
+      >
         <div class="prev-task-attachments-icon"></div>
         <div class="prev-task-attachments-count">{{ attachmentsCount }}</div>
       </div>
@@ -70,7 +74,7 @@ export default {
       //   taskToEdit: {},
       boardToEdit: {},
       labelOpen: false,
-    //   dueDateColor: "#61bd4f",
+      //   dueDateColor: "#61bd4f",
     }
   },
   created() {
@@ -127,7 +131,6 @@ export default {
       dueDateMonth = monthArr[dueDateMonth]
       let dueDateDay = formatedDate.getDate()
 
-    
       return `${dueDateMonth} ${dueDateDay}`
 
       // let month = dueDate.date() + 1;
@@ -161,7 +164,7 @@ export default {
     },
     commentsCount() {
       return this.task.comments.length
-    //   return 2
+      //   return 2
     },
     attachmentsCount() {
       return this.task.attachments.length
@@ -169,10 +172,8 @@ export default {
     },
     dueDateColor() {
       if (new Date() < new Date(this.task.dueDate)) return "#61bd4f"
-      if (new Date() >=  new Date(this.task.dueDate)) return "orange"
-   
-   },
-    
+      if (new Date() >= new Date(this.task.dueDate)) return "orange"
+    },
   },
 }
 </script>

@@ -213,9 +213,10 @@ export default {
       }
     },
     async saveGroup(
-      { commit },
+      { commit,state },
       { group = null, groupId, boardId, subject = null }
     ) {
+      boardId = state.currBoard._id
       // async saveGroup({ commit }, { group,groupId, boardId }) {
       try {
         const savedGroup = await boardService.saveGroup(group, boardId, subject)
