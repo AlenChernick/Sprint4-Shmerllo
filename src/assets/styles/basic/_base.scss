@@ -97,16 +97,16 @@ p {
   }
 }
 
-.btn {
-  @include btn;
+.outter-task-btn {
+  @include outter-task-btn;
+}
 
-  &-dark {
-    @include btn($type: dark);
-  }
+.cancel-btn {
+  @include cancel-btn;
+}
 
-  &-light {
-    @include btn($type: light);
-  }
+.confirm-btn {
+  @include confirm-btn;
 }
 
 // links

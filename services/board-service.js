@@ -21,9 +21,6 @@ export const boardService = {
   removeGroup,
   coverOptions,
   getEmptyActivity,
-  addTodo,
-  addCheckList,
-  removeCheckList,
 }
 
 //get boards
@@ -199,66 +196,6 @@ function addActivity(board, task, userAction) {
   return board
 }
 
-async function addTodo(task, groupId, checkListId, todoTitle, board) {
-  try {
-    const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-    const taskIdx = board.groups[groupIdx].tasks.findIndex(
-      (t) => t.id === task.id
-    )
-    const checkListIdx = task.checklists.findIndex(
-      (checkList) => checkList.id === checkListId
-    )
-    let todo = getEmptyTodo()
-    todo.title = todoTitle
-    await board.groups[groupIdx].tasks[taskIdx].checklists[
-      checkListIdx
-    ].todos.push(todo)
-    await saveBoard(board)
-    return todo
-  } catch (err) {
-    console.log("Cannot add todo", err)
-    throw err
-  }
-}
-
-async function addCheckList(task, groupId, board, checkListTitle) {
-  try {
-    const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-    const taskIdx = board.groups[groupIdx].tasks.findIndex(
-      (t) => t.id === task.id
-    )
-    let checkList = getEmptyCheckList()
-    checkList.title = checkListTitle
-    await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
-    await saveBoard(board)
-    return checkList
-  } catch (err) {
-    console.log("Cannot add checklist", err)
-    throw err
-  }
-}
-
-async function removeCheckList(task, groupId, board, checkListId) {
-  try {
-    const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-    const taskIdx = board.groups[groupIdx].tasks.findIndex(
-      (t) => t.id === task.id
-    )
-    const checkListIdx = task.checklists.findIndex(
-      (checkList) => checkList.id === checkListId
-    )
-    await board.groups[groupIdx].tasks[taskIdx].checklists.splice(
-      checkListIdx,
-      1
-    )
-    await saveBoard(board)
-    return board.groups[groupIdx].tasks[taskIdx]
-  } catch (err) {
-    console.log("Cannot remove checklist", err)
-    throw err
-  }
-}
-
 function _createBoards() {
   let boards = utilService.loadFromStorage(STORAGE_KEY)
   if (!boards || !boards.length) {
@@ -385,7 +322,7 @@ function getEmptyBoard() {
             checklists: [],
             checklistsIsDone: false,
             labelIds: [],
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png","https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg","https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"],
+            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"],
             createdAt: 1590999730348,
             dueDate: "2022-07-31T07:28:00.000Z",
             byMember: {
@@ -460,7 +397,7 @@ function getEmptyBoard() {
             comments: [],
             checklists: [],
             checklistsIsDone: false,
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png","https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg","https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg","https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"],
+            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"],
             labelIds: [],
             createdAt: 1590999730348,
             dueDate: '',
@@ -673,7 +610,7 @@ function getEmptyBoard() {
             comments: [],
             checklists: [],
             checklistsIsDone: false,
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png","|https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg",],
+            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png", "|https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg",],
             labelIds: [],
             createdAt: 1590999730348,
             dueDate: '',
@@ -1113,22 +1050,6 @@ function getEmptyBoard() {
     lastActivity: 1658239902711,
     boardLabels: _labelOptions(),
     isLabelsOpen: false,
-  }
-}
-
-function getEmptyTodo() {
-  return {
-    id: utilService.makeId(),
-    title: "",
-    isDone: false,
-  }
-}
-
-function getEmptyCheckList() {
-  return {
-    id: utilService.makeId(),
-    title: "",
-    todos: [],
   }
 }
 

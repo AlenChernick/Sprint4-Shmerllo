@@ -16,6 +16,7 @@
         @addAttachment="addAttachment"
         @addCheckList="addCheckList"
         @setDate="setDate"
+        @removeDate="removeDate"
       >
       </component>
     </div>
@@ -42,11 +43,6 @@ export default {
       ],
       cmpType: null,
       displayModal: 'none',
-      // isCheckListItemAdded: false,
-      // isCheckListAdded: false,
-      // displayLabelPicker: 'none',
-      // todoTitle: '',
-      // checkListTitle: '',
     }
   },
   methods: {
@@ -68,11 +64,14 @@ export default {
     addAttachment(attachment) {
       this.$emit('addAttachment', attachment)
     },
-    addCheckList(checkListTitle) {
-      this.$emit('addCheckList', checkListTitle)
+    addCheckList(checklist) {
+      this.$emit('addCheckList', checklist)
     },
     setDate(dateValue) {
       this.$emit('setDate', dateValue)
+    },
+    removeDate(dateValue) {
+      this.$emit('removeDate', dateValue)
     },
   },
   components: {

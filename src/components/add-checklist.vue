@@ -5,23 +5,35 @@
       <span @click.stop="closeModal" class="close-icon"></span>
       <div class="modal-options">
         <div class="checklist-input-header">Title</div>
-        <input autofocus spellcheck="false" type="text" v-model="checkListTitle" @keyup.enter="addCheckList" />
-        <el-button @click.stop="closeModal" type="primary" @click="addCheckList">Add</el-button>
+        <input
+          autofocus
+          spellcheck="false"
+          type="text"
+          v-model="checkList.checkListTitle"
+          @keyup.enter="addCheckList"
+        />
+        <el-button class="confirm-btn" @click.stop="closeModal" type="primary" @click="addCheckList">Add</el-button>
       </div>
     </div>
   </section>
 </template>
 <script>
+import { utilService } from '../../services/util-service'
 export default {
   name: 'add-checklist',
   data() {
     return {
-      checkListTitle: '',
+      checkList: {
+        id: utilService.makeId(),
+        checkListTitle: '',
+        todos: [],
+      },
     }
   },
   methods: {
     addCheckList() {
-      this.$emit('addCheckList', this.checkListTitle)
+      if (!this.checkList.id) return
+      this.$emit('addCheckList', this.checkList)
     },
     closeModal() {
       this.$emit('closeModal')

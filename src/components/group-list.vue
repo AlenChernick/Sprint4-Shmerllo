@@ -12,11 +12,7 @@
         <group-preview class="group-preview" :group="col" :key="col.id" />
       </Draggable>
       <div class="add-new-group-btn-warp">
-        <div
-          v-if="!addGroupModal"
-          class="add-new-group-btn flex"
-          @click="addGroupModal = !addGroupModal"
-        >
+        <div v-if="!addGroupModal" class="add-new-group-btn flex" @click="addGroupModal = !addGroupModal">
           <font-awesome-icon icon="fa-solid fa-plus" class="task-adding-btn" />
           <div>Add another list</div>
         </div>
@@ -29,13 +25,8 @@
             v-model="newGroupSubject"
           ></textarea>
           <div class="new-task-add-remove-conteiner flex">
-            <el-button type="primary" @click="oneNewGroup()"
-              >Add List</el-button
-            >
-            <span
-              class="cancel-add-group"
-              @click="addGroupModal = !addGroupModal"
-            ></span>
+            <el-button class="confirm-btn" type="primary" @click="oneNewGroup()">Add List</el-button>
+            <span class="cancel-add-group" @click="addGroupModal = !addGroupModal"></span>
           </div>
         </div>
       </div>
@@ -43,12 +34,12 @@
   </section>
 </template>
 <script>
-import groupPreview from "../components/group-preview.vue"
-import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from "../../services/dnd-service.js"
+import groupPreview from '../components/group-preview.vue'
+import { Container, Draggable } from 'vue3-smooth-dnd'
+import { applyDrag } from '../../services/dnd-service.js'
 
 export default {
-  name: "group-list",
+  name: 'group-list',
   props: {
     groups: {
       type: Array,
@@ -59,7 +50,7 @@ export default {
       cols: [],
       currBoard: {},
       addGroupModal: false,
-      newGroupSubject: "",
+      newGroupSubject: '',
     }
   },
   async created() {
@@ -70,7 +61,7 @@ export default {
     onDrop(dropRes) {
       this.cols = applyDrag(this.cols, dropRes)
       this.$store.dispatch({
-        type: "saveGroups",
+        type: 'saveGroups',
         groups: this.cols,
         currBoard: this.currBoard,
       })
@@ -78,17 +69,17 @@ export default {
     getChildPayload(idx) {
       return this.cols[idx]
     },
-      oneNewGroup() {
+    oneNewGroup() {
       if (!this.newGroupSubject) return
       this.addGroupModal = !this.addGroupModal
-      this.$store.dispatch({ type: "saveGroup", boardId:this.currBoard._id,subject:this.newGroupSubject })
+      this.$store.dispatch({ type: 'saveGroup', boardId: this.currBoard._id, subject: this.newGroupSubject })
     },
   },
   computed: {
     dropPlaceholderOptions() {
       return {
-        className: "group-drag",
-        animationDuration: "188",
+        className: 'group-drag',
+        animationDuration: '188',
         showOnTop: false,
       }
     },

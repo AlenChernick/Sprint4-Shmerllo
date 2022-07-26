@@ -4,10 +4,16 @@
     <span @click.stop="closeModal" class="close-icon"></span>
     <!-- <div class="main-task-edit-btn"> -->
     <div class="date-picker-container">
-      <Datepicker v-model="dateValue" inline autoApply />
+      <Datepicker class="date-picker-input" v-model="dateValue" inline autoApply />
       <!-- <el-date-picker v-model="dateValue" type="date" placeholder="Pick a day" /> -->
-      <el-button @click="setDate" @click.stop="closeModal">Save</el-button>
-      <el-button @click="closeModal">Remove</el-button>
+      <div class="date-picker-btn-container">
+        <el-button class="save-btn confirm-btn" type="primary" @click="setDate" @click.stop="closeModal"
+          >Save</el-button
+        >
+        <el-button class="btn outter-task-btn" type="info" @click="removeDate" @click.stop="closeModal"
+          >Remove</el-button
+        >
+      </div>
     </div>
     <!-- </div> -->
   </section>
@@ -23,6 +29,9 @@ export default {
   methods: {
     closeModal() {
       this.$emit('closeModal')
+    },
+    removeDate() {
+      this.$emit('removeDate')
     },
     setDate() {
       this.$emit('setDate', this.dateValue)

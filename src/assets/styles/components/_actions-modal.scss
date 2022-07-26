@@ -1,39 +1,34 @@
-.actions-modal-container{
+.actions-modal-container {
+  position: absolute;
+  // height: 470px;
+  width: 304px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+  z-index: 20;
+  border-radius: 2px;
+
+  h4 {
+    text-align: center;
+    padding: em(12px);
+    margin: 0 em(12px);
+    font-size: em(16px);
+    font-weight: 400;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .close-icon {
+    font-weight: 400;
     position: absolute;
-    // height: 470px;
-    width: 320px;
-    background-color: white;
-    z-index: 20;
-    border-radius: 2px;
-
-   
-  
-
-    h4 {
-        text-align: center;
-        padding: em(12px);
-        margin: 0 em(12px);
-        font-size: em(16px) ;
-        font-weight: 400;
-        border-bottom: 1px solid lightgray;
+    right: 10px;
+    top: 10px;
+    font-family: trellicons;
+    font-size: em(18px);
+    &::before {
+      content: '\e91c';
     }
-
-    .close-icon{
-               
-        font-weight: 400;
-        position: absolute;
-        right:10px;
-        top:10px;
-        font-family: trellicons;
-        font-size: em(18px);
-        &::before {
-            content: '\e91c';
-          }
-        &:hover{
-            cursor: pointer;
-        }
+    &:hover {
+      cursor: pointer;
     }
-
+  }
 }
-
-

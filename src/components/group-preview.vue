@@ -32,7 +32,9 @@
           v-model="taskTitle"
         ></textarea>
         <div class="new-task-add-remove-conteiner flex">
-          <el-button class="trello-plux-btn" type="primary" @click="oneNewTask(group.id)">Add Card</el-button>
+          <el-button class="trello-plux-btn confirm-btn" type="primary" @click="oneNewTask(group.id)"
+            >Add Card</el-button
+          >
           <span class="cancel-add-task" @click="newTaskModal = !newTaskModal"></span>
         </div>
       </div>
