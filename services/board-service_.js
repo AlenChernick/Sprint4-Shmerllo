@@ -5,7 +5,7 @@ import { utilService } from "./util-service.js"
 const STORAGE_KEY = "board_db"
 const TASK = "task"
 
-_createBoards()
+// _createBoards()
 
 export const boardService = {
   query,

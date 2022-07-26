@@ -64,4 +64,23 @@ header.main-header {
       border-radius: 0.2rem;
     }
   }
+  .active-user-conteiner {
+    grid-column: 3;
+    align-self: center;
+    position: relative;
+
+    .active-user {
+      background-color: rgb(28, 133, 28);
+      color: rgb(236, 228, 228);
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+      line-height: 32px;
+      display: flex;
+      justify-content: center;
+      margin-inline-end: 4px;
+      font-weight: 500;
+      // position:absolute;
+    }
+  }
 }

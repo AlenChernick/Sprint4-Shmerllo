@@ -97,7 +97,6 @@ export default {
       state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].checklists.splice(checkListIdx, 1)
       state.currTask = state.boards[boardIdx].groups[groupIdx].tasks[taskIdx]
     },
-
     addCheckList(state, { newCheckList, task, groupId, board, }) {
       const boardIdx = state.boards.findIndex((b) => b._id === board._id)
       const groupIdx = board.groups.findIndex((group) => group.id === groupId)
@@ -113,7 +112,6 @@ export default {
       state.boards[boardIdx].groups[groupIdx].tasks[taskIdx].checklists[checkListIdx].todos.push(newTodo)
       state.currTask = state.boards[boardIdx].groups[groupIdx].tasks[taskIdx]
     }
-
   },
   actions: {
     async loadBoards({ commit }) {
@@ -246,6 +244,7 @@ export default {
         let group = board.groups.find((group) => group.id === groupId)
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
+        console.log(group)
         commit({ type: "saveGroup", savedGroup: group })
 
         setTimeout(() => {
@@ -305,7 +304,6 @@ export default {
         throw err
       }
     },
-
     async addCheckListItem(
       { commit },
       { task, groupId, checkListId, todoTitle, board }

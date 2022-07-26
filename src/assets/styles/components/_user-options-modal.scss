@@ -1,0 +1,55 @@
+.user-options-modal {
+  margin-top: 10px;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.891);
+  font-weight: 400;
+  line-height: 40px;
+  color: #172b4b;
+  padding: 0 12px 12px;
+  display: flex;
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+  justify-content: center;
+  //   justify-content: center;
+  //   align-content: center;
+  align-items: center;
+
+  .option {
+    margin-top: 6px;
+    margin-bottom: 8px;
+    height: 40px;
+    border-bottom: 1px solid rgba(9, 30, 66, 0.12941176470588237);
+    position: relative;
+    color: #5e6c84;
+    padding: 0 12px 12px;
+    display: flex;
+    justify-content: center;
+  }
+  .account {
+    align-items: center;
+    margin-top: 20px;
+  }
+  .log-out-btn {
+    display: flex;
+
+    &:hover {
+      border-radius: 3px;
+      background-color: rgba(211, 211, 211, 0.521);
+    }
+
+    .close-user-option {
+      margin-top: 6px;
+      margin-bottom: 8px;
+      height: 40px;
+      border-bottom: 1px solid rgba(9, 30, 66, 0.12941176470588237);
+      position: relative;
+      color: #5e6c84;
+      padding: 0 12px 12px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
