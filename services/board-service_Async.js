@@ -89,13 +89,13 @@ async function getGroupById(boardId, groupId) {
 
   try {
     const board = await httpService.get(`board/${boardId}`)
+    // const board = await getBoardById(boardId)
+    const group = board.groups.find((group) => group.id === groupId)
+    return group
   } catch (err) {
     throw err
   }
 
-  // const board = await getBoardById(boardId)
-  const group = board.groups.find((group) => group.id === groupId)
-  return group
 }
 
 async function saveGroup(group, boardId, subject) {
