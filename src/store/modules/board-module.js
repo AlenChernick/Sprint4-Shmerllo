@@ -242,10 +242,8 @@ export default {
     async saveTasks({ commit, state, dispatch }, { tasks, groupId }) {
       try {
         let group = state.currBoard.groups.find((group) => group.id === groupId)
-        console.log('group before', group)
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
-        console.log('group after', group)
         commit({ type: "saveGroup", savedGroup: group })
 
         setTimeout(() => {
