@@ -1,14 +1,11 @@
-// import { createConditionalExpression } from "@vue/compiler-core" ..not in use?
-// import { storageService } from "./storage-service.js"
-import { utilService } from "./util-service.js"
 
+import { utilService } from "./util-service.js"
 import { httpService } from './http.service'
 import Axios from "axios"
 const axios = Axios.create({ withCredentials: true })//withCredentials???
 
-const STORAGE_KEY = "board_db"
+// const STORAGE_KEY = "board_db"
 // const TASK = "task"  ..not in use?
-
 // _createBoards()
 
 export const boardService = {
@@ -31,15 +28,19 @@ export const boardService = {
 }
 
 //get boards
-function query(filterBy) {
+function query(filterBy='') {
   try {
     return await httpService.get('board')
     // return await httpService.get('board',filterBy)
   } catch (err) {
     throw err
   }
+
+
   // return storageService.query(STORAGE_KEY)
 }
+
+
 
 //board level functions
 function getBoardById(boardId) {
@@ -51,6 +52,7 @@ function getBoardById(boardId) {
   }
   // return storageService.get(STORAGE_KEY, boardId)
 }
+
 
 function removeBoard(boardId) {
   try {
@@ -65,11 +67,10 @@ function saveBoard(board) {
 
   try {
     if (board._id) {
-      return await httpService.put(`toy/${board._id}`,board)
+      return await httpService.put(`board/${board._id}`,board)
 
     } else {
-      return await httpService.post(`board`,board)
-      
+      return await httpService.post(`board`,board) 
     }
   } catch (err) {
     throw err
@@ -82,12 +83,12 @@ function saveBoard(board) {
   // }
 }
 
+
 //group level functions
 async function getGroupById(boardId, groupId) {
 
   try {
     const board = await httpService.get(`board/${boardId}`)
- 
   } catch (err) {
     throw err
   }
@@ -131,7 +132,6 @@ async function saveGroup(group, boardId, subject) {
 }
 
 async function removeGroup(groupId, boardId) {
-  // console.log(groupId, boardId)
 
   try {
     //GET BOARD
@@ -150,6 +150,7 @@ async function removeGroup(groupId, boardId) {
   }
 }
 
+
 //task level functions:
 
 async function getTaskById(boardId, groupId, taskId) {
@@ -159,7 +160,7 @@ async function getTaskById(boardId, groupId, taskId) {
   const task = group.tasks.find((task) => task.id === taskId)
   return task
 } catch(err) {
-  console.log('cannot get tadk by id');
+  console.log('cannot get task by id');
   throw err
 }
 }
