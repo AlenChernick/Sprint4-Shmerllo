@@ -11,7 +11,7 @@
     </label>
     
     <h4 class="attach-link-txt">Attach a link </h4>
-    <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment.url" type="text" />
+    <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment" type="text" />
     <button @click="addAttachment">Attach</button>
   
    
@@ -35,6 +35,7 @@ export default {
       console.log('attching', this.attachment)
       this.$emit('addAttachment', this.attachment)
       this.closeModal()
+     
     },
     closeModal(){
       this.$emit("closeModal")
@@ -43,13 +44,13 @@ export default {
       console.log(ev);
       var file
       file = ev.target.files[0]
-      this.closeModal()
       this.onUploadFile(file)
     },
     async onUploadFile(file) {
       const res = await uploadImg(file)
       console.log(res.url)
       this.$emit('addAttachment', res.url)
+      this.closeModal()
     }
  
    
