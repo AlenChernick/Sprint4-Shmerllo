@@ -11,7 +11,7 @@
     </label>
     
     <h4 class="attach-link-txt">Attach a link </h4>
-    <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment.url" type="text" />
+    <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment" type="text" />
     <button @click="addAttachment">Attach</button>
   
    
@@ -34,6 +34,7 @@ export default {
       if (!this.attachment) return
       console.log('attching', this.attachment)
       this.$emit('addAttachment', this.attachment)
+     
     },
     closeModal(){
       this.$emit("closeModal")
