@@ -1,4 +1,5 @@
 <template>
+  <div class="task-edit-screen" @click="backToBoard"></div>
   <section class="task-edit">
     <div
       v-if="taskToEdit.style?.bgColor !== '' || taskToEdit.style?.bgImgUrl !== ''"
@@ -56,11 +57,18 @@
           </div>
           <!-- /// -->
 
-          <div class="main-editor-dates">
-            <div class="main-task-dates-header">Dates</div>
-            <div class="main-editor-dates-picker">
+          <div v-if="taskToEdit.dueDate !== ''" class="main-editor-dates">
+            <div class="main-task-dates-header">Due date</div>
+            <div class="main-editor-date-picker">
               <el-checkbox class="main-editor-checkbox"></el-checkbox>
-              <el-date-picker class="main-editor-date-picker" type="dates" v-model="dateValue"></el-date-picker>
+              <Datepicker
+                class="main-editor-date-picker"
+                v-model="taskToEdit.dueDate"
+                textInput
+                inlineWithInput
+                :autoApply="false"
+                :lowerLimit="new Date()"
+              />
             </div>
           </div>
         </div>
@@ -96,7 +104,7 @@
           <div class="checklist-progressbar-contianer">
             <el-progress :percentage="doneTodos(checklist)" class="checklist-progressbar" />
           </div>
-          <ul v-for="todo in checklist.todos">
+          <ul class="checklist-checkbox" v-for="todo in checklist.todos">
             <li>
               <el-checkbox v-model="todo.isDone" @change="saveTask(todo)">{{ todo.title }}</el-checkbox>
             </li>
@@ -144,11 +152,13 @@
         @setTaskStyle="setTaskStyle"
         @addAttachment="addAttachment"
         @addCheckList="addCheckList"
+        @setDate="setDate"
       />
     </div>
   </section>
 </template>
 <script>
+import { now } from 'lodash'
 import { ref } from 'vue'
 
 import editTaskActions from '../components/edit-task-actions.vue'
@@ -161,7 +171,6 @@ export default {
       groupId: null,
       isEdit: false,
       isWrite: false,
-      dateValue: ref(''),
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
@@ -336,6 +345,17 @@ export default {
       let completed = checklist.todos.filter((todo) => todo.isDone === true)
       let commentLen = completed.length
       return (commentLen / checkListLen) * 100 || 0
+    },
+    setDate(dateValue) {
+      this.taskToEdit.dueDate = dateValue
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: 'Added due date',
+        taskTitle: this.taskToEdit.title,
+      })
     },
   },
   computed: {

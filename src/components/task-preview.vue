@@ -6,35 +6,10 @@
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
-    <task-preview-details :task="task" :key="task.id" />
+    <div v-else-if="task.style?.bgColor"  class="prev-task-color" :style="{'background-color':task.style.bgColor}"></div>
+    <task-preview-details :task="task" :key="task.id"/>
 
-    <!-- <div class="task-prev-details-conteiner">
-      <div v-if="taskToEdit?.labelIds" class="label-task-preview-container">
-        <ul v-for="labelId in taskToEdit.labelIds" class="clean-list flex">
-          <li
-            :class="labelStaus"
-            @click.stop="openLables"
-            :style="{ 'background-color': labelColor(labelId) }"
-          >
-            <span v-if="boardToEdit.isLabelsOpen">{{ labelTxt(labelId) }}</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="prev-task-title">{{ task.title }}</div>
-
-      <div class="flex space-between">
-        <div class="flex prev-members-imgs">
-          <ul
-            v-if="task.members"
-            class="clean-list flex"
-            v-for="member in task.members"
-          >
-            <img class="prev-member-img" :src="member.imgUrl" />
-          </ul>
-        </div>
-      </div>
-    </div> -->
+   
     <!-- Tal's part -->
 
     <div @click.stop="quickEditDisplay = 'none'" class="quickEditScreen" :style="{ display: quickEditDisplay }"></div>
@@ -48,8 +23,7 @@
           placeholder="Enter a title for this card..."
           v-model="taskToEdit.title"
           @click.stop=""
-            ></textarea>
-    
+        ></textarea>
       </div>
 
       <div class="action-buttons">
@@ -126,9 +100,9 @@ export default {
       this.$router.push(`/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
       this.quickEditDisplay = 'none'
     },
-    saveTask(userAction){
-       this.$store.dispatch({
-        type: "saveTask",
+    saveTask(userAction) {
+      this.$store.dispatch({
+        type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.getCurrBoard._id,
@@ -136,14 +110,16 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-    editTitle(){
-        this.saveTask('Edit title')
-    },   
+    editTitle() {
+      this.saveTask('Edit title')
+    },
     removeTask() {
-      this.$store.dispatch({ type: "removeTask", 
-                              taskId: this.task.id,
-                              groupId:this.groupId,
-                              boardId: this.getCurrBoard._id,})
+      this.$store.dispatch({
+        type: 'removeTask',
+        taskId: this.task.id,
+        groupId: this.groupId,
+        boardId: this.getCurrBoard._id,
+      })
     },
     openModal(cmpType) {
       this.cmpType = cmpType
@@ -185,8 +161,10 @@ export default {
     },
     addAttachment(attachment) {
       this.taskToEdit.attachments.push(attachment)
-       this.saveTask('Added attchement')
-     },
+      this.saveTask('Added attchement')
+    },
+
+  
   },
   computed: {
     getCurrBoard() {

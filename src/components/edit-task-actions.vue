@@ -15,14 +15,9 @@
         @setTaskStyle="setTaskStyle"
         @addAttachment="addAttachment"
         @addCheckList="addCheckList"
+        @setDate="setDate"
       >
       </component>
-
-      <!-- <div @click="toggleDatePicker = !toggleDatePicker" class="main-task-edit-btn">
-        <span class="dates-icon"><font-awesome-icon class="dates-icon-font-awesome" icon="fa-regular fa-clock" /></span>
-        Dates
-      </div>
-      -->
     </div>
   </section>
 </template>
@@ -38,8 +33,8 @@ export default {
   data() {
     return {
       actionBtns: [
-        { txt: 'Labels', icon: 'labels-icon', type: 'labelPicker' },
         { txt: 'Members', icon: 'members-icon', type: 'memberPicker' },
+        { txt: 'Labels', icon: 'labels-icon', type: 'labelPicker' },
         { txt: 'Checklist', icon: 'checklist-icon', type: 'addCheckList' },
         { txt: 'Dates', icon: 'dates-icon', type: 'datePicker' },
         { txt: 'Attachment', icon: 'attachment-icon', type: 'addAttachment' },
@@ -75,6 +70,9 @@ export default {
     },
     addCheckList(checkListTitle) {
       this.$emit('addCheckList', checkListTitle)
+    },
+    setDate(dateValue) {
+      this.$emit('setDate', dateValue)
     },
   },
   components: {

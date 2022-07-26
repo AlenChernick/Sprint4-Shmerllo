@@ -38,26 +38,103 @@
   }
   .prev-fetchers-conteiner {
     align-items: center;
+
     .prev-task-desk-icon {
+      //   margin-inline-end: 6px;
+      margin-bottom: 6px;
+
+      padding-inline-end: 10px;
       font-family: trellicons;
-      font-size: em(14px);
+      font-size: em(16px);
       &::before {
         content: "\e922";
       }
     }
+    .prev-task-attachments-conteiner {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 7px;
+      padding-inline-end: 10px;
 
-    .prev-task-checklists-icon {
-      font-family: trellicons;
-      font-size: em(14px);
-      &::before {
-        content: "\e91a";
+      // align-content: center;
+      .prev-task-attachments-icon {
+        font-family: trellicons;
+        padding-inline-end: 3px;
+        font-size: em(16px);
+        &::before {
+          content: "\e908";
+        }
+      }
+      .prev-task-attachments-count {
+        padding-bottom: 0px;
       }
     }
-    .prev-task-checklists-count{
-        font-size: em(13px);
+    .prev-dueDate-conteiner {
+      background-color: #61bd4f;
+      justify-content: center;
+      align-items: center;
+      border-radius: 3px;
+      padding: 0 3px 0 3px;
+      margin-inline-end: 10px;
+      margin-bottom: 6px;
+      .prev-dueDate {
+        font-size: em(12px);
+        width: auto;
+        color: white;
+        border-radius: 3px;
+      }
 
+      .prev-dueDate-clock-icon {
+        font-family: trellicons;
+        color: white;
+        padding-inline-end: 3px;
+        font-size: em(16px);
+        &::before {
+          content: "\e91b";
+        }
+      }
     }
+    .prev-task-comments {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1px 3px 0px 1px;
+      padding-inline-end: 10px;
+      margin-bottom: 9px;
 
+      .prev-task-comments-icon {
+        font-family: trellicons;
+        font-size: em(18px);
+        &::before {
+          content: "\e91e";
+          padding-inline-end: 3px;
+        }
+      }
+    }
+    .prev-task-checklists {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 3px;
+      padding: 1px 3px 0px 1px;
+      padding-inline-end: 10px;
+      margin-bottom: 6px;
+      .prev-task-checklists-icon {
+        font-family: trellicons;
+        font-size: em(18px);
+        &::before {
+          content: "\e91a";
+          padding-inline-end: 3px;
+        }
+      }
+      .prev-task-checklists-count {
+        font-size: em(15px);
+      }
+
+      &.done {
+        background-color: red;
+      }
+    }
     .prev-members-imgs {
       flex: 1 1;
       justify-content: flex-end;
@@ -69,17 +146,6 @@
         height: 28px;
         border-radius: 50%;
       }
-    }
-
-    .prev-dueDate {
-      font-size: em(12px);
-      padding: 0;
-      line-height: 12px;
-      background-color: green;
-      height: 16px;
-      width: auto;
-      color: white;
-      border-radius: 3px;
     }
   }
 }

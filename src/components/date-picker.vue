@@ -1,43 +1,35 @@
 <template lang="">
- 
-
   <section class="actions-modal-container date-picker">
-    <h4>date-picker</h4>
-    <span  @click.stop="closeModal" class="close-icon"></span>
-    <!-- <ul class="clean-list" v-for="member in membersToEdit">
-        <li  @click="toggleMember(member)" > 
-        <img :src="member.imgUrl"/>
-       <h5>{{member.fullname}}</h5>
-        </li>
-    </ul> -->
+    <h4>Dates</h4>
+    <span @click.stop="closeModal" class="close-icon"></span>
+    <!-- <div class="main-task-edit-btn"> -->
+    <div class="date-picker-container">
+      <Datepicker v-model="dateValue" inline autoApply />
+      <!-- <el-date-picker v-model="dateValue" type="date" placeholder="Pick a day" /> -->
+      <el-button @click="setDate" @click.stop="closeModal">Save</el-button>
+      <el-button @click="closeModal">Remove</el-button>
+    </div>
+    <!-- </div> -->
   </section>
-
-    
 </template>
 <script>
 export default {
   name: 'date-picker',
   data() {
     return {
-    //   membersToEdit: null,
+      dateValue: new Date(),
     }
   },
   methods: {
-    // toggleMember(member){
-    //   console.log(member)
-    //   this.$emit('toggleMember', member)
-    // },
-    closeModal(){
-      this.$emit("closeModal")
-    }
-   
+    closeModal() {
+      this.$emit('closeModal')
+    },
+    setDate() {
+      this.$emit('setDate', this.dateValue)
+    },
   },
-  created(){
-    // this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
-  },
-  computed: {
-    
-  },
+  created() {},
+  computed: {},
 }
 </script>
 <style lang=""></style>

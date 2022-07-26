@@ -41,7 +41,7 @@ function removeBoard(boardId) {
 }
 
 function saveBoard(board) {
-  // console.log("updatedBoard", board)
+  console.log("updatedBoard", board)
 
   if (board._id) {
     return storageService.put(STORAGE_KEY, board)
@@ -182,7 +182,7 @@ async function removeTask(taskId, groupId, boardId) {
 
     return await saveBoard(board)
 
-    
+
   } catch (err) {
     console.log("cannot remove task", err)
     throw err
@@ -290,26 +290,26 @@ function _createBoard(title) {
 
 function _createTask() {
   return {
-            status: "",
-            description: "",
-            comments: [],
-            checklists: [],
-            labelIds: [],
-            attachments: [],
-            createdAt: Date.now(),
-            dueDate: 16156215211,
-            byMember: {
-              id: "m102",
-              username: "AK",
-              fullname: "Alon Kolker",
-              imgUrl: "../assets/img/AK.jpg",
-              createdAt: "2021-12-11T10:01:48.000Z",
-            },
-            members: [],
-            style: {
-              bgColor: "",
-              bgImgUrl: "",
-            },
+    status: "",
+    description: "",
+    comments: [],
+    checklists: [],
+    labelIds: [],
+    attachments: [],
+    createdAt: Date.now(),
+    dueDate: '',
+    byMember: {
+      id: "m102",
+      username: "AK",
+      fullname: "Alon Kolker",
+      imgUrl: "../assets/img/AK.jpg",
+      createdAt: "2021-12-11T10:01:48.000Z",
+    },
+    members: [],
+    style: {
+      bgColor: "",
+      bgImgUrl: "",
+    },
   }
 }
 function _getEmptyGroup() {
@@ -383,10 +383,11 @@ function getEmptyBoard() {
             description: "",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             labelIds: [],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -404,14 +405,14 @@ function getEmptyBoard() {
             id: "c102",
             title: "Fonts and color vars",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -429,14 +430,15 @@ function getEmptyBoard() {
             id: "c131",
             title: "Make playpack",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
+
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -454,14 +456,14 @@ function getEmptyBoard() {
             id: "c132",
             title: "Add PerfectPixel to chorme",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -479,14 +481,14 @@ function getEmptyBoard() {
             id: "c133",
             title: "Find Trello project for reference",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -504,14 +506,14 @@ function getEmptyBoard() {
             id: "c134",
             title: "Collect& build demo data ",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -539,14 +541,14 @@ function getEmptyBoard() {
             id: "c103",
             title: "Page ruler",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -565,14 +567,14 @@ function getEmptyBoard() {
             id: "c120",
             title: "Board Details",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -590,14 +592,14 @@ function getEmptyBoard() {
             id: "c121",
             title: "task list",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -619,10 +621,11 @@ function getEmptyBoard() {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.  ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -644,10 +647,11 @@ function getEmptyBoard() {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.  ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -665,14 +669,14 @@ function getEmptyBoard() {
             id: "c124",
             title: "Login page",
             status: "",
-            description:
-              "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
+            description: "Curabitur tortor. Pellentesque nibh. Aenean quam. ",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -718,11 +722,12 @@ function getEmptyBoard() {
                 ],
               },
             ],
+            checklistsIsDone: false,
             memberIds: ["m101", "m102", "m103", "m104"],
             labelIds: ["l101", "l102"],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m101",
               username: "THT",
@@ -785,10 +790,11 @@ function getEmptyBoard() {
             description: "",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -809,10 +815,11 @@ function getEmptyBoard() {
             description: "",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -841,10 +848,11 @@ function getEmptyBoard() {
             description: "",
             comments: [],
             checklists: [],
+            checklistsIsDone: false,
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -891,10 +899,12 @@ function getEmptyBoard() {
                 ],
               },
             ],
+            checklistsIsDone: false,
+
             memberIds: ["u101"],
             labelIds: ["l101", "l102"],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -970,11 +980,13 @@ function getEmptyBoard() {
                 ],
               },
             ],
+            checklistsIsDone: false,
+
             memberIds: ["u101"],
             labelIds: ["l101", "l102"],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -1100,7 +1112,7 @@ function getEmptyBoard() {
     activityCount: 0,
     lastActivity: 1658239902711,
     boardLabels: _labelOptions(),
-    isLabelsOpen:false,
+    isLabelsOpen: false,
   }
 }
 
