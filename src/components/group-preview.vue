@@ -19,6 +19,7 @@
       <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal = !newTaskModal">
         <div class="task-adding-btn">
           <font-awesome-icon icon="fa-solid fa-plus" class="trello-plux-btn" />
+          <div class="trello-plus-btn"></div>
         </div>
         <div>Add a card</div>
       </div>
