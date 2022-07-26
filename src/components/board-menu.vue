@@ -50,7 +50,7 @@
 </template>
 <script>
 import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
-import { boardService } from "../../services/board-service.js"
+import { boardService } from "../../services/board-service_Async.js"
 import moment from "moment";
 
 export default {

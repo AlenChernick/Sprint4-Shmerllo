@@ -240,9 +240,10 @@ export default {
         throw err
       }
     },
-    async saveTasks({ commit, state, dispatch }, { tasks, groupId }) {
+    async saveTasks({ commit, state, dispatch }, { tasks, groupId ,board = null}) {
       try {
-        let group = state.currBoard.groups.find((group) => group.id === groupId)
+        if(board === null) board = state.currBoard
+        let group = board.groups.find((group) => group.id === groupId)
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
         commit({ type: "saveGroup", savedGroup: group })
