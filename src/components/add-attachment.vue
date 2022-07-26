@@ -34,7 +34,6 @@ export default {
       if (!this.attachment) return
       console.log('attching', this.attachment)
       this.$emit('addAttachment', this.attachment)
-      this.closeModal()
     },
     closeModal(){
       this.$emit("closeModal")
@@ -43,7 +42,6 @@ export default {
       console.log(ev);
       var file
       file = ev.target.files[0]
-      this.closeModal()
       this.onUploadFile(file)
     },
     async onUploadFile(file) {

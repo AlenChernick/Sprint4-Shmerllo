@@ -387,7 +387,7 @@ function getEmptyBoard() {
             labelIds: [],
             attachments: [],
             createdAt: 1590999730348,
-            dueDate: '',
+            dueDate: "2022-07-31T07:28:00.000Z",
             byMember: {
               id: "m102",
               username: "AK",
@@ -548,7 +548,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: '',
+            dueDate: "2023-09-31T07:28:00.000Z",
             byMember: {
               id: "m102",
               username: "AK",
@@ -651,7 +651,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: '',
+            dueDate: "2022-04-14T07:28:00.000Z",
             byMember: {
               id: "m102",
               username: "AK",
@@ -819,7 +819,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: '',
+            dueDate: "2024-07-11T07:28:00.000Z",
             byMember: {
               id: "m102",
               username: "AK",
@@ -852,7 +852,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: '',
+            dueDate: "2020-07-25T07:28:00.000Z",
             byMember: {
               id: "m102",
               username: "AK",
