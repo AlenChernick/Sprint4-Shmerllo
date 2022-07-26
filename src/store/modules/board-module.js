@@ -1,4 +1,4 @@
-import { boardService } from "../../../services/board-service.js"
+import { boardService } from "../../../services/board-service_Async"
 
 export default {
   state: {

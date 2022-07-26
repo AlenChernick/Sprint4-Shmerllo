@@ -28,7 +28,7 @@ export const boardService = {
 }
 
 //get boards
-function query(filterBy='') {
+async function query() {
   try {
     return await httpService.get('board')
     // return await httpService.get('board',filterBy)
@@ -43,7 +43,7 @@ function query(filterBy='') {
 
 
 //board level functions
-function getBoardById(boardId) {
+async function getBoardById(boardId) {
 
   try {
     return await httpService.get(`board/${boardId}`)
@@ -54,7 +54,7 @@ function getBoardById(boardId) {
 }
 
 
-function removeBoard(boardId) {
+async function removeBoard(boardId) {
   try {
     return await httpService.delete(`board/${boardId}`)
   } catch (err) {
@@ -63,7 +63,7 @@ function removeBoard(boardId) {
   // return storageService.remove(STORAGE_KEY, boardId)
 }
 
-function saveBoard(board) {
+async function saveBoard(board) {
 
   try {
     if (board._id) {
