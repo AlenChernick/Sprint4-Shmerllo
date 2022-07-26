@@ -5,10 +5,10 @@
   <section class="actions-modal-container add-attachment">
     <h4>Attach from...</h4>
     <span  @click.stop="closeModal" class="close-icon"></span>
-    <h4 class="attach-from"> Computer</h4>
     
-  
-    <input type="file" @change="handleFile" />
+    <label> Computer
+    <input type="file" @change="handleFile" hidden/>
+    </label>
     
     <h4 class="attach-link-txt">Attach a link </h4>
     <input autofocus spellcheck="false" placeholder="Paste any link here..." v-model="attachment.url" type="text" />
@@ -34,6 +34,7 @@ export default {
       if (!this.attachment) return
       console.log('attching', this.attachment)
       this.$emit('addAttachment', this.attachment)
+      this.closeModal()
     },
     closeModal(){
       this.$emit("closeModal")
@@ -42,6 +43,7 @@ export default {
       console.log(ev);
       var file
       file = ev.target.files[0]
+      this.closeModal()
       this.onUploadFile(file)
     },
     async onUploadFile(file) {

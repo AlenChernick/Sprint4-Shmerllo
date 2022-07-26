@@ -50,9 +50,8 @@ export default {
       const idx = state.currBoard.groups.findIndex(
         (g) => g.id === savedGroup.id
       )
-      console.log(idx)
       if (idx !== -1) {
-        state.currBoard.groups[idx].splice(idx, 1, savedGroup)
+        state.currBoard.groups.splice(idx, 1, savedGroup)
       } else {
         state.currBoard.groups.push(savedGroup)
       }
@@ -242,12 +241,28 @@ export default {
     },
     async saveTasks({ commit, state, dispatch }, { tasks, groupId }) {
       try {
-        const boardId = state.currBoard._id
         let group = state.currBoard.groups.find((group) => group.id === groupId)
+        console.log('group before', group)
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
-        const savedGroup = await boardService.saveGroup(group, boardId)
+        console.log('group after', group)
+        commit({ type: "saveGroup", savedGroup: group })
 
+        setTimeout(() => {
+          let board = JSON.parse(JSON.stringify(state.currBoard))
+          console.log(board)
+          dispatch({ type: "saveBoard", board })       
+        }, 500);
+        
+
+        //FROM TODAY
+        // const boardId = state.currBoard._id
+        // let group = state.currBoard.groups.find((group) => group.id === groupId)
+        // group = JSON.parse(JSON.stringify(group))
+        // group.tasks = tasks
+        // const savedGroup = await boardService.saveGroup(group, boardId)
+
+        //OLD
         // let currBoard = JSON.parse( JSON.stringify(state.currBoard))
         // const idx = currBoard.groups.findIndex((group) => group.id === groupId)
         // currBoard.groups[idx].tasks = tasks
@@ -323,6 +338,7 @@ export default {
         throw err
       }
     },
+    
 
     // async addActivity({ state, dispatch }, { userAction, savedTask }) {
     //   console.log('userAction', userAction)
