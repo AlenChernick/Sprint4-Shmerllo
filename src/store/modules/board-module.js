@@ -1,4 +1,4 @@
-import { boardService } from "../../../services/board-service.js"
+import { boardService } from "../../../services/board-service_Async"
 
 export default {
   state: {
@@ -186,9 +186,10 @@ export default {
       }
     },
     async saveGroup(
-      { commit },
+      { commit, state },
       { group = null, groupId, boardId, subject = null }
     ) {
+      boardId = state.currBoard._id
       // async saveGroup({ commit }, { group,groupId, boardId }) {
       try {
         const savedGroup = await boardService.saveGroup(group, boardId, subject)
@@ -212,11 +213,13 @@ export default {
         throw err
       }
     },
-    async saveTasks({ commit, state, dispatch }, { tasks, groupId }) {
+    async saveTasks({ commit, state, dispatch }, { tasks, groupId, board = null }) {
       try {
-        let group = state.currBoard.groups.find((group) => group.id === groupId)
+        if (board === null) board = state.currBoard
+        let group = board.groups.find((group) => group.id === groupId)
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
+        console.log(group)
         commit({ type: "saveGroup", savedGroup: group })
 
         setTimeout(() => {

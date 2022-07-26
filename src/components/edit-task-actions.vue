@@ -2,7 +2,6 @@
   <section class="edit-task-actions">
     <div class="main-task-sidebar">
       <div class="main-task-header">Add to card</div>
-
       <div v-for="btn in actionBtns" @click.stop="openModal(btn.type)" class="main-task-edit-btn">
         <span :class="btn.icon"></span>
         {{ btn.txt }}
@@ -22,6 +21,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import labelPicker from '../components/label-picker.vue'
 import memberPicker from '../components/member-picker.vue'

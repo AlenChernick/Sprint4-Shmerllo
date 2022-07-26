@@ -7,11 +7,13 @@
 
 <script>
 import appHeader from './components/app-header.vue'
+import { userService } from '../services/user-service.js'
 export default {
   name: 'app',
-  created() {
+  async created() {
     this.$store.dispatch({ type: 'loadBoards' })
-  },
+
+},
   components: {
     appHeader,
   },

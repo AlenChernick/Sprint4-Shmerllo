@@ -5,7 +5,7 @@ import { utilService } from "./util-service.js"
 const STORAGE_KEY = "board_db"
 const TASK = "task"
 
-_createBoards()
+// _createBoards()
 
 export const boardService = {
   query,
@@ -147,13 +147,14 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
     board.groups.splice(groupIdx, 1, group)
     board = addActivity(board, task, userAction)
 
-    await saveBoard(board)
+    return await saveBoard(board)
 
-    // const savedTask = await getTaskById(boardId, groupId, task.id)
-    const updatedBoard = await getBoardById(boardId)
+    // // const savedTask = await getTaskById(boardId, groupId, task.id)
+    // const updatedBoard = await getBoardById(boardId)
 
-    // return savedTask
-    return updatedBoard
+    // // return savedTask
+    // return updatedBoard
+
   } catch (err) {
     console.log("cannot save task", err)
     throw err
@@ -322,9 +323,9 @@ function getEmptyBoard() {
             checklists: [],
             checklistsIsDone: false,
             labelIds: [],
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"],
+            attachments: [],
             createdAt: 1590999730348,
-            dueDate: "2022-07-31T07:28:00.000Z",
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -397,7 +398,7 @@ function getEmptyBoard() {
             comments: [],
             checklists: [],
             checklistsIsDone: false,
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg", "https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg"],
+            attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
             dueDate: '',
@@ -482,10 +483,10 @@ function getEmptyBoard() {
             comments: [],
             checklists: [],
             checklistsIsDone: false,
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png",],
+            attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: "2023-09-31T07:28:00.000Z",
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -588,7 +589,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: "2022-04-14T07:28:00.000Z",
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -610,7 +611,7 @@ function getEmptyBoard() {
             comments: [],
             checklists: [],
             checklistsIsDone: false,
-            attachments: ["https://augnitive.com/wp-content/uploads/2019/09/Fundamentals-of-JavaScript-Part-2.png", "|https://d1whtlypfis84e.cloudfront.net/guides/wp-content/uploads/2019/07/23090714/nature-1024x682.jpeg",],
+            attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
             dueDate: '',
@@ -756,7 +757,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: "2024-07-11T07:28:00.000Z",
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",
@@ -789,7 +790,7 @@ function getEmptyBoard() {
             attachments: [],
             labelIds: [],
             createdAt: 1590999730348,
-            dueDate: "2020-07-25T07:28:00.000Z",
+            dueDate: '',
             byMember: {
               id: "m102",
               username: "AK",

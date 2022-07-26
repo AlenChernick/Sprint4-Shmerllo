@@ -11,13 +11,10 @@
   >
   <!-- @mousedown.prevent -->
     <Draggable
-      
       class="task-preview"
       v-if="items"
       v-for="item in items"
-      :key="item.id"
-      
-    >
+      :key="item.id">
       <task-preview :task="item" :groupId="groupId" />
     </Draggable>
   </Container>
@@ -47,12 +44,13 @@ export default {
   },
   methods: {
     onDrop(dropRes) {
-      if (this.item === this.tasks) return
+      // if (this.item === this.tasks) return
       this.items = applyDrag(this.items, dropRes)
       this.$store.dispatch({
         type: "saveTasks",
         tasks: this.items,
         groupId: this.groupId,
+        board: this.$store.getters.getCurrBoard
       })
     },
     getChildPayload(idx) {

@@ -78,7 +78,9 @@ export default {
       this.taskTitle = ''
     },
     onSaveGroup(groupId) {
+      // const boardId = this.currBoard._id
       const boardId = this.currBoard._id
+
       this.$store.dispatch({ type: 'saveGroup', group: this.group, boardId })
     },
     onRemoveGroup(groupId) {
