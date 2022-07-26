@@ -9,8 +9,9 @@
     group-name="col-items"
     @drop="onDrop($event)"
   >
+  <!-- @mousedown.prevent -->
     <Draggable
-      @mousedown.prevent
+      
       class="task-preview"
       v-if="items"
       v-for="item in items"
