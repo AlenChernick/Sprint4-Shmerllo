@@ -7,17 +7,14 @@
   max-width: 300px;
   min-height: 20px;
   position: relative;
-  .prev-task-color{
+  transition: background-color 0.3s;
+
+  .prev-task-color {
     width: 100%;
     height: 35px;
   }
- 
-  img{
-    height: 185px;
-  }
-
   &:hover {
-    background-color: #f6f4f0;
+    background-color: #f6f4f0d6;
   }
   .edit-icon {
     z-index: 1;
@@ -41,10 +38,9 @@
       z-index: 10;
     }
   }
-  
 }
 
-.task-preview-container{
+.task-preview-container {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -58,12 +54,12 @@
     top: 0;
     left: 0;
     z-index: 20;
-  
+
     &:hover {
       background-color: rgb(63, 62, 62);
     }
   }
-  
+
   .quickEdit {
     position: fixed;
     // display: flex;
@@ -77,7 +73,7 @@
     height: fit-content;
     overflow: visible;
     border-radius: 3px;
-  
+
     .action-buttons {
       display: flex;
       flex-direction: column;
@@ -88,7 +84,7 @@
       &:hover {
         background-color: transparent;
       }
-  
+
       button {
         width: fit-content;
         color: white;
@@ -106,63 +102,63 @@
           background-color: black;
           cursor: pointer;
         }
-  
+
         .card-icon {
           font-family: trellicons;
           font-size: em(16px);
           padding-right: em(5px);
           &::before {
-            content: "\e912";
+            content: '\e912';
           }
         }
-  
+
         .labels-icon {
           font-family: trellicons;
           font-size: em(16px);
           padding-right: em(5px);
           &::before {
-            content: "\e93f";
+            content: '\e93f';
           }
         }
-  
+
         .members-icon {
           font-family: trellicons;
           font-size: em(16px);
           padding-right: em(5px);
           &::before {
-            content: "\e946";
+            content: '\e946';
           }
         }
-  
+
         .cover-icon {
           font-family: trellicons;
           font-size: em(16px);
           padding-right: em(5px);
           &::before {
-            content: "\e914";
+            content: '\e914';
           }
         }
-  
+
         .dates-icon {
           font-family: trellicons;
           font-size: em(16px);
           padding-right: em(5px);
           &::before {
-            content: "\e91b";
+            content: '\e91b';
           }
         }
-  
+
         .archive-icon {
           font-family: trellicons;
           font-size: em(16px);
           padding-right: em(5px);
           &::before {
-            content: "\e907";
+            content: '\e907';
           }
         }
       }
     }
-  
+
     .save-button {
       position: relative;
       bottom: -50px;
@@ -171,7 +167,7 @@
         background-color: transparent;
         border: none;
       }
-  
+
       button {
         background-color: #0079bf;
         margin: 10px;
@@ -186,32 +182,32 @@
         }
       }
     }
-  
+
     .title-edit {
       width: 280px;
       border-radius: 5px;
       height: fit-content;
       padding-bottom: 50px;
-      
-      textarea{
-      padding: 10px;;
-      border: none;
-      color: #172b4d;
-      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 20px;
 
-      &:focus-visible {
-        outline: none;
-    }
+      textarea {
+        padding: 10px;
+        border: none;
+        color: #172b4d;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+          sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
 
+        &:focus-visible {
+          outline: none;
+        }
       }
-  
+
       h5 {
         padding: 7px;
       }
-  
+
       img {
         width: 266px;
       }

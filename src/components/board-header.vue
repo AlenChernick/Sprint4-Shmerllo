@@ -21,6 +21,7 @@
 <script>
 import boardMenu from '../components/board-menu.vue'
 import boardFilter from '../components/board-filter.vue'
+import {  utilService } from '../../services/util-service.js'
 
 export default {
   name: 'board-header',
@@ -34,6 +35,9 @@ export default {
       currBoard: {},
     }
   },
+  created() {
+         this.saveBoard = utilService.debounce(this.saveBoard, 1000)
+      },
   methods: {
     saveBoard() {
       console.log('im on', this.board.title)
@@ -44,6 +48,7 @@ export default {
       console.log(this.board.isFavorite)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
+
   },
   computed: {
     icon() {

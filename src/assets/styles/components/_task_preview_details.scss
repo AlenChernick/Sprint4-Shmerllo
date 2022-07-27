@@ -1,6 +1,6 @@
 .task-prev-details-conteiner {
-  padding: 0px 6px 3px 5p; 
-      margin: 0px 8px 3 8px;
+  padding: 10px;
+
   // position: relative;
   .label-task-preview-container {
     display: flex;
@@ -48,7 +48,7 @@
       font-family: trellicons;
       font-size: em(16px);
       &::before {
-        content: "\e922";
+        content: '\e922';
       }
     }
     .prev-task-attachments-conteiner {
@@ -63,7 +63,7 @@
         padding-inline-end: 3px;
         font-size: em(16px);
         &::before {
-          content: "\e908";
+          content: '\e908';
         }
       }
       .prev-task-attachments-count {
@@ -91,7 +91,7 @@
         padding-inline-end: 3px;
         font-size: em(16px);
         &::before {
-          content: "\e91b";
+          content: '\e91b';
         }
       }
     }
@@ -107,7 +107,7 @@
         font-family: trellicons;
         font-size: em(18px);
         &::before {
-          content: "\e91e";
+          content: '\e91e';
           padding-inline-end: 3px;
         }
       }
@@ -124,7 +124,7 @@
         font-family: trellicons;
         font-size: em(18px);
         &::before {
-          content: "\e91a";
+          content: '\e91a';
           padding-inline-end: 3px;
         }
       }

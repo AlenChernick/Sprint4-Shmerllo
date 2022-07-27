@@ -21,6 +21,8 @@
 </template>
 <script>
 import { uploadImg } from '../../services/img-upload.service'; 
+import {  utilService } from '../../services/util-service.js'
+
 
 export default {
   name: 'add-attachment',
@@ -29,6 +31,9 @@ export default {
        attachment: '', 
     }
   },
+  created() {
+     this.addAttachment = utilService.debounce(this.addAttachment, 1000)
+      },
   methods: {
     addAttachment(){
       if (!this.attachment) return

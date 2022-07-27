@@ -5,11 +5,15 @@
     /></span>
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
+      <!-- <pre @click.stop="getAvgColor(task.style.bgImgUrl)">{{ task.style.bgImgUrl }}</pre> -->
     </div>
-    <div v-else-if="task.style?.bgColor"  class="prev-task-color" :style="{'background-color':task.style.bgColor}"></div>
-    <task-preview-details :task="task" :key="task.id"/>
+    <div
+      v-else-if="task.style?.bgColor"
+      class="prev-task-color"
+      :style="{ 'background-color': task.style.bgColor }"
+    ></div>
+    <task-preview-details :task="task" :key="task.id" />
 
-   
     <!-- Tal's part -->
 
     <div @click.stop="quickEditDisplay = 'none'" class="quickEditScreen" :style="{ display: quickEditDisplay }"></div>
@@ -81,11 +85,6 @@ export default {
       ],
       cmpType: null,
       displayModal: 'none',
-      // isCheckListItemAdded: false,
-      // isCheckListAdded: false,
-      // displayLabelPicker: 'none',
-      // todoTitle: '',
-      // checkListTitle: '',
       taskToEdit: {},
       boardToEdit: {},
       labelOpen: false,
@@ -163,8 +162,6 @@ export default {
       this.taskToEdit.attachments.push(attachment)
       this.saveTask('Added attchement')
     },
-
-  
   },
   computed: {
     getCurrBoard() {

@@ -1,8 +1,21 @@
-.tasks-container{
-    max-height:60vh ;
-    // max-height: calc(100vh - 380px);
-    overflow-y: auto;
-    padding-right: 2px ;
+.tasks-container {
+  max-height: 67vh;
+  overflow-y: auto;
+  padding-right: 2px;
+  padding: 0 em(6px) 0 em(5px);
 }
 
+.tasks-container::-webkit-scrollbar {
+  height: em(8px);
+  width: em(10px);
+}
 
+.tasks-container::-webkit-scrollbar-track {
+  background: #091e4214;
+  border-radius: em(10px);
+}
+
+.tasks-container::-webkit-scrollbar-thumb {
+  background: #091e421f;
+  border-radius: em(10px);
+}
