@@ -3,7 +3,8 @@
   flex-direction: row;
 }
 .group-preview {
-  width: 302px;
+  height: 100%;
+  width: em(274px);
   padding: em(5px) em(4px);
   margin: 8px 4px 10px 4px;
   color: black;
@@ -11,18 +12,28 @@
   box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 24%);
   border-radius: 3px;
   white-space: normal;
-  max-height: 80vh;
-  // max-height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
-  // overflow-y: auto;
+  transition: background-color 0.2s;
   .task-adding-conteiner {
-    padding: 1px 0px 6px 15px;
+    border-radius: 3px;
     color: #5e6c84;
-    cursor: pointer;
-    &:hover {
-      background-color: #b4b5b9af;
+    display: flex;
+    flex: 1 0 auto;
+    padding: 10px 8px;
+    position: relative;
+    text-decoration: none;
+    .task-adding-btn {
+      font-size: 14px;
+      color: #6b778cd7;
+      margin-block-start: em(3px);
+      margin-inline-end: em(8px);
     }
+    -webkit-user-select: none;
+    user-select: none;
+    // &:hover {
+    //   background-color: #ebecf0;
+    // }
   }
 }
 
@@ -77,30 +88,44 @@
   }
 }
 
-.new-task-area {
-  // width: 100%;
-  margin-top: 10px;
-  width: 93%;
-
-  border: none;
-  outline: none;
-  box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
-  padding: 6px;
-}
-
-.cancel-add-task {
-  font-family: trellicons;
-  font-size: em(24px);
-  &::before {
-    content: '\e91c';
+.new-task-container {
+  .new-task-area {
+    overflow-y: hidden;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    // background-color: #eaecf0;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-left: 0.29rem;
+    margin-top: 0.5rem;
+    height: 65px;
+    resize: none;
+    font-family: NunitoSans-regular;
+    font-size: 13px;
+    min-height: 55px;
+    width: 93%;
+    box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 1px 3px 1px;
   }
-  font-size: 25px;
-  padding-inline-start: em(4px);
-}
+  .cancel-add-task {
+    font-family: trellicons;
+    font-size: em(24px);
+    margin-inline-start: em(4px);
+    color: #6b778c;
+    &::before {
+      content: '\e91c';
+    }
+  }
 
-.new-task-add-remove-conteiner {
-  align-items: center;
-  align-content: center;
+  .new-task-add-remove-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .trello-add-btn {
+      margin-block-start: em(-1px);
+      margin-inline-start: em(4px);
+    }
+  }
 }
 
 .group-options-modal {
@@ -133,10 +158,6 @@
       background-color: rgba(211, 211, 211, 0.521);
     }
   }
-}
-
-.trello-plux-btn {
-  margin-inline-end: 5px;
 }
 
 .add-new-group-btn-warp {

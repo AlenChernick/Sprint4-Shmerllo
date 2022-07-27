@@ -1,7 +1,7 @@
 <template>
   <section class="board-details full" v-if="board" :style="bgStyle">
     <board-header :board="board" />
-    <div class="board-list-conteiner flex">
+    <div class="board-list-container flex">
       <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
     </div>
     <router-view />

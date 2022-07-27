@@ -1,9 +1,8 @@
 .tasks-container {
-  max-height: 60vh;
-  // max-height: calc(100vh - 380px);
+  max-height: 67vh;
   overflow-y: auto;
   padding-right: 2px;
-  padding: 0 em(7px) em(3px) em(5px);
+  padding: 0 em(6px) 0 em(5px);
 }
 
 .tasks-container::-webkit-scrollbar {

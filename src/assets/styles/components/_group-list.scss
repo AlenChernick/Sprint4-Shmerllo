@@ -1,8 +1,13 @@
 .group-list {
   height: 89vh;
+  overflow: hidden;
   width: 99.9%;
   overflow-x: auto;
   margin: 0 12px 0 12px;
+
+  .smooth-dnd-container.horizontal {
+    display: flex;
+  }
 }
 
 .group-drag {

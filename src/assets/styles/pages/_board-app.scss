@@ -1,3 +1,9 @@
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .board-app {
   height: 97vh;
   display: flex;
