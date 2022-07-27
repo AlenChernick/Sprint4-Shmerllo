@@ -9,7 +9,6 @@
     group-name="col-items"
     @drop="onDrop($event)"
   >
-  <!-- @mousedown.prevent -->
     <Draggable
       class="task-preview"
       v-if="items"
@@ -44,14 +43,16 @@ export default {
   },
   methods: {
     onDrop(dropRes) {
-      // if (this.item === this.tasks) return
-      this.items = applyDrag(this.items, dropRes)
-      this.$store.dispatch({
-        type: "saveTasks",
-        tasks: this.items,
-        groupId: this.groupId,
-        board: this.$store.getters.getCurrBoard
-      })
+
+        this.items = applyDrag(this.items, dropRes)
+        // console.log('this.Items',this.items,'groupId', this.groupId);
+        this.$emit('moveTasks',this.items)
+      // this.$store.dispatch({
+      //   type: "saveTasks",
+      //   tasks: this.items,
+      //   groupId: this.groupId,
+      //   board: this.$store.getters.getCurrBoard
+      // })
     },
     getChildPayload(idx) {
       return this.items[idx]

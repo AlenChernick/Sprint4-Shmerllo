@@ -1,6 +1,6 @@
 .task-prev-details-conteiner {
   padding: 10px;
-  
+
   // position: relative;
   .label-task-preview-container {
     display: flex;
@@ -8,8 +8,8 @@
     flex-wrap: wrap;
 
     .label-task-preview {
-      height: 9px;
-      width: 50px;
+      height: 8px;
+      width: 40px;
       border-radius: 3px;
     }
     .label-task-preview-full {
@@ -33,6 +33,7 @@
   .prev-task-title {
     font-size: em(16px);
     color: $clr1;
+    color:#162c52;
     display: flex;
     align-items: center;
   }
@@ -47,7 +48,7 @@
       font-family: trellicons;
       font-size: em(16px);
       &::before {
-        content: "\e922";
+        content: '\e922';
       }
     }
     .prev-task-attachments-conteiner {
@@ -62,7 +63,7 @@
         padding-inline-end: 3px;
         font-size: em(16px);
         &::before {
-          content: "\e908";
+          content: '\e908';
         }
       }
       .prev-task-attachments-count {
@@ -90,7 +91,7 @@
         padding-inline-end: 3px;
         font-size: em(16px);
         &::before {
-          content: "\e91b";
+          content: '\e91b';
         }
       }
     }
@@ -106,7 +107,7 @@
         font-family: trellicons;
         font-size: em(18px);
         &::before {
-          content: "\e91e";
+          content: '\e91e';
           padding-inline-end: 3px;
         }
       }
@@ -123,7 +124,7 @@
         font-family: trellicons;
         font-size: em(18px);
         &::before {
-          content: "\e91a";
+          content: '\e91a';
           padding-inline-end: 3px;
         }
       }
@@ -145,6 +146,7 @@
         width: 28px;
         height: 28px;
         border-radius: 50%;
+        margin-left: 5px;
       }
     }
   }

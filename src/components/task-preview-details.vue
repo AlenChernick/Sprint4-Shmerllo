@@ -28,18 +28,18 @@
       </div>
       <div v-if="task.description" class="prev-task-desk-icon"></div>
       <div
-        v-if="task.attachments.length > 0"
+        v-if="task.attachments?.length > 0"
         class="prev-task-attachments-conteiner"
       >
         <div class="prev-task-attachments-icon"></div>
         <div class="prev-task-attachments-count">{{ attachmentsCount }}</div>
       </div>
-      <div v-if="task.comments.length > 0" class="prev-task-comments">
+      <div v-if="task.comments?.length > 0" class="prev-task-comments">
         <div class="prev-task-comments-icon"></div>
         <div class="prev-task-comments-count">{{ commentsCount }}</div>
       </div>
       <div
-        v-if="task.checklists.length > 0"
+        v-if="task.checklists?.length > 0"
         class="prev-task-checklists"
         :style="{ 'background-color': doneTodos }"
       >
@@ -159,7 +159,7 @@ export default {
           if (todo.isDone === true) tempDoneTodos++
         })
       })
-      if (tempDoneTodos === todos) return "#61bd4f"
+      if (tempDoneTodos === todos ) return "#61bd4f"
       if (tempDoneTodos !== todos) return " "
     },
     commentsCount() {

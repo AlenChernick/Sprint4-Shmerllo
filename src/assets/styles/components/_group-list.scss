@@ -1,11 +1,42 @@
 .group-list {
   height: 89vh;
+  overflow: hidden;
   width: 99.9%;
   overflow-x: auto;
   margin: 0 12px 0 12px;
+
+  .smooth-dnd-container.horizontal {
+    display: flex;
+  }
 }
 
 .group-drag {
   background-color: rgba(53, 50, 50, 0.336);
   transition: transform 0.18s ease;
+}
+
+.group-list::-webkit-scrollbar {
+  height: em(12px);
+  width: em(12px);
+}
+
+.group-list::-webkit-scrollbar-button {
+  display: block;
+  height: 4px;
+  width: 4px;
+}
+
+.group-list::-webkit-scrollbar-track-piece {
+  background: #091e4214;
+  border-radius: em(10px);
+}
+
+.group-list::-webkit-scrollbar-track {
+  background: #091e4214;
+  border-radius: em(10px);
+}
+
+.group-list::-webkit-scrollbar-thumb {
+  background: #cdcdcd7c;
+  border-radius: em(10px);
 }

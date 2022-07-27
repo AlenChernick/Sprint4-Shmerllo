@@ -6,10 +6,15 @@
         class="task-edit-cover"
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
-        <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
-        <div v-if="getCurrTask" class="close-task-edit" @click="backToBoard">
+        <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
+          <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
+        </div>
+        <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
           <span class="close-task-edit-icon"></span>
         </div>
+      </div>
+      <div v-else-if="taskToEdit.style.bgImgUrl" class="task-edit-cover-img-with-bg-color">
+        <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
       </div>
       <div v-else class="close-task-edit-no-img" @click="backToBoard">
         <span class="close-task-edit-no-img-icon"></span>
@@ -76,7 +81,7 @@
             <span class="main-editor-description-icon"></span>
             <h4 class="main-editor-description-title">Description</h4>
             <el-button
-              @click="isEdit = true"
+              @click.stop=";[(isEdit = true), this.$refs.descriptionTxt.focus()]"
               v-if="!isEdit"
               class="btn main-editor-decription-edit-btn outter-task-btn"
               type="info"
@@ -84,8 +89,9 @@
             >
           </div>
           <p
+            ref="descriptionTxt"
             @click="isEdit = true"
-            @blur="onEdit"
+            @blur.stop="onEdit"
             contenteditable="true"
             spellcheck="false"
             class="main-editor-description-info"
@@ -122,21 +128,27 @@
             <ul class="checklist-checkbox" v-for="todo in checklist.todos">
               <li>
                 <el-checkbox v-model="todo.isDone" @change="saveTask(todo)"
-                  ><span class="todo-title">{{ todo.todoTitle }}</span></el-checkbox
-                >
+                  ><span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
+                ></el-checkbox>
                 <el-button @click="removeCheckListItem(todo.id, checklist.id)">X</el-button>
               </li>
             </ul>
             <el-button
-              v-if="!isCheckListItemAdded"
-              @click="isCheckListItemAdded = !isCheckListItemAdded"
+              v-if="isCheckListItemAdded !== checklist.id"
+              @click="onCheckListItemAdded(checklist.id)"
               type="info"
               class="btn main-editor-add-item-btn outter-task-btn"
               >Add an item</el-button
             >
-            <div v-if="isCheckListItemAdded" class="check-list-add-item-btn-container">
+            <div v-if="isCheckListItemAdded === checklist.id" class="check-list-add-item-btn-container">
               <div class="checklist-todo-add-container">
-                <textarea placeholder="Add an item" v-model="checkListItem.todoTitle" spellcheck="false"></textarea>
+                <textarea
+                  ref="checkListText"
+                  placeholder="Add an item"
+                  v-model="checkListItem.todoTitle"
+                  spellcheck="false"
+                  class="check-list-textarea"
+                ></textarea>
                 <div class="checklist-todo-add-btns">
                   <el-button class="confirm-btn" type="primary" @click="addCheckListItem(checkListItem, checklist.id)"
                     >Add</el-button
@@ -182,6 +194,7 @@
 <script>
 import editTaskActions from '../components/edit-task-actions.vue'
 import { utilService } from '../../services/util-service'
+import { FastAverageColor } from 'fast-average-color'
 export default {
   name: 'task-edit',
   data() {
@@ -262,7 +275,7 @@ export default {
     },
     onSaveDescription() {
       this.isEdit = false
-      onEdit()
+      this.onEdit
     },
     backToBoard() {
       this.$router.push(`/board/${this.boardId}`)
@@ -407,7 +420,8 @@ export default {
       let checkListLen = checklist.todos.length
       let completed = checklist.todos.filter((todo) => todo.isDone === true)
       let commentLen = completed.length
-      return (commentLen / checkListLen) * 100 || 0
+      let percentage  = (commentLen / checkListLen) * 100 || 0
+      return +percentage.toFixed(0) 
     },
     setDate(dateValue) {
       this.taskToEdit.dueDate = dateValue
@@ -431,6 +445,9 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
+    onCheckListItemAdded(checkListId) {
+      this.isCheckListItemAdded = checkListId
+    },
   },
   computed: {
     getCurrTask() {
@@ -444,6 +461,26 @@ export default {
     },
     openTextArea() {
       return this.isEdit ? 'open-text-area' : ''
+    },
+    getAvgColor() {
+      if (!this.taskToEdit.style || !this.taskToEdit.style.bgImgUrl) return
+      const imgUrl = this.taskToEdit.style.bgImgUrl
+      console.log('imgUrl', imgUrl)
+      const fac = new FastAverageColor()
+      console.log('fac', imgUrl)
+      fac
+        .getColorAsync(imgUrl)
+        .then((color) => {
+          // container.style.backgroundColor = color.rgba
+          // container.style.color = color.isDark ? '#fff' : '#000'
+          console.log('Average color', color)
+          console.log(color.hex)
+          this.taskToEdit.style.bgColor = color.hexa
+          // return color.hex
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
     // boards() {
     //   return JSON.parse(JSON.stringify(this.$store.getters.getBoards))

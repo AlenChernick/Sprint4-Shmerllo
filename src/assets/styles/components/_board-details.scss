@@ -3,5 +3,11 @@
   // background-image: url(https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg?auto=compress&cs=tinysrgb&w=1600);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 99vh;
+  height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  .board-list-container {
+    flex: 1;
+  }
 }
