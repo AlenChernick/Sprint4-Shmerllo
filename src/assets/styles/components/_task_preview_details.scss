@@ -9,6 +9,7 @@
     margin-top: -6px;
 
     .label-task-preview {
+<<<<<<< HEAD
       border-radius: em(10px);
       font-size: em(12px);
       font-weight: 700;
@@ -20,6 +21,11 @@
       padding: 0;
       text-shadow: none;
       width: auto;
+=======
+      height: 8px;
+      width: 40px;
+      border-radius: 3px;
+>>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
     }
     .label-task-preview-full {
       height: 20px;

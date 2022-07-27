@@ -1,15 +1,25 @@
 <template>
   <!-- <div class="group-title"></div> -->
   <Container
-    class="tasks-container"
+ 
+    class="tasks-container "
     orientation="vertical"
     v-if="tasks"
     :get-child-payload="getChildPayload"
     group-name="col-items"
     @drop="onDrop($event)"
   >
+<<<<<<< HEAD
     <Draggable class="task-preview" v-if="items" v-for="item in items" :key="item.id">
       <task-preview :task="item" :groupId="groupId" />
+=======
+    <Draggable
+      class="task-preview"
+      v-if="items"
+      v-for="item in items"
+      :key="item.id">
+      <task-preview  :task="item" :groupId="groupId" />
+>>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
     </Draggable>
   </Container>
 </template>

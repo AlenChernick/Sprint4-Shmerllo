@@ -1,10 +1,10 @@
-
 import { utilService } from "./util-service.js"
-import { httpService } from './http.service'
-import { socketService ,  SOCKET_EVENT_BOARD_UPDATED} from './socket.service'
+import { httpService } from "./http.service"
+import { socketService, SOCKET_EVENT_BOARD_UPDATED } from "./socket.service"
+import { userService } from "./user-service.js"
 
 import Axios from "axios"
-const axios = Axios.create({ withCredentials: true })//withCredentials???
+const axios = Axios.create({ withCredentials: true }) //withCredentials???
 
 // const STORAGE_KEY = "board_db"
 // const TASK = "task"  ..not in use?
@@ -32,21 +32,17 @@ export const boardService = {
 //get boards
 async function query() {
   try {
-    return await httpService.get('board')
+    return await httpService.get("board")
     // return await httpService.get('board',filterBy)
   } catch (err) {
     throw err
   }
 
-
   // return storageService.query(STORAGE_KEY)
 }
 
-
-
 //board level functions
 async function getBoardById(boardId) {
-
   try {
     return await httpService.get(`board/${boardId}`)
   } catch (err) {
@@ -54,7 +50,6 @@ async function getBoardById(boardId) {
   }
   // return storageService.get(STORAGE_KEY, boardId)
 }
-
 
 async function removeBoard(boardId) {
   try {
@@ -66,22 +61,21 @@ async function removeBoard(boardId) {
 }
 
 async function saveBoard(board) {
-
   try {
     if (board._id) {
       // console.log('with id');
-      const savedBoard =  await httpService.put(`board/${board._id}`,board)
+      const savedBoard = await httpService.put(`board/${board._id}`, board)
       socketService.emit(SOCKET_EVENT_BOARD_UPDATED, savedBoard)
       return saveBoard
     } else {
-      console.log('big nono ');
+      console.log("big nono ")
 
-      return await httpService.post(`board`,board) 
+      return await httpService.post(`board`, board)
     }
   } catch (err) {
     throw err
   }
-  
+
   // if (board._id) {
   //   return storageService.put(STORAGE_KEY, board)
   // } else {
@@ -89,19 +83,17 @@ async function saveBoard(board) {
   // }
 }
 
-
 //group level functions
 async function getGroupById(boardId, groupId) {
-let board
+  let board
   try {
-     board = await httpService.get(`board/${boardId}`)
+    board = await httpService.get(`board/${boardId}`)
     const group = board.groups.find((group) => group.id === groupId)
     return group
   } catch (err) {
-    console.log('cant get board');
+    console.log("cant get board")
     throw err
   }
-
 }
 
 async function saveGroup(group, boardId, subject) {
@@ -138,7 +130,6 @@ async function saveGroup(group, boardId, subject) {
 }
 
 async function removeGroup(groupId, boardId) {
-
   try {
     //GET BOARD
     let board = await getBoardById(boardId)
@@ -156,22 +147,21 @@ async function removeGroup(groupId, boardId) {
   }
 }
 
-
 //task level functions:
 
 async function getTaskById(boardId, groupId, taskId) {
-  try{
-  const board = await getBoardById(boardId)
-  const group = board.groups.find((group) => group.id === groupId)
-  const task = group.tasks.find((task) => task.id === taskId)
-  return task
-} catch(err) {
-  console.log('cannot get task by id');
-  throw err
-}
+  try {
+    const board = await getBoardById(boardId)
+    const group = board.groups.find((group) => group.id === groupId)
+    const task = group.tasks.find((task) => task.id === taskId)
+    return task
+  } catch (err) {
+    console.log("cannot get task by id")
+    throw err
+  }
 }
 
-async function saveTask(task, taskTitle, groupId, boardId, userAction) {
+async function saveTask(task, taskTitle, groupId, boardId, userAction, user) {
   if (task === null) {
     task = _createTask()
     task.title = taskTitle
@@ -200,7 +190,7 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
     //update group
     const groupIdx = board.groups.findIndex((g) => g.id === groupId)
     board.groups.splice(groupIdx, 1, group)
-    board = addActivity(board, task, userAction)
+    board = addActivity(board, task, userAction, user)
 
     await saveBoard(board)
 
@@ -233,21 +223,19 @@ async function removeTask(taskId, groupId, boardId) {
     board.groups.splice(groupIdx, 1, group)
 
     return await saveBoard(board)
-
-
   } catch (err) {
     console.log("cannot remove task", err)
     throw err
   }
 }
 
-function addActivity(board, task, userAction) {
-  // console.log('board, task, userAction', board, task, userAction)
-  let activity = getEmptyActivity()
+function addActivity(board, task, userAction, user) {
+  let activity = getEmptyActivity(user)
   activity.txt = userAction || "change"
   activity.task.id = task.id
   activity.task.title = task.title
   board.activities.unshift(activity)
+  console.log(activity)
   return board
 }
 
@@ -282,7 +270,7 @@ async function addCheckList(task, groupId, board, checkListTitle) {
     let checkList = getEmptyCheckList()
     checkList.title = checkListTitle
     // await board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
-     board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
+    board.groups[groupIdx].tasks[taskIdx].checklists.push(checkList)
     await saveBoard(board)
     return checkList
   } catch (err) {
@@ -304,10 +292,7 @@ async function removeCheckList(task, groupId, board, checkListId) {
     //   checkListIdx,
     //   1
     // )
-     board.groups[groupIdx].tasks[taskIdx].checklists.splice(
-      checkListIdx,
-      1
-    )
+    board.groups[groupIdx].tasks[taskIdx].checklists.splice(checkListIdx, 1)
     await saveBoard(board)
     return board.groups[groupIdx].tasks[taskIdx]
   } catch (err) {
@@ -327,10 +312,8 @@ async function removeCheckList(task, groupId, board, checkListId) {
 //     ]
 //     utilService.saveToStorage(STORAGE_KEY, boards)
 //   }
-  // return boards
+// return boards
 // }
-
-
 
 // function _createBoard(title) {
 //   const board = getEmptyBoard()
@@ -349,7 +332,7 @@ function _createTask() {
     labelIds: [],
     attachments: [],
     createdAt: Date.now(),
-    dueDate: '',
+    dueDate: "",
     byMember: {
       id: "m102",
       username: "AK",
@@ -1184,19 +1167,22 @@ function getEmptyCheckList() {
   }
 }
 
-function getEmptyActivity() {
+function getEmptyActivity(user) {
+  if (!user) {
+
+    user = {
+      id: "Guest",
+      username: "Guest",
+      fullname: "Guest",
+      imgUrl:
+        "https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512",
+    }
+  }
   return {
     id: utilService.makeId(),
     txt: "",
     createdAt: Date.now(),
-    //will replace later to loggedin user
-    byMember: {
-      id: "m102",
-      username: "AK",
-      fullname: "Alon Kolker",
-      imgUrl:
-        "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512",
-    },
+    byMember: user,
     task: {},
   }
 }

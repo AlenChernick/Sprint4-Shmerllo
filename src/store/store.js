@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import boardStore from './modules/user-module.js'
-import userStore from './modules/board-module.js'
+import boardStore from './modules/board-module.js'
+import userStore from './modules/user-module.js'
 const store = createStore({
   strict: true,
   state: {},

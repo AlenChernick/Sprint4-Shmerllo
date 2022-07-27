@@ -19,7 +19,7 @@ export default {
     },
     getCurrGroup({ currGroup }) {
       return currGroup
-    },
+    }
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -155,14 +155,19 @@ export default {
       }
     },
     async saveTask(
-      { commit }, { task = null, taskTitle = "", groupId, boardId, userAction = "" }) {
+      { commit, state, dispatch,rootGetters },
+      { task = null, taskTitle = "", groupId, boardId, userAction = "" }
+    ) {
+      let user = rootGetters.loggedInUser
+      console.log(user);
       try {
         const currBoard = await boardService.saveTask(
           task,
           taskTitle,
           groupId,
           boardId,
-          userAction
+          userAction,
+          user
         )
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
