@@ -47,13 +47,8 @@
 .group-header {
   justify-content: space-between;
   align-items: center;
-<<<<<<< HEAD
-  padding: 0 7px 5px 7px;
-  margin-bottom: -10px;
-=======
-  padding: 3px 7px 5px 7px;
-  
->>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
+  padding: 0 0 5px 7px;
+  margin-bottom: -6px;
 }
 .group-subject-header {
   width: 90%;
@@ -79,20 +74,21 @@
 }
 
 .group-dots-options-box {
-  // border-radius: 3px;
-  // padding: 5px;
+  margin-bottom: em(4px);
   .group-dots-options {
     cursor: pointer;
     color: #707885;
+    padding: 8px 7px 4px 7px;
+    border-radius: 3px;
 
     font-family: trellicons;
-    font-size: 1.29em;
+    font-size: em(16px);
     font-weight: 500;
     &::before {
       content: '\e952';
     }
     &:hover {
-      background-color: lightgrey;
+      background-color: #091e4214;
     }
   }
 }
@@ -255,9 +251,8 @@
 .card-ghost {
   transition: transform 0.18s ease;
   transform: rotateZ(5deg);
- }
- .card-ghost-drop {
+}
+.card-ghost-drop {
   transition: transform 0.18s ease-in-out;
   transform: rotateZ(0deg);
- }
- 
+}

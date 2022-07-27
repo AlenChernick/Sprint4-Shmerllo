@@ -1,5 +1,5 @@
 <template>
-  <section class="board-header">
+  <section v-if="board._id" class="board-header">
     <div class="board-info">
       <select class="board-type-select">
         <option value="board">Board</option>

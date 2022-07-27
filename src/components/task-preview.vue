@@ -3,7 +3,7 @@
     <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
       <font-awesome-icon class="edit-icon-font-awesome" icon="fa-solid fa-pen"
     /></span>
-    <div v-if="task.style?.bgImgUrl">
+    <div class="task-preview-img" v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
       <!-- <pre @click.stop="getAvgColor(task.style.bgImgUrl)">{{ task.style.bgImgUrl }}</pre> -->
     </div>
@@ -21,13 +21,7 @@
     <div class="quickEdit" :style="{ display: quickEditDisplay }">
       <div class="title-edit">
         <img v-if="task.style?.bgImgUrl" :src="task.style.bgImgUrl" />
-        <textarea
-          cols="30"
-          rows="4"
-          placeholder="Enter a title for this card..."
-          v-model="taskToEdit.title"
-          @click.stop
-        ></textarea>
+        <textarea placeholder="Enter a title for this card..." v-model="taskToEdit.title" @click.stop></textarea>
       </div>
 
       <div class="action-buttons">
@@ -50,7 +44,6 @@
 
         <button @click.stop="removeTask"><span class="archive-icon"></span>Archive</button>
       </div>
-
       <div class="save-button">
         <button @click.stop="editTitle">Save</button>
       </div>

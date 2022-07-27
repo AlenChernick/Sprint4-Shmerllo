@@ -155,7 +155,7 @@ export default {
       }
     },
     async saveTask(
-      { commit, state, dispatch,rootGetters },
+      { commit, state, dispatch, rootGetters },
       { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
       let user = rootGetters.loggedInUser

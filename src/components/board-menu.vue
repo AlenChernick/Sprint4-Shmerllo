@@ -1,16 +1,9 @@
 <template>
-<<<<<<< HEAD
   <button @click="displayMenu = 'block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
-  <section :style="{ display: displayMenu }" class="board-menu">
-    <h4>{{ pageTitle }}</h4>
-    <span @click="displayMenu = 'none'" class="close-icon"></span>
-=======
-  <button @click="displayMenu='block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
   <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
     <!-- <pre>{{activities}}</pre> -->
-    <h4>{{pageTitle}}</h4>
-    <span  @click="displayMenu='none'" class="close-icon"></span>
->>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
+    <h4>{{ pageTitle }}</h4>
+    <span @click="displayMenu = 'none'" class="close-icon"></span>
 
     <div :style="{ display: activityView }" class="activity-view">
       <div @click="openCoverSelection" class="change-background">
@@ -32,12 +25,8 @@
       <div class="activity-log">
         <!-- <pre>{{activities}}</pre> -->
         <ul class="activity-list clean-list" v-for="activity in activities">
-<<<<<<< HEAD
-          <img :src="activity.byMember.imgUrl" />
-=======
-          <img v-if="activity.byMember.fullname !=='Guest'" :src="activity.byMember?.imgUrl"/>
+          <img v-if="activity.byMember.fullname !== 'Guest'" :src="activity.byMember?.imgUrl" />
           <div v-else class="active-user">G</div>
->>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
           <div class="activity-details">
             <h5>{{ activity.byMember.fullname }}</h5>
             <h4>{{ activity.txt }}</h4>
@@ -100,21 +89,11 @@ export default {
         bgColor: '',
         bgImgUrl: '',
       },
-<<<<<<< HEAD
-      activities: [],
-    }
-  },
-  created() {
-    this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
-=======
       // activities: [],
-
     }
   },
   created() {
     //  this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
-   
->>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
   },
   methods: {
     openCoverSelection() {
@@ -141,14 +120,10 @@ export default {
       return moment(time).fromNow()
     },
   },
-<<<<<<< HEAD
-  computed: {},
-=======
   computed: {
-    activities(){
-       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
-    }
-  }
->>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
+    activities() {
+      return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+    },
+  },
 }
 </script>

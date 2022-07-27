@@ -1,8 +1,8 @@
 <template>
   <section class="group-list">
     <Container
-       drag-class="card-ghost"
-   drop-class="card-ghost-drop"
+      drag-class="card-ghost"
+      drop-class="card-ghost-drop"
       :drop-placeholder="dropPlaceholderOptions"
       class="group-container"
       orientation="horizontal"
@@ -101,13 +101,8 @@ export default {
   computed: {
     dropPlaceholderOptions() {
       return {
-<<<<<<< HEAD
         className: 'group-drag',
-        animationDuration: '188',
-=======
-        className: "group-drag",
-        animationDuration: "150",
->>>>>>> 41dcff26f4e65514452177629985382d8d56cea3
+        animationDuration: '150',
         showOnTop: false,
       }
     },
