@@ -37,8 +37,8 @@ export default {
   computed: {
     getActiveUser() {
       let user = this.$store.getters.loggedInUser
-      if(!user) return 'G'
-      this.user= user
+      if (!user) return 'G'
+      this.user = user
       return user.username.charAt(0)
     },
     getCurrBoard() {
@@ -47,7 +47,6 @@ export default {
     getAvgColor() {
       if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
       const imgUrl = this.getCurrBoard.style.bgImgUrl
-      console.log('imgUrl', imgUrl)
       const fac = new FastAverageColor()
       fac
         .getColorAsync(imgUrl)
@@ -56,6 +55,7 @@ export default {
         })
         .catch((e) => {
           console.log(e)
+          throw err
         })
     },
     getHeaderColor() {

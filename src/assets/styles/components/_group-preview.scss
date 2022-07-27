@@ -47,13 +47,8 @@
 .group-header {
   justify-content: space-between;
   align-items: center;
-<<<<<<< HEAD
   padding: 0 7px 5px 7px;
   margin-bottom: -10px;
-=======
-  padding: 3px 7px 5px 7px;
-  
->>>>>>> c6a2ab91d018c7fdd3dd2163ba982f7409866f02
 }
 .group-subject-header {
   width: 90%;
@@ -175,9 +170,9 @@
   background-color: #ffffff00;
   border-radius: 3px;
   max-height: calc(100vh - 200px);
-.task-adding-btn{
-  margin-inline-end: 5px;
-}
+  .task-adding-btn {
+    margin-inline-end: 5px;
+  }
   .add-new-group-btn {
     margin-inline-start: 3px;
     color: rgb(21, 14, 14);

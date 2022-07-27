@@ -1,6 +1,6 @@
 <template>
   <section class="board-list">
-    <board-preview v-for="board in boards" :key="board._id" :board="board" />
+    <board-preview v-if="boards" v-for="board in boards" :key="board._id" :board="board" />
   </section>
 </template>
 <script>

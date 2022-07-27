@@ -1,27 +1,25 @@
-
 <!-- edit-task-actions component -->
 
 <template>
   <section class="edit-task-actions">
- 
- <!-- Loop through Array of buttons -->
-      <div v-for="btn in actionBtns" @click.stop="openModal(btn.type)" class="main-task-edit-btn">
-        <span :class="btn.icon"></span>
-        {{ btn.txt }}
-      </div>
+    <!-- Loop through Array of buttons -->
+    <div v-for="btn in actionBtns" @click.stop="openModal(btn.type)" class="main-task-edit-btn">
+      <span :class="btn.icon"></span>
+      {{ btn.txt }}
+    </div>
 
- <!-- Dynamic component oppened when button is clicked -->
-      <component
-        :is="cmpType"
-        @closeModal="closeModal"
-        @toggleMember="toggleMember"
-        @toggleLabel="toggleLabel"
-        @setTaskStyle="setTaskStyle"
-        @addAttachment="addAttachment"
-        @addCheckList="addCheckList"
-        @setDate="setDate"
-        @removeDate="removeDate"
-      ></component>
+    <!-- Dynamic component oppened when button is clicked -->
+    <component
+      :is="cmpType"
+      @closeModal="closeModal"
+      @toggleMember="toggleMember"
+      @toggleLabel="toggleLabel"
+      @setTaskStyle="setTaskStyle"
+      @addAttachment="addAttachment"
+      @addCheckList="addCheckList"
+      @setDate="setDate"
+      @removeDate="removeDate"
+    ></component>
   </section>
 </template>
 
@@ -58,7 +56,7 @@ export default {
       this.cmpType = null
     },
     toggleMember(member) {
-        this.$emit('toggleMember', member)
+      this.$emit('toggleMember', member)
     },
     toggleLabel(labelId) {
       this.$emit('toggleLabel', labelId)
@@ -90,20 +88,19 @@ export default {
 }
 </script>
 
-
 <!-- Member picker component  -->
 
 <template>
   <section class="actions-modal-container member-picker">
     <h4>Members</h4>
-    <span  @click.stop="closeModal" class="close-icon"></span>
+    <span @click.stop="closeModal" class="close-icon"></span>
     <ul class="clean-list" v-for="member in membersToEdit">
-        <li class="member-picker-list" @click.stop="toggleMember(member)" > 
-           <img :src="member.imgUrl"/>
-           <h5>{{member.fullname}}</h5>
-        </li>
+      <li class="member-picker-list" @click.stop="toggleMember(member)">
+        <img :src="member.imgUrl" />
+        <h5>{{ member.fullname }}</h5>
+      </li>
     </ul>
-  </section>    
+  </section>
 </template>
 
 <script>
@@ -115,38 +112,33 @@ export default {
     }
   },
   methods: {
-    toggleMember(member){
-      console.log(member)
+    toggleMember(member) {
       this.$emit('toggleMember', member)
     },
-    closeModal(){
-      this.$emit("closeModal")
-    }
-   
+    closeModal() {
+      this.$emit('closeModal')
+    },
   },
-  created(){
+  created() {
     this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
   },
-  computed: {
-    
-  },
+  computed: {},
 }
 </script>
-
-
 
 <!-- Task-edit component (part of) -->
 
 <template>
   <edit-task-actions
-          @toggleLabel="toggleLabel"
-          @toggleMember="toggleMember"
-          @setTaskStyle="setTaskStyle"
-          @addAttachment="addAttachment"
-          @addCheckList="addCheckList"
-          @setDate="setDate"
-          @removeDate="removeDate" />
-</template>    
+    @toggleLabel="toggleLabel"
+    @toggleMember="toggleMember"
+    @setTaskStyle="setTaskStyle"
+    @addAttachment="addAttachment"
+    @addCheckList="addCheckList"
+    @setDate="setDate"
+    @removeDate="removeDate"
+  />
+</template>
 
 <script>
 export default {
@@ -154,7 +146,7 @@ export default {
   data() {
     return {
       taskToEdit: {}, //loaded from string parms when component is created
-      }
+    }
   },
   methods: {
     toggleMember(member) {
@@ -180,8 +172,6 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-  }
+  },
 }
-
 </script>
-

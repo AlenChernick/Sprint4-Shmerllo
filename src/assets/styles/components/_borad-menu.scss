@@ -4,12 +4,16 @@
 .board-menu {
   color: $clr1;
   background-color: $clr6;
-  height: 97vh;
+  height: 96vh;
   width: 360px;
   position: absolute;
   z-index: 30;
   right: 0;
   top: 0;
+  overflow-y: auto;
+  padding: 3px;
+  border-bottom-left-radius: 10px;
+
   h4 {
     text-align: center;
     padding: em(12px);
@@ -144,6 +148,21 @@
       }
     }
   }
+}
+
+.board-menu::-webkit-scrollbar {
+  height: em(8px);
+  width: em(10px);
+}
+
+.board-menu::-webkit-scrollbar-track {
+  background: #091e4214;
+  border-radius: em(10px);
+}
+
+.board-menu::-webkit-scrollbar-thumb {
+  background: #091e421f;
+  border-radius: em(10px);
 }
 
 .board-cover-selection {

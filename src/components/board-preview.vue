@@ -27,7 +27,6 @@ export default {
     },
     toggeleIsFavorite() {
       this.board.isFavorite = !this.board.isFavorite
-      console.log(this.board.isFavorite)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
   },

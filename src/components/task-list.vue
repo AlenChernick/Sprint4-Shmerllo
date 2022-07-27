@@ -1,5 +1,4 @@
 <template>
-
   <!-- <div class="group-title"></div> -->
   <Container
     class="tasks-container"
@@ -9,22 +8,18 @@
     group-name="col-items"
     @drop="onDrop($event)"
   >
-    <Draggable
-      class="task-preview"
-      v-if="items"
-      v-for="item in items"
-      :key="item.id">
+    <Draggable class="task-preview" v-if="items" v-for="item in items" :key="item.id">
       <task-preview :task="item" :groupId="groupId" />
     </Draggable>
   </Container>
 </template>
 <script>
-import taskPreview from "../components/task-preview.vue"
-import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from "../../services/dnd-service.js"
+import taskPreview from '../components/task-preview.vue'
+import { Container, Draggable } from 'vue3-smooth-dnd'
+import { applyDrag } from '../../services/dnd-service.js'
 
 export default {
-  name: "task-list",
+  name: 'task-list',
   props: {
     groupId: {
       type: String,
@@ -43,10 +38,8 @@ export default {
   },
   methods: {
     onDrop(dropRes) {
-
-        this.items = applyDrag(this.items, dropRes)
-        // console.log('this.Items',this.items,'groupId', this.groupId);
-        this.$emit('moveTasks',this.items)
+      this.items = applyDrag(this.items, dropRes)
+      this.$emit('moveTasks', this.items)
       // this.$store.dispatch({
       //   type: "saveTasks",
       //   tasks: this.items,

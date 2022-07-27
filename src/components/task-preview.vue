@@ -1,7 +1,7 @@
 <template>
   <section class="task-preview-container" @click="openTaskDetails">
     <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
-      <font-awesome-icon icon="fa-solid fa-pen"
+      <font-awesome-icon class="edit-icon-font-awesome" icon="fa-solid fa-pen"
     /></span>
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
@@ -26,7 +26,7 @@
           rows="4"
           placeholder="Enter a title for this card..."
           v-model="taskToEdit.title"
-          @click.stop=""
+          @click.stop
         ></textarea>
       </div>
 
@@ -125,11 +125,9 @@ export default {
       this.cmpType = cmpType
     },
     closeModal() {
-      console.log('closing')
       this.cmpType = null
     },
     toggleLabel(labelId) {
-      console.log('yes ', labelId)
       const labels = this.taskToEdit.labelIds
       const idx = labels.findIndex((label) => label === labelId)
       let userAction = ''

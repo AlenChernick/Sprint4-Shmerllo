@@ -1,48 +1,41 @@
 <template lang="">
-  
-  <section class="actions-modal-container label-picker" >
+  <section class="actions-modal-container label-picker">
     <h4>Labels</h4>
-    <span  @click.stop="closeModal" class="close-icon"></span>
-    <ul class="clean-list" v-for="label in labelsToEdit"  @click.stop="toggleLabel(label.id)">
-        <li  class="label-picker-list" :style="{ 'background-color': label.bgColor }"> 
-        <input @input="editLabels" v-model="label.txt"/> 
-        </li>
+    <span @click.stop="closeModal" class="close-icon"></span>
+    <ul class="clean-list" v-for="label in labelsToEdit" @click.stop="toggleLabel(label.id)">
+      <li class="label-picker-list" :style="{ 'background-color': label.bgColor }">
+        <input @input="editLabels" v-model="label.txt" />
+      </li>
     </ul>
   </section>
-
-    
 </template>
 <script>
 export default {
   name: 'label-picker',
- 
+
   data() {
-    return { 
+    return {
       labelsToEdit: null,
-  
     }
   },
   methods: {
-    toggleLabel(labelId){
-      console.log(labelId)
+    toggleLabel(labelId) {
       this.$emit('toggleLabel', labelId)
     },
-    editLabels(){
-      console.log(this.labelsToEdit)
-      this.$store.dispatch({type:'editLabels', labels: this.labelsToEdit})    
+    editLabels() {
+      this.$store.dispatch({ type: 'editLabels', labels: this.labelsToEdit })
     },
-    closeModal(){
-      this.$emit("closeModal")
-    }
+    closeModal() {
+      this.$emit('closeModal')
+    },
   },
-  created(){
+  created() {
     this.labelsToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.boardLabels))
   },
   computed: {
-    labels(){
+    labels() {
       return this.$store.getters.getCurrBoard.boardLabels
-    }
-    
+    },
   },
 }
 </script>

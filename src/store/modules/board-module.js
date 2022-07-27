@@ -108,7 +108,7 @@ export default {
       }
     },
     async saveBoard({ commit }, { board }) {
- 
+
       try {
         const savedBoard = await boardService.saveBoard(board)
         commit({ type: "saveBoard", board: savedBoard })
@@ -214,7 +214,7 @@ export default {
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
         commit({ type: "saveGroup", savedGroup: group })
-        
+
         let board = JSON.parse(JSON.stringify(state.currBoard))
         dispatch({ type: "saveBoard", board })
 
@@ -273,21 +273,5 @@ export default {
         throw err
       }
     },
-    // async addActivity({ state, dispatch }, { userAction, savedTask }) {
-    //   console.log('userAction', userAction)
-
-    //   try {
-    //     let activity = boardService.getEmptyActivity()
-    //     activity.txt = userAction || "change"
-    //     activity.task.id = savedTask.id
-    //     activity.task.title = savedTask.title
-    //     // let board = JSON.parse(JSON.stringify(state.currBoard))
-    //     // board.activities.unshift(activity)
-    //     // dispatch({ type: "saveBoard", board })
-    //   } catch (err) {
-    //     console.log("Cannot change style", err)
-    //     throw err
-    //   }
-    // },
   },
 }

@@ -1,18 +1,14 @@
 <template lang="">
-
-
   <section class="actions-modal-container member-picker">
     <h4>Members</h4>
-    <span  @click.stop="closeModal" class="close-icon"></span>
+    <span @click.stop="closeModal" class="close-icon"></span>
     <ul class="clean-list" v-for="member in membersToEdit">
-        <li class="member-picker-list" @click.stop="toggleMember(member)" > 
-        <img :src="member.imgUrl"/>
-       <h5>{{member.fullname}}</h5>
-        </li>
+      <li class="member-picker-list" @click.stop="toggleMember(member)">
+        <img :src="member.imgUrl" />
+        <h5>{{ member.fullname }}</h5>
+      </li>
     </ul>
   </section>
-
-    
 </template>
 <script>
 export default {
@@ -23,21 +19,17 @@ export default {
     }
   },
   methods: {
-    toggleMember(member){
-      console.log(member)
+    toggleMember(member) {
       this.$emit('toggleMember', member)
     },
-    closeModal(){
-      this.$emit("closeModal")
-    }
-   
+    closeModal() {
+      this.$emit('closeModal')
+    },
   },
-  created(){
+  created() {
     this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
   },
-  computed: {
-    
-  },
+  computed: {},
 }
 </script>
 <style lang=""></style>
