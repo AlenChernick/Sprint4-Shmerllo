@@ -5,7 +5,7 @@
     /></span>
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
-      <pre @click.stop="getAvgColor(task.style.bgImgUrl)">{{ task.style.bgImgUrl }}</pre>
+      <!-- <pre @click.stop="getAvgColor(task.style.bgImgUrl)">{{ task.style.bgImgUrl }}</pre> -->
     </div>
     <div
       v-else-if="task.style?.bgColor"
