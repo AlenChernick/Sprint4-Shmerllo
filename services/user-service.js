@@ -1,6 +1,8 @@
 import Axios from 'axios'
 const axios = Axios.create({ withCredentials: true })
 
+import { socketService } from './socket.service'
+
 const STORAGE_KEY = 'loggedin'
 
 export const userService = {
@@ -14,7 +16,7 @@ function _getUrl(id = '') {  /* TODO */
     const BASE_URL =
         process.env.NODE_ENV !== 'development'
             ? '/api/user'
-            : '//localhost:3033/api/user/login'
+            : '//localhost:3032/api/user/login'
 
     return `${BASE_URL}/${id}`
 }
@@ -34,11 +36,13 @@ function getLoggedInUser() {
 }
 
 
-async function setLogin(user) {
+async function setLogin(userCred) {
     try {
-        const res = await axios.post(_getUrlAuth() + 'login', user)
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(res.data))
-        return res.data
+        const res = await axios.post(_getUrlAuth() + 'login', userCred)
+        const user= res.data
+        socketService.login(user._id)
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+        return user
     } catch (err) {
         console.log('cannot set user login', err)
     }
@@ -46,7 +50,8 @@ async function setLogin(user) {
 
 async function setLogout() {
     try {
-        const res = await axios.post(_getUrlAuth() + 'logout')
+        await axios.post(_getUrlAuth() + 'logout')
+        socketService.logout()
         sessionStorage.clear()
         
     } catch (err) {

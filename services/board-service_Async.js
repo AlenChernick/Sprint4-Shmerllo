@@ -1,6 +1,8 @@
 
 import { utilService } from "./util-service.js"
 import { httpService } from './http.service'
+import { socketService ,  SOCKET_EVENT_BOARD_UPDATED} from './socket.service'
+
 import Axios from "axios"
 const axios = Axios.create({ withCredentials: true })//withCredentials???
 
@@ -68,7 +70,9 @@ async function saveBoard(board) {
   try {
     if (board._id) {
       console.log('with id');
-      return await httpService.put(`board/${board._id}`,board)
+      const savedBoard =  await httpService.put(`board/${board._id}`,board)
+      socketService.emit(SOCKET_EVENT_BOARD_UPDATED, savedBoard)
+      return saveBoard
     } else {
       console.log('big nono ');
 

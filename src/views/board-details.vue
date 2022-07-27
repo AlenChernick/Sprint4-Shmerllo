@@ -11,6 +11,7 @@
 <script>
 import boardHeader from '../components/board-header.vue'
 import groupList from '../components/group-list.vue'
+import { socketService, SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_UPDATE_BOARD } from '../../services/socket.service'
 
 export default {
   name: 'board-details',
@@ -27,6 +28,8 @@ export default {
         type: 'loadCurrBoard',
         boardId,
       })
+       socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
+       socketService.on(SOCKET_EVENT_UPDATE_BOARD, this.onUpdateBoard)
     } catch (err) {
       console.log('Cannot load board', err)
       throw err
@@ -40,11 +43,9 @@ export default {
     updateBoard(board) {
       this.$store.dispatch({ type: 'saveBoard', board })
     },
-    // oneNewGroup(boardId) {
-    //   if (!this.newGroupSubject) return
-    //   this.addGroupModal = !this.addGroupModal
-    //   this.$store.dispatch({ type: "saveGroup", boardId,subject:this.newGroupSubject })
-    // },
+     onUpdateBoard(board) {
+      this.$store.commit({ type: 'setCurrBoard', currBoard: board })
+    },
   },
   computed: {
     board() {

@@ -108,6 +108,8 @@ export default {
       }
     },
     async saveBoard({ commit }, { board }) {
+      console.log('am i here module??')
+      console.log(board)
       try {
         const savedBoard = await boardService.saveBoard(board)
         commit({ type: "saveBoard", board: savedBoard })
