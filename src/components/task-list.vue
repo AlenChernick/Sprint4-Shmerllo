@@ -2,7 +2,8 @@
 
   <!-- <div class="group-title"></div> -->
   <Container
-    class="tasks-container"
+ 
+    class="tasks-container "
     orientation="vertical"
     v-if="tasks"
     :get-child-payload="getChildPayload"
@@ -14,7 +15,7 @@
       v-if="items"
       v-for="item in items"
       :key="item.id">
-      <task-preview :task="item" :groupId="groupId" />
+      <task-preview  :task="item" :groupId="groupId" />
     </Draggable>
   </Container>
 </template>

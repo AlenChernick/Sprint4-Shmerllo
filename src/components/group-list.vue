@@ -1,8 +1,10 @@
 <template>
   <section class="group-list">
     <Container
-      class="group-container"
+       drag-class="card-ghost"
+   drop-class="card-ghost-drop"
       :drop-placeholder="dropPlaceholderOptions"
+      class="group-container"
       orientation="horizontal"
       v-if="groups"
       group-name="cols"
@@ -119,7 +121,7 @@ export default {
     dropPlaceholderOptions() {
       return {
         className: "group-drag",
-        animationDuration: "188",
+        animationDuration: "150",
         showOnTop: false,
       }
     },

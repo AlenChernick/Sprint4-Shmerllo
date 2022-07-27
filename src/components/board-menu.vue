@@ -1,6 +1,6 @@
 <template>
   <button @click="displayMenu='block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
-  <section :style="{ display: displayMenu }" class="board-menu">
+  <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
     <!-- <pre>{{activities}}</pre> -->
     <h4>{{pageTitle}}</h4>
     <span  @click="displayMenu='none'" class="close-icon"></span>
@@ -21,8 +21,9 @@
 
       <!-- <pre>{{activities}}</pre> -->
       <div class="activity-log">
+        <!-- <pre>{{activities}}</pre> -->
         <ul class="activity-list clean-list" v-for="activity in activities">
-          <img :src="activity.byMember.imgUrl"/>
+          <img :src="activity.byMember?.imgUrl"/>
           <div class="activity-details">
             <h5>{{activity.byMember.fullname}}</h5>
             <h4>{{activity.txt}}</h4>
@@ -94,12 +95,12 @@ export default {
         bgColor: '',
         bgImgUrl: '',
       },
-      activities: [],
+      // activities: [],
 
     }
   },
   created() {
-     this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+    //  this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
    
   },
   methods: {
@@ -131,6 +132,9 @@ export default {
     },
   },
   computed: {
+    activities(){
+       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+    }
   }
 }
 </script>

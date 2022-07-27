@@ -2,6 +2,8 @@
 import { utilService } from "./util-service.js"
 import { httpService } from './http.service'
 import { socketService ,  SOCKET_EVENT_BOARD_UPDATED} from './socket.service'
+import { userService } from "./user-service.js"
+
 
 import Axios from "axios"
 const axios = Axios.create({ withCredentials: true })//withCredentials???
@@ -171,21 +173,21 @@ async function getTaskById(boardId, groupId, taskId) {
 }
 }
 
-async function saveTask(task, taskTitle, groupId, boardId, userAction) {
+async function saveTask(task, taskTitle, groupId, boardId, userAction,user) {
   if (task === null) {
     task = _createTask()
     task.title = taskTitle
   }
-
+  
   try {
     //GET BOARD
     let board = await getBoardById(boardId)
     // console.log(board)
-
+    
     //DET GROUP
     let group = await getGroupById(boardId, groupId)
     // console.log(group)
-
+    
     //addTask
     if (!task.id) {
       task.id = utilService.makeId()
@@ -196,12 +198,12 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
       const taskIdx = group.tasks.findIndex((t) => t.id === task.id)
       group.tasks.splice(taskIdx, 1, task)
     }
-
+    
     //update group
     const groupIdx = board.groups.findIndex((g) => g.id === groupId)
     board.groups.splice(groupIdx, 1, group)
-    board = addActivity(board, task, userAction)
-
+    board = addActivity(board, task, userAction,user)
+    
     await saveBoard(board)
 
     // const savedTask = await getTaskById(boardId, groupId, task.id)
@@ -241,13 +243,14 @@ async function removeTask(taskId, groupId, boardId) {
   }
 }
 
-function addActivity(board, task, userAction) {
-  // console.log('board, task, userAction', board, task, userAction)
-  let activity = getEmptyActivity()
+function addActivity(board, task, userAction,user) {
+
+  let activity = getEmptyActivity(user)
   activity.txt = userAction || "change"
   activity.task.id = task.id
   activity.task.title = task.title
   board.activities.unshift(activity)
+  console.log(activity);
   return board
 }
 
@@ -1184,19 +1187,31 @@ function getEmptyCheckList() {
   }
 }
 
-function getEmptyActivity() {
+ function getEmptyActivity(user) {
+if(!user) user = 'G'
+console.log(user);
+  return {
+    id: utilService.makeId(),
+    txt: "",
+    createdAt: Date.now(),
+    byMember:user,
+    task: {},
+  }  
+
+
   return {
     id: utilService.makeId(),
     txt: "",
     createdAt: Date.now(),
     //will replace later to loggedin user
-    byMember: {
-      id: "m102",
-      username: "AK",
-      fullname: "Alon Kolker",
-      imgUrl:
-        "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512",
-    },
+    byMember:user,
+    // byMember: {
+    //   id: "m102",
+    //   username: "AK",
+    //   fullname: "Alon Kolker",
+    //   imgUrl:
+    //     "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512",
+    // },
     task: {},
   }
 }

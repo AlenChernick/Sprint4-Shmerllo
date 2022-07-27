@@ -1,5 +1,6 @@
 import { createConditionalExpression } from "@vue/compiler-core"
 import { storageService } from "./storage-service.js"
+import { userService } from "./user-service.js"
 import { utilService } from "./util-service.js"
 
 const STORAGE_KEY = "board_db"
@@ -1060,13 +1061,15 @@ function getEmptyActivity() {
     txt: "",
     createdAt: Date.now(),
     //will replace later to loggedin user
-    byMember: {
-      id: "m102",
-      username: "AK",
-      fullname: "Alon Kolker",
-      imgUrl:
-        "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512",
-    },
+    byMember: userService.getLoggedInUser,
+
+    // byMember: {
+    //   id: "m102",
+    //   username: "AK",
+    //   fullname: "Alon Kolker",
+    //   imgUrl:
+    //     "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512",
+    // },
     task: {},
   }
 }
