@@ -23,7 +23,8 @@
       <div class="activity-log">
         <!-- <pre>{{activities}}</pre> -->
         <ul class="activity-list clean-list" v-for="activity in activities">
-          <img :src="activity.byMember?.imgUrl"/>
+          <img v-if="activity.byMember.fullname !=='Guest'" :src="activity.byMember?.imgUrl"/>
+          <div v-else class="active-user">G</div>
           <div class="activity-details">
             <h5>{{activity.byMember.fullname}}</h5>
             <h4>{{activity.txt}}</h4>
