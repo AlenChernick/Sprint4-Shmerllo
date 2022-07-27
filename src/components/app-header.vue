@@ -2,15 +2,15 @@
   <header
     v-if="getCurrBoard"
     class="app-header main-header full"
-    :style="{ 'background-color': getHeaderColor, getAvgColor }"
+    :style="{ 'background-color': getHeaderColor, getAvgColor, transition: 'background-color 0.4s ' }"
   >
     <!-- <div :style="{ 'background-color': getAvgColor }">hey</div> -->
     <!-- {{ getCurrBoard.style.bgImgUrl }} -->
     <!-- <router-link class="home-page-btn" to="/"><img src="../assets/img/logo.png" alt="logo" /></router-link> -->
-    <router-link class="home-page-btn" to="/"
-      ><span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo</router-link
-    >
-    <router-link class="boards-page-btn" to="/board"> Boards </router-link>
+    <div class="home-page-btn" @click="goToHomePage">
+      <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
+    </div>
+    <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
     <div class="active-user-conteiner">
       <div class="active-user" @click="isUserModalOpen = !isUserModalOpen">{{ getActiveUser }}</div>
       <user-options v-if="isUserModalOpen" @closeModal="closeModal" :user="user"></user-options>
@@ -33,6 +33,16 @@ export default {
     closeModal() {
       this.isUserModalOpen = false
     },
+    goToHomePage() {
+      this.$router.push('/')
+      this.headerColor = '#026aa7'
+      this.opcity = '1'
+    },
+    goToBoardsPage() {
+      this.$router.push('/board')
+      this.headerColor = '#026aa7'
+      this.opcity = '1'
+    },
   },
   computed: {
     getActiveUser() {
@@ -51,7 +61,7 @@ export default {
       fac
         .getColorAsync(imgUrl)
         .then((color) => {
-          this.headerColor = color.rgba
+          this.headerColor = color.hexa
         })
         .catch((e) => {
           console.log(e)
