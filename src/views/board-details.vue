@@ -2,7 +2,7 @@
   <section class="board-details full" v-if="board" :style="bgStyle">
     <board-header :board="board" />
     <div class="board-list-conteiner flex">
-      <group-list v-if="board.groups" :groups="board.groups"  :key="board.groups" />
+      <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
     </div>
     <router-view />
   </section>
@@ -16,10 +16,7 @@ import { socketService, SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_UPDATE_BOARD } from 
 export default {
   name: 'board-details',
   data() {
-    return {
-      // addGroupModal: false,
-      // newGroupSubject: "",
-    }
+    return {}
   },
   async created() {
     try {
@@ -28,8 +25,8 @@ export default {
         type: 'loadCurrBoard',
         boardId,
       })
-       socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
-       socketService.on(SOCKET_EVENT_UPDATE_BOARD, this.onUpdateBoard)
+      socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
+      socketService.on(SOCKET_EVENT_UPDATE_BOARD, this.onUpdateBoard)
     } catch (err) {
       console.log('Cannot load board', err)
       throw err
@@ -43,7 +40,7 @@ export default {
     updateBoard(board) {
       this.$store.dispatch({ type: 'saveBoard', board })
     },
-     onUpdateBoard(board) {
+    onUpdateBoard(board) {
       this.$store.commit({ type: 'setCurrBoard', currBoard: board })
     },
   },
@@ -59,6 +56,9 @@ export default {
   components: {
     boardHeader,
     groupList,
+  },
+  destroyed() {
+    this.$store.commit({ type: 'setCurrBoard', currBoard: {} })
   },
 }
 </script>
