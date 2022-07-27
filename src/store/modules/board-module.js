@@ -156,12 +156,7 @@ export default {
       }
     },
     async saveTask(
-      { commit, state, dispatch },
-      { task = null, taskTitle = "", groupId, boardId, userAction = "" }
-    ) {
-      // boardId = state.currBoard._id
-      console.log(task, 'store-davetask');
-
+      { commit }, { task = null, taskTitle = "", groupId, boardId, userAction = "" }) {
       try {
         const currBoard = await boardService.saveTask(
           task,
@@ -170,8 +165,6 @@ export default {
           boardId,
           userAction
         )
-
-        // commit({ type: "saveTask", savedTask, groupId, boardId })
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
         console.log("Cannot save task", err)
