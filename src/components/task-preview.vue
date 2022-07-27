@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     openTaskDetails() {
-      this.$router.push(`/board/${this.getCurrBoard._id}/${this.groupId}/${this.task.id}`)
+      this.$router.push(`/board/${this.boardToEdit._id}/${this.groupId}/${this.task.id}`)
       this.quickEditDisplay = 'none'
     },
     saveTask(userAction) {
@@ -105,7 +105,7 @@ export default {
         type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
+        boardId: this.boardToEdit._id,
         userAction,
         taskTitle: this.taskToEdit.title,
       })
@@ -118,7 +118,7 @@ export default {
         type: 'removeTask',
         taskId: this.task.id,
         groupId: this.groupId,
-        boardId: this.getCurrBoard._id,
+        boardId: this.boardToEdit._id,
       })
     },
     openModal(cmpType) {

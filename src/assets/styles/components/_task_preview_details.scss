@@ -1,6 +1,6 @@
 .task-prev-details-conteiner {
-  padding: 10px;
-  
+  padding: 0px 6px 3px 5p; 
+      margin: 0px 8px 3 8px;
   // position: relative;
   .label-task-preview-container {
     display: flex;
@@ -8,8 +8,8 @@
     flex-wrap: wrap;
 
     .label-task-preview {
-      height: 9px;
-      width: 50px;
+      height: 8px;
+      width: 40px;
       border-radius: 3px;
     }
     .label-task-preview-full {
@@ -33,6 +33,7 @@
   .prev-task-title {
     font-size: em(16px);
     color: $clr1;
+    color:#162c52;
     display: flex;
     align-items: center;
   }
@@ -145,6 +146,7 @@
         width: 28px;
         height: 28px;
         border-radius: 50%;
+        margin-left: 5px;
       }
     }
   }

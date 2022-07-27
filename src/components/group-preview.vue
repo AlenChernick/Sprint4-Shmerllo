@@ -2,21 +2,43 @@
   <section>
     <div class="group-header flex">
       <div class="group-subject-header">
-        <input type="text" v-model="group.title" @input="onSaveGroup(group.id)" />
+        <input
+          type="text"
+          v-model="group.title"
+          @input="onSaveGroup(group.id)"
+        />
       </div>
       <div class="group-dots-options-box">
-        <span class="group-dots-options" @click="groupOptionsModal = !groupOptionsModal"></span>
-        <div v-if="groupOptionsModal" class="group-options-modal flex flex-column">
+        <span
+          class="group-dots-options"
+          @click="groupOptionsModal = !groupOptionsModal"
+        ></span>
+        <div
+          v-if="groupOptionsModal"
+          class="group-options-modal flex flex-column"
+        >
           <span class="group-options-modal-header">List Actions</span>
-          <span class="group-options-modal-delete" @click="onRemoveGroup(group.id)">Delete Group</span>
+          <span
+            class="group-options-modal-delete"
+            @click="onRemoveGroup(group.id)"
+            >Delete Group</span
+          >
         </div>
       </div>
     </div>
     <div>
       <div>
-        <task-list :tasks="group.tasks" :groupId="group.id" />
+        <task-list 
+          @moveTasks="replaceTasks"
+          :tasks="group.tasks"
+          :groupId="group.id"
+        />
       </div>
-      <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal = !newTaskModal">
+      <div
+        v-if="!newTaskModal"
+        class="task-adding-conteiner flex"
+        @click="newTaskModal = !newTaskModal"
+      >
         <div class="task-adding-btn">
           <font-awesome-icon icon="fa-solid fa-plus" class="trello-plux-btn" />
           <div class="trello-plus-btn"></div>
@@ -32,20 +54,26 @@
           v-model="taskTitle"
         ></textarea>
         <div class="new-task-add-remove-conteiner flex">
-          <el-button class="trello-plux-btn confirm-btn" type="primary" @click="oneNewTask(group.id)"
+          <el-button
+            class="trello-plux-btn confirm-btn"
+            type="primary"
+            @click="oneNewTask(group.id)"
             >Add Card</el-button
           >
-          <span class="cancel-add-task" @click="newTaskModal = !newTaskModal"></span>
+          <span
+            class="cancel-add-task"
+            @click="newTaskModal = !newTaskModal"
+          ></span>
         </div>
       </div>
     </div>
   </section>
 </template>
 <script>
-import taskList from '../components/task-list.vue'
+import taskList from "../components/task-list.vue"
 // import { newTask } from "../../services/eventBus.service.js"
 export default {
-  name: 'group-preview',
+  name: "group-preview",
   props: {
     group: {
       type: Object,
@@ -57,7 +85,7 @@ export default {
       currTask: {},
       newTaskModal: false,
       groupOptionsModal: false,
-      taskTitle: '',
+      taskTitle: "",
     }
   },
   created() {
@@ -68,24 +96,31 @@ export default {
     oneNewTask(groupId) {
       if (!this.taskTitle) return
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         groupId,
         taskTitle: this.taskTitle,
-        userAction: 'Add new card',
+        userAction: "Add new card",
         boardId: this.currBoard._id,
       })
       this.newTaskModal = !this.newTaskModal
-      this.taskTitle = ''
+      this.taskTitle = ""
     },
     onSaveGroup(groupId) {
       // const boardId = this.currBoard._id
       const boardId = this.currBoard._id
 
-      this.$store.dispatch({ type: 'saveGroup', group: this.group, boardId })
+      this.$store.dispatch({ type: "saveGroup", group: this.group, boardId })
     },
     onRemoveGroup(groupId) {
       const boardId = this.currBoard._id
-      this.$store.dispatch({ type: 'removeGroup', groupId, boardId })
+      this.$store.dispatch({ type: "removeGroup", groupId, boardId })
+    },
+    replaceTasks(tasks) {
+  
+      let group = JSON.parse(JSON.stringify(this.group))
+      // group.tasks = tasks
+
+      this.$emit("updateGroup",{ info:{tasks,group}})
     },
   },
 

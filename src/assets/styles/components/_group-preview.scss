@@ -3,9 +3,8 @@
   flex-direction: row;
 }
 .group-preview {
-  // width: 272px;
-  width: 302px;
-  padding: 4px 7px;
+  width: 270px;
+    padding: 4px 7px;
   margin: 8px 4px 10px 4px;
   color: black;
   background-color: #ebecf0;
@@ -37,7 +36,8 @@
 .group-header {
   justify-content: space-between;
   align-items: center;
-  padding: 0 7px 5px 7px;
+  padding: 3px 7px 5px 7px;
+  
 }
 .group-subject-header {
   width: 90%;
@@ -65,10 +65,11 @@
   // padding: 5px;
   .group-dots-options {
     cursor: pointer;
-    color: $clr1;
+    color: #707885;
 
     font-family: trellicons;
-    font-size: em(19px);
+    font-size: 1.29em;
+    font-weight: 500;
     &::before {
       content: "\e952";
     }
@@ -146,7 +147,9 @@
   background-color: #ffffff00;
   border-radius: 3px;
   max-height: calc(100vh - 200px);
-
+.task-adding-btn{
+  margin-inline-end: 5px;
+}
   .add-new-group-btn {
     margin-inline-start: 3px;
     color: rgb(21, 14, 14);
