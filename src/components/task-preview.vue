@@ -5,6 +5,7 @@
     /></span>
     <div v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
+      <pre @click.stop="getAvgColor(task.style.bgImgUrl)">{{task.style.bgImgUrl}}</pre>
     </div>
     <div v-else-if="task.style?.bgColor"  class="prev-task-color" :style="{'background-color':task.style.bgColor}"></div>
     <task-preview-details :task="task" :key="task.id"/>
@@ -59,6 +60,7 @@ import memberPicker from '../components/member-picker.vue'
 import datePicker from '../components/date-picker.vue'
 import coverPicker from '../components/cover-picker.vue'
 import taskPreviewDetails from '../components/task-preview-details.vue'
+import { FastAverageColor } from 'fast-average-color'
 
 export default {
   name: 'task-preview',
@@ -163,6 +165,19 @@ export default {
       this.taskToEdit.attachments.push(attachment)
       this.saveTask('Added attchement')
     },
+    getAvgColor(imgUrl){
+      const fac = new FastAverageColor();
+      console.log('fac', imgUrl)
+      fac.getColorAsync(imgUrl)
+        .then(color => {
+            // container.style.backgroundColor = color.rgba;
+            // container.style.color = color.isDark ? '#fff' : '#000';
+            console.log('Average color', color);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    }
 
   
   },
