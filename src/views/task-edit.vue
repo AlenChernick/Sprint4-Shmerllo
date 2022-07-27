@@ -420,7 +420,8 @@ export default {
       let checkListLen = checklist.todos.length
       let completed = checklist.todos.filter((todo) => todo.isDone === true)
       let commentLen = completed.length
-      return (commentLen / checkListLen) * 100 || 0
+      let percentage  = (commentLen / checkListLen) * 100 || 0
+      return +percentage.toFixed(0) 
     },
     setDate(dateValue) {
       this.taskToEdit.dueDate = dateValue

@@ -37,9 +37,8 @@ export default {
   computed: {
     getActiveUser() {
       let user = this.$store.getters.loggedInUser
-      console.log(user)
-      if (!user) return 'G'
-      this.user = user
+      if(!user) return 'G'
+      this.user= user
       return user.username.charAt(0)
     },
     getCurrBoard() {

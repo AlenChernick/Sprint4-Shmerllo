@@ -108,8 +108,7 @@ export default {
       }
     },
     async saveBoard({ commit }, { board }) {
-      console.log('am i here module??')
-      console.log(board)
+ 
       try {
         const savedBoard = await boardService.saveBoard(board)
         commit({ type: "saveBoard", board: savedBoard })
@@ -156,12 +155,7 @@ export default {
       }
     },
     async saveTask(
-      { commit, state, dispatch },
-      { task = null, taskTitle = "", groupId, boardId, userAction = "" }
-    ) {
-      // boardId = state.currBoard._id
-      console.log(task, 'store-davetask');
-
+      { commit }, { task = null, taskTitle = "", groupId, boardId, userAction = "" }) {
       try {
         const currBoard = await boardService.saveTask(
           task,
@@ -170,8 +164,6 @@ export default {
           boardId,
           userAction
         )
-
-        // commit({ type: "saveTask", savedTask, groupId, boardId })
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
         console.log("Cannot save task", err)
@@ -221,14 +213,16 @@ export default {
         let group = board.groups.find((group) => group.id === groupId)
         group = JSON.parse(JSON.stringify(group))
         group.tasks = tasks
-        console.log(group)
         commit({ type: "saveGroup", savedGroup: group })
+        
+        let board = JSON.parse(JSON.stringify(state.currBoard))
+        dispatch({ type: "saveBoard", board })
 
-        setTimeout(() => {
-          let board = JSON.parse(JSON.stringify(state.currBoard))
-          console.log(board)
-          dispatch({ type: "saveBoard", board })
-        }, 500);
+
+        // setTimeout(() => {
+        //   let board = JSON.parse(JSON.stringify(state.currBoard))
+        //   dispatch({ type: "saveBoard", board })
+        // }, 500);
 
 
         //FROM TODAY
@@ -260,10 +254,8 @@ export default {
       }
     },
     async setBoardStyle({ state, dispatch }, { style }) {
-      console.log(style)
       try {
         let board = JSON.parse(JSON.stringify(state.currBoard))
-        console.log(board)
         board.style = style
         dispatch({ type: "saveBoard", board })
       } catch (err) {

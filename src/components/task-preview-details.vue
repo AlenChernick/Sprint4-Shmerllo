@@ -23,15 +23,30 @@
         </div>
       </div>
       <div v-if="task.description" class="prev-task-desk-icon"></div>
+<<<<<<< HEAD
       <div v-if="task.attachments.length > 0" class="prev-task-attachments-conteiner">
+=======
+      <div
+        v-if="task.attachments?.length > 0"
+        class="prev-task-attachments-conteiner"
+      >
+>>>>>>> c6a2ab91d018c7fdd3dd2163ba982f7409866f02
         <div class="prev-task-attachments-icon"></div>
         <div class="prev-task-attachments-count">{{ attachmentsCount }}</div>
       </div>
-      <div v-if="task.comments.length > 0" class="prev-task-comments">
+      <div v-if="task.comments?.length > 0" class="prev-task-comments">
         <div class="prev-task-comments-icon"></div>
         <div class="prev-task-comments-count">{{ commentsCount }}</div>
       </div>
+<<<<<<< HEAD
       <div v-if="task.checklists.length > 0" class="prev-task-checklists" :style="{ 'background-color': doneTodos }">
+=======
+      <div
+        v-if="task.checklists?.length > 0"
+        class="prev-task-checklists"
+        :style="{ 'background-color': doneTodos }"
+      >
+>>>>>>> c6a2ab91d018c7fdd3dd2163ba982f7409866f02
         <span class="prev-task-checklists-icon"></span>
         <span class="prev-task-checklists-count">{{ todosCount(task.checklists) }}</span>
       </div>
@@ -127,8 +142,13 @@ export default {
           if (todo.isDone === true) tempDoneTodos++
         })
       })
+<<<<<<< HEAD
       if (tempDoneTodos === todos) return '#61bd4f'
       if (tempDoneTodos !== todos) return ' '
+=======
+      if (tempDoneTodos === todos ) return "#61bd4f"
+      if (tempDoneTodos !== todos) return " "
+>>>>>>> c6a2ab91d018c7fdd3dd2163ba982f7409866f02
     },
     commentsCount() {
       return this.task.comments.length
