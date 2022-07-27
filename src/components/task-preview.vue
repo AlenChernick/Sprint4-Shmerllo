@@ -48,7 +48,7 @@
         >
         </component>
 
-        <button @click="removeTask"><span class="archive-icon"></span>Archive</button>
+        <button @click.stop="removeTask"><span class="archive-icon"></span>Archive</button>
       </div>
 
       <div class="save-button">
@@ -119,6 +119,7 @@ export default {
         groupId: this.groupId,
         boardId: this.boardToEdit._id,
       })
+      this.$router.push(`/board/${this.boardToEdit._id}`)
     },
     openModal(cmpType) {
       this.cmpType = cmpType
