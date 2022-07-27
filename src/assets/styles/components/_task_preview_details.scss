@@ -1,5 +1,5 @@
 .task-prev-details-conteiner {
-  padding: 10px;
+  padding: 5px 10px 5px 10px;
 
   // position: relative;
   .label-task-preview-container {
@@ -8,9 +8,17 @@
     flex-wrap: wrap;
 
     .label-task-preview {
-      height: 9px;
-      width: 50px;
-      border-radius: 3px;
+      border-radius: em(10px);
+      font-size: em(12px);
+      font-weight: 700;
+      height: 8px;
+      line-height: 100px;
+      margin: 0 4px 4px 0;
+      max-width: 40px;
+      min-width: 40px;
+      padding: 0;
+      text-shadow: none;
+      width: auto;
     }
     .label-task-preview-full {
       height: 20px;
@@ -31,18 +39,17 @@
     padding: 0 5px 0 5px;
   }
   .prev-task-title {
-    font-size: em(16px);
+    font-size: em(14px);
     color: $clr1;
     display: flex;
     align-items: center;
   }
   .prev-fetchers-conteiner {
     align-items: center;
+    color: #6b778c;
 
     .prev-task-desk-icon {
-      //   margin-inline-end: 6px;
       margin-bottom: 6px;
-
       padding-inline-end: 10px;
       font-family: trellicons;
       font-size: em(16px);
@@ -69,13 +76,20 @@
         padding-bottom: 0px;
       }
     }
-    .prev-dueDate-conteiner {
+    .prev-duedate-conteiner {
       // background-color: #61bd4f;
-      justify-content: center;
+      color: #5e6c84;
+      // display: inline-block;
+      margin: 0 4px 4px 0;
+      max-width: 100%;
+      min-height: 20px;
+      overflow: hidden;
+      padding: 2px;
+      font-size: 15.5px;
       align-items: center;
       border-radius: 3px;
       padding: 0 3px 0 3px;
-      margin-inline-end: 10px;
+      margin-inline-end: 8px;
       margin-bottom: 6px;
       .prev-dueDate {
         font-size: em(12px);
@@ -98,37 +112,46 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1px 3px 0px 1px;
-      padding-inline-end: 10px;
-      margin-bottom: 9px;
+      padding-inline-end: em(6px);
+      margin-bottom: em(8px);
 
       .prev-task-comments-icon {
         font-family: trellicons;
-        font-size: em(18px);
+        font-size: em(16px);
+        padding-inline-end: em(3px);
         &::before {
           content: '\e91e';
-          padding-inline-end: 3px;
         }
+      }
+      .prev-task-comments-count {
+        font-size: 13px;
+        margin-bottom: em(1px);
       }
     }
     .prev-task-checklists {
-      display: flex;
-      justify-content: center;
+      margin: 1px 4px 4px 0;
+      max-width: 100%;
+      min-height: 20px;
+      overflow: hidden;
+      padding: 2px;
+      font-size: 15.5px;
       align-items: center;
       border-radius: 3px;
-      padding: 1px 3px 0px 1px;
-      padding-inline-end: 10px;
+      padding: 0 5px 0 3px;
+      margin-inline-end: 8px;
       margin-bottom: 6px;
+      display: flex;
+      flex-direction: row;
       .prev-task-checklists-icon {
         font-family: trellicons;
-        font-size: em(18px);
+        font-size: em(16px);
+        padding-inline-end: 3px;
         &::before {
           content: '\e91a';
-          padding-inline-end: 3px;
         }
       }
       .prev-task-checklists-count {
-        font-size: em(15px);
+        font-size: em(12px);
       }
 
       &.done {

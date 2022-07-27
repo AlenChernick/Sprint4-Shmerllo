@@ -78,8 +78,9 @@ header.main-header {
       line-height: 32px;
       display: flex;
       justify-content: center;
-      margin-inline-end: 4px;
+      margin-inline-end: em(9px);
       font-weight: 500;
+      cursor: pointer;
       // position:absolute;
     }
   }
