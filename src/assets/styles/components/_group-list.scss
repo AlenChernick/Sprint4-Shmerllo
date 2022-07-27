@@ -5,6 +5,10 @@
   overflow-x: auto;
   margin: 0 12px 0 12px;
 
+  .smooth-dnd-container {
+    min-height: 0;
+  }
+
   .smooth-dnd-container.horizontal {
     display: flex;
   }

@@ -25,7 +25,7 @@
           @click="addGroupModal = !addGroupModal"
         >
           <font-awesome-icon icon="fa-solid fa-plus" class="task-adding-btn" />
-          <div>Add another list</div>
+          <div class="add-new-group-list">Add another list</div>
         </div>
         <div v-else class="new-group-add-modal">
           <textarea

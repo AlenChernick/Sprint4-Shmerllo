@@ -77,6 +77,7 @@
   h3 {
     display: inline-block;
     margin-bottom: em(5px);
+    margin-right: 1rem;
     font-family: NunitoSans-Bold;
   }
 
@@ -96,9 +97,10 @@
   }
 }
 .workspace-logo {
-  margin-top: 2%;
-  margin-left: em(-6px);
+  margin-left: em(2px);
   .workspace-icon {
     margin-right: em(5px);
+    margin-bottom: em(2px);
+    font-size: em(12px);
   }
 }

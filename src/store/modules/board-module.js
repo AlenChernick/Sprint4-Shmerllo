@@ -169,8 +169,6 @@ export default {
           userAction,
           user
         )
-
-        // commit({ type: "saveTask", savedTask, groupId, boardId })
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
         console.log("Cannot save task", err)

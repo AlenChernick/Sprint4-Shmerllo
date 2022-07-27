@@ -1,3 +1,6 @@
+
+<!-- edit-task-actions component -->
+
 <template>
   <section class="edit-task-actions">
  
@@ -19,7 +22,6 @@
         @setDate="setDate"
         @removeDate="removeDate"
       ></component>
-
   </section>
 </template>
 
