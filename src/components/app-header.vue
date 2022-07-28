@@ -52,10 +52,14 @@ export default {
       return user.username.charAt(0)
     },
     getCurrBoard() {
-      console.log('from app header', this.$store.getters.getCurrBoard)
       return this.$store.getters.getCurrBoard
     },
     getAvgColor() {
+      console.log(this.getCurrBoard)
+      if(!this.getCurrBoard) {
+        this.headerColor = '#026aa7'
+        return 
+      }
       if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
       const imgUrl = this.getCurrBoard.style.bgImgUrl
       const fac = new FastAverageColor()

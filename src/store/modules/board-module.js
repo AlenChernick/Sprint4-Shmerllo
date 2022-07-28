@@ -169,7 +169,6 @@ export default {
       { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
       let user = rootGetters.loggedInUser
-      console.log(user);
       try {
         const currBoard = await boardService.saveTask(
           task,
@@ -177,7 +176,7 @@ export default {
           groupId,
           boardId,
           userAction,
-          user
+          user,
         )
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
@@ -200,7 +199,7 @@ export default {
       { commit, state },
       { group = null, groupId, boardId, subject = null }
     ) {
-      boardId = state.currBoard._id
+     if(!boardId) boardId = state.currBoard._id
       // async saveGroup({ commit }, { group,groupId, boardId }) {
       try {
         const savedGroup = await boardService.saveGroup(group, boardId, subject)
@@ -263,8 +262,10 @@ export default {
     },
     async removeGroup({ commit }, { groupId, boardId }) {
       try {
-        await boardService.removeGroup(groupId, boardId)
-        commit({ type: "removeGroup", groupId, boardId })
+      let board = await boardService.removeGroup(groupId, boardId)
+      commit({ type: "saveBoard", board })
+
+      // commit({ type: "removeGroup", groupId, boardId })
       } catch (err) {
         console.log("Cannot remove group", err)
         throw err

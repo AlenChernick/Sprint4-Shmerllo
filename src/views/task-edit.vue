@@ -7,6 +7,7 @@
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
         <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
+        <pre>{{taskToEdit.style.bgImgUrl}}</pre>
           <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
         </div>
         <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
@@ -409,6 +410,7 @@ export default {
       })
     },
     setTaskStyle(style) {
+      console.log('style:',style)
       this.taskToEdit.style = style
       this.$store.dispatch({
         type: 'saveTask',

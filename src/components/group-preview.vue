@@ -14,7 +14,7 @@
     </div>
     <div>
       <div>
-        <task-list :tasks="group.tasks" :groupId="group.id" />
+        <task-list    @moveTasks="replaceTasks" :tasks="group.tasks" :groupId="group.id" />
       </div>
       <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal = !newTaskModal">
         <div class="task-adding-btn">
@@ -71,7 +71,7 @@ export default {
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ''
     },
-    onSaveGroup(groupId) {
+    onSaveGroup() {
       // const boardId = this.currBoard._id
       const boardId = this.currBoard._id
 
@@ -80,6 +80,12 @@ export default {
     onRemoveGroup(groupId) {
       const boardId = this.currBoard._id
       this.$store.dispatch({ type: 'removeGroup', groupId, boardId })
+    },
+        replaceTasks(tasks) {
+  
+      let group = JSON.parse(JSON.stringify(this.group))
+      // group.tasks = tasks
+      this.$emit("updateGroup",{ info:{tasks,group}})
     },
   },
 
