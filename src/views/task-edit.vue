@@ -109,15 +109,15 @@
             >
             <el-button class="cancel-btn" type="info" v-if="isEdit" @click.stop="isEdit = false">Cancel</el-button>
           </div>
-      
-  
-          <attachment-task-edit v-if="taskToEdit.attachments?.length>0" v-for="(attachment,idx) in taskToEdit.attachments" :attachment="attachment" :idx="idx"
-          @makeCover="setTaskStyle"
-           @removeAttachemnt="removeAttachemnt"
+
+          <attachment-task-edit
+            v-if="taskToEdit.attachments?.length > 0"
+            v-for="(attachment, idx) in taskToEdit.attachments"
+            :attachment="attachment"
+            :idx="idx"
+            @makeCover="setTaskStyle"
+            @removeAttachemnt="removeAttachemnt"
           ></attachment-task-edit>
-
-
-
 
           <div class="main-editor-checklist-container" v-for="checklist in taskToEdit.checklists">
             <div class="main-editor-checklist-header">
@@ -141,8 +141,18 @@
                   <span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
                 ></el-checkbox>
                 <div class="checklist-checkbox-menu">
-                  <span @click.stop="checkListMenuToggle = !checkListMenuToggle" class="checklist-dots-icon"></span>
-                  <div v-if="checkListMenuToggle" @click="removeCheckListItem(todo.id, checklist.id)">Delete</div>
+                  <span
+                    v-if="checkListMenuToggle !== todo.id"
+                    @click="onCheckListMenuToggle(todo.id)"
+                    class="checklist-dots-icon"
+                  ></span>
+                  <div v-if="checkListMenuToggle === todo.id" class="actions-modal-container checklist-checkbox-modal">
+                    <h4 class="checklist-checkbox-title">Item actions</h4>
+                    <span @click="checkListMenuToggle = false" class="close-icon"></span>
+                    <div class="checklist-checkbox-delete" @click="removeCheckListItem(todo.id, checklist.id)">
+                      Delete
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -199,6 +209,7 @@
           @addCheckList="addCheckList"
           @setDate="setDate"
           @removeDate="removeDate"
+          @removeTask="removeTask"
         />
       </div>
     </section>
@@ -211,8 +222,6 @@ import attachmentTaskEdit from '../components/attachment-task-edit.vue'
 import { utilService } from '../../services/util-service'
 import { FastAverageColor } from 'fast-average-color'
 
-
-
 export default {
   name: 'task-edit',
   data() {
@@ -224,8 +233,8 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
+      checkListMenuToggle: '',
       todoTitle: '',
-      checkListMenuToggle: false,
       checkListItem: {
         id: '',
         todoTitle: '',
@@ -275,7 +284,7 @@ export default {
         groupId: this.groupId,
         boardId: this.boardId,
       })
-      this.$router.push('/board' + boardId)
+      this.$router.push(`/board/${this.boardId}`)
     },
     onWriteComment() {
       this.isWrite = !this.isWrite
@@ -303,6 +312,7 @@ export default {
       this.isCheckListItemAdded = !this.isCheckListItemAdded
       if (checkListItem.todoTitle === '') return
       const newCheckListItem = JSON.parse(JSON.stringify(checkListItem))
+      if (newCheckListItem.id === checkListItem.id) newCheckListItem.id = utilService.makeId()
       const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checkListId)
       this.taskToEdit.checklists[checkListIdx].todos.push(newCheckListItem)
       checkListItem.todoTitle = ''
@@ -343,6 +353,7 @@ export default {
       })
     },
     removeCheckListItem(todoId, checkListId) {
+      this.checkListMenuToggle = !this.checkListMenuToggle
       const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checkListId)
       const todoIdx = this.taskToEdit.checklists[checkListIdx].todos.findIndex((todo) => todo.id === todoId)
       const todos = this.taskToEdit.checklists[checkListIdx].todos
@@ -461,9 +472,13 @@ export default {
     onCheckListItemAdded(checkListId) {
       this.isCheckListItemAdded = checkListId
     },
-    removeAttachemnt({attachemnt,idx}){
-        console.log(attachemnt,idx)
-    }
+    onCheckListMenuToggle(todoId) {
+      console.log('todoId', todoId)
+      this.checkListMenuToggle = todoId
+    },
+    removeAttachemnt({ attachemnt, idx }) {
+      console.log(attachemnt, idx)
+    },
   },
   computed: {
     getCurrTask() {
