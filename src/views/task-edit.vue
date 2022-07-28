@@ -22,7 +22,7 @@
       <!-- <pre>{{ getCurrTask.style }}</pre> -->
       <div class="task-edit-header">
         <span class="task-edit-header-icon"></span>
-        <input @input="saveTask" spellcheck="false" v-model="getCurrTask.title" type="text" />
+        <input @input="saveTask" spellcheck="false" v-model="taskToEdit.title" type="text" />
       </div>
       <div class="group-list-inlist-container">
         <p class="group-list-title">
@@ -137,8 +137,8 @@
             </div>
             <ul class="checklist-checkbox" v-for="todo in checklist.todos">
               <li>
-                <el-checkbox v-model="todo.isDone" @change="saveTask(todo)"
-                  ><span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
+                <el-checkbox v-model="todo.isDone" @change="saveTask">
+                  <span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
                 ></el-checkbox>
                 <el-button @click="removeCheckListItem(todo.id, checklist.id)">X</el-button>
               </li>
@@ -257,7 +257,7 @@ export default {
     saveTask() {
       this.$store.dispatch({
         type: 'saveTask',
-        task: JSON.parse(JSON.stringify(this.getCurrTask)),
+        task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
         currBoard: this.getCurrBoard,
@@ -354,7 +354,6 @@ export default {
       })
     },
     toggleLabel(labelId) {
-      console.log('yes ', labelId)
       const labels = this.taskToEdit.labelIds
       const idx = labels.findIndex((label) => label === labelId)
       let userAction = ''
@@ -365,7 +364,6 @@ export default {
         labels.splice(idx, 1)
         userAction = 'Removed label'
       }
-      console.log(this.taskToEdit, this.groupId, this.boardId)
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
@@ -386,7 +384,6 @@ export default {
         members.splice(idx, 1)
         userAction = 'Removed member'
       }
-      console.log(this.taskToEdit, this.groupId, this.boardId)
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
@@ -397,9 +394,7 @@ export default {
       })
     },
     setTaskStyle(style) {
-      console.log(style)
       this.taskToEdit.style = style
-      console.log(this.taskToEdit)
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
@@ -411,7 +406,6 @@ export default {
     },
     addAttachment(attachment) {
       this.taskToEdit.attachments.push(attachment)
-      console.log(this.taskToEdit)
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
@@ -435,8 +429,8 @@ export default {
       let checkListLen = checklist.todos.length
       let completed = checklist.todos.filter((todo) => todo.isDone === true)
       let commentLen = completed.length
-      let percentage  = (commentLen / checkListLen) * 100 || 0
-      return +percentage.toFixed(0) 
+      let percentage = (commentLen / checkListLen) * 100 || 0
+      return +percentage.toFixed(0)
     },
     setDate(dateValue) {
       this.taskToEdit.dueDate = dateValue
@@ -483,21 +477,15 @@ export default {
     getAvgColor() {
       if (!this.taskToEdit.style || !this.taskToEdit.style.bgImgUrl) return
       const imgUrl = this.taskToEdit.style.bgImgUrl
-      console.log('imgUrl', imgUrl)
       const fac = new FastAverageColor()
-      console.log('fac', imgUrl)
       fac
         .getColorAsync(imgUrl)
         .then((color) => {
-          // container.style.backgroundColor = color.rgba
-          // container.style.color = color.isDark ? '#fff' : '#000'
-          console.log('Average color', color)
-          console.log(color.hex)
           this.taskToEdit.style.bgColor = color.hexa
-          // return color.hex
         })
         .catch((e) => {
           console.log(e)
+          throw err
         })
     },
     // boards() {

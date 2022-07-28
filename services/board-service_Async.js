@@ -66,7 +66,7 @@ async function saveBoard(board) {
       // console.log('with id');
       const savedBoard = await httpService.put(`board/${board._id}`, board)
       socketService.emit(SOCKET_EVENT_BOARD_UPDATED, savedBoard)
-      return saveBoard
+      return savedBoard
     } else {
       console.log("big nono ")
 

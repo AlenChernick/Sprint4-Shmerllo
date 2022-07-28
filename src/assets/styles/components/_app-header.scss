@@ -5,12 +5,10 @@ header.main-header {
   background-color: $clr14;
   z-index: 10;
   backdrop-filter: blur(6px);
-  a {
-    color: $clr4;
-    text-decoration: none;
-  }
 
   .home-page-btn {
+    cursor: pointer;
+    color: $clr4;
     grid-column: 1;
     grid-row: 1;
     margin-inline-start: 1rem;
@@ -22,6 +20,7 @@ header.main-header {
     font-family: NunitoSans-Bold;
     width: em(100px);
     text-align: center;
+    transition: background-color 0.2s, border-radius 0.2s;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.37);
@@ -30,10 +29,12 @@ header.main-header {
   }
 
   .boards-page-btn {
+    cursor: pointer;
+    font-family: $font;
+    color: $clr4;
     grid-column: 1;
     grid-row: 1;
     margin-inline-start: 8.5rem;
-    margin-block-start: 0.01rem;
     align-self: center;
     transition: background-color 0.2s, border-radius 0.2s;
     width: 4rem;

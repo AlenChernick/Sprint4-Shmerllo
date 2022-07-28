@@ -1,5 +1,5 @@
 <template>
-  <section class="board-header">
+  <section v-if="board._id" class="board-header">
     <div class="board-info">
       <select class="board-type-select">
         <option value="board">Board</option>
@@ -14,14 +14,14 @@
 
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
-      <board-menu />
+      <board-menu v-if="board" :key="board._id" />
     </div>
   </section>
 </template>
 <script>
 import boardMenu from '../components/board-menu.vue'
 import boardFilter from '../components/board-filter.vue'
-import {  utilService } from '../../services/util-service.js'
+import { utilService } from '../../services/util-service.js'
 
 export default {
   name: 'board-header',
@@ -36,19 +36,16 @@ export default {
     }
   },
   created() {
-         this.saveBoard = utilService.debounce(this.saveBoard, 1000)
-      },
+    this.saveBoard = utilService.debounce(this.saveBoard, 1000)
+  },
   methods: {
     saveBoard() {
-      console.log('im on', this.board.title)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
     toggeleIsFavorite() {
       this.board.isFavorite = !this.board.isFavorite
-      console.log(this.board.isFavorite)
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
-
   },
   computed: {
     icon() {

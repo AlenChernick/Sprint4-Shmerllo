@@ -1,6 +1,6 @@
 <template>
   <section class="board-details full" v-if="board" :style="bgStyle">
-    <board-header :board="board" />
+    <board-header v-if="board._id" :board="board" :key="board._id" />
     <div class="board-list-container flex">
       <group-list v-if="board.groups" :groups="board.groups" :key="board.groups" />
     </div>
@@ -34,19 +34,19 @@ export default {
   },
 
   methods: {
-    newTask(groupId) {
-      console.log('newtask on Board', groupId)
-    },
-    updateBoard(board) {
-      this.$store.dispatch({ type: 'saveBoard', board })
-    },
+    // updateBoard(board) {
+    //   const updatedBoard = JSON.stringify(JSON.parse(board))
+    //   this.$store.dispatch({ type: 'saveBoard', board: updatedBoard })
+    // },
     onUpdateBoard(board) {
+      // const updatedBoard = JSON.stringify(JSON.parse(board))
       this.$store.commit({ type: 'setCurrBoard', currBoard: board })
     },
   },
   computed: {
     board() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+      // return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
     bgStyle() {
       if (this.board && this.board.style?.bgColor) return { 'background-color': this.board.style.bgColor }
@@ -62,4 +62,14 @@ export default {
   },
 }
 </script>
-<style lang=""></style>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
