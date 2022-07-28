@@ -1,6 +1,6 @@
 <template lang="">
   <button class="notification-btn" @click="openNotifications"><font-awesome-icon icon="fa-solid fa-bell" />
-  <span v-if="getNewNotifications!==0 &&" class="new-notification">{{getNewNotifications}}</span></button>
+  <span v-if="getNewNotifications!==0" class="new-notification">{{getNewNotifications}}</span></button>
 
   <section :style="{ display: displayNotifications }"  class="notifications">
    <span @click="displayNotifications = 'none'" class="close-icon"></span>

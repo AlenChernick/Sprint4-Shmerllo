@@ -11,6 +11,7 @@
       <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
     </div>
     <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
+    <notifications/>
     <div class="active-user-conteiner">
       <div class="active-user" @click="isUserModalOpen = !isUserModalOpen">{{ getActiveUser }}</div>
       <user-options v-if="isUserModalOpen" @closeModal="closeModal" :user="user"></user-options>
@@ -19,6 +20,7 @@
 </template>
 <script>
 import userOptions from '../components/user-options.vue'
+import notifications from '../components/notifications.vue'
 import { FastAverageColor } from 'fast-average-color'
 export default {
   name: 'app-header',
@@ -77,9 +79,11 @@ export default {
     getHeaderColor() {
       return this.headerColor
     },
+    
   },
   components: {
     userOptions,
+    notifications
   },
 }
 </script>

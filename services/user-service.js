@@ -32,7 +32,9 @@ function _getUrlAuth(id = '') {
 }
 
 function getLoggedInUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY))
+    const user =  JSON.parse(sessionStorage.getItem(STORAGE_KEY))
+    console.log(user)
+    return user
 }
 
 
