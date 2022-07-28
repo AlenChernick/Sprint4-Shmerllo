@@ -6,8 +6,8 @@
       <img class="attachment-img" :src="attachment" alt="" />
       <div class="attachments-data flex flex-column">
         <div class="attachment-optinons flex">
-          <a href="#" @click="$emit('makeCover',style:{bgColor:'',bgImgurl:attachment})">Make cover</a>
-          <a href="#" @click="$emit('removeAttachemnt',{obj:attachment,idx})">Delete</a>
+          <!-- <a href="#" @click="$emit('makeCover',style:{bgColor:'',bgImgurl:attachment})">Make cover</a>
+          <a href="#" @click="$emit('removeAttachemnt',{obj:attachment,idx})">Delete</a> -->
         </div>
       </div>
     </div>
