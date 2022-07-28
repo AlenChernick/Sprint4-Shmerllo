@@ -8,9 +8,7 @@
     <div :style="{ display: activityView }" class="activity-view">
       <div @click="openCoverSelection" class="change-background">
         <div class="change-background-hover">
-          <img
-            src="https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg?auto=compress&cs=tinysrgb&w=1600"
-          />
+          <span class="cover-icon"></span>
           <h3>Change background</h3>
         </div>
       </div>
@@ -20,10 +18,7 @@
         <h6>Activity</h6>
         <p>{{ activities.length }}</p>
       </div>
-
-      <!-- <pre>{{activities}}</pre> -->
       <div class="activity-log">
-        <!-- <pre>{{activities}}</pre> -->
         <ul class="activity-list clean-list" v-for="activity in activities">
           <img v-if="activity.byMember.fullname !== 'Guest'" :src="activity.byMember?.imgUrl" />
           <div v-else class="active-user">G</div>
@@ -53,16 +48,9 @@
   </section>
 </template>
 <script>
-// import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
-// import { boardService } from "../../services/board-service.js"
 import moment from 'moment'
 export default {
   name: 'board-menu',
-  // props: {
-  //   activities: {
-  //     type: Array,
-  //   },
-  //  },
   data() {
     return {
       displayMenu: 'none',
@@ -121,7 +109,8 @@ export default {
   },
   computed: {
     activities() {
-      return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+      return this.$store.getters.getCurrBoard.activities
+      // return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
     },
   },
 }

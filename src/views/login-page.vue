@@ -7,7 +7,7 @@
     <div class="form-container flex flex-column">
       <form @submit.prevent="onLogin">
         <div class="login-container flex flex-column">
-          <div class="login-form-header">Login in to Shmerllo</div>
+          <div class="login-form-header">Log in to Shmerllo</div>
           <input
             class="user-input first-input"
             type="text"
