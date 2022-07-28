@@ -143,6 +143,10 @@
       margin-inline-end: 8px;
       display: flex;
       flex-direction: row;
+      &.doneTodos{
+        background-color: #61bd4f;
+        color: white;
+      }
       .prev-task-checklists-icon {
         font-family: trellicons;
         font-size: em(16px);
@@ -177,3 +181,6 @@
     }
   }
 }
+
+
+

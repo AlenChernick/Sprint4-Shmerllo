@@ -99,12 +99,7 @@
             {{ taskToEdit.description }}
           </p>
           <div class="main-editor-btn-container">
-            <el-button
-              class="confirm-btn"
-              type="primary"
-              v-if="isEdit"
-              @click="onSaveDescription"
-              @click.stop="isEdit = false"
+            <el-button class="confirm-btn" type="primary" v-if="isEdit" @click="onSaveDescription" @click.stop="isEdit = false"
               >Save</el-button
             >
             <el-button class="cancel-btn" type="info" v-if="isEdit" @click.stop="isEdit = false">Cancel</el-button>
@@ -123,7 +118,9 @@
             <div class="main-editor-checklist-header">
               <div class="main-editor-checklist-header-info">
                 <span class="main-editor-checklist-icon"></span>
-                <h4 class="main-editor-checklist-title">{{ checklist.checkListTitle }}</h4>
+                <h4 class="main-editor-checklist-title">
+                  {{ checklist.checkListTitle }}
+                </h4>
               </div>
               <el-button
                 @click="removeCheckList(checklist.id)"
@@ -149,9 +146,7 @@
                   <div v-if="checkListMenuToggle === todo.id" class="actions-modal-container checklist-checkbox-modal">
                     <h4 class="checklist-checkbox-title">Item actions</h4>
                     <span @click="checkListMenuToggle = false" class="close-icon"></span>
-                    <div class="checklist-checkbox-delete" @click="removeCheckListItem(todo.id, checklist.id)">
-                      Delete
-                    </div>
+                    <div class="checklist-checkbox-delete" @click="removeCheckListItem(todo.id, checklist.id)">Delete</div>
                   </div>
                 </div>
               </div>
@@ -181,25 +176,13 @@
               </div>
             </div>
           </div>
-          <div class="main-editor-activity-contianer">
-            <div class="main-editor-activity-header">
-              <div class="main-editor-activity-header-info">
-                <span class="main-editor-activity-icon"></span>
-                <h4 class="main-editor-activity-title">Activity</h4>
-              </div>
-              <el-button class="outter-task-btn" type="info">Show details</el-button>
-            </div>
-            <div class="main-editor-activity-comments">
-              <span class="main-editor-activity-icon"><font-awesome-icon icon="fa-solid fa-user" /></span>
-              <textarea
-                @click="onWriteComment"
-                placeholder="Write a comment"
-                spellcheck="false"
-                class="main-editor-activity-comment"
-              >
-              </textarea>
-            </div>
-          </div>
+          <!-- <pre>{{askToEdit?.comments}}</pre> -->
+          <edit-task-activity
+            v-if="taskToEdit?.comments"
+            @onSaveCommmnt="saveComment"
+            @removeComment="removeComment"
+            :comments="taskToEdit.comments"
+          />
         </div>
         <edit-task-actions
           @toggleLabel="toggleLabel"
@@ -216,13 +199,14 @@
   </div>
 </template>
 <script>
+import editTaskActivity from '../components/edit-task-activity.vue'
 import editTaskActions from '../components/edit-task-actions.vue'
 import attachmentTaskEdit from '../components/attachment-task-edit.vue'
-
 import { utilService } from '../../services/util-service'
 import { userService } from '../../services/user-service'
 import { FastAverageColor } from 'fast-average-color'
 import { socketService, SOCKET_EMIT_TOGGELE_MEMBER } from '../../services/socket.service'
+
 export default {
   name: 'task-edit',
   data() {
@@ -409,8 +393,6 @@ export default {
         time: Date.now(),
         style: this.taskToEdit.style,
       }
-      console.log('notification', notification)
-
       socketService.emit(SOCKET_EMIT_TOGGELE_MEMBER, notification)
       this.$store.dispatch({
         type: 'saveTask',
@@ -422,7 +404,6 @@ export default {
       })
     },
     setTaskStyle(style) {
-      console.log('style:', style)
       this.taskToEdit.style = style
       this.$store.dispatch({
         type: 'saveTask',
@@ -486,6 +467,48 @@ export default {
     onCheckListItemAdded(checkListId) {
       this.isCheckListItemAdded = checkListId
     },
+    removeAttachemnt(attachemntIdx) {
+      this.taskToEdit.attachments.splice(attachemntIdx, 1)
+      this.taskToEdit.style = { bgColor: '', bgImgUrl: '' }
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: 'Removed attachment',
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+    saveComment(comment) {
+      console.log(comment)
+      let newComment = {
+        id: utilService.makeId(),
+        user: this.$store.getters.loggedInUser,
+        comment,
+      }
+
+      this.taskToEdit.comments.unshift(newComment)
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: `Add comment - task: ${this.taskToEdit.id}`,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
+    removeComment(commentId) {
+      let commentIdx = this.taskToEdit.comments.findIndex((comment) => comment.id === commentId)
+      this.taskToEdit.comments.splice(commentIdx, 1)
+      this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: `Remove comment - task: ${this.taskToEdit.id}`,
+        taskTitle: this.taskToEdit.title,
+      })
+    },
     onCheckListMenuToggle(todoId) {
       console.log('todoId', todoId)
       this.checkListMenuToggle = todoId
@@ -533,6 +556,7 @@ export default {
   components: {
     editTaskActions,
     attachmentTaskEdit,
+    editTaskActivity,
   },
 }
 </script>

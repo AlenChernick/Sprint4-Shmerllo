@@ -25,8 +25,18 @@ export default {
       type: Number,
     },
   },
-  created() {
-    console.log(this.attachment)
+  methods: {
+    onChangeCover() {
+      let style = {
+        bgColor: "",
+        bgImgUrl: this.attachment,
+      }
+      this.$emit("makeCover", style)
+    },
+    onRemoveAtachment() {
+      let attachemntIdx = this.idx
+      this.$emit("removeAttachemnt", attachemntIdx)
+    },
   },
   methods: {
     onChangeCover() {

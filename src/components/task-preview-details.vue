@@ -31,7 +31,8 @@
         <div class="prev-task-comments-icon"></div>
         <div class="prev-task-comments-count">{{ commentsCount }}</div>
       </div>
-      <div v-if="task.checklists?.length > 0" class="prev-task-checklists" :style="{ 'background-color': doneTodos }">
+      <!-- <div v-if="task.checklists?.length > 0" class="prev-task-checklists" :style="{ 'background-color': doneTodos }"> -->
+          <div v-if="task.checklists?.length > 0" :class="doneTodos">
         <span class="prev-task-checklists-icon"></span>
         <span class="prev-task-checklists-count">{{ todosCount(task.checklists) }}</span>
       </div>
@@ -126,8 +127,14 @@ export default {
           if (todo.isDone === true) tempDoneTodos++
         })
       })
-      if (tempDoneTodos === todos) return '#61bd4f'
-      if (tempDoneTodos !== todos) return ' '
+      // if (tempDoneTodos === todos) return '#61bd4f'
+      // if (tempDoneTodos !== todos) return ' '
+ 
+
+      return{
+        'prev-task-checklists doneTodos': tempDoneTodos === todos,
+        'prev-task-checklists':tempDoneTodos !== todos,
+      }
     },
     commentsCount() {
       return this.task.comments.length

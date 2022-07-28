@@ -1,0 +1,46 @@
+ 
+ 
+ .active-user {
+    background-color: rgb(28, 133, 28);
+    color: rgb(236, 228, 228);
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    display: flex;
+    justify-content: center;
+    margin-inline-end: em(9px);
+    font-weight: 500;
+    cursor: pointer;
+    // position:absolute;
+  }
+
+  .task-activity-comment{
+    width: 520px;
+    background-color: white;
+    min-height: 50px;
+    padding: 10px 10px 10px 10px;
+
+  }
+
+
+
+  .main-editor-activity-contianer{
+    margin-bottom: 20px;
+    
+  }
+
+
+
+  .main-editor-activity-comments{
+    position: relative;
+      .open-text-area {
+        height: em(150px);
+      }
+      .task-edit-comment-btns{
+        background-color: white;
+        justify-content: center;
+      }
+    
+  
+  }
