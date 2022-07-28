@@ -109,6 +109,16 @@
             >
             <el-button class="cancel-btn" type="info" v-if="isEdit" @click.stop="isEdit = false">Cancel</el-button>
           </div>
+      
+  
+          <attachment-task-edit v-if="taskToEdit.attachments?.length>0" v-for="(attachment,idx) in taskToEdit.attachments" :attachment="attachment" :idx="idx"
+          @makeCover="setTaskStyle"
+           @removeAttachemnt="removeAttachemnt"
+          ></attachment-task-edit>
+
+
+
+
           <div class="main-editor-checklist-container" v-for="checklist in taskToEdit.checklists">
             <div class="main-editor-checklist-header">
               <div class="main-editor-checklist-header-info">
@@ -193,8 +203,13 @@
 </template>
 <script>
 import editTaskActions from '../components/edit-task-actions.vue'
+import attachmentTaskEdit from '../components/attachment-task-edit.vue'
+
 import { utilService } from '../../services/util-service'
 import { FastAverageColor } from 'fast-average-color'
+
+
+
 export default {
   name: 'task-edit',
   data() {
@@ -448,6 +463,9 @@ export default {
     onCheckListItemAdded(checkListId) {
       this.isCheckListItemAdded = checkListId
     },
+    removeAttachemnt({attachemnt,idx}){
+        console.log(attachemnt,idx)
+    }
   },
   computed: {
     getCurrTask() {
@@ -488,6 +506,7 @@ export default {
   },
   components: {
     editTaskActions,
+    attachmentTaskEdit,
   },
 }
 </script>
