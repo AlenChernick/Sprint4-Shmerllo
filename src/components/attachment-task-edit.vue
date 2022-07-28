@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: "attachment-task-edit",
+  name: 'attachment-task-edit',
 
   props: {
     attachment: {
@@ -36,6 +36,19 @@ export default {
     onRemoveAtachment() {
       let attachemntIdx = this.idx
       this.$emit("removeAttachemnt", attachemntIdx)
+    },
+  },
+  methods: {
+    onChangeCover() {
+      let style = {
+        bgColor: '',
+        bgImgUrl: this.attachment,
+      }
+      this.$emit('makeCover', style)
+    },
+    onRemoveAtachment() {
+      let attachemntIdx = this.idx
+      this.$emit('removeAttachemnt', attachemntIdx)
     },
   },
 }

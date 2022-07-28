@@ -1,17 +1,26 @@
 .member-picker {
   top: em(82px);
 
+  .board-members-txt {
+    color: #5e6c84;
+    font-size: 0.8171428571rem;
+    font-weight: 600;
+    line-height: 16px;
+    margin-top: 0.5rem;
+    margin-inline-start: 1rem;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
   .member-picker-list {
-    margin: em(6px) em(14px);
+    margin: em(10px) 0 em(15px) em(5px);
     height: 35px;
     border-radius: 3px;
-    padding: 20px;
-    padding-left: 15px;
     cursor: pointer;
     display: flex;
     justify-items: flex-end;
     align-items: center;
-    margin: em(25px) em(16px);
+    padding: 5px 0 5px 0;
     transition: background-color 0.1s;
 
     &:hover {
@@ -22,9 +31,10 @@
 
     h5 {
       display: inline;
-      font-size: em(16px);
+      font-size: em(14px);
+      font-weight: 400;
       margin-bottom: 5px;
-      margin-left: em(10px);
+      margin-left: em(5px);
       padding: 0;
     }
 

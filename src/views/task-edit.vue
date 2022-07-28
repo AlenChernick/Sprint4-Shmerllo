@@ -7,7 +7,6 @@
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
         <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
-          <!-- <pre>{{taskToEdit.style.bgImgUrl}}</pre> -->
           <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
         </div>
         <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
@@ -283,7 +282,7 @@ export default {
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: "Added checklist item",
+        userAction: "Description updated",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -407,7 +406,6 @@ export default {
       })
     },
     setTaskStyle(style) {
-      console.log("style:", style)
       this.taskToEdit.style = style
       this.$store.dispatch({
         type: "saveTask",
@@ -517,8 +515,16 @@ export default {
       console.log("todoId", todoId)
       this.checkListMenuToggle = todoId
     },
-    removeAttachemnt({ attachemnt, idx }) {
-      console.log(attachemnt, idx)
+    removeAttachemnt(attachemntIdx) {
+      this.taskToEdit.attachments.splice(attachemntIdx, 1)
+      this.$store.dispatch({
+        type: "saveTask",
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: "Removed attachment",
+        taskTitle: this.taskToEdit.title,
+      })
     },
   },
   computed: {

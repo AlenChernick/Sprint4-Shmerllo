@@ -2,6 +2,7 @@
   <section class="actions-modal-container label-picker">
     <h4>Labels</h4>
     <span @click.stop="closeModal" class="close-icon"></span>
+    <div class="label-picker-header">Labels</div>
     <ul class="clean-list" v-for="label in labelsToEdit" @click.stop="toggleLabel(label.id)">
       <li class="label-picker-list" :style="{ 'background-color': label.bgColor }">
         <input @input="editLabels" v-model="label.txt" />

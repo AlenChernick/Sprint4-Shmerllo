@@ -183,7 +183,6 @@ export default {
       { commit, state, dispatch, rootGetters },
       { task = null, taskTitle = "", groupId, boardId, userAction = "" }
     ) {
-      console.log(task.comments);
       let user = rootGetters.loggedInUser
       try {
         const currBoard = await boardService.saveTask(
