@@ -4,7 +4,7 @@
       <select class="board-type-select">
         <option value="board">Board</option>
       </select>
-      <input @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
+      <inpu @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
       <span @click="toggeleIsFavorite" :class="icon"></span>
       <h5>{{ board.byMember?.fullname }}'s workspace</h5>
       <ul class="members clean-list" v-for="member in board.members">
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       currBoard: {},
+      txtColor: '',
     }
   },
   created() {
@@ -52,6 +53,9 @@ export default {
       let board = this.$store.getters.getCurrBoard
       if (board?.isFavorite) return 'full-star-icon'
       else return 'star-icon'
+    },
+    getCurrBoard() {
+      return this.$store.getters.getCurrBoard
     },
   },
   components: {

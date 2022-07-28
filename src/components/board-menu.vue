@@ -56,7 +56,6 @@
 // import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons"
 // import { boardService } from "../../services/board-service.js"
 import moment from 'moment'
-
 export default {
   name: 'board-menu',
   // props: {
