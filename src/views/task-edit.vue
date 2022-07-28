@@ -7,10 +7,6 @@
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
         <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
-<<<<<<< HEAD
-=======
-        <!-- <pre>{{taskToEdit.style.bgImgUrl}}</pre> -->
->>>>>>> 63acac86ead05844d070871a4429b856f14b9045
           <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
         </div>
         <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
@@ -226,7 +222,7 @@ import attachmentTaskEdit from '../components/attachment-task-edit.vue'
 import { utilService } from '../../services/util-service'
 import { userService } from '../../services/user-service'
 import { FastAverageColor } from 'fast-average-color'
-import { socketService, SOCKET_EMIT_TOGGELE_MEMBER} from '../../services/socket.service'
+import { socketService, SOCKET_EMIT_TOGGELE_MEMBER } from '../../services/socket.service'
 export default {
   name: 'task-edit',
   data() {
@@ -406,15 +402,15 @@ export default {
       }
       const byUserId = userService.getLoggedInUser().fullname
       const notification = {
-          mentionedUserId: member._id,
-          userAction,
-          taskTitle: this.taskToEdit.title,
-          byUserId,
-          time: Date.now(),
-          style: this.taskToEdit.style,
+        mentionedUserId: member._id,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+        byUserId,
+        time: Date.now(),
+        style: this.taskToEdit.style,
       }
       console.log('notification', notification)
-      
+
       socketService.emit(SOCKET_EMIT_TOGGELE_MEMBER, notification)
       this.$store.dispatch({
         type: 'saveTask',
@@ -533,9 +529,6 @@ export default {
           throw err
         })
     },
-    // boards() {
-    //   return JSON.parse(JSON.stringify(this.$store.getters.getBoards))
-    // },
   },
   components: {
     editTaskActions,
