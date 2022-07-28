@@ -2,34 +2,45 @@
   <button @click="displayMenu = 'block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
   <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
     <!-- <pre>{{activities}}</pre> -->
-    <h4>{{ pageTitle }}</h4>
+    <div class="menu-title">{{ pageTitle }}</div>
     <span @click="displayMenu = 'none'" class="close-icon"></span>
 
     <div :style="{ display: activityView }" class="activity-view">
       <div @click="openCoverSelection" class="change-background">
         <div class="change-background-hover">
           <span class="cover-icon"></span>
-          <h3>Change background</h3>
+          <div class="change-background-contianer">Change background</div>
         </div>
       </div>
 
       <div class="activity-header">
         <span class="activity-icon"></span>
-        <h6>Activity</h6>
-        <p>{{ activities.length }}</p>
+        <div class="activity-header-text">Activity</div>
       </div>
       <div class="activity-log">
-        <ul class="activity-list clean-list" v-for="activity in activities">
+        <div class="activity-list" v-for="activity in activities">
           <img v-if="activity.byMember.fullname !== 'Guest'" :src="activity.byMember?.imgUrl" />
           <div v-else class="active-user">G</div>
           <div class="activity-details">
-            <h5>{{ activity.byMember.fullname }}</h5>
-            <h4>{{ activity.txt }}</h4>
-            <h3>{{ activity.task.title }}</h3>
-            <p>{{ timeFormat(activity.createdAt) }}</p>
+            <div class="activity-member-name">{{ activity.byMember.fullname + ' ' }}</div>
+            <div class="activity-txt">{{ activity.txt + ' ' }}</div>
+            <div class="activity-task-title">{{ activity.task.title }}</div>
+            <div class="activity-created-at">{{ timeFormat(activity.createdAt) }}</div>
           </div>
-        </ul>
+        </div>
       </div>
+      <!-- <div class="activity-log">
+        <div class="activity-list" v-for="activity in activities">
+          <img v-if="activity.byMember.fullname !== 'Guest'" :src="activity.byMember?.imgUrl" />
+          <div v-else class="active-user">G</div>
+          <div class="activity-details">
+            <div class="activity-member-name">{{ activity.byMember.fullname + ' ' }}</div>
+            <div class="activity-txt">{{ activity.txt + ' ' }}</div>
+            <div class="activity-task-title">{{ activity.task.title }}</div>
+            <div class="activity-created-at">{{ timeFormat(activity.createdAt) }}</div>
+          </div>
+        </div>
+      </div> -->
     </div>
 
     <div :style="{ display: coverSelectionView }" class="board-cover-selection">

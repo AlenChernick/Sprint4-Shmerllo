@@ -14,10 +14,11 @@
   padding: 3px;
   border-bottom-left-radius: 10px;
 
-  h4 {
+  .menu-title {
     text-align: center;
-    padding: em(12px);
-    font-size: em(20px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: em(16px);
     font-weight: 600;
     border-bottom: 1px solid lightgray;
   }
@@ -25,10 +26,10 @@
   .close-icon {
     font-weight: 400;
     position: absolute;
-    right: 5px;
-    top: 10px;
+    right: em(14px);
+    top: em(8px);
     font-family: trellicons;
-    font-size: em(24px);
+    font-size: em(20px);
     &::before {
       content: '\e91c';
     }
@@ -44,23 +45,24 @@
     align-items: center;
     justify-items: flex-start;
     flex-direction: row;
-    
+
     .change-background-hover {
       padding-left: em(10px);
-      padding-top: em(22px);
       padding-bottom: 0;
+      font-size: 14px;
       display: flex;
       justify-items: center;
       width: 100%;
+      border-radius: 3px;
+      transition: background-color 0.2s;
       &:hover {
         background-color: rgba(116, 111, 111, 0.082);
         cursor: pointer;
       }
 
-      h3 {
-        padding-left: em(15px);
+      .change-background-contianer {
+        padding-left: em(8px);
         display: inline-block;
-        padding-bottom: 10px;
         padding-top: 2px;
         font-size: em(18px);
         font-weight: 500;
@@ -75,43 +77,39 @@
       }
 
       .cover-icon {
-        padding-right: 0;
-        padding-bottom: em(10px);
         font-family: trellicons;
         font-size: em(22px);
         &::before {
           content: '\e914';
         }
       }
-
-     
     }
   }
 
   .activity-header {
-    margin: em(40px) em(10px);
-    padding: em(10px) em(10px);
     display: flex;
     align-items: flex-start;
     justify-items: flex-start;
     position: relative;
+    padding: 15px 0 15px 0;
 
     &:hover {
       background-color: rgba(116, 111, 111, 0.082);
     }
 
-    h6 {
-      padding-left: em(15px);
-      padding-top: em(4px);
-      font-size: em(18px);
+    .activity-header-text {
+      display: flex;
+      align-self: center;
+      font-size: em(14px);
       font-weight: 700;
     }
 
     .activity-icon {
-      padding-top: 0;
+      margin-inline-start: em(23px);
+      margin-inline-end: 0.6rem;
       font-weight: 400;
       font-family: trellicons;
-      font-size: em(24px);
+      font-size: em(16px);
       &::before {
         content: '\e900';
       }
@@ -130,21 +128,20 @@
   }
 
   .activity-log {
-    overflow: scroll;
-    overflow-x: hidden;
     height: 60vh;
+    color: #464f5f;
 
     .activity-list {
       display: flex;
-      justify-items: flex-start;
-      align-items: flex-start;
-      margin: em(2px) em(16px);
+      padding-bottom: em(15px);
+      padding-left: em(10px);
 
       img {
         width: 32px;
         height: 32px;
         border-radius: 50%;
         margin: em(0px) em(5px);
+        color: transparent;
       }
 
       .active-user {
@@ -158,24 +155,37 @@
         justify-content: center;
         margin-inline-end: 4px;
         font-weight: 500;
-margin-inline-start: 4px;      }
+        margin-inline-start: 4px;
+      }
 
       .activity-details {
-        > *:not(p) {
+        font-family: $font;
+        flex: 1;
+        > *:not(.activity-created-at) {
           display: inline;
           font-size: em(16px);
         }
 
-        h3 {
+        .activity-task-title {
           text-decoration: underline;
+          font-size: em(14px);
+          font-weight: 500;
         }
 
-        h4 {
+        .activity-txt {
           border: none;
+          font-size: em(13px);
+          font-weight: 500;
         }
 
-        h5 {
+        .activity-member-name {
           font-weight: 700;
+          margin-inline-start: 0.2rem;
+          font-size: em(15px);
+        }
+        .activity-created-at {
+          font-size: em(12px);
+          color: #556176;
         }
       }
     }

@@ -2,6 +2,7 @@
   <section class="actions-modal-container member-picker">
     <h4>Members</h4>
     <span @click.stop="closeModal" class="close-icon"></span>
+    <div class="board-members-txt">Board members</div>
     <ul class="clean-list" v-for="member in membersToEdit">
       <li class="member-picker-list" @click.stop="toggleMember(member)">
         <img :src="member.imgUrl" />

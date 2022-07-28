@@ -117,7 +117,6 @@ export default {
     },
     doneTodos() {
       let checklists = this.task.checklists
-
       let tempDoneTodos = 0
       let todos = 0
 

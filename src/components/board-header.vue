@@ -4,7 +4,7 @@
       <select class="board-type-select">
         <option value="board">Board</option>
       </select>
-      <inpu @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
+      <input @input="saveBoard" spellcheck="false" v-model="board.title" type="text" />
       <span @click="toggeleIsFavorite" :class="icon"></span>
       <h5>{{ board.byMember?.fullname }}'s workspace</h5>
       <ul class="members clean-list" v-for="member in board.members">
