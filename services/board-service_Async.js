@@ -138,9 +138,9 @@ async function removeGroup(groupId, boardId) {
     const groupIdx = board.groups.findIndex((g) => g.id === groupId)
     board.groups.splice(groupIdx, 1)
 
-    await saveBoard(board)
+    return await saveBoard(board)
 
-    return "removed"
+    // return "removed"
   } catch (err) {
     console.log("cannot remove Group", err)
     throw err
@@ -192,10 +192,10 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction, user) {
     board.groups.splice(groupIdx, 1, group)
     board = addActivity(board, task, userAction, user)
 
-    await saveBoard(board)
+    return await saveBoard(board)
 
     // const savedTask = await getTaskById(boardId, groupId, task.id)
-    const updatedBoard = await getBoardById(boardId)
+    // const updatedBoard = await getBoardById(boardId)
 
     // return savedTask
     return updatedBoard

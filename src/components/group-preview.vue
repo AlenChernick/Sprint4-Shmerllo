@@ -71,7 +71,7 @@ export default {
       this.newTaskModal = !this.newTaskModal
       this.taskTitle = ''
     },
-    onSaveGroup(groupId) {
+    onSaveGroup() {
       // const boardId = this.currBoard._id
       const boardId = this.currBoard._id
 
