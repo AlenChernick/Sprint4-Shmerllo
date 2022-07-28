@@ -399,7 +399,7 @@ export default {
       })
     },
     setTaskStyle(style) {
-      console.log(style)
+      console.log('style:',style)
       this.taskToEdit.style = style
       this.$store.dispatch({
         type: 'saveTask',
