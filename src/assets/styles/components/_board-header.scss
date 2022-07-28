@@ -58,7 +58,7 @@
       padding: em(3px) em(8px);
       margin: em(10px);
       text-align: center;
-      margin-inline-start: em(-2px);
+      margin-inline-start: em(20px);
       font-family: trellicons;
       font-size: em(17px);
       color: #f2d600;
@@ -150,6 +150,7 @@
 
     &:hover {
       background-color: rgba(132, 132, 132, 0.344);
+      box-shadow: none;
     }
 
     .menu-icon {

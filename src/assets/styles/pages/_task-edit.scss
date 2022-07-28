@@ -329,6 +329,11 @@
           }
         }
         .checklist-checkbox {
+          .checklist-checkbox-preview {
+            display: flex;
+            justify-content: space-between;
+          }
+          display: flex;
           .el-checkbox__label {
             display: flex;
             .el-checkbox__inner {
@@ -347,6 +352,30 @@
           margin-bottom: em(5px);
           margin-left: 1.215em;
           padding: 0;
+          .checklist-checkbox-preview {
+            display: flex;
+            justify-content: space-between;
+            &:hover {
+              .checklist-dots-icon {
+                cursor: pointer;
+                color: #707885;
+                // padding: 8px 7px 4px 7px;
+                border-radius: 3px;
+                font-family: trellicons;
+                font-size: 1em;
+                font-weight: 500;
+                display: flex;
+
+                &::before {
+                  content: '\e952';
+                }
+              }
+            }
+            .checklist-checkbox-menu {
+              display: flex;
+              align-self: center;
+            }
+          }
           .el-checkbox {
             .el-checkbox__input {
               margin-left: -14px;

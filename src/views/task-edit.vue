@@ -136,14 +136,17 @@
             <div class="checklist-progressbar-contianer">
               <el-progress :percentage="doneTodos(checklist)" class="checklist-progressbar" />
             </div>
-            <ul class="checklist-checkbox" v-for="todo in checklist.todos">
-              <li>
+            <div class="checklist-checkbox" v-for="todo in checklist.todos">
+              <div class="checklist-checkbox-preview">
                 <el-checkbox v-model="todo.isDone" @change="saveTask">
                   <span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
                 ></el-checkbox>
-                <el-button @click="removeCheckListItem(todo.id, checklist.id)">X</el-button>
-              </li>
-            </ul>
+                <div class="checklist-checkbox-menu">
+                  <span @click.stop="checkListMenuToggle = !checkListMenuToggle" class="checklist-dots-icon"></span>
+                  <div v-if="checkListMenuToggle" @click="removeCheckListItem(todo.id, checklist.id)">Delete</div>
+                </div>
+              </div>
+            </div>
             <el-button
               v-if="isCheckListItemAdded !== checklist.id"
               @click="onCheckListItemAdded(checklist.id)"
@@ -223,6 +226,7 @@ export default {
       toggleDatePicker: false,
       isCheckListItemAdded: false,
       todoTitle: '',
+      checkListMenuToggle: false,
       checkListItem: {
         id: '',
         todoTitle: '',

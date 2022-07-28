@@ -49,7 +49,6 @@
 </template>
 <script>
 import moment from 'moment'
-
 export default {
   name: 'board-menu',
   data() {
