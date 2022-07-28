@@ -2,33 +2,20 @@
   <div class="task-edit-screen" @click="backToBoard">
     <section @click.stop class="task-edit">
       <div
-        v-if="
-          taskToEdit.style?.bgColor !== '' || taskToEdit.style?.bgImgUrl !== ''
-        "
+        v-if="taskToEdit.style?.bgColor !== '' || taskToEdit.style?.bgImgUrl !== ''"
         class="task-edit-cover"
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
-        <div
-          class="task-edit-img-container"
-          :style="{ 'background-color': getAvgColor }"
-        >
-          <img
-            v-if="taskToEdit.style?.bgImgUrl"
-            :src="taskToEdit.style.bgImgUrl"
-          />
+        <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
+          <!-- <pre>{{taskToEdit.style.bgImgUrl}}</pre> -->
+          <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
         </div>
         <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
           <span class="close-task-edit-icon"></span>
         </div>
       </div>
-      <div
-        v-else-if="taskToEdit.style.bgImgUrl"
-        class="task-edit-cover-img-with-bg-color"
-      >
-        <img
-          v-if="taskToEdit.style?.bgImgUrl"
-          :src="taskToEdit.style.bgImgUrl"
-        />
+      <div v-else-if="taskToEdit.style.bgImgUrl" class="task-edit-cover-img-with-bg-color">
+        <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
       </div>
       <div v-else class="close-task-edit-no-img" @click="backToBoard">
         <span class="close-task-edit-no-img-icon"></span>
@@ -36,12 +23,7 @@
       <!-- <pre>{{ getCurrTask.style }}</pre> -->
       <div class="task-edit-header">
         <span class="task-edit-header-icon"></span>
-        <input
-          @input="saveTask"
-          spellcheck="false"
-          v-model="taskToEdit.title"
-          type="text"
-        />
+        <input @input="saveTask" spellcheck="false" v-model="taskToEdit.title" type="text" />
       </div>
       <div class="group-list-inlist-container">
         <p class="group-list-title">
@@ -51,49 +33,30 @@
       <div class="main-task-editor-container">
         <div class="main-task-edit-container">
           <div v-if="taskToEdit" class="main-editor">
-            <div
-              v-if="taskToEdit.members?.length > 0"
-              class="main-task-members-container"
-            >
+            <div v-if="taskToEdit.members?.length > 0" class="main-task-members-container">
               <div class="main-task-members-header">Members</div>
               <div class="main-task-members">
                 <ul v-for="member in taskToEdit.members">
                   <li>
-                    <img
-                      class="main-task-member-img"
-                      :src="member.imgUrl"
-                      alt="member"
-                    />
+                    <img class="main-task-member-img" :src="member.imgUrl" alt="member" />
                   </li>
                 </ul>
-                <div
-                  v-if="taskToEdit.members.length > 0"
-                  class="main-task-add-member"
-                >
+                <div v-if="taskToEdit.members.length > 0" class="main-task-add-member">
                   <span class="main-task-add-member-icon"></span>
                 </div>
               </div>
             </div>
 
             <!-- <The labels per task are here: /> -->
-            <div
-              v-if="taskToEdit.labelIds?.length > 0"
-              class="label-preview-container"
-            >
+            <div v-if="taskToEdit.labelIds?.length > 0" class="label-preview-container">
               <div class="label-preview-header">Labels</div>
               <div class="labels-preview-list">
-                <ul
-                  class="label-preview"
-                  v-for="labelId in taskToEdit.labelIds"
-                >
+                <ul class="label-preview" v-for="labelId in taskToEdit.labelIds">
                   <li :style="{ 'background-color': labelColor(labelId) }">
                     <p>{{ labelText(labelId) }}</p>
                   </li>
                 </ul>
-                <div
-                  v-if="taskToEdit.labelIds.length > 0"
-                  class="main-task-add-label"
-                >
+                <div v-if="taskToEdit.labelIds.length > 0" class="main-task-add-label">
                   <span class="main-task-add-label-icon"></span>
                 </div>
               </div>
@@ -119,9 +82,7 @@
             <span class="main-editor-description-icon"></span>
             <h4 class="main-editor-description-title">Description</h4>
             <el-button
-              @click.stop="
-                ;[(isEdit = true), this.$refs.descriptionTxt.focus()]
-              "
+              @click.stop=";[(isEdit = true), this.$refs.descriptionTxt.focus()]"
               v-if="!isEdit"
               class="btn main-editor-decription-edit-btn outter-task-btn"
               type="info"
@@ -139,21 +100,10 @@
             {{ taskToEdit.description }}
           </p>
           <div class="main-editor-btn-container">
-            <el-button
-              class="confirm-btn"
-              type="primary"
-              v-if="isEdit"
-              @click="onSaveDescription"
-              @click.stop="isEdit = false"
+            <el-button class="confirm-btn" type="primary" v-if="isEdit" @click="onSaveDescription" @click.stop="isEdit = false"
               >Save</el-button
             >
-            <el-button
-              class="cancel-btn"
-              type="info"
-              v-if="isEdit"
-              @click.stop="isEdit = false"
-              >Cancel</el-button
-            >
+            <el-button class="cancel-btn" type="info" v-if="isEdit" @click.stop="isEdit = false">Cancel</el-button>
           </div>
 
           <attachment-task-edit
@@ -165,10 +115,7 @@
             @removeAttachemnt="removeAttachemnt"
           ></attachment-task-edit>
 
-          <div
-            class="main-editor-checklist-container"
-            v-for="checklist in taskToEdit.checklists"
-          >
+          <div class="main-editor-checklist-container" v-for="checklist in taskToEdit.checklists">
             <div class="main-editor-checklist-header">
               <div class="main-editor-checklist-header-info">
                 <span class="main-editor-checklist-icon"></span>
@@ -184,28 +131,23 @@
               >
             </div>
             <div class="checklist-progressbar-contianer">
-              <el-progress
-                :percentage="doneTodos(checklist)"
-                class="checklist-progressbar"
-              />
+              <el-progress :percentage="doneTodos(checklist)" class="checklist-progressbar" />
             </div>
             <div class="checklist-checkbox" v-for="todo in checklist.todos">
               <div class="checklist-checkbox-preview">
                 <el-checkbox v-model="todo.isDone" @change="saveTask">
-                  <span class="todo-title"
-                    >{{ todo.todoTitle
-                    }}<span class="remove-todo-icon"></span></span
+                  <span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
                 ></el-checkbox>
                 <div class="checklist-checkbox-menu">
                   <span
-                    @click.stop="checkListMenuToggle = !checkListMenuToggle"
+                    v-if="checkListMenuToggle !== todo.id"
+                    @click="onCheckListMenuToggle(todo.id)"
                     class="checklist-dots-icon"
                   ></span>
-                  <div
-                    v-if="checkListMenuToggle"
-                    @click="removeCheckListItem(todo.id, checklist.id)"
-                  >
-                    Delete
+                  <div v-if="checkListMenuToggle === todo.id" class="actions-modal-container checklist-checkbox-modal">
+                    <h4 class="checklist-checkbox-title">Item actions</h4>
+                    <span @click="checkListMenuToggle = false" class="close-icon"></span>
+                    <div class="checklist-checkbox-delete" @click="removeCheckListItem(todo.id, checklist.id)">Delete</div>
                   </div>
                 </div>
               </div>
@@ -217,10 +159,7 @@
               class="btn main-editor-add-item-btn outter-task-btn"
               >Add an item</el-button
             >
-            <div
-              v-if="isCheckListItemAdded === checklist.id"
-              class="check-list-add-item-btn-container"
-            >
+            <div v-if="isCheckListItemAdded === checklist.id" class="check-list-add-item-btn-container">
               <div class="checklist-todo-add-container">
                 <textarea
                   ref="checkListText"
@@ -230,18 +169,10 @@
                   class="check-list-textarea"
                 ></textarea>
                 <div class="checklist-todo-add-btns">
-                  <el-button
-                    class="confirm-btn"
-                    type="primary"
-                    @click="addCheckListItem(checkListItem, checklist.id)"
+                  <el-button class="confirm-btn" type="primary" @click="addCheckListItem(checkListItem, checklist.id)"
                     >Add</el-button
                   >
-                  <el-button
-                    class="cancel-btn"
-                    type="info"
-                    @click="isCheckListItemAdded = false"
-                    >Cancel</el-button
-                  >
+                  <el-button class="cancel-btn" type="info" @click="isCheckListItemAdded = false">Cancel</el-button>
                 </div>
               </div>
             </div>
@@ -262,18 +193,20 @@
           @addCheckList="addCheckList"
           @setDate="setDate"
           @removeDate="removeDate"
+          @removeTask="removeTask"
         />
       </div>
     </section>
   </div>
 </template>
 <script>
+import editTaskActivity from "../components/edit-task-activity.vue"
 import editTaskActions from "../components/edit-task-actions.vue"
 import attachmentTaskEdit from "../components/attachment-task-edit.vue"
-import editTaskActivity from "../components/edit-task-activity.vue"
-
 import { utilService } from "../../services/util-service"
+import { userService } from "../../services/user-service"
 import { FastAverageColor } from "fast-average-color"
+import { socketService, SOCKET_EMIT_TOGGELE_MEMBER } from "../../services/socket.service"
 
 export default {
   name: "task-edit",
@@ -286,8 +219,8 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
+      checkListMenuToggle: "",
       todoTitle: "",
-      checkListMenuToggle: false,
       checkListItem: {
         id: "",
         todoTitle: "",
@@ -308,9 +241,7 @@ export default {
         groupId,
         taskId,
       })
-      this.taskToEdit = JSON.parse(
-        JSON.stringify(this.$store.getters.getCurrTask)
-      )
+      this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
       await this.$store.dispatch({
         type: "getGroupById",
         boardId,
@@ -339,7 +270,7 @@ export default {
         groupId: this.groupId,
         boardId: this.boardId,
       })
-      this.$router.push("/board" + boardId)
+      this.$router.push(`/board/${this.boardId}`)
     },
     onWriteComment() {
       this.isWrite = !this.isWrite
@@ -367,9 +298,8 @@ export default {
       this.isCheckListItemAdded = !this.isCheckListItemAdded
       if (checkListItem.todoTitle === "") return
       const newCheckListItem = JSON.parse(JSON.stringify(checkListItem))
-      const checkListIdx = this.taskToEdit.checklists.findIndex(
-        (checklist) => checklist.id === checkListId
-      )
+      if (newCheckListItem.id === checkListItem.id) newCheckListItem.id = utilService.makeId()
+      const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checkListId)
       this.taskToEdit.checklists[checkListIdx].todos.push(newCheckListItem)
       checkListItem.todoTitle = ""
       this.$store.dispatch({
@@ -396,9 +326,7 @@ export default {
       this.checkListTitle = ""
     },
     removeCheckList(checklistId) {
-      const checkListIdx = this.taskToEdit.checklists.findIndex(
-        (checklist) => checklist.id === checklistId
-      )
+      const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checklistId)
       const checklist = this.taskToEdit.checklists
       checklist.splice(checkListIdx, 1)
       this.$store.dispatch({
@@ -411,12 +339,9 @@ export default {
       })
     },
     removeCheckListItem(todoId, checkListId) {
-      const checkListIdx = this.taskToEdit.checklists.findIndex(
-        (checklist) => checklist.id === checkListId
-      )
-      const todoIdx = this.taskToEdit.checklists[checkListIdx].todos.findIndex(
-        (todo) => todo.id === todoId
-      )
+      this.checkListMenuToggle = !this.checkListMenuToggle
+      const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checkListId)
+      const todoIdx = this.taskToEdit.checklists[checkListIdx].todos.findIndex((todo) => todo.id === todoId)
       const todos = this.taskToEdit.checklists[checkListIdx].todos
       todos.splice(todoIdx, 1)
 
@@ -451,15 +376,27 @@ export default {
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
-      const idx = members.findIndex((m) => m.id === member.id)
+      const idx = members.findIndex((m) => m._id === member._id)
       let userAction = ""
       if (idx === -1) {
-        userAction = "Add member"
+        userAction = "Added member"
         members.push(member)
       } else {
         members.splice(idx, 1)
         userAction = "Removed member"
       }
+      const byUserId = userService.getLoggedInUser().fullname
+      const notification = {
+        mentionedUserId: member._id,
+        userAction,
+        taskTitle: this.taskToEdit.title,
+        byUserId,
+        time: Date.now(),
+        style: this.taskToEdit.style,
+      }
+      console.log("notification", notification)
+
+      socketService.emit(SOCKET_EMIT_TOGGELE_MEMBER, notification)
       this.$store.dispatch({
         type: "saveTask",
         task: this.taskToEdit,
@@ -563,13 +500,9 @@ export default {
         userAction: `Add comment - task: ${this.taskToEdit.id}`,
         taskTitle: this.taskToEdit.title,
       })
-
-
     },
     removeComment(commentId) {
-      let commentIdx = this.taskToEdit.comments.findIndex(
-        (comment) => comment.id === commentId
-      )
+      let commentIdx = this.taskToEdit.comments.findIndex((comment) => comment.id === commentId)
       this.taskToEdit.comments.splice(commentIdx, 1)
       this.$store.dispatch({
         type: "saveTask",
@@ -579,7 +512,13 @@ export default {
         userAction: `Remove comment - task: ${this.taskToEdit.id}`,
         taskTitle: this.taskToEdit.title,
       })
-
+    },
+    onCheckListMenuToggle(todoId) {
+      console.log("todoId", todoId)
+      this.checkListMenuToggle = todoId
+    },
+    removeAttachemnt({ attachemnt, idx }) {
+      console.log(attachemnt, idx)
     },
   },
   computed: {

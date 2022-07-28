@@ -365,15 +365,45 @@
                 font-size: 1em;
                 font-weight: 500;
                 display: flex;
-
                 &::before {
                   content: '\e952';
                 }
               }
             }
+            .checklist-dots-icon {
+              cursor: pointer;
+              color: transparent;
+              // padding: 8px 7px 4px 7px;
+              border-radius: 3px;
+              font-family: trellicons;
+              font-size: 1em;
+              font-weight: 500;
+              display: flex;
+
+              &::before {
+                content: '\e952';
+              }
+            }
             .checklist-checkbox-menu {
               display: flex;
               align-self: center;
+              position: relative;
+              .checklist-checkbox-modal {
+                position: absolute;
+                position: absolute;
+                top: 0.25em;
+                left: em(-38px);
+                .checklist-checkbox-delete {
+                  margin-top: em(5px);
+                  padding: em(5px) em(15px);
+                  // margin-inline-start: 1rem;
+                  &:hover {
+                    background-color: rgba(9, 30, 66, 0.08);
+                    box-shadow: none;
+                    border: none;
+                  }
+                }
+              }
             }
           }
           .el-checkbox {
@@ -526,26 +556,23 @@
       padding: 0;
       margin: 0;
       li {
-        // border: black;
         color: white;
-        // margin: 2px;
-        padding: 0;
-        border-radius: em(3px);
-        height: em(31px);
-        line-height: em(32px);
-        margin: 0 em(4px) em(4px) 0;
-        // min-width: 40px;
-        padding: 0 em(12px);
+        border-radius: 0.1875em;
+        height: 1.9375em;
+        line-height: 2em;
+        margin: 0 0.25em 0.25em 0;
+        padding: 0px 0.75em;
         width: auto;
+        font-size: 15px;
       }
     }
 
     .main-task-add-label {
-      margin-top: 0.2rem;
       margin-left: em(2px);
+      margin-top: em(2px);
       .main-task-add-label-icon {
         border-radius: 3px;
-        padding: em(8px);
+        padding: em(7px);
         background-color: $clr9;
         font-family: trellicons;
         font-size: em(16px);
