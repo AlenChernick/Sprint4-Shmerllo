@@ -6,8 +6,8 @@
       <img class="attachment-img" :src="attachment" alt="" />
       <div class="attachments-data flex flex-column">
         <div class="attachment-optinons flex">
-          <a href="#" @click="$emit('makeCover',style:{bgColor:'',bgImgurl:attachment})">Make cover</a>
-          <a href="#" @click="$emit('removeAttachemnt',{obj:attachment,idx})">Delete</a>
+          <a href="#" @click="onChangeCover()">Make cover</a>
+          <a href="#" @click="onRemoveAtachment()">Delete</a>
         </div>
       </div>
     </div>
@@ -21,12 +21,22 @@ export default {
     attachment: {
       type: Object,
     },
-      idx: {
+    idx: {
       type: Number,
     },
   },
-  created() {
-    console.log(this.attachment)
+  methods: {
+    onChangeCover() {
+      let style = {
+        bgColor: "",
+        bgImgUrl: this.attachment,
+      }
+      this.$emit("makeCover", style)
+    },
+    onRemoveAtachment() {
+      let attachemntIdx = this.idx
+      this.$emit("removeAttachemnt", attachemntIdx)
+    },
   },
 }
 </script>

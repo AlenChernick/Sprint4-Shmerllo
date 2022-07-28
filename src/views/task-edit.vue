@@ -7,7 +7,6 @@
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
         <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
-        <pre>{{taskToEdit.style.bgImgUrl}}</pre>
           <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
         </div>
         <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
@@ -172,25 +171,8 @@
               </div>
             </div>
           </div>
-          <div class="main-editor-activity-contianer">
-            <div class="main-editor-activity-header">
-              <div class="main-editor-activity-header-info">
-                <span class="main-editor-activity-icon"></span>
-                <h4 class="main-editor-activity-title">Activity</h4>
-              </div>
-              <el-button class="outter-task-btn" type="info">Show details</el-button>
-            </div>
-            <div class="main-editor-activity-comments">
-              <span class="main-editor-activity-icon"><font-awesome-icon icon="fa-solid fa-user" /></span>
-              <textarea
-                @click="onWriteComment"
-                placeholder="Write a comment"
-                spellcheck="false"
-                class="main-editor-activity-comment"
-              >
-              </textarea>
-            </div>
-          </div>
+          <!-- <pre>{{askToEdit?.comments}}</pre> -->
+  <edit-task-activity  v-if ="taskToEdit?.comments" :comments="taskToEdit.comments" />
         </div>
         <edit-task-actions
           @toggleLabel="toggleLabel"
@@ -208,6 +190,7 @@
 <script>
 import editTaskActions from '../components/edit-task-actions.vue'
 import attachmentTaskEdit from '../components/attachment-task-edit.vue'
+import editTaskActivity from '../components/edit-task-activity.vue'
 
 import { utilService } from '../../services/util-service'
 import { FastAverageColor } from 'fast-average-color'
@@ -463,8 +446,17 @@ export default {
     onCheckListItemAdded(checkListId) {
       this.isCheckListItemAdded = checkListId
     },
-    removeAttachemnt({attachemnt,idx}){
-        console.log(attachemnt,idx)
+    removeAttachemnt(attachemntIdx){
+       this.taskToEdit.attachments.splice(attachemntIdx,1)
+       this.taskToEdit.style = {bgColor:'',bgImgUrl:''}
+          this.$store.dispatch({
+        type: 'saveTask',
+        task: this.taskToEdit,
+        groupId: this.groupId,
+        boardId: this.boardId,
+        userAction: 'Removed attachment',
+        taskTitle: this.taskToEdit.title,
+      })
     }
   },
   computed: {
@@ -501,6 +493,7 @@ export default {
   components: {
     editTaskActions,
     attachmentTaskEdit,
+    editTaskActivity,
   },
 }
 </script>

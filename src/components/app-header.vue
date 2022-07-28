@@ -55,7 +55,6 @@ export default {
       return this.$store.getters.getCurrBoard
     },
     getAvgColor() {
-      console.log(this.getCurrBoard)
       if(!this.getCurrBoard) {
         this.headerColor = '#026aa7'
         return 
