@@ -7,6 +7,10 @@
         :style="{ 'background-color': taskToEdit.style?.bgColor }"
       >
         <div class="task-edit-img-container" :style="{ 'background-color': getAvgColor }">
+<<<<<<< HEAD
+=======
+        <!-- <pre>{{taskToEdit.style.bgImgUrl}}</pre> -->
+>>>>>>> 63acac86ead05844d070871a4429b856f14b9045
           <img v-if="taskToEdit.style?.bgImgUrl" :src="taskToEdit.style.bgImgUrl" />
         </div>
         <div v-if="taskToEdit" class="close-task-edit" @click="backToBoard">
@@ -220,8 +224,9 @@ import editTaskActions from '../components/edit-task-actions.vue'
 import attachmentTaskEdit from '../components/attachment-task-edit.vue'
 
 import { utilService } from '../../services/util-service'
+import { userService } from '../../services/user-service'
 import { FastAverageColor } from 'fast-average-color'
-
+import { socketService, SOCKET_EMIT_TOGGELE_MEMBER} from '../../services/socket.service'
 export default {
   name: 'task-edit',
   data() {
@@ -390,15 +395,27 @@ export default {
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
-      const idx = members.findIndex((m) => m.id === member.id)
+      const idx = members.findIndex((m) => m._id === member._id)
       let userAction = ''
       if (idx === -1) {
-        userAction = 'Add member'
+        userAction = 'Added member'
         members.push(member)
       } else {
         members.splice(idx, 1)
         userAction = 'Removed member'
       }
+      const byUserId = userService.getLoggedInUser().fullname
+      const notification = {
+          mentionedUserId: member._id,
+          userAction,
+          taskTitle: this.taskToEdit.title,
+          byUserId,
+          time: Date.now(),
+          style: this.taskToEdit.style,
+      }
+      console.log('notification', notification)
+      
+      socketService.emit(SOCKET_EMIT_TOGGELE_MEMBER, notification)
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,

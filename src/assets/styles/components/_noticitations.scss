@@ -1,0 +1,127 @@
+.notifications{
+    width: 400px;
+    background-color: white;
+    height: fit-content;
+    position: fixed;
+    right: 0;
+    top: 50px;
+    border-radius: 3px;
+    padding: 5px;
+    overflow-y: auto;
+    
+
+    h4 {
+        text-align: center;
+        padding: em(12px);
+        margin: 5px;
+        font-size: em(18px);
+        font-weight: 600;
+        border-bottom: 1px solid lightgray;
+        color: $clr1;
+      }
+
+      h5{
+        padding: em(12px);
+        margin: 5px;
+        font-size: em(18px);
+        font-weight: 600;
+        color: $clr1;
+
+      }
+    
+    .close-icon {
+        font-weight: 400;
+        position: absolute;
+        right: 5px;
+        top: 10px;
+        font-family: trellicons;
+        font-size: em(24px);
+        color: $clr1;
+        cursor: pointer;
+        &::before {
+          content: '\e91c';
+        }
+    }
+
+
+
+    .notification-details {
+        box-shadow: 0 8px 16px -4px #091e4225, 0 0 0 1px #091e4214;
+        width: 97%;
+        margin: 10px auto;  
+        border-radius: 3px;
+        padding: 10px;
+        > * {
+          display: inline;
+          font-size: em(18px);
+          padding: em(3px);
+          margin: 0;
+          color: $clr1; 
+        }
+
+        h3 {
+          text-decoration: underline;
+        }
+
+        h4 {
+          border: none;
+        }
+
+        h5 {
+          font-weight: 700;
+        }
+
+        img{
+            height: 70px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        
+        p {
+            display: block;
+            border-radius: 3px;
+        }
+        
+    }
+    
+    .cover-color {
+        display: block;
+        height: 70px;
+        width: 100%;
+    }
+
+}
+
+.notification-btn {
+    width: fit-content;
+    background-color: transparent;
+    border: none;
+    color: $clr4;
+    margin: 0;
+    padding-right: 20px;
+    padding-top: 5px;
+    font-size: em(20px);
+    justify-self: right;
+    position: relative;
+
+    .new-notification{
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        background-color: goldenrod;
+        opacity: 0.8;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        text-align: center;
+        // display: flex;
+        // justify-content: center;
+        // align-content: center;
+
+
+
+    }
+
+
+}

@@ -6,8 +6,13 @@
       <img class="attachment-img" :src="attachment" alt="" />
       <div class="attachments-data flex flex-column">
         <div class="attachment-optinons flex">
+<<<<<<< HEAD
           <a href="#" @click="onChangeCover()">Make cover</a>
           <a href="#" @click="onRemoveAtachment()">Delete</a>
+=======
+          <!-- <a href="#" @click="$emit('makeCover',style:{bgColor:'',bgImgurl:attachment})">Make cover</a>
+          <a href="#" @click="$emit('removeAttachemnt',{obj:attachment,idx})">Delete</a> -->
+>>>>>>> 63acac86ead05844d070871a4429b856f14b9045
         </div>
       </div>
     </div>

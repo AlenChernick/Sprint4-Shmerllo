@@ -6,6 +6,8 @@ export default {
     currBoard: {},
     currTask: {},
     currGroup: {},
+    userNotifications: [],
+    newNotifications: 0,
   },
   getters: {
     getBoards({ boards }) {
@@ -19,6 +21,12 @@ export default {
     },
     getCurrGroup({ currGroup }) {
       return currGroup
+    },
+    getUserNotifications({userNotifications}){
+      return userNotifications
+    },
+    getNewNotifications({newNotifications}){
+      return newNotifications
     }
   },
   mutations: {
@@ -96,6 +104,13 @@ export default {
     },
     setBoardStyle(state, {style}){
       state.currBoard.style = style
+    },
+    addNotification(state, {notification}){
+      state.userNotifications.unshift(notification)
+      state.newNotifications++
+    },
+    cleanNotification(state){
+      state.newNotifications = 0
     }
   },
   actions: {
