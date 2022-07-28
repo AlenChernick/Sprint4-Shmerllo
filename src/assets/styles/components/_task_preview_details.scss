@@ -11,25 +11,25 @@
       border-radius: em(10px);
       font-size: em(12px);
       font-weight: 700;
-      height: 8px;
+      min-height: 8px;
+      max-height: 16px;
       line-height: 100px;
       margin: 0 4px 4px 0;
-      max-width: 40px;
       min-width: 40px;
+      max-width: fit-content;
       padding: 0;
       text-shadow: none;
-      width: auto;
     }
     .label-task-preview-full {
-      height: 20px;
-      min-width: 85px;
-      max-width: max-content;
+      height: 16px;
+      width: 100%;
       border-radius: 3px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-weight: 600;
       color: white;
+      font-size: 12px;
     }
   }
 

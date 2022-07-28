@@ -16,8 +16,12 @@
         @addCheckList="addCheckList"
         @setDate="setDate"
         @removeDate="removeDate"
+        @removeTask="removeTask"
       >
       </component>
+      <div class="archive-icon-container">
+        <div @click.stop="removeTask"><span class="archive-icon"></span>Archive</div>
+      </div>
     </div>
   </section>
 </template>
@@ -72,6 +76,9 @@ export default {
     },
     removeDate(dateValue) {
       this.$emit('removeDate', dateValue)
+    },
+    removeTask() {
+      this.$emit('removeTask')
     },
   },
   components: {
