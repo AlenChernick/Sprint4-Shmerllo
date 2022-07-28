@@ -1,6 +1,6 @@
 <template>
+    <!-- v-if="getCurrBoard" -->
   <header
-    v-if="getCurrBoard"
     class="app-header main-header full"
     :style="{ 'background-color': getHeaderColor, getAvgColor, transition: 'background-color 0.4s ' }"
   >
@@ -26,7 +26,7 @@ export default {
     return {
       isUserModalOpen: false,
       user: null,
-      headerColor: '',
+      headerColor: '#026aa7',
     }
   },
   methods: {
@@ -52,6 +52,7 @@ export default {
       return user.username.charAt(0)
     },
     getCurrBoard() {
+      console.log('from app header', this.$store.getters.getCurrBoard)
       return this.$store.getters.getCurrBoard
     },
     getAvgColor() {
@@ -64,8 +65,9 @@ export default {
           this.headerColor = color.hexa
         })
         .catch((e) => {
+          this.headerColor = '#026aa7'
           console.log(e)
-          throw err
+          // throw err
         })
     },
     getHeaderColor() {

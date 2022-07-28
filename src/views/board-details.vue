@@ -34,18 +34,19 @@ export default {
   },
 
   methods: {
-    updateBoard(board) {
-      const updatedBoard = JSON.stringify(JSON.parse(board))
-      this.$store.dispatch({ type: 'saveBoard', board: updatedBoard })
-    },
+    // updateBoard(board) {
+    //   const updatedBoard = JSON.stringify(JSON.parse(board))
+    //   this.$store.dispatch({ type: 'saveBoard', board: updatedBoard })
+    // },
     onUpdateBoard(board) {
-      const updatedBoard = JSON.stringify(JSON.parse(board))
-      this.$store.commit({ type: 'setCurrBoard', currBoard: updatedBoard })
+      // const updatedBoard = JSON.stringify(JSON.parse(board))
+      this.$store.commit({ type: 'setCurrBoard', currBoard: board })
     },
   },
   computed: {
     board() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+      // return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
     bgStyle() {
       if (this.board && this.board.style?.bgColor) return { 'background-color': this.board.style.bgColor }

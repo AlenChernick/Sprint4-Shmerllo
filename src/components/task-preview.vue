@@ -106,6 +106,9 @@ export default {
       this.saveTask('Edit title')
     },
     removeTask() {
+      console.log('taskId:', this.task.id,
+       ' groupId:', this.groupId,
+        'boardId:', this.boardToEdit._id,)
       this.$store.dispatch({
         type: 'removeTask',
         taskId: this.task.id,
