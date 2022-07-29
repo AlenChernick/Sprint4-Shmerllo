@@ -2,13 +2,17 @@ import { userService } from '../../../services/user-service.js'
 
 export default {
   state: {
-      // loggedInUser: userService.getLoggedInUser(),
-      user: userService.getLoggedInUser() || null,
+    // loggedInUser: userService.getLoggedInUser(),
+    user: userService.getLoggedInUser() || null,
+    guest: userService.getGuest() || null
   },
   getters: {
     loggedInUser({ user }) {
       return user
     },
+    guest({ guest }) {
+      return guest
+    }
     // users({ users }) {
     //   return users
     // },
@@ -16,28 +20,28 @@ export default {
   mutations: {
     setUser(state, { user }) {
       state.user = user
-  },
-  loggedOutUser(state) {
+    },
+    loggedOutUser(state) {
       state.user = null
-  }
+    }
   },
   actions: {
     async loginUser({ commit }, { user }) {
       try {
-          const setUser = await userService.setLogin(user)
-          commit({ type: 'setUser', user: setUser })
+        const setUser = await userService.setLogin(user)
+        commit({ type: 'setUser', user: setUser })
       } catch (err) {
-          console.log('cannot set user', err);
+        console.log('cannot set user', err);
       }
-  },
-  logout: async ({ commit }) => {
+    },
+    logout: async ({ commit }) => {
       try {
-          await userService.setLogout()
-          commit({ type: 'loggedOutUser'})
+        await userService.setLogout()
+        commit({ type: 'loggedOutUser' })
       } catch (err) {
-          console.log('cannot logout', err);
+        console.log('cannot logout', err);
       }
-  }
+    }
   },
 
 }
