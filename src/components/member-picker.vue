@@ -6,6 +6,7 @@
     <ul class="clean-list" v-for="member in membersToEdit">
       <li class="member-picker-list" @click.stop="toggleMember(member)">
         <img :src="member.imgUrl" />
+        <pre>{{member.id}}</pre>
         <h5>{{ member.fullname }}</h5>
       </li>
     </ul>
@@ -21,6 +22,7 @@ export default {
   },
   methods: {
     toggleMember(member) {
+      // console.log(member)
       this.$emit('toggleMember', member)
     },
     closeModal() {

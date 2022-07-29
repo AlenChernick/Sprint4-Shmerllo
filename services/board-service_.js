@@ -1148,7 +1148,7 @@ function _labelOptions() {
     {
       id: "l111",
       bgColor: "#00a8e8",
-      txt: "Take care togay",
+      txt: "Take care today",
     },
   ]
 }

@@ -32,7 +32,7 @@
         <div class="main-task-edit-container">
           <div v-if="taskToEdit" class="main-editor">
             <div v-if="taskToEdit.members?.length > 0" class="main-task-members-container">
-              <div class="main-task-members-header">Members</div>
+           <div class="main-task-members-header">Members</div>
               <div class="main-task-members">
                 <ul v-for="member in taskToEdit.members">
                   <li>
@@ -374,7 +374,7 @@ export default {
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
-      const idx = members.findIndex((m) => m._id === member._id)
+      const idx = members.findIndex((m) => m.id === member.id)
       let userAction = ''
       if (idx === -1) {
         userAction = 'Added member'
@@ -382,13 +382,14 @@ export default {
       } else {
         members.splice(idx, 1)
         userAction = 'Removed member'
+
       }
-      const byUserId = userService.getLoggedInUser().fullname
+      // const byUserId = 'Alon Kolker'
       const notification = {
         mentionedUserId: member._id,
         userAction,
         taskTitle: this.taskToEdit.title,
-        byUserId,
+        // byUserId,
         time: Date.now(),
         style: this.taskToEdit.style,
       }
@@ -485,7 +486,6 @@ export default {
       })
     },
     saveComment(comment) {
-      console.log(comment)
       let newComment = {
         id: utilService.makeId(),
         user: this.$store.getters.loggedInUser,
@@ -515,7 +515,6 @@ export default {
       })
     },
     onCheckListMenuToggle(todoId) {
-      console.log('todoId', todoId)
       this.checkListMenuToggle = todoId
     },
   },
@@ -528,6 +527,10 @@ export default {
     },
     getCurrGroup() {
       return JSON.parse(JSON.stringify(this.$store.getters.getCurrGroup))
+    },
+    getCurrUser(){
+     return JSON.parse(JSON.stringify(this.$store.getters.getLoggedInUser))
+
     },
     openTextArea() {
       return this.isEdit ? 'open-text-area' : ''
@@ -542,8 +545,8 @@ export default {
           this.taskToEdit.style.bgColor = color.hexa
         })
         .catch((e) => {
-          console.log(e)
-          throw err
+          console.log('Cant update color')
+          throw e
         })
     },
   },
