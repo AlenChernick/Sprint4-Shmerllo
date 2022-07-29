@@ -278,12 +278,11 @@ export default {
         throw err
       }
     },
-    async newBoard({ rootGetters ,dispatch }, { properties }) {
+    async newBoard({ rootGetters, dispatch }, { properties }) {
       let user = rootGetters.loggedInUser
-
       try {
         await boardService.newBoard(properties, user)
-          dispatch({ type: "loadBoards" })
+        dispatch({ type: "loadBoards" })
       } catch (err) {
         console.log("Cannot add new board")
       }

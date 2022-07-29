@@ -1,7 +1,8 @@
 .board-list {
   display: grid;
   text-align: center;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 305px));
+  grid-template-columns: repeat(auto-fit, minmax(em(100px), em(210px)));
+  grid-template-rows: em(114px);
   background-color: white;
   .add-new-board {
     display: flex;
@@ -9,11 +10,7 @@
     align-items: center;
     color: #172b4d;
     font-size: em(14px);
-    // background-position: 50%;
     background-color: rgb(243, 240, 240);
-    // background-color: rgb(174, 49, 49);
-
-    // background-size: cover;
     line-height: lh(20px);
     height: em(115px);
     width: em(225px);
@@ -24,7 +21,5 @@
     cursor: pointer;
     transition: filter 0.3s;
     border-radius: 3px;
-
   }
 }
-

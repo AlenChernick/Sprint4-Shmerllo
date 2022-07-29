@@ -4,12 +4,15 @@
   top: em(282px);
   text-transform: capitalize;
 
+  .search-img-input {
+    margin: 5px 10px 8px 10px;
+  }
+
   .cover-selection {
     display: flex;
     flex-wrap: wrap;
     justify-items: center;
     align-items: center;
-    justify-content: center;
     padding-bottom: 15px;
 
     .color-box {

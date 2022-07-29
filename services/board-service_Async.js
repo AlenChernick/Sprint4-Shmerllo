@@ -68,7 +68,7 @@ async function saveBoard(board) {
       const savedBoard = await httpService.put(`board/${board._id}`, board)
       socketService.emit(SOCKET_EVENT_BOARD_UPDATED, savedBoard)
       return savedBoard
-    } else{
+    } else {
       return await httpService.post(`board`, board)
     }
 
@@ -83,10 +83,10 @@ async function saveBoard(board) {
   // }
 }
 
-async function newBoard(properties,user) {
+async function newBoard(properties, user) {
   try {
-   const board =_createNewBoard(properties,user)
-saveBoard(board)
+    const board = _createNewBoard(properties, user)
+    saveBoard(board)
   } catch (err) {
     console.log("Cannot add board")
     throw err
@@ -352,7 +352,7 @@ function _getEmptyGroup() {
 }
 
 
-function _createNewBoard(properties,user) {
+function _createNewBoard(properties, user) {
   if (!user) {
     user = {
       id: 111,
@@ -364,24 +364,24 @@ function _createNewBoard(properties,user) {
   return {
     title: properties.title,
     style: {
-      bgImgUrl:properties.style.bgImgUrl,
+      bgImgUrl: properties.style.bgImgUrl,
       bgColor: properties.style.bgColor,
     },
     members: [
     ],
-    groups: [ ],
-    
+    groups: [],
+
     byMember: {
       id: user._id,
-      username:user.username,
-      fullname:user.fullname,
+      username: user.username,
+      fullname: user.fullname,
       imgUrl: user.imgUrl,
-      createdAt:Date.now() ,
+      createdAt: Date.now(),
     },
     isDemoBoard: true,
     isFavorite: false,
     activityCount: 0,
-    lastActivity:  Date.now() ,
+    lastActivity: Date.now(),
     boardLabels: _labelOptions(),
     isLabelsOpen: false,
   }
@@ -404,10 +404,6 @@ function getEmptyCheckList() {
 }
 
 function getEmptyActivity(user) {
-<<<<<<< HEAD
-=======
-
->>>>>>> b8464b5211a046077f9ba6dbe3ff5dffdfe9c126
   if (!user) {
     user = {
       id: 111,

@@ -1,7 +1,6 @@
 <template>
   <button @click="displayMenu = 'block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
   <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
-    <!-- <pre>{{activities}}</pre> -->
     <div class="menu-title">{{ pageTitle }}</div>
     <span @click="displayMenu = 'none'" class="close-icon"></span>
 
@@ -29,18 +28,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="activity-log">
-        <div class="activity-list" v-for="activity in activities">
-          <img v-if="activity.byMember.fullname !== 'Guest'" :src="activity.byMember?.imgUrl" />
-          <div v-else class="active-user">G</div>
-          <div class="activity-details">
-            <div class="activity-member-name">{{ activity.byMember.fullname + ' ' }}</div>
-            <div class="activity-txt">{{ activity.txt + ' ' }}</div>
-            <div class="activity-task-title">{{ activity.task.title }}</div>
-            <div class="activity-created-at">{{ timeFormat(activity.createdAt) }}</div>
-          </div>
-        </div>
-      </div> -->
     </div>
 
     <div :style="{ display: coverSelectionView }" class="board-cover-selection">
@@ -53,7 +40,7 @@
         @click="setBgColor(color)"
       ></div>
       <div class="seperator"></div>
-
+      <el-input class="search-img-input" placeholder="Search Photos" type="text" v-model="query" @input="fetchListOfPhotos()" />
       <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click="setBgImgUrl(imgUrl)" />
     </div>
   </section>
@@ -69,31 +56,42 @@ export default {
       coverSelectionView: 'none',
       coverOptions: {
         coverColors: ['#277da1', '#4d908e', '#fb6f92', '#90be6d', '#f9c74f', '#f9844a', '#00b4d8', '#3a5a40'],
-        coverImgs: [
-          'https://webneel.com/daily/sites/default/files/images/daily/08-2018/1-nature-photography-spring-season-mumtazshamsee.jpg',
-          'https://media.istockphoto.com/photos/the-sun-goes-down-behind-the-autumn-forest-picture-id1162998855?k=20&m=1162998855&s=612x612&w=0&h=JLbCH4hLaO5war1ipJXx7eoxXMdhcMXFO9pwXz1NR1Q=',
-          'https://wallpaperaccess.com/full/1131217.jpg',
-          'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/close-up-of-tulips-blooming-in-field-royalty-free-image-1584131603.jpg',
-          'https://media.istockphoto.com/photos/hydrangea-flowers-in-the-garden-picture-id927499422?k=20&m=927499422&s=612x612&w=0&h=9fZtBAXZ3I8qNRTi87SHTDEjbBjyn_eRoDoLAC7zVvg=',
-          'https://i.pinimg.com/originals/18/28/4e/18284ec99d85c9ee5afaf05baf77083a.jpg',
-          'https://media.istockphoto.com/photos/colored-ceiling-picture-id1208301897?k=20&m=1208301897&s=612x612&w=0&h=xXFlsJphxez3hgCYRxYmS7yxb5P4-HOtbnsjIVJSSWA=',
-          'https://assets.weforum.org/global_future_council/image/xALg-7b0WN5aLOY6aejbKW3NepG-PEipzKnEuyS8ZlI.jpeg',
-          'https://media.cntraveler.com/photos/5ca60f7f7b531a5e47949cde/master/w_4000,h_2400,c_limit/NYC_GettyImages-500619014.jpg',
-          'https://images.pexels.com/photos/460621/pexels-photo-460621.jpeg?auto=compress&cs=tinysrgb&w=1600',
-        ],
+        coverImgs: [],
       },
       pageTitle: 'Menu',
       style: {
         bgColor: '',
         bgImgUrl: '',
       },
+      accesKey: 'MW3WlTYHFpvQZJwkJp360WPZFpDiNui3_1sdi4VjuhY',
+      query: '',
+
       // activities: [],
     }
   },
   created() {
-    //  this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+    this.fetchListOfPhotos()
   },
+
   methods: {
+    async fetchListOfPhotos() {
+      try {
+        const query = this.query
+        const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
+        const json = await response.json()
+        const imgUrls = json.results.forEach((img) => {
+          const imgUrl = img.urls.regular
+          if (this.coverOptions.coverImgs.length > 15) {
+            return (this.coverOptions.coverImgs = [])
+          } else {
+            return this.coverOptions.coverImgs.push(imgUrl)
+          }
+        })
+      } catch (err) {
+        console.log('Cannot load photos', err)
+        throw err
+      }
+    },
     openCoverSelection() {
       this.activityView = 'none'
       this.coverSelectionView = 'block'

@@ -49,7 +49,8 @@ export default {
       // return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
     },
     bgStyle() {
-      if (this.board && this.board.style?.bgColor) return { 'background-color': this.board.style.bgColor }
+      if (this.board && this.board.style?.bgColor)
+        return { 'background-color': this.board.style.bgColor, 'background-size': 'cover' }
       if (this.board && this.board.style?.bgImgUrl) return { 'background-image': `url(${this.board.style.bgImgUrl})` }
     },
   },

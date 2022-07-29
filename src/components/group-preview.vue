@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div @change.prevent class="group-header flex">
+    <div class="group-header flex">
       <div class="group-subject-header">
-        <input type="text" v-model="group.title" @input="onSaveGroup(group.id)" />
+        <input type="text" v-model="group.title" @change="onSaveGroup(group.id)" />
       </div>
       <div class="group-dots-options-box">
         <span class="group-dots-options" @click="groupOptionsModal = !groupOptionsModal"></span>
