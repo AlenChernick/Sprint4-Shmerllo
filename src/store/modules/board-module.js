@@ -22,12 +22,12 @@ export default {
     getCurrGroup({ currGroup }) {
       return currGroup
     },
-    getUserNotifications({userNotifications}){
+    getUserNotifications({ userNotifications }) {
       return userNotifications
     },
-    getNewNotifications({newNotifications}){
+    getNewNotifications({ newNotifications }) {
       return newNotifications
-    }
+    },
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -55,9 +55,7 @@ export default {
       state.currBoard = board
     },
     saveGroup(state, { savedGroup }) {
-      const idx = state.currBoard.groups.findIndex(
-        (g) => g.id === savedGroup.id
-      )
+      const idx = state.currBoard.groups.findIndex((g) => g.id === savedGroup.id)
       if (idx !== -1) {
         state.currBoard.groups.splice(idx, 1, savedGroup)
       } else {
@@ -70,12 +68,8 @@ export default {
     },
     saveTask(state, { savedTask, groupId }) {
       // state.currBoard = currBoard
-      const groupIdx = state.currBoard.groups.findIndex(
-        (group) => group.id === groupId
-      )
-      const taskIdx = state.currBoard.groups[groupIdx].tasks.findIndex(
-        (task) => task.id === savedTask.id
-      )
+      const groupIdx = state.currBoard.groups.findIndex((group) => group.id === groupId)
+      const taskIdx = state.currBoard.groups[groupIdx].tasks.findIndex((task) => task.id === savedTask.id)
       // const boardIdx = state.boards.findIndex((board) => board._id === boardId)
       if (taskIdx !== -1) {
         // state.boards[boardIdx].groups[groupIdx].tasks.splice(taskIdx, 1, savedTask)
@@ -88,30 +82,28 @@ export default {
     },
     removeGroup(state, { groupId, boardId }) {
       const boardIdx = state.boards.findIndex((board) => board._id === boardId)
-      const groupIdx = state.boards[boardIdx].groups.findIndex(
-        (group) => group.id === groupId
-      )
+      const groupIdx = state.boards[boardIdx].groups.findIndex((group) => group.id === groupId)
       state.boards[boardIdx].groups.splice(groupIdx, 1)
       state.currBoard = state.boards[boardIdx]
     },
-    removeTask(state, {  taskId, groupId }) {  
-      console.log(taskId, groupId)   
+    removeTask(state, { taskId, groupId }) {
+      console.log(taskId, groupId)
       let group = state.currBoard.groups.find((group) => group.id === groupId)
       console.log(group)
       const taskIdx = group.tasks.findIndex((t) => t.id === taskId)
       console.log(taskIdx)
       group.tasks.splice(taskIdx, 1)
     },
-    setBoardStyle(state, {style}){
+    setBoardStyle(state, { style }) {
       state.currBoard.style = style
     },
-    addNotification(state, {notification}){
+    addNotification(state, { notification }) {
       state.userNotifications.unshift(notification)
       state.newNotifications++
     },
-    cleanNotification(state){
+    cleanNotification(state) {
       state.newNotifications = 0
-    }
+    },
   },
   actions: {
     async loadBoards({ commit }) {
@@ -135,7 +127,7 @@ export default {
     async saveBoard({ commit }, { board }) {
       try {
         const savedBoard = await boardService.saveBoard(board)
-        console.log('save board', savedBoard)
+        console.log("save board", savedBoard)
         commit({ type: "saveBoard", board: savedBoard })
       } catch (err) {
         console.log("Cannot save board", err)
@@ -154,11 +146,7 @@ export default {
     },
     async getTaskById({ commit }, { boardId, groupId, taskId }) {
       try {
-        const currTask = await boardService.getTaskById(
-          boardId,
-          groupId,
-          taskId
-        )
+        const currTask = await boardService.getTaskById(boardId, groupId, taskId)
         commit({ type: "setCurrTask", currTask })
         return currTask
       } catch (err) {
@@ -168,10 +156,7 @@ export default {
     },
     async getGroupById({ commit }, { boardId, groupId }) {
       try {
-        const currGroup = await boardService.getGroupById(
-          boardId,
-          groupId,
-        )
+        const currGroup = await boardService.getGroupById(boardId, groupId)
         commit({ type: "setCurrGroup", currGroup })
         return currGroup
       } catch (err) {
@@ -179,20 +164,10 @@ export default {
         throw err
       }
     },
-    async saveTask(
-      { commit, state, dispatch, rootGetters },
-      { task = null, taskTitle = "", groupId, boardId, userAction = "" }
-    ) {
+    async saveTask({ commit, state, dispatch, rootGetters }, { task = null, taskTitle = "", groupId, boardId, userAction = "" }) {
       let user = rootGetters.loggedInUser
       try {
-        const currBoard = await boardService.saveTask(
-          task,
-          taskTitle,
-          groupId,
-          boardId,
-          userAction,
-          user,
-        )
+        const currBoard = await boardService.saveTask(task, taskTitle, groupId, boardId, userAction, user)
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
         console.log("Cannot save task", err)
@@ -200,9 +175,9 @@ export default {
       }
     },
     async removeTask({ commit }, { taskId, groupId, boardId }) {
-      console.log( taskId, groupId, boardId)
+      console.log(taskId, groupId, boardId)
       try {
-        commit({ type: "removeTask",taskId, groupId, boardId})
+        commit({ type: "removeTask", taskId, groupId, boardId })
         const currBoard = await boardService.removeTask(taskId, groupId, boardId)
         commit({ type: "setCurrBoard", currBoard })
       } catch (err) {
@@ -210,11 +185,8 @@ export default {
         throw err
       }
     },
-    async saveGroup(
-      { commit, state },
-      { group = null, groupId, boardId, subject = null }
-    ) {
-     if(!boardId) boardId = state.currBoard._id
+    async saveGroup({ commit, state }, { group = null, groupId, boardId, subject = null }) {
+      if (!boardId) boardId = state.currBoard._id
       // async saveGroup({ commit }, { group,groupId, boardId }) {
       try {
         const savedGroup = await boardService.saveGroup(group, boardId, subject)
@@ -249,12 +221,10 @@ export default {
         let board = JSON.parse(JSON.stringify(state.currBoard))
         dispatch({ type: "saveBoard", board })
 
-
         // setTimeout(() => {
         //   let board = JSON.parse(JSON.stringify(state.currBoard))
         //   dispatch({ type: "saveBoard", board })
         // }, 500);
-
 
         //FROM TODAY
         // const boardId = state.currBoard._id
@@ -277,10 +247,10 @@ export default {
     },
     async removeGroup({ commit }, { groupId, boardId }) {
       try {
-      let board = await boardService.removeGroup(groupId, boardId)
-      commit({ type: "saveBoard", board })
+        let board = await boardService.removeGroup(groupId, boardId)
+        commit({ type: "saveBoard", board })
 
-      // commit({ type: "removeGroup", groupId, boardId })
+        // commit({ type: "removeGroup", groupId, boardId })
       } catch (err) {
         console.log("Cannot remove group", err)
         throw err
@@ -288,7 +258,7 @@ export default {
     },
     async setBoardStyle({ commit, state, dispatch }, { style }) {
       try {
-        commit ({type:"setBoardStyle", style})
+        commit({ type: "setBoardStyle", style })
         let board = JSON.parse(JSON.stringify(state.currBoard))
         board.style = style
         console.log(board)
@@ -306,6 +276,16 @@ export default {
       } catch (err) {
         console.log("Cannot change style", err)
         throw err
+      }
+    },
+    async newBoard({ rootGetters ,dispatch }, { properties }) {
+      let user = rootGetters.loggedInUser
+
+      try {
+        await boardService.newBoard(properties, user)
+          dispatch({ type: "loadBoards" })
+      } catch (err) {
+        console.log("Cannot add new board")
       }
     },
   },

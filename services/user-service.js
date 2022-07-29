@@ -34,7 +34,6 @@ function _getUrlAuth(id = '') {
 
 function getLoggedInUser() {
     const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY))
-    console.log(user)
     return user
 }
 

@@ -1,0 +1,72 @@
+.new-board-modal {
+  position: fixed;
+  // height: 800px;
+  z-index: 20;
+  width: 310px;
+  background-color: white;
+  border: 1px solid rgb(164, 169, 155);
+  border-radius: 3px;
+  bottom: 0%;
+  right: 20%;
+  // display: flex;
+  // flex-wrap: wrap;
+  .new-board-modal-container {
+    max-width: 310px;
+    .main-title {
+      margin-inline-start: 100px;
+    }
+    .new-board-create-btn {
+      margin-inline-start: 130px;
+    }
+    .title {
+      margin-inline-start: 10px;
+    }
+    .new-board-modal-bg-picker {
+      .color-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-inline-start: 8px;
+        .color-box {
+          width: 40px;
+          height: 34px;
+          margin: 10px 4px;
+          margin-bottom: 0;
+          border-radius: 3px;
+          background-color: rgb(53, 34, 10);
+          // display: inline-block;
+          cursor: pointer;
+        }
+      }
+      .img-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-inline-start: 14px;
+
+        img {
+          width: 64px;
+          height: 42px;
+          margin: 3px;
+          margin-bottom: 2px;
+          border-radius: 3px;
+          background-color: rgb(53, 34, 10);
+          // display: inline-block;
+          cursor: pointer;
+        }
+      }
+    }
+    .seperator {
+      height: 5px;
+      width: 100%;
+      border-bottom: 1px solid lightgray;
+      margin: 10px;
+    }
+
+    .board-title-input {
+      display: flex;
+      width: 280px;
+      height: 35px;
+      margin-inline-start: 13.5px;
+      //   outline: 1px solid blue;
+    }
+  }
+}
