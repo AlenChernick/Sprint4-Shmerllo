@@ -50,25 +50,25 @@ export default {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
     },
-    getAvgColor() {
-      if (!this.getCurrBoard) {
-        this.headerColor = '#026aa7'
-        return
-      }
-      if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
-      const imgUrl = this.getCurrBoard.style.bgImgUrl
-      const fac = new FastAverageColor()
-      fac
-        .getColorAsync(imgUrl)
-        .then((color) => {
-          console.log(color)
-          this.headerColor = color.hexa
-        })
-        .catch((e) => {
+    getCurrGroup() {
+      return this.$store.getters.getCurrGroup
+    },
+    async getAvgColor() {
+      try {
+        if (!this.getCurrBoard && !this.getCurrGroup) {
           this.headerColor = '#026aa7'
-          console.log(e)
-          // throw err
-        })
+          return
+        }
+        if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
+        const imgUrl = this.getCurrBoard.style.bgImgUrl
+        const fac = new FastAverageColor()
+        const color = await fac.getColorAsync(imgUrl)
+        this.headerColor = color.hexa
+      } catch (err) {
+        this.headerColor = '#026aa7'
+        console.log('Cannot load avg color', err)
+        throw err
+      }
     },
     getHeaderColor() {
       return this.headerColor

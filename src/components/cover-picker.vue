@@ -11,7 +11,14 @@
         @click.stop="setBgColor(color)"
       ></div>
       <div class="seperator"></div>
-      <el-input class="search-img-input" placeholder="Search Photos" type="text" v-model="query" @input="fetchListOfPhotos()" />
+      <el-input
+        class="search-img-input"
+        placeholder="Search Photos"
+        type="text"
+        v-model="query"
+        @click.stop
+        @input="fetchListOfPhotos()"
+      />
       <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click.stop="setBgImgUrl(imgUrl)" />
     </div>
   </section>
@@ -44,17 +51,14 @@ export default {
       query: '',
     }
   },
-  created() {
-    this.fetchListOfPhotos()
-  },
   methods: {
     async fetchListOfPhotos() {
       try {
-        const query = this.query
+        let query = this.query
         const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
-        const json = await response.json()
-        const imgUrls = json.results.forEach((img) => {
-          const imgUrl = img.urls.regular
+        let json = await response.json()
+        await json.results.forEach((img) => {
+          const imgUrl = img.urls.full
           if (this.coverOptions.coverImgs.length > 15) {
             return (this.coverOptions.coverImgs = [])
           } else {
@@ -63,7 +67,7 @@ export default {
         })
       } catch (err) {
         console.log('Cannot load photos', err)
-        throw err
+        // throw err
       }
     },
     setBgColor(color) {

@@ -1,5 +1,11 @@
 <template>
-  <button @click="displayMenu = 'block'" class="board-header-btn"><span class="menu-icon"></span>Show menu</button>
+  <button
+    :style="{ color: getTxtColor, getAvgColor, transition: 'background-color 0.4s ' }"
+    @click="displayMenu = 'block'"
+    class="board-header-btn"
+  >
+    <span class="menu-icon"></span>Show menu
+  </button>
   <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
     <div class="menu-title">{{ pageTitle }}</div>
     <span @click="displayMenu = 'none'" class="close-icon"></span>
@@ -47,6 +53,8 @@
 </template>
 <script>
 import moment from 'moment'
+import { FastAverageColor } from 'fast-average-color'
+
 export default {
   name: 'board-menu',
   data() {
@@ -65,22 +73,19 @@ export default {
       },
       accesKey: 'MW3WlTYHFpvQZJwkJp360WPZFpDiNui3_1sdi4VjuhY',
       query: '',
+      txtColor: '',
 
       // activities: [],
     }
   },
-  created() {
-    this.fetchListOfPhotos()
-  },
-
   methods: {
     async fetchListOfPhotos() {
       try {
-        const query = this.query
+        let query = this.query
         const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
-        const json = await response.json()
-        const imgUrls = json.results.forEach((img) => {
-          const imgUrl = img.urls.regular
+        let json = await response.json()
+        await json.results.forEach((img) => {
+          const imgUrl = img.urls.full
           if (this.coverOptions.coverImgs.length > 15) {
             return (this.coverOptions.coverImgs = [])
           } else {
@@ -89,7 +94,7 @@ export default {
         })
       } catch (err) {
         console.log('Cannot load photos', err)
-        throw err
+        // throw err
       }
     },
     openCoverSelection() {
@@ -120,6 +125,25 @@ export default {
     activities() {
       return this.$store.getters.getCurrBoard.activities
       // return JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+    },
+    async getAvgColor() {
+      try {
+        const imgUrl = await this.getCurrBoard.style.bgImgUrl
+        const fac = new FastAverageColor()
+        const color = await fac.getColorAsync(imgUrl)
+        console.log(color)
+        if (color.isLight) this.txtColor = '#000000'
+        else this.txtColor = '#fff'
+      } catch (err) {
+        console.log('Cannot load avg color', err)
+        throw err
+      }
+    },
+    getTxtColor() {
+      return this.txtColor
+    },
+    getCurrBoard() {
+      return this.$store.getters.getCurrBoard
     },
   },
 }
