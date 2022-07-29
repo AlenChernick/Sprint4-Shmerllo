@@ -1,6 +1,7 @@
 <template>
   <div class="new-board-modal">
-    <div class="redbig">blaaslfsdg</div>
+    
+    
   </div>
 </template>
 <script>
@@ -13,4 +14,3 @@ export default {
   },
 }
 </script>
-<style lang=""></style>

@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 <template lang="">
   <div class="attachments-conteiner flex clex column">
-=======
-<template>
-  <div class="main-editor-attachments">
->>>>>>> 081ec6b7ec3018f2f31a572170c53d2a5e1f6b9d
+<!-- <template>
+  <div class="main-editor-attachments"> -->
     <span class="attachment-icon"></span>
     <h4 class="main-editor-attachments-title">Attachments</h4>
   </div>
