@@ -128,7 +128,7 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction) {
 
     //DET GROUP
     let group = await getGroupById(boardId, groupId)
-  
+
     //addTask
     if (!task.id) {
       task.id = utilService.makeId()

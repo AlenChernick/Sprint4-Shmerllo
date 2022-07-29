@@ -7,12 +7,8 @@
       <Datepicker class="date-picker-input" v-model="dateValue" inline autoApply />
       <!-- <el-date-picker v-model="dateValue" type="date" placeholder="Pick a day" /> -->
       <div class="date-picker-btn-container">
-        <el-button class="save-btn confirm-btn" type="primary" @click="setDate" @click.stop="closeModal"
-          >Save</el-button
-        >
-        <el-button class="btn outter-task-btn" type="info" @click="removeDate" @click.stop="closeModal"
-          >Remove</el-button
-        >
+        <el-button class="save-btn confirm-btn" type="primary" @click="setDate" @click.stop="closeModal">Save</el-button>
+        <el-button class="btn outter-task-btn" type="info" @click="removeDate" @click.stop="closeModal">Remove</el-button>
       </div>
     </div>
     <!-- </div> -->

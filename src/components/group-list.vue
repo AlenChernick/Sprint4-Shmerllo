@@ -23,7 +23,7 @@
             cols="30"
             rows="1"
             class="new-group-text-area"
-            placeholder="Enter list titile..."
+            placeholder="Enter list title..."
             v-model="newGroupSubject"
           ></textarea>
           <div class="new-task-add-remove-conteiner flex">

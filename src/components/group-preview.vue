@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="group-header flex">
+    <div @change.prevent class="group-header flex">
       <div class="group-subject-header">
         <input type="text" v-model="group.title" @input="onSaveGroup(group.id)" />
       </div>
@@ -14,7 +14,7 @@
     </div>
     <div>
       <div>
-        <task-list    @moveTasks="replaceTasks" :tasks="group.tasks" :groupId="group.id" />
+        <task-list @moveTasks="replaceTasks" :tasks="group.tasks" :groupId="group.id" />
       </div>
       <div v-if="!newTaskModal" class="task-adding-conteiner flex" @click="newTaskModal = !newTaskModal">
         <div class="task-adding-btn">
@@ -26,9 +26,7 @@
       <div class="new-task-container" v-else>
         <textarea class="new-task-area" placeholder="Enter a title for this card..." v-model="taskTitle"></textarea>
         <div class="new-task-add-remove-container flex">
-          <el-button class="trello-add-btn confirm-btn" type="primary" @click="oneNewTask(group.id)"
-            >Add Card</el-button
-          >
+          <el-button class="trello-add-btn confirm-btn" type="primary" @click="oneNewTask(group.id)">Add Card</el-button>
           <span class="cancel-add-task" @click="newTaskModal = !newTaskModal"></span>
         </div>
       </div>
@@ -81,11 +79,10 @@ export default {
       const boardId = this.currBoard._id
       this.$store.dispatch({ type: 'removeGroup', groupId, boardId })
     },
-        replaceTasks(tasks) {
-  
+    replaceTasks(tasks) {
       let group = JSON.parse(JSON.stringify(this.group))
       // group.tasks = tasks
-      this.$emit("updateGroup",{ info:{tasks,group}})
+      this.$emit('updateGroup', { info: { tasks, group } })
     },
   },
 

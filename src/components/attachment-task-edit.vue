@@ -1,7 +1,5 @@
-<template lang="">
-  <div class="attachments-conteiner flex clex column">
-<!-- <template>
-  <div class="main-editor-attachments"> -->
+<template>
+  <div class="main-editor-attachments">
     <span class="attachment-icon"></span>
     <h4 class="main-editor-attachments-title">Attachments</h4>
   </div>
@@ -39,8 +37,8 @@ export default {
     },
     onRemoveAtachment() {
       let attachemntIdx = this.idx
-      console.log(attachemntIdx);
-      this.$emit("removeAttachemnt", attachemntIdx)
+      console.log(attachemntIdx)
+      this.$emit('removeAttachemnt', attachemntIdx)
     },
   },
   methods: {

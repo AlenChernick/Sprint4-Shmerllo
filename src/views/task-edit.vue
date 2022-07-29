@@ -19,7 +19,6 @@
       <div v-else class="close-task-edit-no-img" @click="backToBoard">
         <span class="close-task-edit-no-img-icon"></span>
       </div>
-      <!-- <pre>{{ getCurrTask.style }}</pre> -->
       <div class="task-edit-header">
         <span class="task-edit-header-icon"></span>
         <input @input="saveTask" spellcheck="false" v-model="taskToEdit.title" type="text" />
@@ -45,8 +44,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- <The labels per task are here: /> -->
             <div v-if="taskToEdit.labelIds?.length > 0" class="label-preview-container">
               <div class="label-preview-header">Labels</div>
               <div class="labels-preview-list">
@@ -60,8 +57,6 @@
                 </div>
               </div>
             </div>
-            <!-- /// -->
-
             <div v-if="taskToEdit.dueDate !== ''" class="main-editor-dates">
               <div class="main-task-dates-header">Due date</div>
               <div class="main-editor-date-picker">
@@ -73,7 +68,6 @@
                   :full-month-name="false"
                   :inline="false"
                 />
-                <!-- <datepicker full-month-name="true" :inline="false"></datepicker> -->
               </div>
             </div>
           </div>
@@ -130,7 +124,6 @@
               >
             </div>
             <div class="checklist-progressbar-contianer">
-   
               <el-progress
                 :percentage="doneTodos(checklist)"
                 :class="{ 'checklist-progressbar': notDoneTodos, done: isDoneTodos }"
@@ -229,7 +222,7 @@ export default {
         todoTitle: '',
         isDone: false,
       },
-      paragraphTxt: "",
+      paragraphTxt: '',
       isDoneTodos: false,
       notDoneTodos: true,
     }
