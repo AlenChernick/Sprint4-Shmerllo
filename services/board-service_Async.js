@@ -404,10 +404,6 @@ function getEmptyCheckList() {
 }
 
 function getEmptyActivity(user) {
-<<<<<<< HEAD
-=======
-
->>>>>>> b8464b5211a046077f9ba6dbe3ff5dffdfe9c126
   if (!user) {
     user = {
       id: 111,
