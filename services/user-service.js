@@ -10,6 +10,7 @@ export const userService = {
     setLogin,
     getLoggedInUser,
     setLogout,
+    getGuest
 }
 
 function _getUrl(id = '') {  /* TODO */
@@ -32,16 +33,25 @@ function _getUrlAuth(id = '') {
 }
 
 function getLoggedInUser() {
-    const user =  JSON.parse(sessionStorage.getItem(STORAGE_KEY))
+    const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY))
     console.log(user)
     return user
+}
+
+function getGuest() {
+    return {
+        username: "Guest",
+        fullname: "Guest",
+        password: "123",
+        comments: [],
+    }
 }
 
 
 async function setLogin(userCred) {
     try {
         const res = await axios.post(_getUrlAuth() + 'login', userCred)
-        const user= res.data
+        const user = res.data
         socketService.login(user._id)
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user))
         return user
@@ -55,7 +65,7 @@ async function setLogout() {
         await axios.post(_getUrlAuth() + 'logout')
         socketService.logout()
         sessionStorage.clear()
-        
+
     } catch (err) {
         console.log('cannot set user login', err)
     }

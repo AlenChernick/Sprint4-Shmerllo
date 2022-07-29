@@ -1,0 +1,59 @@
+.main-editor-attachments {
+  display: flex;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+  align-items: center;
+
+  .main-editor-attachments-title {
+    margin-top: 1rem;
+    margin-inline-start: 0.6rem;
+    justify-items: center;
+  }
+  .attachment-icon {
+    padding-right: em(5px);
+    padding-top: em(1px);
+    font-family: trellicons;
+    font-size: em(22px);
+    &::before {
+      content: '\e908';
+    }
+  }
+}
+.main-edtior-attacment-info {
+  display: flex;
+  .main-edtior-img-name {
+    width: 360px;
+    word-wrap: break-word;
+    font-size: 14px;
+    font-family: $font;
+    font-weight: 700;
+    margin-inline-start: 1rem;
+  }
+  .attachment-options {
+    display: flex;
+    margin-inline-start: 1rem;
+    .attachment-cover-icon {
+      margin-top: em(1px);
+      margin-inline-end: 0.4rem;
+      font-family: trellicons;
+      font-size: em(16px);
+      &::before {
+        content: '\e914';
+      }
+    }
+    .attachment-option-cover {
+      margin-inline-end: 0.5rem;
+    }
+  }
+  img {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: em(3px);
+    height: em(80px);
+    width: em(112px);
+    z-index: 1;
+    margin-inline-start: 2rem;
+  }
+}

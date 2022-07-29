@@ -4,11 +4,11 @@
       <span class="full-star-icon"></span>
       <h3>Starred workspaces</h3>
       <h5 v-if="!starredBoards.length">No starred boards yet...</h5>
-      <board-list :boards="starredBoards" />
+      <board-list :staredBoard="true" :boards="starredBoards" />
     </div>
     <h3 class="workspace-logo"><font-awesome-icon class="workspace-icon" icon="fab fa-trello" />Your workspaces</h3>
-    <board-list :boards="nonStarredBoards" />
-  </section>
+    <board-list :staredBoard="false" :boards="nonStarredBoards" />
+      </section>
 </template>
 <script>
 import boardList from '../components/board-list.vue'

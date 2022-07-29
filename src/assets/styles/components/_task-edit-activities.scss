@@ -1,46 +1,114 @@
- 
- 
- .active-user {
-    background-color: rgb(28, 133, 28);
-    color: rgb(236, 228, 228);
-    border-radius: 50%;
-    height: 32px;
-    width: 32px;
-    line-height: 32px;
+.active-user {
+  background-color: rgb(28, 133, 28);
+  color: rgb(236, 228, 228);
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  display: flex;
+  justify-content: center;
+  margin-inline-end: em(9px);
+  font-weight: 500;
+  cursor: pointer;
+  // position:absolute;
+}
+
+.main-editor-activity-contianer {
+  margin-bottom: 20px;
+  .main-editor-show-details {
+    margin-top: em(15px);
+  }
+}
+
+.main-editor-activity-comments {
+  margin-top: em(1px);
+  display: flex;
+  .main-edtior-activity-comment {
     display: flex;
-    justify-content: center;
-    margin-inline-end: em(9px);
-    font-weight: 500;
-    cursor: pointer;
-    // position:absolute;
-  }
-
-  .task-activity-comment{
-    width: 520px;
+    flex-direction: column;
+    margin-left: em(10px);
+    width: 95%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
     background-color: white;
-    min-height: 50px;
-    padding: 10px 10px 10px 10px;
+    resize: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
+    textarea {
+      margin: 5px 0 -20px 8px;
+      word-wrap: break-word;
+      resize: none;
+      border: none;
+      outline: none;
+      font-size: em(14px);
+      font-weight: 400;
+      color: #172b4d;
+      font-family: $font;
+      background-color: white;
+    }
 
+    .task-edit-comment-btns {
+      margin-inline-start: 0.5rem;
+      margin-block-end: 0.5rem;
+    }
+  }
+  .open-text-area {
+    height: em(70px);
+  }
+  .main-editor-activity-icon {
+    display: flex;
+    align-items: center;
   }
 
-
-
-  .main-editor-activity-contianer{
-    margin-bottom: 20px;
-    
+  .main-edior-activity-user-icon {
+    border-radius: 25em;
+    height: 32px;
+    object-fit: cover;
+    width: 32px;
   }
 
-
-
-  .main-editor-activity-comments{
-    position: relative;
-      .open-text-area {
-        height: em(150px);
-      }
-      .task-edit-comment-btns{
-        background-color: white;
-        justify-content: center;
-      }
-    
-  
+  .task-edit-comment-btns {
+    background-color: white;
+    justify-content: center;
   }
+}
+
+.task-activity-list {
+  display: flex;
+  .task-activity-info {
+    margin-bottom: em(10px);
+  }
+  .task-activity-user {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: $font;
+    margin-inline-start: 0.2rem;
+    margin-block-end: 0.1rem;
+  }
+  .task-activity-comment {
+    width: 503px;
+    max-width: 503px;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    resize: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    box-shadow: 0 1px 2px -1px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    padding: 6px 8px 5px 8px;
+    margin-bottom: em(1px);
+  }
+  .task-activity-delete {
+    margin-bottom: 10px;
+    font-size: 13px;
+    margin-inline-start: em(2px);
+    color: #5e6c84;
+  }
+}
