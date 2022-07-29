@@ -5,16 +5,9 @@
     /></span>
     <div class="task-preview-img" v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
-      <!-- <pre @click.stop="getAvgColor(task.style.bgImgUrl)">{{ task.style.bgImgUrl }}</pre> -->
     </div>
-    <div
-      v-else-if="task.style?.bgColor"
-      class="prev-task-color"
-      :style="{ 'background-color': task.style.bgColor }"
-    ></div>
+    <div v-else-if="task.style?.bgColor" class="prev-task-color" :style="{ 'background-color': task.style.bgColor }"></div>
     <task-preview-details :task="task" :key="task.id" />
-
-    <!-- Tal's part -->
 
     <div @click.stop="quickEditDisplay = 'none'" class="quickEditScreen" :style="{ display: quickEditDisplay }"></div>
 
@@ -41,8 +34,6 @@
           @addAttachment="addAttachment"
         >
         </component>
-
-        <!-- <button @click.stop="removeTask"><span class="archive-icon"></span>Archive</button> -->
       </div>
       <div class="save-button">
         <button @click.stop="editTitle">Save</button>
@@ -105,18 +96,6 @@ export default {
     editTitle() {
       this.saveTask('Edit title')
     },
-    // removeTask() {
-    //   console.log('taskId:', this.task.id,
-    //    ' groupId:', this.groupId,
-    //     'boardId:', this.boardToEdit._id,)
-    //   this.$store.dispatch({
-    //     type: 'removeTask',
-    //     taskId: this.task.id,
-    //     groupId: this.groupId,
-    //     boardId: this.boardToEdit._id,
-    //   })
-    //   this.$router.push(`/board/${this.boardToEdit._id}`)
-    // },
     openModal(cmpType) {
       this.cmpType = cmpType
     },

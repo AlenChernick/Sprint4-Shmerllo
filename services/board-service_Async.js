@@ -176,7 +176,6 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction, user) {
     task = _createTask()
     task.title = taskTitle
   }
-
   try {
     //GET BOARD
     let board = await getBoardById(boardId)
@@ -200,15 +199,10 @@ async function saveTask(task, taskTitle, groupId, boardId, userAction, user) {
     //update group
     const groupIdx = board.groups.findIndex((g) => g.id === groupId)
     board.groups.splice(groupIdx, 1, group)
-    board = addActivity(board, task, userAction, user)
 
+    board = addActivity(board, task, userAction, user)
     return await saveBoard(board)
 
-    // const savedTask = await getTaskById(boardId, groupId, task.id)
-    // const updatedBoard = await getBoardById(boardId)
-
-    // return savedTask
-    return updatedBoard
   } catch (err) {
     console.log("cannot save task", err)
     throw err
@@ -410,6 +404,10 @@ function getEmptyCheckList() {
 }
 
 function getEmptyActivity(user) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> b8464b5211a046077f9ba6dbe3ff5dffdfe9c126
   if (!user) {
     user = {
       id: 111,

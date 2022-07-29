@@ -1,17 +1,13 @@
 <template>
-    <!-- v-if="getCurrBoard" -->
   <header
     class="app-header main-header full"
     :style="{ 'background-color': getHeaderColor, getAvgColor, transition: 'background-color 0.4s ' }"
   >
-    <!-- <div :style="{ 'background-color': getAvgColor }">hey</div> -->
-    <!-- {{ getCurrBoard.style.bgImgUrl }} -->
-    <!-- <router-link class="home-page-btn" to="/"><img src="../assets/img/logo.png" alt="logo" /></router-link> -->
     <div class="home-page-btn" @click="goToHomePage">
       <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
     </div>
     <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
-    <notifications/>
+    <notifications />
     <div class="active-user-conteiner">
       <div class="active-user" @click="isUserModalOpen = !isUserModalOpen">{{ getActiveUser }}</div>
       <user-options v-if="isUserModalOpen" @closeModal="closeModal" :user="user"></user-options>
@@ -28,7 +24,7 @@ export default {
     return {
       isUserModalOpen: false,
       user: null,
-      headerColor: '#026aa7',
+      headerColor: '',
     }
   },
   methods: {
@@ -38,12 +34,10 @@ export default {
     goToHomePage() {
       this.$router.push('/')
       this.headerColor = '#026aa7'
-      this.opcity = '1'
     },
     goToBoardsPage() {
       this.$router.push('/board')
       this.headerColor = '#026aa7'
-      this.opcity = '1'
     },
   },
   computed: {
@@ -57,9 +51,9 @@ export default {
       return this.$store.getters.getCurrBoard
     },
     getAvgColor() {
-      if(!this.getCurrBoard) {
+      if (!this.getCurrBoard) {
         this.headerColor = '#026aa7'
-        return 
+        return
       }
       if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
       const imgUrl = this.getCurrBoard.style.bgImgUrl
@@ -67,6 +61,7 @@ export default {
       fac
         .getColorAsync(imgUrl)
         .then((color) => {
+          console.log(color)
           this.headerColor = color.hexa
         })
         .catch((e) => {
@@ -78,11 +73,10 @@ export default {
     getHeaderColor() {
       return this.headerColor
     },
-    
   },
   components: {
     userOptions,
-    notifications
+    notifications,
   },
 }
 </script>
