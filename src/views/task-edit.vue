@@ -130,7 +130,11 @@
               >
             </div>
             <div class="checklist-progressbar-contianer">
-              <el-progress :percentage="doneTodos(checklist)" class="checklist-progressbar" />
+   
+              <el-progress
+                :percentage="doneTodos(checklist)"
+                :class="{ 'checklist-progressbar': notDoneTodos, done: isDoneTodos }"
+              />
             </div>
             <div class="checklist-checkbox" v-for="todo in checklist.todos">
               <div class="checklist-checkbox-preview">
@@ -226,6 +230,8 @@ export default {
         isDone: false,
       },
       paragraphTxt: "",
+      isDoneTodos: false,
+      notDoneTodos: true,
     }
   },
   async created() {
@@ -441,6 +447,12 @@ export default {
       let checkListLen = checklist.todos.length
       let completed = checklist.todos.filter((todo) => todo.isDone === true)
       let commentLen = completed.length
+      if (commentLen === checkListLen) {
+        this.isDoneTodos = true
+      }
+      if (commentLen !== checkListLen) {
+        this.isDoneTodos = false
+      }
       let percentage = (commentLen / checkListLen) * 100 || 0
       return +percentage.toFixed(0)
     },
@@ -515,17 +527,7 @@ export default {
       console.log("todoId", todoId)
       this.checkListMenuToggle = todoId
     },
-    removeAttachemnt(attachemntIdx) {
-      this.taskToEdit.attachments.splice(attachemntIdx, 1)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Removed attachment",
-        taskTitle: this.taskToEdit.title,
-      })
-    },
+
   },
   computed: {
     getCurrTask() {

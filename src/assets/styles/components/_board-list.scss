@@ -3,4 +3,38 @@
   text-align: center;
   grid-template-columns: repeat(auto-fit, minmax(100px, 305px));
   background-color: white;
+  .add-new-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #172b4d;
+    font-size: em(14px);
+    // background-position: 50%;
+    background-color: rgb(243, 240, 240);
+    // background-color: rgb(174, 49, 49);
+
+    // background-size: cover;
+    line-height: lh(20px);
+    height: em(115px);
+    width: em(225px);
+    position: relative;
+    margin-inline-start: 1rem;
+    margin-block-end: 1.5rem;
+    display: flex;
+    cursor: pointer;
+    transition: filter 0.3s;
+    border-radius: 3px;
+
+  }
+}
+
+.new-board-modal {
+  position: fixed;
+  height: 600px;
+  z-index: 20;
+  width: 250px;
+  background-color: white;
+  border: 2px solid black;
+  top: 330;
+  right: 0;
 }

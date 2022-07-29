@@ -2,15 +2,15 @@
   background-position: 50%;
   background-size: cover;
   line-height: lh(20px);
-  height: em(150px);
-  width: em(290px);
+  height: em(100px);
+  width: em(195px);
   position: relative;
   margin-inline-start: 1rem;
   margin-block-end: 1.5rem;
   display: flex;
   cursor: pointer;
   transition: filter 0.3s;
-
+border-radius: 3px;
   &:hover {
     filter: brightness(0.9);
     .non-star-icon {
@@ -24,7 +24,7 @@
     left: em(12px);
     top: em(8px);
     color: white;
-    font-size: em(17px);
+    font-size: em(16px);
     font-weight: 800;
     text-shadow: 0px 0px 1px rgb(0, 0, 0);
   }

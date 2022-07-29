@@ -132,7 +132,7 @@ export default {
  
 
       return{
-        'prev-task-checklists doneTodos': tempDoneTodos === todos,
+        'prev-task-checklists doneTodos': tempDoneTodos === todos && todos !== 0 ,
         'prev-task-checklists':tempDoneTodos !== todos,
       }
     },
