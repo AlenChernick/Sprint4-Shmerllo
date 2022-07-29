@@ -14,6 +14,7 @@
 
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
+      <button class="board-header-btn" @click="openDashboard">Dashboard</button>
       <board-menu v-if="board" :key="board._id" />
     </div>
   </section>
@@ -48,6 +49,9 @@ export default {
       this.board.isFavorite = !this.board.isFavorite
       this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
+    openDashboard(){
+      this.$router.push(`/board/${this.board._id}/dashboard`)
+    }
   },
   computed: {
     icon() {

@@ -30,28 +30,17 @@ const router = createRouter({
       component: boardDetails,
       children: [
         {
-          // /board/YSroYIWD/g101/c102
           path: '/board/:boardId/:groupId/:taskId',
           name: 'task-edit',
           component: taskEdit
         },
         {
-          path: 'dashboard',
+          path: '/board/:boardId/dashboard',
           name: 'dashboard',
           component: dashboard
         }
       ]
     },
-    // {
-    //   path: '/board/edit/:id',
-    //   name: 'task-edit',
-    //   component: taskEdit,
-    // } 
-    // {
-    //   path: '/board/:boardId/:groupId/:taskId',
-    //   name: 'task-edit',
-    //   component: taskEdit
-    // }
   ]
 })
 

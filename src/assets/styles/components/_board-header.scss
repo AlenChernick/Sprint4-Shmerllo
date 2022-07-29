@@ -137,6 +137,7 @@
 
 .board-header-buttons {
   align-self: center;
+  display: flex;
   margin-inline-end: 0.3rem;
   .board-header-btn {
     color: $clr1;
