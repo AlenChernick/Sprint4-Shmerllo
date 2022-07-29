@@ -238,8 +238,9 @@ function addActivity(board, task, userAction, user) {
   activity.txt = userAction || "change"
   activity.task.id = task.id
   activity.task.title = task.title
+  console.log(board)
   board.activities.unshift(activity)
-  console.log(activity)
+  // console.log(activity)
   return board
 }
 
@@ -361,6 +362,9 @@ function _createNewBoard(properties, user) {
       imgUrl: "https://www.computerhope.com/jargon/g/guest-user.jpg",
     }
   }
+
+
+
   return {
     title: properties.title,
     style: {
@@ -384,6 +388,33 @@ function _createNewBoard(properties, user) {
     lastActivity: Date.now(),
     boardLabels: _labelOptions(),
     isLabelsOpen: false,
+    activities:[],
+    members : [
+      {
+          "id" : "m101",
+          "username" : "THT",
+          "fullname" : "Tal Hammer Topaz",
+          "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512"
+      },
+      {
+          "id" : "m102",
+          "username" : "AK",
+          "fullname" : "Alon Kolker",
+          "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512"
+      },
+      {
+          "id" : "m103",
+          "username" : "AC",
+          "fullname" : "Alen Alen Chernick",
+          "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512"
+      },
+      {
+          "id" : "m104",
+          "username" : "LS",
+          "fullname" : "Lihi Sered",
+          "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512"
+      }
+  ],
   }
 }
 
@@ -489,7 +520,7 @@ function _labelOptions() {
     {
       id: "l111",
       bgColor: "#00a8e8",
-      txt: "Take care togay",
+      txt: "Take care today",
     },
   ]
 }
