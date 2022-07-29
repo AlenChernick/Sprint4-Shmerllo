@@ -18,6 +18,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import boardMenu from '../components/board-menu.vue'
 import boardFilter from '../components/board-filter.vue'

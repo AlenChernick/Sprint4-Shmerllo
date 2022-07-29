@@ -506,34 +506,7 @@
           }
         }
       }
-      .main-editor-activity-comments {
-        display: flex;
-        .main-editor-activity-comment {
-          margin-left: em(31px);
-          width: 100%;
-          height: em(45px);
-          padding: em(12px) em(15px);
-          box-sizing: border-box;
-          border: 2px solid #ccc;
-          border-radius: 4px;
-          font-size: em(16px);
-          background-color: transparent;
-          resize: none;
-          border: none;
-          outline: none;
-          overflow: hidden;
-          background-color: white;
-        }
-        .main-editor-activity-icon {
-          display: flex;
-          align-items: center;
-        }
-      }
     }
-  }
-
-  .open-text-area {
-    height: em(150px);
   }
 
   .label-preview-container {
