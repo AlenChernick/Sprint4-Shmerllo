@@ -1,22 +1,45 @@
 .new-board-modal {
   position: fixed;
-  // height: 800px;
   z-index: 20;
   width: 310px;
   background-color: white;
-  border: 1px solid rgb(164, 169, 155);
+  // border: 1px solid rgb(164, 169, 155);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.539);
   border-radius: 3px;
   bottom: 0%;
-  right: 20%;
+  right: 25%;
+  padding-bottom: 10px;
+  // border: none;
+
   // display: flex;
   // flex-wrap: wrap;
   .new-board-modal-container {
     max-width: 310px;
     .main-title {
-      margin-inline-start: 100px;
+      text-align: center;
+      padding: 0.75em;
+      margin: 0 0.75em;
+      font-size: 1em;
+      font-weight: 400;
+      border-bottom: 1px solid lightgray;
     }
+
+    .close-modal {
+      font-weight: 400;
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      font-family: trellicons;
+      font-size: 18px;
+      &::before {
+        content: '\e91c';
+      }
+    }
+
     .new-board-create-btn {
-      margin-inline-start: 130px;
+      // margin-inline-start: 130px;
+      width: 95%;
+      margin: em(10px) em(10px) em(2px) em(9px);
     }
     .title {
       margin-inline-start: 10px;
@@ -40,13 +63,18 @@
       .img-container {
         display: flex;
         flex-wrap: wrap;
-        margin-inline-start: 14px;
+        margin-inline-start: 0.5rem;
+
+        .search-img-input {
+          margin-bottom: em(8px);
+          margin-inline-end: 0.5rem;
+        }
 
         img {
           width: 64px;
           height: 42px;
-          margin: 3px;
-          margin-bottom: 2px;
+          margin: 5px;
+          // margin-bottom: 2px;
           border-radius: 3px;
           background-color: rgb(53, 34, 10);
           // display: inline-block;
@@ -56,17 +84,39 @@
     }
     .seperator {
       height: 5px;
-      width: 100%;
       border-bottom: 1px solid lightgray;
       margin: 10px;
     }
 
     .board-title-input {
-      display: flex;
-      width: 280px;
-      height: 35px;
-      margin-inline-start: 13.5px;
+      font-family: NunitoSans-Bold;
+      font-size: 15px;
+      padding: 4px 5px;
+      margin: em(2px) em(10px) em(2px) em(9px);
+      font-weight: 600;
+      color: #1d3557;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      width: 95%;
+      cursor: grab;
+      border-radius: 3px;
+      background-color: #ffffff;
+      box-shadow: inset 0 0 0 2px #0079bf;
+      &:hover {
+        box-shadow: inset 0 0 0 2px #eb5a46;
+      }
+      &:focus {
+        background-color: #ffffff;
+        box-shadow: inset 0 0 0 2px #0079bf;
+      }
       //   outline: 1px solid blue;
+    }
+
+    .input-required {
+      margin-inline-start: 0.5rem;
+      color: #172b4d;
+      font-size: 15px;
     }
   }
 }

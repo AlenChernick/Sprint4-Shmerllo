@@ -59,15 +59,13 @@ export default {
           this.headerColor = '#026aa7'
           return
         }
-        if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
         const imgUrl = this.getCurrBoard.style.bgImgUrl
         const fac = new FastAverageColor()
         const color = await fac.getColorAsync(imgUrl)
         this.headerColor = color.hexa
       } catch (err) {
-        this.headerColor = '#026aa7'
         console.log('Cannot load avg color', err)
-        throw err
+        // throw err
       }
     },
     getHeaderColor() {
