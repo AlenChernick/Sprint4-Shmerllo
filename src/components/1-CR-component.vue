@@ -95,9 +95,7 @@ export default {
       this.$emit('closeModal')
     },
   },
-  created() {
-    this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
-  }
+  
 }
 </script>
 
@@ -120,7 +118,6 @@ export default {
   methods: {
     editTask(editData){
       
-      let idx
       let userAction
 
       switch (editData.type) {
@@ -137,56 +134,18 @@ export default {
                 userAction = 'Removed member'
             }
             this.saveTask(userAction)
-            const notification = {
-                mentionedUserId: member._id,
-                userAction,
-                taskTitle: this.taskToEdit.title,
-                time: Date.now(),
-                style: this.taskToEdit.style,
-              }
-            socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
             break    
         
-        case 'toggleLabel':
-          const labelId = editData.data
-          const labels = this.taskToEdit.labelIds
-          idx = labels.findIndex((label) => label === labelId)
-          if (idx === -1) {
-              labels.push(labelId)
-              userAction = 'Added label'
-          } else {
-              labels.splice(idx, 1)
-              userAction = 'Removed label'
-          }
-          this.saveTask(userAction)
-          break   
+        case 'toggleLabel':  
           
         case 'addCheckList':
-          const checklist = editData.data
-          if (checklist.checkListTitle === '') return
-          this.taskToEdit.checklists.push(checklist)
-          this.saveTask('Added checklist')
-          this.isCheckListAdded = false
-          this.checkListTitle = ''
-          break  
 
         case 'setDate':
-          const dateValue = editData.data    
-          this.taskToEdit.dueDate = dateValue
-          this.saveTask('Added due date')
-          break 
-
+  
         case 'addAttachment':
-          const attachment = editData.data    
-          this.taskToEdit.attachments.push(attachment)
-          this.saveTask('Added attchment')
-          break
-
+    
         case 'setTaskStyle':
-          const style = editData.data    
-          this.taskToEdit.style = style
-          this.saveTask('Changed cover')
-          break
+  
         }
     },  
    
