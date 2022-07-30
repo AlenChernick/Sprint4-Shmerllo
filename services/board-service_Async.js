@@ -238,7 +238,6 @@ function addActivity(board, task, userAction, user) {
   activity.txt = userAction || "change"
   activity.task.id = task.id
   activity.task.title = task.title
-  console.log(board)
   board.activities.unshift(activity)
   // console.log(activity)
   return board

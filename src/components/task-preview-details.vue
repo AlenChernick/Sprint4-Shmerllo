@@ -11,12 +11,7 @@
     <div class="prev-task-title">{{ task.title }}</div>
 
     <div class="prev-fetchers-conteiner flex flex-warp">
-      <div
-        v-if="task.dueDate"
-        class="prev-duedate-conteiner flex"
-        :style="{ 'background-color': dueDateColor }"
-        title="Due-Date"
-      >
+      <div v-if="task.dueDate" class="prev-duedate-conteiner flex" :style="{ 'background-color': dueDateColor }" title="Due-Date">
         <div class="prev-dueDate-clock-icon"></div>
         <div class="prev-dueDate">
           {{ convertDate(task.dueDate) }}
@@ -31,34 +26,48 @@
         <div class="prev-task-comments-icon"></div>
         <div class="prev-task-comments-count">{{ commentsCount }}</div>
       </div>
-      <!-- <div v-if="task.checklists?.length > 0" class="prev-task-checklists" :style="{ 'background-color': doneTodos }"> -->
-          <div v-if="task.checklists?.length > 0" :class="doneTodos">
+      <div v-if="task.checklists?.length > 0" :class="doneTodos">
         <span class="prev-task-checklists-icon"></span>
         <span class="prev-task-checklists-count">{{ todosCount(task.checklists) }}</span>
       </div>
 
-      <div class="flex prev-members-imgs">
-        <ul v-if="task.members" class="clean-list flex" v-for="member in task.members">
-          <img class="prev-member-img" :src="member.imgUrl" />
-        </ul>
-      </div>
+      <Container
+        @click.stop
+        v-if="task.members"
+        @drop="onDrop($event)"
+        :get-child-payload="getChildPayload"
+        orientation="horizontal"
+        group-name="members"
+        class="drag-img-conteiner-big flex"
+      >
+        <Draggable  v-for="member in task.members" :key="member._id">
+          <div class="flex prev-members-imgs">
+            <ul class="clean-list flex">
+              <img class="prev-member-img" :src="member.imgUrl" />
+            </ul>
+          </div>
+        </Draggable>
+      </Container>
     </div>
   </div>
 </template>
 <script>
+import { Container, Draggable } from "vue3-smooth-dnd"
+import { applyDrag } from "../../services/dnd-service.js"
 export default {
-  name: 'task-preview-details',
+  name: "task-preview-details",
   props: {
     task: {
       type: Object,
     },
+    groupId: {
+      type: String,
+    },
   },
   data() {
     return {
-      //   taskToEdit: {},
       boardToEdit: {},
       labelOpen: false,
-      //   dueDateColor: "#61bd4f",
     }
   },
   created() {
@@ -77,9 +86,8 @@ export default {
       return label.txt
     },
     openLables() {
-      // let boardToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
       this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
-      this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
+      this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
     },
     todosCount(checklists) {
       let tempDoneTodos = 0
@@ -94,18 +102,23 @@ export default {
       return `${tempDoneTodos}/${todos}`
     },
     convertDate(dueDate) {
-      const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+      const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
       let formatedDate = new Date(dueDate)
       let dueDateMonth = formatedDate.getMonth()
       dueDateMonth = monthArr[dueDateMonth]
       let dueDateDay = formatedDate.getDate()
 
       return `${dueDateMonth} ${dueDateDay}`
+    },
+    onDrop(dropRes) {
+      let memberId = dropRes.payload._id
 
-      // let month = dueDate.date() + 1;
-      // let day =  dueDate.getDate()
-      // return `${day} + ${month}`
-      // return `${dueDateDay} + ${dueDateMonth}`
+      if (dropRes.addedIndex !== null) {
+        this.$emit("addTaskMember", memberId)
+      }
+    },
+    getChildPayload(idx) {
+      return this.task.members[idx]
     },
   },
   computed: {
@@ -113,8 +126,8 @@ export default {
       return this.$store.getters.getCurrBoard
     },
     labelStaus() {
-      if (this.boardToEdit.isLabelsOpen === false) return 'label-task-preview'
-      if (this.boardToEdit.isLabelsOpen) return 'label-task-preview-full'
+      if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
+      if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
     },
     doneTodos() {
       let checklists = this.task.checklists
@@ -127,27 +140,26 @@ export default {
           if (todo.isDone === true) tempDoneTodos++
         })
       })
-      // if (tempDoneTodos === todos) return '#61bd4f'
-      // if (tempDoneTodos !== todos) return ' '
- 
 
-      return{
-        'prev-task-checklists doneTodos': tempDoneTodos === todos && todos !== 0 ,
-        'prev-task-checklists':tempDoneTodos !== todos,
+      return {
+        "prev-task-checklists doneTodos": tempDoneTodos === todos && todos !== 0,
+        "prev-task-checklists": tempDoneTodos !== todos,
       }
     },
     commentsCount() {
       return this.task.comments.length
-      //   return 2
     },
     attachmentsCount() {
       return this.task.attachments.length
-      //   return 1
     },
     dueDateColor() {
-      if (new Date() < new Date(this.task.dueDate)) return '#61bd4f'
-      if (new Date() >= new Date(this.task.dueDate)) return 'orange'
+      if (new Date() < new Date(this.task.dueDate)) return "#61bd4f"
+      if (new Date() >= new Date(this.task.dueDate)) return "orange"
     },
+  },
+  components: {
+    Container,
+    Draggable,
   },
 }
 </script>

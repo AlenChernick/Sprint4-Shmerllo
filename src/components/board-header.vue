@@ -13,11 +13,24 @@
       />
       <span @click="toggeleIsFavorite" :class="icon"></span>
       <h5 :style="{ color: getTxtColor, getAvgColor, transition: 'color 0.4s' }">{{ board.byMember?.fullname }}'s workspace</h5>
-      <ul class="members clean-list" v-for="member in board.members">
-        <img :src="member.imgUrl" />
-      </ul>
-    </div>
 
+      <Container
+        @drop="onDrop($event)"
+        :get-child-payload="getChildPayload"
+        orientation="horizontal"
+        group-name="members"
+        class="flex"
+      >
+        <Draggable v-for="member in board.members" :key="member._id">
+          <ul class="members clean-list">
+            <img :src="member.imgUrl" />
+          </ul>
+        </Draggable>
+      </Container>
+
+<!-- <search-add-board-member></search-add-board-member> -->
+      
+    </div>
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
       <button
@@ -33,13 +46,16 @@
 </template>
 
 <script>
-import boardMenu from '../components/board-menu.vue'
-import boardFilter from '../components/board-filter.vue'
-import { utilService } from '../../services/util-service.js'
-import { FastAverageColor } from 'fast-average-color'
+import { Container, Draggable } from "vue3-smooth-dnd"
+// import { applyDrag } from "../../services/dnd-service.js"
+import boardMenu from "../components/board-menu.vue"
+import boardFilter from "../components/board-filter.vue"
+// import searchAddBoardMember from "../components/search-add-board-member.vue"
+import { utilService } from "../../services/util-service.js"
+import { FastAverageColor } from "fast-average-color"
 
 export default {
-  name: 'board-header',
+  name: "board-header",
   props: {
     board: {
       type: Object,
@@ -48,7 +64,7 @@ export default {
   data() {
     return {
       currBoard: {},
-      txtColor: '',
+      txtColor: "",
     }
   },
   created() {
@@ -56,21 +72,29 @@ export default {
   },
   methods: {
     saveBoard() {
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.$store.dispatch({ type: "saveBoard", board: this.board })
     },
     toggeleIsFavorite() {
       this.board.isFavorite = !this.board.isFavorite
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      this.$store.dispatch({ type: "saveBoard", board: this.board })
     },
     openDashboard() {
       this.$router.push(`/board/${this.board._id}/dashboard`)
+    },
+    onDrop(dropRes) {
+      // Here for DND Libery - Do not delete!!!!
+      // let test = applyDrag(this.board.members, dropRes)
+    },
+    getChildPayload(idx) {
+      // Here for DND Libery - Do not delete!!!!
+      return this.board.members[idx]
     },
   },
   computed: {
     icon() {
       let board = this.$store.getters.getCurrBoard
-      if (board?.isFavorite) return 'full-star-icon'
-      else return 'star-icon'
+      if (board?.isFavorite) return "full-star-icon"
+      else return "star-icon"
     },
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
@@ -80,10 +104,10 @@ export default {
         const imgUrl = await this.getCurrBoard.style.bgImgUrl
         const fac = new FastAverageColor()
         const color = await fac.getColorAsync(imgUrl)
-        if (color.isLight) this.txtColor = '#000000'
-        else this.txtColor = '#fff'
+        if (color.isLight) this.txtColor = "#000000"
+        else this.txtColor = "#fff"
       } catch (err) {
-        console.log('Cannot load avg color', err)
+        console.log("Cannot load avg color", err)
         throw err
       }
     },
@@ -94,6 +118,9 @@ export default {
   components: {
     boardMenu,
     boardFilter,
-  },
+    Container,
+    Draggable,
+    searchAddBoardMember
+},
 }
 </script>

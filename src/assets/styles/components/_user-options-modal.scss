@@ -1,6 +1,6 @@
 .user-options-modal {
   margin-top: 10px;
-  width: 200px;
+  width: 300px;
   background-color: rgba(255, 255, 255, 0.891);
   font-weight: 400;
   line-height: 40px;
@@ -13,26 +13,55 @@
   border-radius: 3px;
   box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
   justify-content: center;
+  padding: 10px;
   //   justify-content: center;
   //   align-content: center;
   align-items: center;
   cursor: pointer;
+  
+  &.seperator {
+    border-bottom: 1px solid lightgray;
+    margin: 15px 6px;
+  }
 
-  .option {
+  .user-option-modal-option {
     margin-top: 6px;
     margin-bottom: 8px;
     height: 40px;
     border-bottom: 1px solid rgba(9, 30, 66, 0.12941176470588237);
     position: relative;
     color: #5e6c84;
-    padding: 0 12px 12px;
+    // padding: 0 6px 6px;
     display: flex;
     justify-content: center;
   }
-  .account {
+
+  .user-option-modal-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+    .user-option-modal-account {
     align-items: center;
-    margin-top: 20px;
+    margin: 20px 90px 0 90px;
   }
+  .user-option-modal-close-modal{
+
+    margin-top: 20px;
+      font-family: trellicons;
+      font-size: em(20px);
+      padding-block-start: em(5px);
+      margin-inline-start: em(5px);
+      color: #6b778c;
+      &::before {
+        content: '\e91c';
+      }
+      &:hover{
+        color: #b6bbc3;
+      }
+    
+  }
+}
   .log-out-btn {
     display: flex;
 
@@ -45,7 +74,6 @@
       margin-top: 6px;
       margin-bottom: 8px;
       height: 40px;
-      border-bottom: 1px solid rgba(9, 30, 66, 0.12941176470588237);
       position: relative;
       color: #5e6c84;
       padding: 0 12px 12px;
@@ -53,4 +81,6 @@
       justify-content: center;
     }
   }
+
+  
 }

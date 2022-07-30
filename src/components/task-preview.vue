@@ -7,7 +7,7 @@
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
     <div v-else-if="task.style?.bgColor" class="prev-task-color" :style="{ 'background-color': task.style.bgColor }"></div>
-    <task-preview-details :task="task" :key="task.id" />
+    <task-preview-details @addTaskMember="addMemeberOnDrop" :groupId="groupId" :task="task" :key="task.id" />
 
     <div @click.stop="quickEditDisplay = 'none'" class="quickEditScreen" :style="{ display: quickEditDisplay }"></div>
 
@@ -42,14 +42,15 @@
   </section>
 </template>
 <script>
-import labelPicker from '../components/label-picker.vue'
-import memberPicker from '../components/member-picker.vue'
-import datePicker from '../components/date-picker.vue'
-import coverPicker from '../components/cover-picker.vue'
-import taskPreviewDetails from '../components/task-preview-details.vue'
+import labelPicker from "../components/label-picker.vue"
+import memberPicker from "../components/member-picker.vue"
+import datePicker from "../components/date-picker.vue"
+import coverPicker from "../components/cover-picker.vue"
+import taskPreviewDetails from "../components/task-preview-details.vue"
+import { utilService } from "../../services/util-service.js"
 
 export default {
-  name: 'task-preview',
+  name: "task-preview",
   props: {
     task: {
       type: Object,
@@ -60,32 +61,35 @@ export default {
   },
   data() {
     return {
-      quickEditDisplay: 'none',
+      quickEditDisplay: "none",
       actionBtns: [
-        { txt: 'Labels', icon: 'labels-icon', type: 'labelPicker' },
-        { txt: 'Members', icon: 'members-icon', type: 'memberPicker' },
-        { txt: 'Cover', icon: 'cover-icon', type: 'coverPicker' },
-        { txt: 'Dates', icon: 'dates-icon', type: 'datePicker' },
+        { txt: "Labels", icon: "labels-icon", type: "labelPicker" },
+        { txt: "Members", icon: "members-icon", type: "memberPicker" },
+        { txt: "Cover", icon: "cover-icon", type: "coverPicker" },
+        { txt: "Dates", icon: "dates-icon", type: "datePicker" },
       ],
       cmpType: null,
-      displayModal: 'none',
+      displayModal: "none",
       taskToEdit: {},
       boardToEdit: {},
       labelOpen: false,
+      tasklen: 0,
+      addDndTimes: [],
     }
   },
   created() {
     this.taskToEdit = JSON.parse(JSON.stringify(this.task))
     this.boardToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+    this.boardToEdit.groups.forEach((g) => (this.tasklen += g.tasks.length || 0))
   },
   methods: {
     openTaskDetails() {
       this.$router.push(`/board/${this.boardToEdit._id}/${this.groupId}/${this.task.id}`)
-      this.quickEditDisplay = 'none'
+      this.quickEditDisplay = "none"
     },
     saveTask(userAction) {
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardToEdit._id,
@@ -94,7 +98,7 @@ export default {
       })
     },
     editTitle() {
-      this.saveTask('Edit title')
+      this.saveTask("Edit title")
     },
     openModal(cmpType) {
       this.cmpType = cmpType
@@ -105,36 +109,40 @@ export default {
     toggleLabel(labelId) {
       const labels = this.taskToEdit.labelIds
       const idx = labels.findIndex((label) => label === labelId)
-      let userAction = ''
+      let userAction = ""
       if (idx === -1) {
-        userAction = 'Added label'
+        userAction = "Added label"
         labels.push(labelId)
       } else {
         labels.splice(idx, 1)
-        userAction = 'Removed label'
+        userAction = "Removed label"
       }
       this.saveTask(userAction)
     },
     toggleMember(member) {
       const members = this.taskToEdit.members
-      const idx = members.findIndex((m) => m.id === member.id)
-      let userAction = ''
+      const idx = members.findIndex((m) => m._id === member._id)
+       let userAction = ""
       if (idx === -1) {
-        userAction = 'Add member'
+        userAction = "Add member"
         members.push(member)
       } else {
         members.splice(idx, 1)
-        userAction = 'Removed member'
+        userAction = "Removed member"
       }
       this.saveTask(userAction)
     },
     setTaskStyle(style) {
       this.taskToEdit.style = style
-      this.saveTask('Changed cover')
+      this.saveTask("Changed cover")
     },
     addAttachment(attachment) {
       this.taskToEdit.attachments.push(attachment)
-      this.saveTask('Added attchement')
+      this.saveTask("Added attchement")
+    },
+    addMemeberOnDrop(memberId) {
+      let member = this.boardToEdit.members.find((member) => member._id === memberId)
+      this.toggleMember(member)
     },
   },
   computed: {

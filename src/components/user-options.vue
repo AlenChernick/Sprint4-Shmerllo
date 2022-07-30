@@ -1,9 +1,12 @@
 <template>
   <div class="user-options-modal flex flex-column">
-    <div class="option account flex flex-column">
-      <div>Account</div>
-      <div v-if="user">{{ user.fullname }}@gmail.com</div>
+    <div class="user-option-modal-option  flex flex-column">
+      <div class="user-option-modal-header ">
+      <div class="user-option-modal-account">Account</div>
+      <div class="user-option-modal-close-modal" @click="onClose()"></div>
+      </div>
     </div>
+      <div class="user-option-modal-gmail" v-if="user">{{ getUserMail }}</div>
     <div class="close-user-option" @click="onClose()">Close</div>
     <div class="option" @click="onLogout()">Log out</div>
   </div>
@@ -26,6 +29,13 @@ export default {
                 this.$emit("closeModal")
       }
     },
+    computed:{
+      getUserMail(){
+        let userName=this.user.fullname
+        userName = userName.replace(' ','')
+        return `${userName}@gmail.com`
+      }
+    }
   }
 
 </script>
