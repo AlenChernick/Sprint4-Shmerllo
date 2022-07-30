@@ -40,8 +40,13 @@
                   </li>
                 </ul>
                 <div v-if="taskToEdit.members.length > 0" class="main-task-add-member">
-                  <span class="main-task-add-member-icon" ></span>
-                  <!-- <member-picker @editTask="editTask" /> -->
+                  <span class="main-task-add-member-icon" @click.stop="openMemberPicker" ></span>
+                  <component class="member-picker-component"
+                    :is="cmpMemberPicker"
+                    @closeModal="closeMemberPicker"
+                    @editTask="editTask"
+                    >
+                  </component>
                 </div>
               </div>
             </div>
@@ -54,7 +59,13 @@
                   </li>
                 </ul>
                 <div v-if="taskToEdit.labelIds.length > 0" class="main-task-add-label">
-                  <span class="main-task-add-label-icon"></span>
+                  <span class="main-task-add-label-icon" @click.stop="openLabelPicker"></span>
+                  <component class="label-picker-component"
+                    :is="cmpLabelPicker"
+                    @closeModal="closeLabelPicker"
+                    @editTask="editTask"
+                    >
+                  </component>
                 </div>
               </div>
             </div>
@@ -201,7 +212,7 @@ import editTaskActivity from "../components/edit-task-activity.vue"
 import editTaskActions from "../components/edit-task-actions.vue"
 import attachmentTaskEdit from "../components/attachment-task-edit.vue"
 import memberPicker from "../components/member-picker.vue"
-
+import labelPicker from '../components/label-picker.vue'
 import { utilService } from "../../services/util-service"
 import { userService } from "../../services/user-service"
 import { FastAverageColor } from "fast-average-color"
@@ -228,6 +239,8 @@ export default {
       paragraphTxt: "",
       isDoneTodos: false,
       notDoneTodos: true,
+      cmpMemberPicker: null,
+      cmpLabelPicker: null,
     }
   },
   async created() {
@@ -590,6 +603,18 @@ export default {
     onCheckListMenuToggle(todoId) {
       this.checkListMenuToggle = todoId
     },
+    closeMemberPicker(){
+      this.cmpMemberPicker = null
+    },
+    openMemberPicker(){
+      this.cmpMemberPicker = memberPicker
+    },
+    closeLabelPicker(){
+      this.cmpLabelPicker = null
+    },
+    openLabelPicker(){
+      this.cmpLabelPicker = labelPicker
+    }
   },
   computed: {
     getCurrTask() {

@@ -173,9 +173,11 @@
             margin-left: -0.1rem;
             margin-bottom: em(-20px);
             .main-task-add-member {
+
               margin-top: 1.2rem;
               margin-left: em(3px);
               .main-task-add-member-icon {
+                position: relative;
                 border-radius: 50%;
                 padding: em(8px);
                 background-color: $clr9;
@@ -189,6 +191,17 @@
                 &:hover {
                   background-color: $clr10;
                 }
+              }
+              .member-picker-component {
+                position: absolute;
+                width: 350px;
+                padding: 0 40px;
+                top: 305px;
+               .board-members-txt {
+                margin-left: -20px;
+                padding: 0;
+               }
+
               }
             }
             ul {
@@ -546,6 +559,13 @@
     .main-task-add-label {
       margin-left: em(2px);
       margin-top: em(2px);
+      position: relative;
+      .label-picker-component{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 30px;
+      }
       .main-task-add-label-icon {
         border-radius: 3px;
         padding: em(7px);
