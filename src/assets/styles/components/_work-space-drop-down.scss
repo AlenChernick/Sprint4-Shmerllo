@@ -1,0 +1,42 @@
+.work-space-header {
+  color: white;
+}
+
+.seperator {
+  border-bottom: 1px solid lightgray;
+  margin: 15px 6px;
+}
+
+.work-space-drop {
+  padding: 10px;
+  
+}
+
+.drop-down-inner-header{
+    display: flex;
+    // margin-inline-start: 40px;
+    justify-content: center;
+    align-items:center ;
+    margin-top: 10px;
+    color: #172b4d;
+    font-size: 14px;
+
+}
+.workspace-owner{
+    height: 40px;
+    width: 40px;
+    color:white ;
+    background: linear-gradient(#0747a6, #008da6);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline-end: 8px;
+    font-weight: 600;
+    font-size: 22px;
+}
+.work-spaces-items{
+    justify-content: left;
+    align-items: center;
+    font-weight: 700;
+}

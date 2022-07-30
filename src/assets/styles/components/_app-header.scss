@@ -5,7 +5,11 @@ header.main-header {
   background-color: $clr14;
   z-index: 10;
   backdrop-filter: blur(6px);
-
+  .main-header-left {
+  display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-inline-start: 10px;
   .home-page-btn {
     cursor: pointer;
     color: $clr4;
@@ -34,7 +38,7 @@ header.main-header {
     color: $clr4;
     grid-column: 1;
     grid-row: 1;
-    margin-inline-start: 8.5rem;
+    // margin-inline-start: 8.5rem;
     align-self: center;
     transition: background-color 0.2s, border-radius 0.2s;
     width: 4rem;
@@ -51,6 +55,31 @@ header.main-header {
       border-radius: 0.2rem;
     }
   }
+
+  .work-space-btn{
+    grid-column: 1;
+    grid-row: 2;
+    cursor: pointer;
+    font-family: $font;
+    color: $clr4;
+    grid-column: 1;
+    grid-row: 1;
+    // margin-inline-start: 8.5rem;
+    align-self: center;
+    transition: background-color 0.2s, border-radius 0.2s;
+    width: 4rem;
+    padding: 0.1rem;
+    text-align: center;
+    margin-block-end: 0.1rem;
+  
+  
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.37);
+      border-radius: 0.2rem;
+    }
+  }
+
+}
   .login-page-btn {
     grid-column: 3;
     margin: 0 1rem;

@@ -3,11 +3,14 @@
     class="app-header main-header full"
     :style="{ 'background-color': getHeaderColor, getAvgColor, transition: 'background-color 0.4s ' }"
   >
+  <div class="main-header-left flex">
     <div class="home-page-btn" @click="goToHomePage">
       <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
     </div>
     <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
-    <notifications />
+    <work-space-drop-down class="work-space-btn"> </work-space-drop-down>
+   </div>
+   <notifications />
     <div class="active-user-conteiner">
       <div class="active-user" @click="isUserModalOpen = !isUserModalOpen">{{ getActiveUser }}</div>
       <user-options v-if="isUserModalOpen" @closeModal="closeModal" :user="user"></user-options>
@@ -15,16 +18,17 @@
   </header>
 </template>
 <script>
-import userOptions from '../components/user-options.vue'
-import notifications from '../components/notifications.vue'
-import { FastAverageColor } from 'fast-average-color'
+import userOptions from "../components/user-options.vue"
+import notifications from "../components/notifications.vue"
+import workSpaceDropDown from "../components/work-space-drop-down.vue"
+import { FastAverageColor } from "fast-average-color"
 export default {
-  name: 'app-header',
+  name: "app-header",
   data() {
     return {
       isUserModalOpen: false,
       user: null,
-      headerColor: '',
+      headerColor: "",
     }
   },
   methods: {
@@ -32,18 +36,18 @@ export default {
       this.isUserModalOpen = false
     },
     goToHomePage() {
-      this.$router.push('/')
-      this.headerColor = '#026aa7'
+      this.$router.push("/")
+      this.headerColor = "#026aa7"
     },
     goToBoardsPage() {
-      this.$router.push('/board')
-      this.headerColor = '#026aa7'
+      this.$router.push("/board")
+      this.headerColor = "#026aa7"
     },
   },
   computed: {
     getActiveUser() {
       let user = this.$store.getters.loggedInUser
-      if (!user) return 'G'
+      if (!user) return "G"
       this.user = user
       return user.username.charAt(0)
     },
@@ -56,7 +60,7 @@ export default {
     async getAvgColor() {
       try {
         if (!this.getCurrBoard && !this.getCurrGroup) {
-          this.headerColor = '#026aa7'
+          this.headerColor = "#026aa7"
           return
         }
         if (!this.getCurrBoard.style || !this.getCurrBoard.style.bgImgUrl) return
@@ -65,8 +69,8 @@ export default {
         const color = await fac.getColorAsync(imgUrl)
         this.headerColor = color.hexa
       } catch (err) {
-        this.headerColor = '#026aa7'
-        console.log('Cannot load avg color', err)
+        this.headerColor = "#026aa7"
+        console.log("Cannot load avg color", err)
         throw err
       }
     },
@@ -77,6 +81,7 @@ export default {
   components: {
     userOptions,
     notifications,
+    workSpaceDropDown,
   },
 }
 </script>
