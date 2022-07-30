@@ -3,10 +3,13 @@
     class="app-header main-header full"
     :style="{ 'background-color': getHeaderColor, getAvgColor, transition: 'background-color 0.4s ' }"
   >
-    <div class="home-page-btn" @click="goToHomePage">
-      <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
+    <div class="main-header-left flex">
+      <div class="home-page-btn" @click="goToHomePage">
+        <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
+      </div>
+      <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
+      <work-space-drop-down class="work-space-btn"> </work-space-drop-down>
     </div>
-    <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
     <notifications />
     <div class="active-user-conteiner">
       <div class="active-user" @click="isUserModalOpen = !isUserModalOpen">{{ getActiveUser }}</div>
@@ -17,6 +20,7 @@
 <script>
 import userOptions from '../components/user-options.vue'
 import notifications from '../components/notifications.vue'
+import workSpaceDropDown from '../components/work-space-drop-down.vue'
 import { FastAverageColor } from 'fast-average-color'
 export default {
   name: 'app-header',
@@ -75,6 +79,7 @@ export default {
   components: {
     userOptions,
     notifications,
+    workSpaceDropDown,
   },
 }
 </script>

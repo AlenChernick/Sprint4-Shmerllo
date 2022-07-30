@@ -21,6 +21,7 @@ export default {
   async created() {
     try {
       const { boardId } = this.$route.params
+      console.log(boardId)
       await this.$store.dispatch({
         type: 'loadCurrBoard',
         boardId,
