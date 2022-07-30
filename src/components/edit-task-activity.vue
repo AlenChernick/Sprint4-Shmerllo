@@ -67,7 +67,7 @@ export default {
     return {
       isEdit: false,
       currComment: '',
-      showDetails: false,
+      showDetails: true,
     }
   },
   methods: {
