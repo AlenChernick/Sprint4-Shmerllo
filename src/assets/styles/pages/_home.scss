@@ -1,45 +1,55 @@
-.home-page-background {
-  // background-color: #ffffff;
-  background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255));
-  height: 97vh;
-  position: relative;
-}
-
 .home-page-main {
-  position: absolute;
-  top: -20px;
-  left: em(350px);
-  right: em(350px);
-  height: 100vh;
+  background: linear-gradient(rgb(234, 230, 255), rgb(255, 255, 255));
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-items: space-between;
+  height: 100vh;
+  padding: 12% 15% 15% 15%;
+
+  @include for-mobile-layout {
+    height: 90vh;
+  }
 
   .home-page-info {
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: space-between;
     width: 55%;
     margin-inline-start: 5rem;
+    @include for-mobile-layout {
+      margin-inline-start: 0;
+      margin: em(65px) em(25px) em(25px) em(5px);
+    }
 
     h1 {
       color: rgba(0, 0, 0, 0.912);
       font-size: em(55px);
       line-height: lh(18px);
       font-family: NunitoSans-Bold;
+      @include for-mobile-layout {
+        font-size: em(20px);
+        word-wrap: break-word;
+      }
     }
 
     h3 {
       color: black;
       font-weight: 500;
-      font-size: 20px;
+      font-size: em(20px);
+
       font-family: NunitoSans-regular;
+      @include for-mobile-layout {
+        font-size: em(15px);
+        word-wrap: break-word;
+      }
     }
   }
 
   img {
     width: 30%;
+    @include for-mobile-layout {
+      width: 65%;
+    }
   }
 
   button {
@@ -60,6 +70,11 @@
       background-color: rgb(7, 71, 166);
       border-color: rgb(7, 71, 166);
       text-decoration: none;
+    }
+    @include for-mobile-layout {
+      font-size: em(17px);
+      padding: em(10px);
+      margin-top: em(15px);
     }
   }
 }

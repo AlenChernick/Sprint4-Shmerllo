@@ -10,6 +10,10 @@
   overflow-y: auto;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.43);
 
+  @include for-mobile-layout {
+    width: 100%;
+  }
+
   h4 {
     text-align: center;
     padding: em(12px);
@@ -100,6 +104,11 @@
   border-radius: 3px;
   margin: 9px 10px 8px 10px;
   background-color: #eb5a46;
+  cursor: pointer;
+
+  @include for-mobile-layout {
+    margin-inline-end: 1.5rem;
+  }
 
   .new-notification {
     position: absolute;

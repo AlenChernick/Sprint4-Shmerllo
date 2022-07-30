@@ -1,6 +1,6 @@
 <template>
-  <home-page-header class="full" />
-  <div class="home-page-background full"></div>
+  <home-page-header />
+  <div class="home-page-background"></div>
   <section class="home-page">
     <div class="home-page-main">
       <div class="home-page-info">

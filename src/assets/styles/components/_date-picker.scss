@@ -3,6 +3,10 @@
 .date-picker {
   top: 202px;
 
+  @include for-mobile-layout {
+    top: em(10px);
+  }
+
   .date-picker-container {
     display: flex;
     flex-direction: column;

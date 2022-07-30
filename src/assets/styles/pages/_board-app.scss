@@ -5,12 +5,13 @@
 }
 
 .board-app {
-  height: 97vh;
-  display: flex;
-  flex-direction: column;
-  color: $clr1;
-  margin: auto em(452px);
+  .boards-container {
+    height: 100vh;
+    margin-inline-start: 28%;
+    margin-inline-end: 28%;
+
+    @include for-mobile-layout {
+      margin: em(37px);
+    }
+  }
 }
-
-
-

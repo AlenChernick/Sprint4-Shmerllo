@@ -104,6 +104,10 @@ h3.workspace-logo {
   font-size: em(16px);
   color: #5e6c84;
 
+  @include for-mobile-layout {
+    margin-inline-end: 50px;
+  }
+
   .workspace-icon {
     margin-right: em(5px);
     margin-bottom: em(2px);

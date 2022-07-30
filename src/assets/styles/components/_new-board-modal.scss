@@ -9,7 +9,13 @@
   bottom: 0%;
   right: 25%;
   padding-bottom: 10px;
+  color: #172b4d;
   // border: none;
+
+  @include for-mobile-layout {
+    right: 11%;
+    height: 98vh;
+  }
 
   // display: flex;
   // flex-wrap: wrap;
@@ -33,6 +39,10 @@
       font-size: 18px;
       &::before {
         content: '\e91c';
+      }
+
+      @include for-mobile-layout {
+        top: 7px;
       }
     }
 

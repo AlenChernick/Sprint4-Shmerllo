@@ -7,7 +7,7 @@
       <div class="home-page-btn" @click="goToHomePage">
         <span><font-awesome-icon class="board-icon" icon="fab fa-trello" /></span> Shmerllo
       </div>
-      <div class="boards-page-btn" @click="goToBoardsPage">Boards</div>
+      <div class="boards-page-btn" @click="goToBoardsPage"><span>Boards</span></div>
       <work-space-drop-down class="work-space-btn"> </work-space-drop-down>
     </div>
     <notifications />

@@ -4,6 +4,10 @@
   top: em(282px);
   text-transform: capitalize;
 
+  @include for-mobile-layout {
+    top: em(10px);
+  }
+
   .search-img-input {
     margin: 5px 10px 8px 10px;
   }

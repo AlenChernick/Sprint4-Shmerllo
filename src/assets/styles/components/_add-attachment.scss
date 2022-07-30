@@ -3,6 +3,10 @@
 .add-attachment {
   top: em(241px);
 
+  @include for-mobile-layout {
+    top: em(10px);
+  }
+
   label {
     text-align: left;
     margin-left: 12px;
@@ -33,8 +37,7 @@
     outline: none;
     padding: 8px 12px;
     color: #172b4d;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
-      sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
     font-size: 14px;
     font-weight: 400;
 

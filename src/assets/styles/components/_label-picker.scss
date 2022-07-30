@@ -3,6 +3,10 @@
 .label-picker {
   top: em(120px);
 
+  @include for-mobile-layout {
+    top: em(10px);
+  }
+
   .label-picker-header {
     color: #5e6c84;
     font-size: 0.8171428571rem;

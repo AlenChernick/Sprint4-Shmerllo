@@ -11,6 +11,9 @@
     z-index: 10;
     position: absolute;
     top: em(162px);
+    @include for-mobile-layout {
+      top: em(10px);
+    }
 
     .close-checklist-modal {
       font-family: trellicons;
