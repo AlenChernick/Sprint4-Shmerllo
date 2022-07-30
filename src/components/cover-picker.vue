@@ -51,11 +51,17 @@ export default {
       query: '',
     }
   },
+  created() {
+    this.fetchListOfPhotos()
+  },
   methods: {
     async fetchListOfPhotos() {
       try {
         let query = this.query
-        const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
+        let response = null
+        if (query === '')
+          response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=develop`)
+        else response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
         let json = await response.json()
         await json.results.forEach((img) => {
           const imgUrl = img.urls.full
@@ -74,13 +80,13 @@ export default {
       this.style.bgColor = color
       this.style.bgImgUrl = ''
       // this.$emit('setTaskStyle', this.style)
-       this.$emit('editTask', {type: 'setTaskStyle', data: this.style})
+      this.$emit('editTask', { type: 'setTaskStyle', data: this.style })
     },
     setBgImgUrl(imgUrl) {
       this.style.bgColor = ''
       this.style.bgImgUrl = imgUrl
       // this.$emit('setTaskStyle', this.style)
-       this.$emit('editTask', {type: 'setTaskStyle', data: this.style})
+      this.$emit('editTask', { type: 'setTaskStyle', data: this.style })
     },
     closeModal() {
       this.$emit('closeModal')

@@ -62,8 +62,6 @@
       <el-input class="search-img-input" placeholder="Search Photos" type="text" v-model="query" @input="fetchListOfPhotos()" />
       <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click="setBgImgUrl(imgUrl)" />
     </div>
-
-  
   </section>
 </template>
 <script>
@@ -95,12 +93,16 @@ export default {
   },
   created() {
     //  this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
+    this.fetchListOfPhotos()
   },
   methods: {
     async fetchListOfPhotos() {
       try {
         let query = this.query
-        const response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
+        let response = null
+        if (query === '')
+          response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=develop`)
+        else response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
         let json = await response.json()
         await json.results.forEach((img) => {
           const imgUrl = img.urls.full
