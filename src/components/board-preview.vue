@@ -26,8 +26,13 @@ export default {
       this.$router.push(`/board/${this.board._id}`)
     },
     toggeleIsFavorite() {
-      this.board.isFavorite = !this.board.isFavorite
-      this.$store.dispatch({ type: 'saveBoard', board: this.board })
+      // this.board.isFavorite = !this.board.isFavorite
+      // this.$store.dispatch({ type: 'saveBoard', board: this.board })
+
+
+       let  currBoard =JSON.parse( JSON.stringify(this.board))
+      currBoard.isFavorite = !currBoard.isFavorite
+      this.$store.dispatch({ type: 'saveBoard', board: currBoard })
     },
   },
   computed: {

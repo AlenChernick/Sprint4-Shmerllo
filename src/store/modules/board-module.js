@@ -124,11 +124,13 @@ export default {
         throw err
       }
     },
-    async saveBoard({ commit }, { board }) {
+    async saveBoard({ commit,dispatch }, { board }) {
       try {
         const savedBoard = await boardService.saveBoard(board)
         console.log("save board", savedBoard)
         commit({ type: "saveBoard", board: savedBoard })
+        dispatch({ type: "loadBoards" })
+
       } catch (err) {
         console.log("Cannot save board", err)
         throw err
