@@ -1,0 +1,19 @@
+
+.seperator {
+  border-bottom: 1px solid lightgray;
+  margin: 15px 6px;
+}
+
+.add-user-to-board-img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.users-modal{
+    background-color: red;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    // grid-auto-columns: 1fr;
+    z-index:200;
+}

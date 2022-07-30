@@ -151,7 +151,6 @@ export default {
         const imgUrl = await this.getCurrBoard.style.bgImgUrl
         const fac = new FastAverageColor()
         const color = await fac.getColorAsync(imgUrl)
-        console.log(color)
         if (color.isLight) this.txtColor = '#000000'
         else this.txtColor = '#fff'
       } catch (err) {
