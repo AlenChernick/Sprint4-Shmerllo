@@ -7,6 +7,7 @@
     <span class="menu-icon"></span>Show menu
   </button>
   <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
+    <!-- <pre>{{activities}}</pre> -->
     <div class="menu-title">{{ pageTitle }}</div>
     <span @click="displayMenu = 'none'" class="close-icon"></span>
 
@@ -34,6 +35,18 @@
           </div>
         </div>
       </div>
+      <!-- <div class="activity-log">
+        <div class="activity-list" v-for="activity in activities">
+          <img v-if="activity.byMember.fullname !== 'Guest'" :src="activity.byMember?.imgUrl" />
+          <div v-else class="active-user">G</div>
+          <div class="activity-details">
+            <div class="activity-member-name">{{ activity.byMember.fullname + ' ' }}</div>
+            <div class="activity-txt">{{ activity.txt + ' ' }}</div>
+            <div class="activity-task-title">{{ activity.task.title }}</div>
+            <div class="activity-created-at">{{ timeFormat(activity.createdAt) }}</div>
+          </div>
+        </div>
+      </div> -->
     </div>
 
     <div :style="{ display: coverSelectionView }" class="board-cover-selection">
@@ -49,6 +62,8 @@
       <el-input class="search-img-input" placeholder="Search Photos" type="text" v-model="query" @input="fetchListOfPhotos()" />
       <img v-for="imgUrl in coverOptions.coverImgs" :src="imgUrl" @click="setBgImgUrl(imgUrl)" />
     </div>
+
+  
   </section>
 </template>
 <script>
@@ -77,6 +92,9 @@ export default {
 
       // activities: [],
     }
+  },
+  created() {
+    //  this.activities = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.activities))
   },
   methods: {
     async fetchListOfPhotos() {

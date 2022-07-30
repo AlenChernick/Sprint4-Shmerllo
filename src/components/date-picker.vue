@@ -30,7 +30,8 @@ export default {
       this.$emit('removeDate')
     },
     setDate() {
-      this.$emit('setDate', this.dateValue)
+      // this.$emit('setDate', this.dateValue)
+      this.$emit('editTask', {type: 'setDate', data:  this.dateValue}) 
     },
   },
   created() {},

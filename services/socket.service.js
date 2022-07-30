@@ -12,7 +12,7 @@ export const SOCKET_EMIT_SET_BOARD = 'set-curr-board'
 export const SOCKET_EVENT_UPDATE_BOARD = 'update-board'
 export const SOCKET_EVENT_BOARD_UPDATED = 'board-updated'
 
-export const SOCKET_EMIT_TOGGELE_MEMBER = 'toggele-member'
+export const SOCKET_EMIT_MEMBER_ACTION = 'toggele-member'
 export const SOCKET_EVENT_MENTION = 'user-mention'
 // chat-add-msg
 

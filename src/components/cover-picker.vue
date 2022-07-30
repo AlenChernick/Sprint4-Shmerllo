@@ -73,12 +73,14 @@ export default {
     setBgColor(color) {
       this.style.bgColor = color
       this.style.bgImgUrl = ''
-      this.$emit('setTaskStyle', this.style)
+      // this.$emit('setTaskStyle', this.style)
+       this.$emit('editTask', {type: 'setTaskStyle', data: this.style})
     },
     setBgImgUrl(imgUrl) {
       this.style.bgColor = ''
       this.style.bgImgUrl = imgUrl
-      this.$emit('setTaskStyle', this.style)
+      // this.$emit('setTaskStyle', this.style)
+       this.$emit('editTask', {type: 'setTaskStyle', data: this.style})
     },
     closeModal() {
       this.$emit('closeModal')

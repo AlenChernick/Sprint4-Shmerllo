@@ -182,16 +182,19 @@
           />
         </div>
         <edit-task-actions
-          @toggleLabel="toggleLabel"
+          @editTask="editTask"
+        />
+      </div>
+
+       <!-- @toggleLabel="toggleLabel"
           @toggleMember="toggleMember"
           @setTaskStyle="setTaskStyle"
           @addAttachment="addAttachment"
           @addCheckList="addCheckList"
           @setDate="setDate"
           @removeDate="removeDate"
-          @removeTask="removeTask"
-        />
-      </div>
+          @removeTask="removeTask" -->
+
     </section>
   </div>
 </template>
@@ -202,7 +205,7 @@ import attachmentTaskEdit from '../components/attachment-task-edit.vue'
 import { utilService } from '../../services/util-service'
 import { userService } from '../../services/user-service'
 import { FastAverageColor } from 'fast-average-color'
-import { socketService, SOCKET_EMIT_TOGGELE_MEMBER } from '../../services/socket.service'
+import { socketService, SOCKET_EMIT_MEMBER_ACTION } from '../../services/socket.service'
 
 export default {
   name: 'task-edit',
@@ -251,16 +254,87 @@ export default {
     }
   },
   methods: {
-    saveTask() {
+    saveTask( userAction = 'Task update') {
       this.$store.dispatch({
         type: 'saveTask',
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
         currBoard: this.getCurrBoard,
-        userAction: 'Task update',
+        userAction,
       })
     },
+    editTask(editData){
+      console.log(editData)
+      let idx
+      let userAction
+      switch (editData.type) {
+        
+        case 'toggleMember':
+            const member = editData.data
+            console.log(member)
+            const members = this.taskToEdit.members
+            idx = members.findIndex((m) => m.id === member.id)
+            if (idx === -1) {
+                members.push(member)
+                userAction = 'Added member'
+            } else {
+                members.splice(idx, 1)
+                userAction = 'Removed member'
+            }
+            this.saveTask(userAction)
+            const notification = {
+                mentionedUserId: member._id,
+                userAction,
+                taskTitle: this.taskToEdit.title,
+                time: Date.now(),
+                style: this.taskToEdit.style,
+              }
+            socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
+            break    
+        
+        case 'toggleLabel':
+          const labelId = editData.data
+          const labels = this.taskToEdit.labelIds
+          idx = labels.findIndex((label) => label === labelId)
+          if (idx === -1) {
+              labels.push(labelId)
+              userAction = 'Added label'
+          } else {
+              labels.splice(idx, 1)
+              userAction = 'Removed label'
+          }
+          this.saveTask(userAction)
+          break   
+          
+        case 'addCheckList':
+          const checklist = editData.data
+          if (checklist.checkListTitle === '') return
+          this.taskToEdit.checklists.push(checklist)
+          this.saveTask('Added checklist')
+          this.isCheckListAdded = false
+          this.checkListTitle = ''
+          break  
+
+        case 'setDate':
+          const dateValue = editData.data    
+          this.taskToEdit.dueDate = dateValue
+          this.saveTask('Added due date')
+          break 
+
+        case 'addAttachment':
+          const attachment = editData.data    
+          this.taskToEdit.attachments.push(attachment)
+          this.saveTask('Added attchment')
+          break
+
+        case 'setTaskStyle':
+          const style = editData.data    
+          this.taskToEdit.style = style
+          this.saveTask('Changed cover')
+          break
+        }
+    },   
     removeTask() {
       this.$store.dispatch({
         type: 'removeTask',
@@ -352,57 +426,57 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-    toggleLabel(labelId) {
-      const labels = this.taskToEdit.labelIds
-      const idx = labels.findIndex((label) => label === labelId)
-      let userAction = ''
-      if (idx === -1) {
-        userAction = 'Added label'
-        labels.push(labelId)
-      } else {
-        labels.splice(idx, 1)
-        userAction = 'Removed label'
-      }
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-      })
-    },
-    toggleMember(member) {
-      const members = this.taskToEdit.members
-      const idx = members.findIndex((m) => m.id === member.id)
-      let userAction = ''
-      if (idx === -1) {
-        userAction = 'Added member'
-        members.push(member)
-      } else {
-        members.splice(idx, 1)
-        userAction = 'Removed member'
+    // toggleLabel(labelId) {
+    //   const labels = this.taskToEdit.labelIds
+    //   const idx = labels.findIndex((label) => label === labelId)
+    //   let userAction = ''
+    //   if (idx === -1) {
+    //     userAction = 'Added label'
+    //     labels.push(labelId)
+    //   } else {
+    //     labels.splice(idx, 1)
+    //     userAction = 'Removed label'
+    //   }
+    //   this.$store.dispatch({
+    //     type: 'saveTask',
+    //     task: this.taskToEdit,
+    //     groupId: this.groupId,
+    //     boardId: this.boardId,
+    //     userAction,
+    //     taskTitle: this.taskToEdit.title,
+    //   })
+    // },
+    // toggleMember(member) {
+    //   const members = this.taskToEdit.members
+    //   const idx = members.findIndex((m) => m.id === member.id)
+    //   let userAction = ''
+    //   if (idx === -1) {
+    //     userAction = 'Added member'
+    //     members.push(member)
+    //   } else {
+    //     members.splice(idx, 1)
+    //     userAction = 'Removed member'
 
-      }
-      // const byUserId = 'Alon Kolker'
-      const notification = {
-        mentionedUserId: member._id,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-        // byUserId,
-        time: Date.now(),
-        style: this.taskToEdit.style,
-      }
-      socketService.emit(SOCKET_EMIT_TOGGELE_MEMBER, notification)
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction,
-        taskTitle: this.taskToEdit.title,
-      })
-    },
+    //   }
+    //   // const byUserId = 'Alon Kolker'
+    //   const notification = {
+    //     mentionedUserId: member._id,
+    //     userAction,
+    //     taskTitle: this.taskToEdit.title,
+    //     // byUserId,
+    //     time: Date.now(),
+    //     style: this.taskToEdit.style,
+    //   }
+    //   socketService.emit(SOCKET_EMIT_TOGGELE_MEMBER, notification)
+    //   this.$store.dispatch({
+    //     type: 'saveTask',
+    //     task: this.taskToEdit,
+    //     groupId: this.groupId,
+    //     boardId: this.boardId,
+    //     userAction,
+    //     taskTitle: this.taskToEdit.title,
+    //   })
+    // },
     setTaskStyle(style) {
       this.taskToEdit.style = style
       this.$store.dispatch({
@@ -414,17 +488,17 @@ export default {
         taskTitle: this.taskToEdit.title,
       })
     },
-    addAttachment(attachment) {
-      this.taskToEdit.attachments.push(attachment)
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: 'Added attchment',
-        taskTitle: this.taskToEdit.title,
-      })
-    },
+    // addAttachment(attachment) {
+    //   this.taskToEdit.attachments.push(attachment)
+    //   this.$store.dispatch({
+    //     type: 'saveTask',
+    //     task: this.taskToEdit,
+    //     groupId: this.groupId,
+    //     boardId: this.boardId,
+    //     userAction: 'Added attchment',
+    //     taskTitle: this.taskToEdit.title,
+    //   })
+    // },
     labelColor(labelId) {
       const boardLabels = this.$store.getters.getCurrBoard.boardLabels
       const label = boardLabels.find((l) => l.id === labelId)
@@ -448,17 +522,17 @@ export default {
       let percentage = (commentLen / checkListLen) * 100 || 0
       return +percentage.toFixed(0)
     },
-    setDate(dateValue) {
-      this.taskToEdit.dueDate = dateValue
-      this.$store.dispatch({
-        type: 'saveTask',
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: 'Added due date',
-        taskTitle: this.taskToEdit.title,
-      })
-    },
+    // setDate(dateValue) {
+    //   this.taskToEdit.dueDate = dateValue
+    //   this.$store.dispatch({
+    //     type: 'saveTask',
+    //     task: this.taskToEdit,
+    //     groupId: this.groupId,
+    //     boardId: this.boardId,
+    //     userAction: 'Added due date',
+    //     taskTitle: this.taskToEdit.title,
+    //   })
+    // },
     removeDate() {
       this.taskToEdit.dueDate = ''
       this.$store.dispatch({
@@ -554,6 +628,8 @@ export default {
     editTaskActions,
     attachmentTaskEdit,
     editTaskActivity,
-  },
-}
+  }
+
+  }
+
 </script>
