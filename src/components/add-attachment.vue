@@ -30,7 +30,9 @@ export default {
   methods: {
     addAttachment() {
       if (!this.attachment) return
-      this.$emit('addAttachment', this.attachment)
+      console.log(this.attachment)
+      this.$emit('editTask', {type: 'addAttachment', data: this.attachment})
+      // this.$emit('addAttachment', this.attachment)
     },
     closeModal() {
       this.$emit('closeModal')
@@ -42,7 +44,8 @@ export default {
     },
     async onUploadFile(file) {
       const res = await uploadImg(file)
-      this.$emit('addAttachment', res.url)
+      // this.$emit('addAttachment', res.url)
+      this.$emit('editTask', {type: 'addAttachment', data:res.url})
     },
   },
   created() {},

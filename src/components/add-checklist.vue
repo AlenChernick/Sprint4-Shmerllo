@@ -33,7 +33,8 @@ export default {
   methods: {
     addCheckList() {
       if (!this.checkList.id) return
-      this.$emit('addCheckList', this.checkList)
+      // this.$emit('addCheckList', this.checkList)
+       this.$emit('editTask', {type: 'addCheckList', data: this.checkList})
     },
     closeModal() {
       this.$emit('closeModal')

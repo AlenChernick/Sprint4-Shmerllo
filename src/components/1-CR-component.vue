@@ -12,13 +12,7 @@
     <component
       :is="cmpType"
       @closeModal="closeModal"
-      @toggleMember="toggleMember"
-      @toggleLabel="toggleLabel"
-      @setTaskStyle="setTaskStyle"
-      @addAttachment="addAttachment"
-      @addCheckList="addCheckList"
-      @setDate="setDate"
-      @removeDate="removeDate"
+      @editTask="editTask"
     ></component>
   </section>
 </template>
@@ -55,26 +49,8 @@ export default {
     closeModal() {
       this.cmpType = null
     },
-    toggleMember(member) {
-      this.$emit('toggleMember', member)
-    },
-    toggleLabel(labelId) {
-      this.$emit('toggleLabel', labelId)
-    },
-    setTaskStyle(style) {
-      this.$emit('setTaskStyle', style)
-    },
-    addAttachment(attachment) {
-      this.$emit('addAttachment', attachment)
-    },
-    addCheckList(checklist) {
-      this.$emit('addCheckList', checklist)
-    },
-    setDate(dateValue) {
-      this.$emit('setDate', dateValue)
-    },
-    removeDate(dateValue) {
-      this.$emit('removeDate', dateValue)
+    editTask(editData){
+      this.$emit('editTask', editData)
     },
   },
   components: {
@@ -113,7 +89,7 @@ export default {
   },
   methods: {
     toggleMember(member) {
-      this.$emit('toggleMember', member)
+      this.$emit('editTask', {type: 'toggleMember', data: member})
     },
     closeModal() {
       this.$emit('closeModal')
@@ -121,23 +97,16 @@ export default {
   },
   created() {
     this.membersToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard.members))
-  },
-  computed: {},
+  }
 }
 </script>
 
 <!-- Task-edit component (part of) -->
 
 <template>
-  <edit-task-actions
-    @toggleLabel="toggleLabel"
-    @toggleMember="toggleMember"
-    @setTaskStyle="setTaskStyle"
-    @addAttachment="addAttachment"
-    @addCheckList="addCheckList"
-    @setDate="setDate"
-    @removeDate="removeDate"
-  />
+ <edit-task-actions
+      @editTask="editTask"
+      />
 </template>
 
 <script>
@@ -149,19 +118,78 @@ export default {
     }
   },
   methods: {
-    toggleMember(member) {
-      const members = this.taskToEdit.members
-      const idx = members.findIndex((m) => m.id === member.id)
-      let userAction = ''
-      if (idx === -1) {
-        userAction = 'Add member'
-        members.push(member)
-      } else {
-        members.splice(idx, 1)
-        userAction = 'Removed member'
-      }
-      this.saveTask(userAction)
-    },
+    editTask(editData){
+      
+      let idx
+      let userAction
+
+      switch (editData.type) {
+        
+          case 'toggleMember':
+            const member = editData.data
+            const members = this.taskToEdit.members
+            idx = members.findIndex((m) => m.id === member.id)
+            if (idx === -1) {
+                members.push(member)
+                userAction = 'Added member'
+            } else {
+                members.splice(idx, 1)
+                userAction = 'Removed member'
+            }
+            this.saveTask(userAction)
+            const notification = {
+                mentionedUserId: member._id,
+                userAction,
+                taskTitle: this.taskToEdit.title,
+                time: Date.now(),
+                style: this.taskToEdit.style,
+              }
+            socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
+            break    
+        
+        case 'toggleLabel':
+          const labelId = editData.data
+          const labels = this.taskToEdit.labelIds
+          idx = labels.findIndex((label) => label === labelId)
+          if (idx === -1) {
+              labels.push(labelId)
+              userAction = 'Added label'
+          } else {
+              labels.splice(idx, 1)
+              userAction = 'Removed label'
+          }
+          this.saveTask(userAction)
+          break   
+          
+        case 'addCheckList':
+          const checklist = editData.data
+          if (checklist.checkListTitle === '') return
+          this.taskToEdit.checklists.push(checklist)
+          this.saveTask('Added checklist')
+          this.isCheckListAdded = false
+          this.checkListTitle = ''
+          break  
+
+        case 'setDate':
+          const dateValue = editData.data    
+          this.taskToEdit.dueDate = dateValue
+          this.saveTask('Added due date')
+          break 
+
+        case 'addAttachment':
+          const attachment = editData.data    
+          this.taskToEdit.attachments.push(attachment)
+          this.saveTask('Added attchment')
+          break
+
+        case 'setTaskStyle':
+          const style = editData.data    
+          this.taskToEdit.style = style
+          this.saveTask('Changed cover')
+          break
+        }
+    },  
+   
     saveTask(userAction) {
       this.$store.dispatch({
         type: 'saveTask',

@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     toggleLabel(labelId) {
-      this.$emit('toggleLabel', labelId)
+         this.$emit('editTask', {type: 'toggleLabel', data: labelId}) 
+      // this.$emit('toggleLabel', labelId)
     },
     editLabels() {
       this.$store.dispatch({ type: 'editLabels', labels: this.labelsToEdit })
