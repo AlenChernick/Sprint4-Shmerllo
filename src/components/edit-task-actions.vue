@@ -9,20 +9,22 @@
       <component
         :is="cmpType"
         @closeModal="closeModal"
-        @toggleLabel="toggleLabel"
-        @toggleMember="toggleMember"
-        @setTaskStyle="setTaskStyle"
-        @addAttachment="addAttachment"
-        @addCheckList="addCheckList"
-        @setDate="setDate"
-        @removeDate="removeDate"
-        @removeTask="removeTask"
+        @editTask="editTask"
       >
       </component>
       <div class="archive-icon-container">
         <div @click.stop="removeTask"><span class="archive-icon"></span>Archive</div>
       </div>
     </div>
+     <!-- @toggleLabel="toggleLabel"
+        @toggleMember="toggleMember"
+        
+        @setTaskStyle="setTaskStyle"
+        @addAttachment="addAttachment"
+        @addCheckList="addCheckList"
+        @setDate="setDate"
+        @removeDate="removeDate"
+        @removeTask="removeTask" -->
   </section>
 </template>
 
@@ -55,6 +57,10 @@ export default {
     },
     closeModal() {
       this.cmpType = null
+    },
+    editTask(editData){
+      console.log(editData)
+      this.$emit('editTask', editData)
     },
     toggleLabel(labelId) {
       this.$emit('toggleLabel', labelId)
