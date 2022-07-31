@@ -74,6 +74,11 @@
 .starred-boards {
   margin-top: em(80px);
 
+  .no-starred-boards-text {
+    color: #5e6c84;
+    margin-inline-start: 1.2rem;
+  }
+
   h3 {
     display: inline-block;
     // margin-bottom: em(5px);

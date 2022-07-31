@@ -4,7 +4,8 @@
     @click="displayMenu = 'block'"
     class="board-header-btn"
   >
-    <span class="menu-icon"></span>Show menu
+    <span class="menu-icon"></span>
+    <span class="menu-title">Show menu </span>
   </button>
   <section v-if="activities" :style="{ display: displayMenu }" class="board-menu">
     <!-- <pre>{{activities}}</pre> -->
@@ -76,7 +77,17 @@ export default {
       activityView: 'block',
       coverSelectionView: 'none',
       coverOptions: {
-        coverColors: ['#277da1', '#4d908e', '#fb6f92', '#90be6d', '#f9c74f', '#f9844a', '#00b4d8', '#3a5a40'],
+        coverColors: [
+          'rgb(0, 121, 191)',
+          'rgb(210, 144, 52)',
+          'rgb(81, 152, 57)',
+          'rgb(176, 70, 50)',
+          'rgb(137, 96, 158)',
+          'rgb(205, 90, 145)',
+          'rgb(75, 191, 107)',
+          'rgb(0, 174, 204)',
+          'rgb(131, 140, 145)',
+        ],
         coverImgs: [],
       },
       pageTitle: 'Menu',
