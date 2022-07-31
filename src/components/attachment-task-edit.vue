@@ -18,10 +18,10 @@
 <script>
 export default {
   name: 'attachment-task-edit',
-
+emits:['makeCover','removeAttachemnt'],
   props: {
     attachment: {
-      type: Object,
+      type: String,
     },
     idx: {
       type: Number,

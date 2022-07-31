@@ -355,7 +355,7 @@ function _getEmptyGroup() {
 function _createNewBoard(properties, user) {
   if (!user) {
     user = {
-      id: 111,
+      _id: 111,
       username: "Guest",
       fullname: "Guest",
       imgUrl: "https://www.computerhope.com/jargon/g/guest-user.jpg",
@@ -372,10 +372,89 @@ function _createNewBoard(properties, user) {
     },
     members: [
     ],
-    groups: [],
+    groups: [ {
+      "id" : "G37tGgx7",
+      "title" : "My first board! 😎",
+      "archivedAt" : '',
+      "description" : " ",
+      "type" : "draggable",
+      "tasks" : [
+          {
+              "status" : "",
+              "description" : "",
+              "comments" : [
+
+              ],
+              "checklists" : [
+
+              ],
+              "labelIds" : [
+
+              ],
+              "attachments" : [
+
+              ],
+              "createdAt" :Date.now(),
+              "dueDate" : "",
+              "byMember" : {
+                  "_id" : user._id,
+                  "username" :user.username,
+                  "fullname" : user.fulllname,
+                  "imgUrl" : user.imgUrl,
+                  "createdAt" :Date.now()
+              },
+              "members" : [
+
+              ],
+              "style" : {
+                  "bgColor" : "",
+                  "bgImgUrl" : ""
+              },
+              "title" : "Hello!",
+              "id" : "32ZfUpiD"
+          },
+          {
+              "status" : "",
+              "description" : "",
+              "comments" : [
+
+              ],
+              "checklists" : [
+
+              ],
+              "labelIds" : [
+
+              ],
+              "attachments" : [
+
+              ],
+              "createdAt" : Date.now(),
+              "dueDate" : "",
+              "byMember" : {
+                  "_id" : user._id,
+                  "username" : user.username,
+                  "fullname" : user.fullname,
+                  "imgUrl" : user.imgUrl,
+                  "createdAt" :Date.now()
+              },
+              "members" : [
+
+              ],
+              "style" : {
+                  "bgColor" : "",
+                  "bgImgUrl" : ""
+              },
+              "title" : "Shmerllo app will improve your team productivity👍",
+              "id" : "6RCBb3wO"
+          }
+      ],
+      "style" : {
+
+      }
+  }],
 
     byMember: {
-      id: user._id,
+      _id: user._id,
       username: user.username,
       fullname: user.fullname,
       imgUrl: user.imgUrl,
@@ -390,25 +469,25 @@ function _createNewBoard(properties, user) {
     activities:[],
     members : [
       {
-          "id" : "m101",
+          "_id" : "62e4266dff763f0b995957a9",
           "username" : "THT",
           "fullname" : "Tal Hammer Topaz",
           "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U03AHSR218R-c8967c6358b4-512"
       },
       {
-          "id" : "m102",
+          "_id" : "62e4267aff763f0b995957aa",
           "username" : "AK",
           "fullname" : "Alon Kolker",
           "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U03BSQW83JN-2722b50680bb-512"
       },
       {
-          "id" : "m103",
+          "_id" : "62e4267eff763f0b995957ab",
           "username" : "AC",
-          "fullname" : "Alen Alen Chernick",
+          "fullname" : "Alen  Chernick",
           "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U039NGTS4LS-ecf5fa0f2299-512"
       },
       {
-          "id" : "m104",
+          "_id" : "62e42686ff763f0b995957ac",
           "username" : "LS",
           "fullname" : "Lihi Sered",
           "imgUrl" : "https://ca.slack-edge.com/T035GULFZRD-U03BUP78HDG-30bde5111b5b-512"
