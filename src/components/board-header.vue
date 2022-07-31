@@ -28,8 +28,7 @@
         </Draggable>
       </Container>
 
-<!-- <search-add-board-member></search-add-board-member> -->
-      
+      <!-- <search-add-board-member></search-add-board-member> -->
     </div>
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
@@ -46,16 +45,16 @@
 </template>
 
 <script>
-import { Container, Draggable } from "vue3-smooth-dnd"
+import { Container, Draggable } from 'vue3-smooth-dnd'
 // import { applyDrag } from "../../services/dnd-service.js"
-import boardMenu from "../components/board-menu.vue"
-import boardFilter from "../components/board-filter.vue"
+import boardMenu from '../components/board-menu.vue'
+import boardFilter from '../components/board-filter.vue'
 // import searchAddBoardMember from "../components/search-add-board-member.vue"
-import { utilService } from "../../services/util-service.js"
-import { FastAverageColor } from "fast-average-color"
+import { utilService } from '../../services/util-service.js'
+import { FastAverageColor } from 'fast-average-color'
 
 export default {
-  name: "board-header",
+  name: 'board-header',
   props: {
     board: {
       type: Object,
@@ -64,7 +63,7 @@ export default {
   data() {
     return {
       currBoard: {},
-      txtColor: "",
+      txtColor: '',
     }
   },
   created() {
@@ -72,11 +71,11 @@ export default {
   },
   methods: {
     saveBoard() {
-      this.$store.dispatch({ type: "saveBoard", board: this.board })
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
     toggeleIsFavorite() {
       this.board.isFavorite = !this.board.isFavorite
-      this.$store.dispatch({ type: "saveBoard", board: this.board })
+      this.$store.dispatch({ type: 'saveBoard', board: this.board })
     },
     openDashboard() {
       this.$router.push(`/board/${this.board._id}/dashboard`)
@@ -93,8 +92,8 @@ export default {
   computed: {
     icon() {
       let board = this.$store.getters.getCurrBoard
-      if (board?.isFavorite) return "full-star-icon"
-      else return "star-icon"
+      if (board?.isFavorite) return 'full-star-icon'
+      else return 'star-icon'
     },
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
@@ -104,10 +103,10 @@ export default {
         const imgUrl = await this.getCurrBoard.style.bgImgUrl
         const fac = new FastAverageColor()
         const color = await fac.getColorAsync(imgUrl)
-        if (color.isLight) this.txtColor = "#000000"
-        else this.txtColor = "#fff"
+        if (color.isLight) this.txtColor = '#000000'
+        else this.txtColor = '#fff'
       } catch (err) {
-        console.log("Cannot load avg color", err)
+        console.log('Cannot load avg color', err)
         throw err
       }
     },

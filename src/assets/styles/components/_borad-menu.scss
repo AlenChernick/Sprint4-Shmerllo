@@ -216,8 +216,8 @@
   padding-left: 8px;
 
   .color-box {
-    width: 47%;
-    height: 105px;
+    width: 30%;
+    height: 93px;
     margin: 5px;
     margin-bottom: 0;
     border-radius: 10px;
@@ -227,10 +227,12 @@
   }
 
   img {
-    width: 47%;
-    height: 105px;
+    width: 30%;
+    height: 95px;
+    // margin-left: 10px;
+    // margin-top: 7px;
+    // margin-bottom: 0;
     margin: 5px;
-    margin-bottom: 0;
     border-radius: 10px;
     background-color: rgb(53, 34, 10);
     display: inline-block;
