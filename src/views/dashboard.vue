@@ -1,4 +1,4 @@
-<template lang="">
+<!-- <template lang="">
   <section class="dashboard">
     <div class="dashboardScreen"></div>
     <div class="main-dashbord">
@@ -209,4 +209,4 @@ export default {
   components: { BarChart, PieChart, DoughnutChart },
 }
 </script>
-<style lang=""></style>
+<style lang=""></style> -->
