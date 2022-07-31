@@ -166,6 +166,7 @@ export default {
         })
       })
       return {
+<<<<<<< HEAD
         labels: Object.keys(tasksDue),
         datasets: [
           {
@@ -173,6 +174,15 @@ export default {
             backgroundColor: ['#7E909A', '#D32D41', '#EA6A47', '#6AB187'],
           },
         ],
+=======
+      labels: Object.keys(tasksDue),
+      datasets: [
+        {
+          data: Object.values(tasksDue),
+          backgroundColor: ['#7E909A',  '#e63946', '#EA6A47', '#70e000'],
+        },
+      ]
+>>>>>>> 1d295cf0d72738a3dfcd4c943f9cf96e7848629e
       }
     },
     checkedData() {
@@ -192,6 +202,7 @@ export default {
         })
       })
       return {
+<<<<<<< HEAD
         labels: Object.keys(checkedData),
         datasets: [
           {
@@ -200,6 +211,16 @@ export default {
           },
         ],
         title: {
+=======
+      labels: Object.keys(checkedData),
+      datasets: [
+        {
+          data: Object.values(checkedData),
+          backgroundColor: ['#70e000', '#7E909A'],
+        },
+      ],
+      title: {
+>>>>>>> 1d295cf0d72738a3dfcd4c943f9cf96e7848629e
           display: true,
           text: 'Chart.js Doughnut Chart',
         },
