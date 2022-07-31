@@ -6,7 +6,7 @@
           <span class="full-star-icon"></span>
           <h3>Starred workspaces</h3>
         </div>
-        <div v-if="!starredBoards.length">No starred boards yet...</div>
+        <div class="no-starred-boards-text" v-if="!starredBoards.length">No starred boards yet...</div>
         <board-list :staredBoard="true" :boards="starredBoards" />
       </div>
       <h3 class="workspace-logo"><font-awesome-icon class="workspace-icon" icon="fab fa-trello" />Your workspaces</h3>

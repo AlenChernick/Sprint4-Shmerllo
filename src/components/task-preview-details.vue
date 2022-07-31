@@ -38,9 +38,9 @@
         :get-child-payload="getChildPayload"
         orientation="horizontal"
         group-name="members"
-        class="drag-img-conteiner-big flex"
+        class="drag-img-conteiner-big prev-members-imgs flex"
       >
-        <Draggable  v-for="member in task.members" :key="member._id">
+        <Draggable v-for="member in task.members" :key="member._id">
           <div class="flex prev-members-imgs">
             <ul class="clean-list flex">
               <img class="prev-member-img" :src="member.imgUrl" />
@@ -52,10 +52,10 @@
   </div>
 </template>
 <script>
-import { Container, Draggable } from "vue3-smooth-dnd"
-import { applyDrag } from "../../services/dnd-service.js"
+import { Container, Draggable } from 'vue3-smooth-dnd'
+import { applyDrag } from '../../services/dnd-service.js'
 export default {
-  name: "task-preview-details",
+  name: 'task-preview-details',
   props: {
     task: {
       type: Object,
@@ -87,7 +87,7 @@ export default {
     },
     openLables() {
       this.boardToEdit.isLabelsOpen = !this.boardToEdit.isLabelsOpen
-      this.$store.dispatch({ type: "saveBoard", board: this.boardToEdit })
+      this.$store.dispatch({ type: 'saveBoard', board: this.boardToEdit })
     },
     todosCount(checklists) {
       let tempDoneTodos = 0
@@ -102,7 +102,7 @@ export default {
       return `${tempDoneTodos}/${todos}`
     },
     convertDate(dueDate) {
-      const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
+      const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
       let formatedDate = new Date(dueDate)
       let dueDateMonth = formatedDate.getMonth()
       dueDateMonth = monthArr[dueDateMonth]
@@ -114,7 +114,7 @@ export default {
       let memberId = dropRes.payload._id
 
       if (dropRes.addedIndex !== null) {
-        this.$emit("addTaskMember", memberId)
+        this.$emit('addTaskMember', memberId)
       }
     },
     getChildPayload(idx) {
@@ -126,8 +126,8 @@ export default {
       return this.$store.getters.getCurrBoard
     },
     labelStaus() {
-      if (this.boardToEdit.isLabelsOpen === false) return "label-task-preview"
-      if (this.boardToEdit.isLabelsOpen) return "label-task-preview-full"
+      if (this.boardToEdit.isLabelsOpen === false) return 'label-task-preview'
+      if (this.boardToEdit.isLabelsOpen) return 'label-task-preview-full'
     },
     doneTodos() {
       let checklists = this.task.checklists
@@ -142,8 +142,8 @@ export default {
       })
 
       return {
-        "prev-task-checklists doneTodos": tempDoneTodos === todos && todos !== 0,
-        "prev-task-checklists": tempDoneTodos !== todos,
+        'prev-task-checklists doneTodos': tempDoneTodos === todos && todos !== 0,
+        'prev-task-checklists': tempDoneTodos !== todos,
       }
     },
     commentsCount() {
@@ -153,8 +153,8 @@ export default {
       return this.task.attachments.length
     },
     dueDateColor() {
-      if (new Date() < new Date(this.task.dueDate)) return "#61bd4f"
-      if (new Date() >= new Date(this.task.dueDate)) return "orange"
+      if (new Date() < new Date(this.task.dueDate)) return '#61bd4f'
+      if (new Date() >= new Date(this.task.dueDate)) return 'orange'
     },
   },
   components: {
