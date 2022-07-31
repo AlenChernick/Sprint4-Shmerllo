@@ -49,6 +49,7 @@ import datePicker from "../components/date-picker.vue"
 import coverPicker from "../components/cover-picker.vue"
 import taskPreviewDetails from "../components/task-preview-details.vue"
 import { utilService } from "../../services/util-service.js"
+import { socketService, SOCKET_EMIT_MEMBER_ACTION } from '../../services/socket.service'
 
 export default {
   name: "task-preview",
@@ -119,6 +120,7 @@ export default {
             time: Date.now(),
             style: this.taskToEdit.style,
           }
+          console.log('emiting', notification)
           socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
           break
 
