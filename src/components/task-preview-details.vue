@@ -38,11 +38,11 @@
         :get-child-payload="getChildPayload"
         orientation="horizontal"
         group-name="members"
-        class="drag-img-conteiner-big prev-members-imgs flex"
+        class="drag-img-conteiner-big flex prev-members-imgs"
       >
         <Draggable v-for="member in task.members" :key="member._id">
           <div class="flex prev-members-imgs">
-            <ul class="clean-list flex">
+            <ul class="clean-list flex flex-end">
               <img class="prev-member-img" :src="member.imgUrl" />
             </ul>
           </div>
