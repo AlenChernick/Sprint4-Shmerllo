@@ -31,12 +31,12 @@ export default {
     return {}
   },
   methods: {
-    goToWorkPlase(board) {
-      const currBoard = this.$store.dispatch({ type: "loadCurrBoard", boardId: board._id })
-      this.$router.push(`/board/${currBoard._id}`)
+    async goToWorkPlase(board) {
+      const currBoard = await this.$store.dispatch({ type: "loadCurrBoard", boardId: board._id })
+      this.$router.push(`/board/${board._id}`)
     },
     userFirstLetter(memberFullName) {
-      return memberFullName.charAt(0).toUpperCase()
+      return memberFullName.charAt(1).toUpperCase()
     },
   },
   computed: {
