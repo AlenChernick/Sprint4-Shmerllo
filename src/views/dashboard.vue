@@ -173,7 +173,7 @@ export default {
       datasets: [
         {
           data: Object.values(tasksDue),
-          backgroundColor: ['#7E909A',  '#D32D41', '#EA6A47', '#6AB187'],
+          backgroundColor: ['#7E909A',  '#e63946', '#EA6A47', '#70e000'],
         },
       ]
       }
@@ -204,7 +204,7 @@ export default {
       datasets: [
         {
           data: Object.values(checkedData),
-          backgroundColor: ['#6AB187', '#7E909A'],
+          backgroundColor: ['#70e000', '#7E909A'],
         },
       ],
       title: {

@@ -25,8 +25,8 @@
         </div>
       </form>
     </div>
-    <img class="login-img-right" src="../assets/img/loging_pic_left.PNG" alt="" />
-    <img class="login-img-left" src="../assets/img/loging_pic_right.PNG" alt="" />
+    <!-- <img class="login-img-right" src="../assets/img/loging-left.PNG" alt="" />
+    <img class="login-img-left" src="../assets/img/loging-right.PNG" alt="" /> -->
   </div>
 </template>
 <script>

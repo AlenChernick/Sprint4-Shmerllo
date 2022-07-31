@@ -1,9 +1,13 @@
 .board-list {
   display: grid;
-  text-align: center;
-  grid-template-columns: repeat(auto-fit, minmax(em(100px), em(210px)));
-  grid-template-rows: em(114px);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   background-color: white;
+  justify-content: center;
+
+  @include for-mobile-layout {
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  }
+
   .add-new-board {
     display: flex;
     justify-content: center;

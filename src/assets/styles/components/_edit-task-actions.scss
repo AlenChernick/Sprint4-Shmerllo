@@ -8,11 +8,21 @@
   gap: 0.3rem;
   position: relative;
 
+  @include for-mobile-layout {
+    margin: 10px auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .main-task-header {
     margin-top: em(25px);
     font-size: em(12px);
     font-weight: 600;
     color: $clr12;
+    @include for-mobile-layout {
+      display: none;
+    }
   }
   .archive-icon-container {
     display: flex;

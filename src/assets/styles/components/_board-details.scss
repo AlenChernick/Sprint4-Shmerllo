@@ -9,4 +9,8 @@
   .board-list-container {
     flex: 1;
   }
+
+  @include for-mobile-layout {
+    width: 100%;
+  }
 }

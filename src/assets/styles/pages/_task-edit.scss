@@ -26,6 +26,10 @@
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.315);
     z-index: 100;
 
+    @include for-mobile-layout {
+      width: 100%;
+    }
+
     .task-edit-img-container {
       width: 100%;
       display: flex;
@@ -49,7 +53,7 @@
       cursor: pointer;
 
       &::before {
-        content: "\e91c";
+        content: '\e91c';
       }
 
       &:hover {
@@ -74,7 +78,7 @@
       font-size: em(20px);
       background-color: transparent;
       &::before {
-        content: "\e91c";
+        content: '\e91c';
       }
       &:hover {
         background-color: $clr11;
@@ -103,7 +107,7 @@
         margin-left: 0.1em;
         font-size: em(24px);
         &::before {
-          content: "\e912";
+          content: '\e912';
         }
       }
 
@@ -145,12 +149,20 @@
     .main-task-editor-container {
       display: flex;
 
+      @include for-mobile-layout {
+        flex-direction: column-reverse;
+      }
+
       .main-editor {
         display: flex;
         flex-wrap: wrap;
         margin-top: -1rem;
         margin-bottom: em(15px);
         margin-left: em(19px);
+
+        @include for-mobile-layout {
+          margin-left: em(5px);
+        }
 
         .label-picker {
           display: flex;
@@ -173,7 +185,6 @@
             margin-left: -0.1rem;
             margin-bottom: em(-20px);
             .main-task-add-member {
-
               margin-top: 1.2rem;
               margin-left: em(3px);
               .main-task-add-member-icon {
@@ -186,7 +197,7 @@
                 transition: background-color 0.2s;
                 cursor: pointer;
                 &::before {
-                  content: "\e901";
+                  content: '\e901';
                 }
                 &:hover {
                   background-color: $clr10;
@@ -197,11 +208,15 @@
                 width: 350px;
                 padding: 0 40px;
                 top: 305px;
-               .board-members-txt {
-                margin-left: -20px;
-                padding: 0;
-               }
+                .board-members-txt {
+                  margin-left: -20px;
+                  padding: 0;
+                }
 
+                @include for-mobile-layout {
+                  top: em(95px);
+                  left: em(39px);
+                }
               }
             }
             ul {
@@ -293,7 +308,7 @@
           font-family: trellicons;
           font-size: em(24px);
           &::before {
-            content: "\e922";
+            content: '\e922';
           }
         }
       }
@@ -323,7 +338,11 @@
           box-shadow: inset 0 0 0 2px #0079bf;
         }
         &:empty:before {
-          content: "Add a more detailed description...";
+          content: 'Add a more detailed description...';
+        }
+
+        @include for-mobile-layout {
+          width: 91%;
         }
       }
       .checklist-progressbar-contianer {
@@ -334,8 +353,6 @@
           margin-left: -4.75em;
           width: 114%;
 
-        
-          
           .el-progress__text {
             span {
               margin-inline-start: 0.5rem;
@@ -382,7 +399,7 @@
                 font-weight: 500;
                 display: flex;
                 &::before {
-                  content: "\e952";
+                  content: '\e952';
                 }
               }
             }
@@ -397,7 +414,7 @@
               display: flex;
 
               &::before {
-                content: "\e952";
+                content: '\e952';
               }
             }
             .checklist-checkbox-menu {
@@ -474,7 +491,7 @@
           font-family: trellicons;
           font-size: em(24px);
           &::before {
-            content: "\e91a";
+            content: '\e91a';
           }
         }
         .main-editor-checklist-title {
@@ -510,7 +527,7 @@
             font-family: trellicons;
             font-size: em(24px);
             &::before {
-              content: "\e900";
+              content: '\e900';
             }
           }
           .main-editor-activity-title {
@@ -560,11 +577,16 @@
       margin-left: em(2px);
       margin-top: em(2px);
       position: relative;
-      .label-picker-component{
+      .label-picker-component {
         position: absolute;
         display: flex;
         flex-direction: column;
         top: 30px;
+
+        @include for-mobile-layout {
+          top: -250px;
+          right: 45px;
+        }
       }
       .main-task-add-label-icon {
         border-radius: 3px;
@@ -575,7 +597,7 @@
         transition: background-color 0.2s;
         cursor: pointer;
         &::before {
-          content: "\e901";
+          content: '\e901';
         }
         &:hover {
           background-color: $clr10;
@@ -585,12 +607,9 @@
   }
 }
 
-
-
 .done {
   .el-progress-bar__inner {
     color: green;
     background-color: green;
   }
 }
-

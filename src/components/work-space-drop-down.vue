@@ -8,7 +8,7 @@
         </el-icon>
       </div>
     </span>
-    <template #dropdown class="work-space-drop ">
+    <template #dropdown class="work-space-drop">
       <div class="drop-down-inner-header flex">
         <span> Workspaces</span>
       </div>
@@ -16,7 +16,7 @@
       <el-dropdown-menu v-for="(board, idx) in boards" :key="board._id" class="work-spaces-items flex">
         <el-dropdown-item @click="goToWorkPlase(board)"
           ><div class="workspace-owner">{{ userFirstLetter(board.byMember.fullname) }}</div>
-          "{{ board.title }}" -  <span> &nbsp; {{ board.byMember.fullname }}'s Workspace </span></el-dropdown-item
+          "{{ board.title }}" - <span> &nbsp; {{ board.byMember.fullname }}'s Workspace </span></el-dropdown-item
         >
         <div v-if="boards.length !== idx + 1" class="seperator"></div>
       </el-dropdown-menu>
@@ -24,7 +24,7 @@
   </el-dropdown>
 </template>
 <script>
-import { ArrowDown } from "@element-plus/icons-vue"
+import { ArrowDown } from '@element-plus/icons-vue'
 
 export default {
   data() {
@@ -49,12 +49,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.example-showcase .el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-</style>

@@ -35,9 +35,18 @@
     font-size: 27px;
     margin-top: 0.2rem;
 
+    @include for-mobile-layout {
+      font-size: 18px;
+    }
+
     img {
       width: 22px;
       margin-inline-end: 0.5rem;
+
+      @include for-mobile-layout {
+        width: 18px;
+        margin-block-start: 0.3rem;
+      }
     }
   }
 
@@ -54,6 +63,9 @@
     text-decoration: none;
     font-weight: 580;
     font-family: NunitoSans-regular;
+    @include for-mobile-layout {
+      margin-inline-end: 2.5rem;
+    }
   }
 
   .signup-page-btn {

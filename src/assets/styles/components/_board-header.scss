@@ -4,6 +4,10 @@
   display: flex;
   justify-content: space-between;
 
+  @include for-mobile-layout {
+    display: inline-flex;
+  }
+
   .board-info {
     display: flex;
     align-items: center;
@@ -22,6 +26,9 @@
       transition: background-color 0.2s;
       &:hover {
         background-color: rgba(132, 132, 132, 0.344);
+      }
+      @include for-mobile-layout {
+        display: none;
       }
     }
 
@@ -48,6 +55,9 @@
         color: #f2d600;
         cursor: pointer;
         background-color: rgba(132, 132, 132, 0.344);
+      }
+      @include for-mobile-layout {
+        display: none;
       }
     }
 
@@ -79,6 +89,9 @@
 
         // content: '\e966';
       }
+      @include for-mobile-layout {
+        display: none;
+      }
     }
 
     input {
@@ -98,7 +111,10 @@
       box-shadow: 0px 0px 1px #00000048;
       &:hover {
         background-color: rgba(132, 132, 132, 0.344);
-        // border-radius: 0.2rem;
+      }
+
+      @include for-mobile-layout {
+        margin-inline-start: 1.5rem;
       }
     }
 
@@ -120,6 +136,9 @@
       &:hover {
         background-color: rgba(132, 132, 132, 0.344);
       }
+      @include for-mobile-layout {
+        display: none;
+      }
     }
     .members {
       display: flex;
@@ -128,6 +147,9 @@
         height: em(28px);
         border-radius: 50%;
         box-shadow: 0px 0px 1px #00000048;
+        @include for-mobile-layout {
+          display: none;
+        }
         // transform: translateX(-20px);
       }
       // flex-direction: row;
@@ -171,6 +193,12 @@
 
     .filter-icon {
       padding-right: em(5px);
+    }
+
+    @include for-mobile-layout {
+      padding: em(5px) 0.9375em;
+      margin-inline-end: 10px;
+      font-size: 12.5px;
     }
   }
 }

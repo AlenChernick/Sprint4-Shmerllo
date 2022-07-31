@@ -29,6 +29,9 @@
     font-family: $font;
     font-weight: 700;
     margin-inline-start: 1rem;
+    @include for-mobile-layout {
+      width: 250px;
+    }
   }
   .attachment-options {
     display: flex;

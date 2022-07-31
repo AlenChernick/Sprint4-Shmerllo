@@ -21,8 +21,6 @@ export default {
   },
   methods: {
     toggleMember(member) {
-      console.log(member)
-      // this.$emit('toggleMember',  member)
       this.$emit('editTask', { type: 'toggleMember', data: member })
     },
     closeModal() {
