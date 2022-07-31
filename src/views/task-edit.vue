@@ -280,13 +280,11 @@ export default {
       })
     },
     editTask(editData) {
-      console.log(editData)
       let idx
       let userAction
       switch (editData.type) {
         case 'toggleMember':
           const member = editData.data
-          console.log(member)
           const members = this.taskToEdit.members
           idx = members.findIndex((m) => m._id === member._id)
           if (idx === -1) {

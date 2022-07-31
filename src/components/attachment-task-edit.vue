@@ -37,7 +37,6 @@ export default {
     },
     onRemoveAtachment() {
       let attachemntIdx = this.idx
-      console.log(attachemntIdx)
       this.$emit('removeAttachemnt', attachemntIdx)
     },
   },

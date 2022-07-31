@@ -12,7 +12,7 @@
     </div>
     <notifications />
     <div class="active-user-conteiner">
-      <div class="active-user" @click="isUserModalOpen = !isUserModalOpen">{{ getActiveUser }}</div>
+      <img :src="getActiveUser" class="active-user" @click="isUserModalOpen = !isUserModalOpen" />
       <user-options v-if="isUserModalOpen" @closeModal="closeModal" :user="user"></user-options>
     </div>
   </header>
@@ -48,8 +48,9 @@ export default {
     getActiveUser() {
       let user = this.$store.getters.loggedInUser
       if (!user) return 'G'
+      if (!user.imgUrl) return user.username.charAt(0)
       this.user = user
-      return user.username.charAt(0)
+      return user.imgUrl
     },
     getCurrBoard() {
       return this.$store.getters.getCurrBoard
@@ -59,7 +60,8 @@ export default {
     },
     async getAvgColor() {
       try {
-        if (!this.getCurrBoard && !this.getCurrGroup) {
+        if (this.getCurrBoard.style?.bgImgUrl === undefined) return
+        if (this.getCurrBoard === undefined && this.getCurrGroup === undefined) {
           this.headerColor = '#026aa7'
           return
         }
@@ -69,7 +71,7 @@ export default {
         this.headerColor = color.hexa
       } catch (err) {
         console.log('Cannot load avg color', err)
-        // throw err
+        throw err
       }
     },
     getHeaderColor() {

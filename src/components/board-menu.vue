@@ -116,8 +116,8 @@ export default {
         else response = await fetch(`https://api.unsplash.com/search/photos?client_id=${this.accesKey}&query=${query}`)
         let json = await response.json()
         await json.results.forEach((img) => {
-          const imgUrl = img.urls.full
-          if (this.coverOptions.coverImgs.length > 15) {
+          const imgUrl = img.urls.regular
+          if (this.coverOptions.coverImgs.length > 12) {
             return (this.coverOptions.coverImgs = [])
           } else {
             return this.coverOptions.coverImgs.push(imgUrl)
@@ -125,7 +125,7 @@ export default {
         })
       } catch (err) {
         console.log('Cannot load photos', err)
-        // throw err
+        throw err
       }
     },
     openCoverSelection() {
