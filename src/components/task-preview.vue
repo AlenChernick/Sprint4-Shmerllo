@@ -25,16 +25,9 @@
           {{ btn.txt }}
         </button>
 
-        <component
-          :is="cmpType"
-          @closeModal="closeModal"
-          @editTask="editTask"
-        >
-        </component>
+        <component :is="cmpType" @closeModal="closeModal" @editTask="editTask"> </component>
 
-      
         <div @click.stop="removeTask"><span class="archive-icon"></span>Archive</div>
-
       </div>
       <div class="save-button">
         <button @click.stop="editTitle">Save</button>
@@ -84,9 +77,9 @@ export default {
     this.boardToEdit.groups.forEach((g) => (this.tasklen += g.tasks.length || 0))
   },
   methods: {
-    saveTask(userAction = 'Task update') {
+    saveTask(userAction = "Task update") {
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -99,17 +92,17 @@ export default {
       let idx
       let userAction
       switch (editData.type) {
-        case 'toggleMember':
+        case "toggleMember":
           const member = editData.data
           console.log(member)
           const members = this.taskToEdit.members
           idx = members.findIndex((m) => m._id === member._id)
           if (idx === -1) {
             members.push(member)
-            userAction = 'Added member'
+            userAction = "Added member"
           } else {
             members.splice(idx, 1)
-            userAction = 'Removed member'
+            userAction = "Removed member"
           }
           this.saveTask(userAction)
           const notification = {
@@ -122,51 +115,51 @@ export default {
           socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
           break
 
-        case 'toggleLabel':
+        case "toggleLabel":
           const labelId = editData.data
           const labels = this.taskToEdit.labelIds
           idx = labels.findIndex((label) => label === labelId)
           if (idx === -1) {
             labels.push(labelId)
-            userAction = 'Added label'
+            userAction = "Added label"
           } else {
             labels.splice(idx, 1)
-            userAction = 'Removed label'
+            userAction = "Removed label"
           }
           this.saveTask(userAction)
           break
 
-        case 'addCheckList':
+        case "addCheckList":
           const checklist = editData.data
-          if (checklist.checkListTitle === '') return
+          if (checklist.checkListTitle === "") return
           this.taskToEdit.checklists.push(checklist)
-          this.saveTask('Added checklist')
+          this.saveTask("Added checklist")
           this.isCheckListAdded = false
-          this.checkListTitle = ''
+          this.checkListTitle = ""
           break
 
-        case 'setDate':
+        case "setDate":
           const dateValue = editData.data
           this.taskToEdit.dueDate = dateValue
-          this.saveTask('Added due date')
+          this.saveTask("Added due date")
           break
 
-        case 'addAttachment':
+        case "addAttachment":
           const attachment = editData.data
           this.taskToEdit.attachments.push(attachment)
-          this.saveTask('Added attchment')
+          this.saveTask("Added attchment")
           break
 
-        case 'setTaskStyle':
+        case "setTaskStyle":
           const style = editData.data
           this.taskToEdit.style = style
-          this.saveTask('Changed cover')
+          this.saveTask("Changed cover")
           break
       }
     },
     removeTask() {
       this.$store.dispatch({
-        type: 'removeTask',
+        type: "removeTask",
         taskId: this.getCurrTask.id,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -232,7 +225,7 @@ export default {
     // },
     addMemeberOnDrop(memberId) {
       let member = this.boardToEdit.members.find((member) => member._id === memberId)
-      this.toggleMember(member)
+      this.editTask({ type: "toggleMember", data: member })
     },
   },
   computed: {
