@@ -1,10 +1,9 @@
-<!-- <template lang="">
+<template lang="">
   <section class="dashboard">
     <div class="dashboardScreen"></div>
     <div class="main-dashbord">
       <span @click="closeDashboard" class="close-icon"></span>
       <h3>Board "{{ currBoard.title }}" in numbers</h3>
-
       <div class="charts-container">
         <div class="doughnut-chart">
           <h4>Timeline overview</h4>
@@ -33,9 +32,7 @@
 <script>
 import { BarChart, PieChart, DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
-
 Chart.register(...registerables)
-
 export default {
   name: 'dashboard',
   data() {},
@@ -91,7 +88,7 @@ export default {
         datasets: [
           {
             data: Object.values(tasksPerMember),
-            backgroundColor: ['#e55039', '#f6b93b', '#60a3bc', '#b8e994', '#4a69bd', '#3c6382', '#079992'],
+            backgroundColor: ['#E55039', '#F6B93B', '#60A3BC', '#B8E994', '#4A69BD', '#3C6382', '#079992'],
           },
         ],
       }
@@ -119,17 +116,17 @@ export default {
           {
             data: Object.values(tasksPerLabel),
             backgroundColor: [
-              '#fad390',
-              '#f8c291',
-              '#6a89cc',
-              '#82ccdd',
-              '#b8e994',
-              '#f6b93b',
-              '#e55039',
-              '#4a69bd',
-              '#60a3bc',
-              '#78e08f',
-              '#fa983a',
+              '#FAD390',
+              '#F8C291',
+              '#6A89CC',
+              '#82CCDD',
+              '#B8E994',
+              '#F6B93B',
+              '#E55039',
+              '#4A69BD',
+              '#60A3BC',
+              '#78E08F',
+              '#FA983A',
             ],
           },
         ],
@@ -146,7 +143,7 @@ export default {
         datasets: [
           {
             data: Object.values(tasksPerGroup),
-            backgroundColor: ['#e55039', '#f8c291', '#6a89cc', '#82ccdd', '#78e08f', '#3c6382', '#079992'],
+            backgroundColor: ['#E55039', '#F8C291', '#6A89CC', '#82CCDD', '#78E08F', '#3C6382', '#079992'],
           },
         ],
       }
@@ -209,4 +206,4 @@ export default {
   components: { BarChart, PieChart, DoughnutChart },
 }
 </script>
-<style lang=""></style> -->
+<style lang=""></style>
