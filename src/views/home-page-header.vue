@@ -5,7 +5,7 @@
     >
     <div class="home-page-user-btns">
       <router-link class="login-page-btn" to="/login">Log in</router-link>
-      <router-link class="signup-page-btn" to="/board">Start Shmerllo for free</router-link>
+      <router-link class="signup-page-btn" to="/board">Start Shmerllo</router-link>
     </div>
   </header>
 </template>

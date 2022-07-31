@@ -6,17 +6,12 @@
         <span :class="btn.icon"></span>
         {{ btn.txt }}
       </div>
-      <component
-        :is="cmpType"
-        @closeModal="closeModal"
-        @editTask="editTask"
-      >
-      </component>
+      <component :is="cmpType" @closeModal="closeModal" @editTask="editTask"> </component>
       <div class="archive-icon-container">
         <div @click.stop="removeTask"><span class="archive-icon"></span>Archive</div>
       </div>
     </div>
-     <!-- @toggleLabel="toggleLabel"
+    <!-- @toggleLabel="toggleLabel"
         @toggleMember="toggleMember"
         
         @setTaskStyle="setTaskStyle"
@@ -58,8 +53,7 @@ export default {
     closeModal() {
       this.cmpType = null
     },
-    editTask(editData){
-      console.log(editData)
+    editTask(editData) {
       this.$emit('editTask', editData)
     },
     toggleLabel(labelId) {

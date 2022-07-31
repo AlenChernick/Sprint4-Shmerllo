@@ -27,8 +27,6 @@
           </ul>
         </Draggable>
       </Container>
-
-      <!-- <search-add-board-member></search-add-board-member> -->
     </div>
     <div class="board-header-buttons">
       <!-- <board-filter /> -->
@@ -46,10 +44,8 @@
 
 <script>
 import { Container, Draggable } from 'vue3-smooth-dnd'
-// import { applyDrag } from "../../services/dnd-service.js"
 import boardMenu from '../components/board-menu.vue'
 import boardFilter from '../components/board-filter.vue'
-// import searchAddBoardMember from "../components/search-add-board-member.vue"
 import { utilService } from '../../services/util-service.js'
 import { FastAverageColor } from 'fast-average-color'
 
@@ -120,6 +116,6 @@ export default {
     Container,
     Draggable,
     // searchAddBoardMember
-},
+  },
 }
 </script>

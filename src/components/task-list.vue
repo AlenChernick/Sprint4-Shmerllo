@@ -40,37 +40,10 @@ export default {
     onDrop(dropRes) {
       this.items = applyDrag(this.items, dropRes)
       this.$emit('moveTasks', this.items)
-      // this.$store.dispatch({
-      //   type: "saveTasks",
-      //   tasks: this.items,
-      //   groupId: this.groupId,
-      //   board: this.$store.getters.getCurrBoard
-      // })
     },
     getChildPayload(idx) {
       return this.items[idx]
     },
-
-    // onDrop(dropResult) {
-    //   console.log(dropResult)
-    //   this.tasks = this.applyDrag(this.tasks, dropResult)
-
-    // },
-    // applyDrag(arr, dragResult) {
-    //   const { removedIndex, addedIndex, payload } = dragResult
-
-    //   if (removedIndex === null && addedIndex === null) return arr
-    //   const result = [...arr]
-    //   let itemToAdd = payload
-
-    //   if (removedIndex !== null) {
-    //     itemToAdd = result.splice(removedIndex, 1)[0]
-    //   }
-    //   if (addedIndex !== null) {
-    //     result.splice(addedIndex, 0, itemToAdd)
-    //   }
-    //   return result
-    // },
   },
   components: {
     taskPreview,

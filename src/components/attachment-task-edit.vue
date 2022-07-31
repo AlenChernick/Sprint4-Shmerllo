@@ -37,7 +37,6 @@ emits:['makeCover','removeAttachemnt'],
     },
     onRemoveAtachment() {
       let attachemntIdx = this.idx
-      console.log(attachemntIdx)
       this.$emit('removeAttachemnt', attachemntIdx)
     },
   },
