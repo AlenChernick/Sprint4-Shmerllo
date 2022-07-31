@@ -17,9 +17,12 @@
 .space-between {
   justify-content: space-between;
 }
+
 .flex-end {
+  display: flex;
   justify-content: flex-end;
 }
+
 // List
 .clean-list {
   list-style-type: none;
