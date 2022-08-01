@@ -146,7 +146,8 @@
             <div class="checklist-checkbox" v-for="todo in checklist.todos">
               <div class="checklist-checkbox-preview">
                 <el-checkbox v-model="todo.isDone" @change="saveTask">
-                  <span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
+                  <!-- <span class="todo-title">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span -->
+                  <span :class="{ 'todo-title': !todo.isDone,'todo-title done':  todo.isDone }">{{ todo.todoTitle }}<span class="remove-todo-icon"></span></span
                 ></el-checkbox>
                 <div class="checklist-checkbox-menu">
                   <span
@@ -210,18 +211,18 @@
   </div>
 </template>
 <script>
-import editTaskActivity from '../components/edit-task-activity.vue'
-import editTaskActions from '../components/edit-task-actions.vue'
-import attachmentTaskEdit from '../components/attachment-task-edit.vue'
-import memberPicker from '../components/member-picker.vue'
-import labelPicker from '../components/label-picker.vue'
-import { utilService } from '../../services/util-service'
-import { userService } from '../../services/user-service'
-import { FastAverageColor } from 'fast-average-color'
-import { socketService, SOCKET_EMIT_MEMBER_ACTION } from '../../services/socket.service'
+import editTaskActivity from "../components/edit-task-activity.vue"
+import editTaskActions from "../components/edit-task-actions.vue"
+import attachmentTaskEdit from "../components/attachment-task-edit.vue"
+import memberPicker from "../components/member-picker.vue"
+import labelPicker from "../components/label-picker.vue"
+import { utilService } from "../../services/util-service"
+import { userService } from "../../services/user-service"
+import { FastAverageColor } from "fast-average-color"
+import { socketService, SOCKET_EMIT_MEMBER_ACTION } from "../../services/socket.service"
 
 export default {
-  name: 'task-edit',
+  name: "task-edit",
   data() {
     return {
       boardId: null,
@@ -231,14 +232,14 @@ export default {
       taskToEdit: {},
       toggleDatePicker: false,
       isCheckListItemAdded: false,
-      checkListMenuToggle: '',
-      todoTitle: '',
+      checkListMenuToggle: "",
+      todoTitle: "",
       checkListItem: {
-        id: '',
-        todoTitle: '',
+        id: "",
+        todoTitle: "",
         isDone: false,
       },
-      paragraphTxt: '',
+      paragraphTxt: "",
       isDoneTodos: false,
       notDoneTodos: true,
       cmpMemberPicker: null,
@@ -252,26 +253,26 @@ export default {
       this.groupId = groupId
       this.checkListItem.id = utilService.makeId()
       await this.$store.dispatch({
-        type: 'getTaskById',
+        type: "getTaskById",
         boardId,
         groupId,
         taskId,
       })
       this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
       await this.$store.dispatch({
-        type: 'getGroupById',
+        type: "getGroupById",
         boardId,
         groupId,
       })
     } catch (err) {
-      console.log('Cannot load task', err)
+      console.log("Cannot load task", err)
       throw err
     }
   },
   methods: {
-    saveTask(userAction = 'Task update') {
+    saveTask(userAction = "Task update") {
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -283,16 +284,16 @@ export default {
       let idx
       let userAction
       switch (editData.type) {
-        case 'toggleMember':
+        case "toggleMember":
           const member = editData.data
           const members = this.taskToEdit.members
           idx = members.findIndex((m) => m._id === member._id)
           if (idx === -1) {
             members.push(member)
-            userAction = 'Added member'
+            userAction = "Added member"
           } else {
             members.splice(idx, 1)
-            userAction = 'Removed member'
+            userAction = "Removed member"
           }
           this.saveTask(userAction)
           const notification = {
@@ -305,51 +306,51 @@ export default {
           socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
           break
 
-        case 'toggleLabel':
+        case "toggleLabel":
           const labelId = editData.data
           const labels = this.taskToEdit.labelIds
           idx = labels.findIndex((label) => label === labelId)
           if (idx === -1) {
             labels.push(labelId)
-            userAction = 'Added label'
+            userAction = "Added label"
           } else {
             labels.splice(idx, 1)
-            userAction = 'Removed label'
+            userAction = "Removed label"
           }
           this.saveTask(userAction)
           break
 
-        case 'addCheckList':
+        case "addCheckList":
           const checklist = editData.data
-          if (checklist.checkListTitle === '') return
+          if (checklist.checkListTitle === "") return
           this.taskToEdit.checklists.push(checklist)
-          this.saveTask('Added checklist')
+          this.saveTask("Added checklist")
           this.isCheckListAdded = false
-          this.checkListTitle = ''
+          this.checkListTitle = ""
           break
 
-        case 'setDate':
+        case "setDate":
           const dateValue = editData.data
           this.taskToEdit.dueDate = dateValue
-          this.saveTask('Added due date')
+          this.saveTask("Added due date")
           break
 
-        case 'addAttachment':
+        case "addAttachment":
           const attachment = editData.data
           this.taskToEdit.attachments.push(attachment)
-          this.saveTask('Added attchment')
+          this.saveTask("Added attchment")
           break
 
-        case 'setTaskStyle':
+        case "setTaskStyle":
           const style = editData.data
           this.taskToEdit.style = style
-          this.saveTask('Changed cover')
+          this.saveTask("Changed cover")
           break
       }
     },
     removeTask() {
       this.$store.dispatch({
-        type: 'removeTask',
+        type: "removeTask",
         taskId: this.getCurrTask.id,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -363,11 +364,11 @@ export default {
       this.taskToEdit.description = evt.target.innerText
       this.isEdit = true
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Description updated',
+        userAction: "Description updated",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -380,45 +381,45 @@ export default {
     },
     addCheckListItem(checkListItem, checkListId) {
       this.isCheckListItemAdded = !this.isCheckListItemAdded
-      if (checkListItem.todoTitle === '') return
+      if (checkListItem.todoTitle === "") return
       const newCheckListItem = JSON.parse(JSON.stringify(checkListItem))
       if (newCheckListItem.id === checkListItem.id) newCheckListItem.id = utilService.makeId()
       const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checkListId)
       this.taskToEdit.checklists[checkListIdx].todos.push(newCheckListItem)
-      checkListItem.todoTitle = ''
+      checkListItem.todoTitle = ""
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Added checklist item',
+        userAction: "Added checklist item",
         taskTitle: this.taskToEdit.title,
       })
     },
     addCheckList(checklist) {
-      if (checklist.checkListTitle === '') return
+      if (checklist.checkListTitle === "") return
       this.taskToEdit.checklists.push(checklist)
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Added checklist',
+        userAction: "Added checklist",
         taskTitle: this.taskToEdit.title,
       })
       this.isCheckListAdded = false
-      this.checkListTitle = ''
+      this.checkListTitle = ""
     },
     removeCheckList(checklistId) {
       const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checklistId)
       const checklist = this.taskToEdit.checklists
       checklist.splice(checkListIdx, 1)
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Removed checklist',
+        userAction: "Removed checklist",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -430,11 +431,11 @@ export default {
       todos.splice(todoIdx, 1)
 
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Removed checklist item',
+        userAction: "Removed checklist item",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -492,11 +493,11 @@ export default {
     setTaskStyle(style) {
       this.taskToEdit.style = style
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Changed cover',
+        userAction: "Changed cover",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -546,13 +547,13 @@ export default {
     //   })
     // },
     removeDate() {
-      this.taskToEdit.dueDate = ''
+      this.taskToEdit.dueDate = ""
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Removed due date',
+        userAction: "Removed due date",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -561,13 +562,13 @@ export default {
     },
     removeAttachemnt(attachemntIdx) {
       this.taskToEdit.attachments.splice(attachemntIdx, 1)
-      this.taskToEdit.style = { bgColor: '', bgImgUrl: '' }
+      this.taskToEdit.style = { bgColor: "", bgImgUrl: "" }
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
-        userAction: 'Removed attachment',
+        userAction: "Removed attachment",
         taskTitle: this.taskToEdit.title,
       })
     },
@@ -580,7 +581,7 @@ export default {
 
       this.taskToEdit.comments.unshift(newComment)
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -592,7 +593,7 @@ export default {
       let commentIdx = this.taskToEdit.comments.findIndex((comment) => comment.id === commentId)
       this.taskToEdit.comments.splice(commentIdx, 1)
       this.$store.dispatch({
-        type: 'saveTask',
+        type: "saveTask",
         task: this.taskToEdit,
         groupId: this.groupId,
         boardId: this.boardId,
@@ -615,6 +616,7 @@ export default {
     openLabelPicker() {
       this.cmpLabelPicker = labelPicker
     },
+
   },
   computed: {
     getCurrTask() {
@@ -630,7 +632,7 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.getLoggedInUser))
     },
     openTextArea() {
-      return this.isEdit ? 'open-text-area' : ''
+      return this.isEdit ? "open-text-area" : ""
     },
     getAvgColor() {
       if (!this.taskToEdit.style || !this.taskToEdit.style.bgImgUrl) return
@@ -642,7 +644,7 @@ export default {
           this.taskToEdit.style.bgColor = color.hexa
         })
         .catch((e) => {
-          console.log('Cant update color')
+          console.log("Cant update color")
           throw e
         })
     },
