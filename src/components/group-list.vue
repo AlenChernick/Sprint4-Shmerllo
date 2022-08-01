@@ -10,6 +10,7 @@
       group-name="cols"
       @drop="onDrop($event)"
     >
+  
       <Draggable v-if="cols" v-for="col in cols" :key="col.id">
         <group-preview class="group-preview" @updateGroup="updateGroups" :group="col" :key="col.id" />
       </Draggable>

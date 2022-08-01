@@ -60,7 +60,7 @@ export default {
     },
     async getAvgColor() {
       try {
-        if (this.getCurrBoard.style?.bgImgUrl === undefined) return
+        if (this.getCurrBoard.style?.bgImgUrl === undefined ) return
         if (this.getCurrBoard === undefined && this.getCurrGroup === undefined) {
           this.headerColor = '#026aa7'
           return

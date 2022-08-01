@@ -34,6 +34,7 @@ export default {
       state.boards = boards
     },
     setCurrBoard(state, { currBoard }) {
+if(currBoard === undefined) return
       state.currBoard = currBoard
     },
     setCurrTask(state, { currTask }) {
@@ -193,6 +194,7 @@ export default {
       try {
         // Notice! Before it was like mantion above, new code line is runnig without errors code
         // let currBoard = JSON.parse(JSON.stringify(state.currBoard))
+        console.log('saveGroups asunc',currBoard);
         currBoard = JSON.parse(JSON.stringify(currBoard))
         currBoard.groups = groups
         const savedBoard = await boardService.saveBoard(currBoard)
