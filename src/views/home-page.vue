@@ -16,6 +16,19 @@
         src="https://images.ctfassets.net/rz1oowkt5gyp/5QIzYxue6b7raOnVFtMyQs/113acb8633ee8f0c9cb305d3a228823c/hero.png?w=1200&fm=webp"
       />
     </div>
+    <div class="product">
+      <div class="product-info">
+        <h2>It's more than work. It's a way of working together.</h2>
+        <p>
+          Start with a Shmerllo board, lists, and cards. Customize and expand with more features as your teamwork grows. Manage
+          projects, organize tasks, and build team spirit—all in one place.
+        </p>
+        <router-link to="/board">Start doing →</router-link>
+      </div>
+      <div class="product-preview">
+        <img src="../assets/img/board.png" alt="" />
+      </div>
+    </div>
   </section>
 </template>
 <script>

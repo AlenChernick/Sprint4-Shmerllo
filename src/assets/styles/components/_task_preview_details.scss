@@ -49,6 +49,7 @@
   .prev-fetchers-conteiner {
     align-items: center;
     color: #6b778c;
+    margin-bottom: 8px;
 
     .prev-task-desk-icon {
       // margin-bottom: 6px;
@@ -169,8 +170,10 @@
     .prev-members-imgs {
       flex: 1 1;
       justify-content: flex-end;
-      margin-top: 0.225em;
-      margin-bottom: 0.12em;
+      margin-top: 3px;
+      margin-bottom: -10px;
+      margin-inline-end: -4px;
+
       ul {
         float: right;
       }

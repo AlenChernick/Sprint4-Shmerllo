@@ -40,12 +40,10 @@
         group-name="members"
         class="drag-img-conteiner-big prev-members-imgs"
       >
-        <Draggable v-for="member in task.members" :key="member._id">
-          <div class="prev-members-imgs">
-            <ul class="clean-list">
-              <img class="prev-member-img" :src="member.imgUrl" />
-            </ul>
-          </div>
+        <Draggable class="members-imgs-draggble" v-for="member in task.members" :key="member._id">
+          <ul class="clean-list">
+            <img class="prev-member-img" :src="member.imgUrl" />
+          </ul>
         </Draggable>
       </Container>
     </div>
