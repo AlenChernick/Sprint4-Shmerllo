@@ -9,15 +9,18 @@
         <div class="no-starred-boards-text" v-if="!starredBoards.length">No starred boards yet...</div>
         <board-list :staredBoard="true" :boards="starredBoards" />
       </div>
-      <h3 class="workspace-logo"><font-awesome-icon class="workspace-icon" icon="fab fa-trello" />Your workspaces</h3>
+      <div class="work-space-logo-container ">
+        <h3 class="workspace-logo"><font-awesome-icon class="workspace-icon" icon="fab fa-trello" /></h3>
+        <div class="workspace-header">Your workspaces</div>
+      </div>
       <board-list :staredBoard="false" :boards="nonStarredBoards" />
     </div>
   </section>
 </template>
 <script>
-import boardList from '../components/board-list.vue'
+import boardList from "../components/board-list.vue"
 export default {
-  name: 'board-app',
+  name: "board-app",
   components: {
     boardList,
   },

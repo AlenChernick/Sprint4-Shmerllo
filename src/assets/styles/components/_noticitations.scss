@@ -1,10 +1,10 @@
 .notifications {
-  width: 400px;
+  width: 350px;
   background-color: white;
   height: fit-content;
   position: fixed;
   right: 0;
-  top: 50px;
+  top: 48px;
   border-radius: 3px;
   padding: 5px;
   overflow-y: auto;
@@ -12,6 +12,7 @@
 
   @include for-mobile-layout {
     width: 100%;
+   
   }
 
   h4 {
@@ -36,9 +37,9 @@
     font-weight: 400;
     position: absolute;
     right: 5px;
-    top: 10px;
+    top: 20px;
     font-family: trellicons;
-    font-size: em(24px);
+    font-size: em(20px);
     color: $clr1;
     cursor: pointer;
     &::before {
@@ -62,6 +63,7 @@
 
     h3 {
       text-decoration: underline;
+      cursor: pointer;
     }
 
     h4 {

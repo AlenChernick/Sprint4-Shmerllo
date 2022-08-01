@@ -34,7 +34,7 @@ export default {
       state.boards = boards
     },
     setCurrBoard(state, { currBoard }) {
-if(currBoard === undefined) return
+      if(currBoard === undefined) return
       state.currBoard = currBoard
     },
     setCurrTask(state, { currTask }) {

@@ -377,6 +377,11 @@
       }
       .todo-title {
         padding-left: em(16px);
+        color: #172b4d;
+        ;
+        &.done{
+          text-decoration:line-through;
+        }
       }
 
       .main-editor-checklist-container {

@@ -133,7 +133,6 @@ export default {
                 members.splice(idx, 1)
                 userAction = 'Removed member'
             }
-            this.saveTask(userAction)
             break    
         
         case 'toggleLabel':  
@@ -147,6 +146,7 @@ export default {
         case 'setTaskStyle':
   
         }
+        this.saveTask(userAction)
     },  
    
     saveTask(userAction) {

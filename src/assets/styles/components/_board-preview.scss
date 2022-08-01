@@ -22,10 +22,10 @@
   .board-preview-board-title {
     position: absolute;
     left: em(8px);
-    top: em(4px);
+    top: em(9px);
     color: white;
     font-size: em(16px);
-    font-weight: 800;
+    font-weight: 700;
     text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.72);
   }
 
@@ -58,7 +58,7 @@
     bottom: em(5px);
     color: #f2d600;
     font-weight: 300;
-    font-size: em(17px);
+    font-size: em(20px);
     font-family: trellicons;
     &::before {
       content: '\e967';
@@ -73,7 +73,19 @@
 
 .starred-boards {
   margin-top: em(80px);
-
+.starred-boards-header{
+  margin: 0 0 em(4px) em(22px);
+  .full-star-icon {
+    margin-right: em(2px);
+    margin-top: 5px;
+    font-size: em(22px);
+    font-family: trellicons;
+    &::before {
+      color: #f2d600;
+      content: '\e967';
+    }
+  }
+}
   .no-starred-boards-text {
     color: #5e6c84;
     margin-inline-start: 1.2rem;
@@ -103,10 +115,25 @@
     font-size: em(16px);
   }
 }
-h3.workspace-logo {
-  margin-left: em(2px);
-  margin-bottom: em(8px);
+
+.work-space-logo-container{
+  display: flex;
+  align-items: center;
+  margin: 0 0 em(4px)  em(24px);
+
+.workspace-header{
+  display: inline-block;
+  // margin-bottom: em(5px);
+  font-family: NunitoSans-Bold;
+  color: #5e6c84;
   font-size: em(16px);
+  // margin: 0px 10px 5px 2.5px;
+}
+h3.workspace-logo {
+  margin: 0 em(1px) 0 0 ;
+  // margin-left: em(30px);
+  // margin-bottom: em(8px);
+  font-size: em(25px);
   color: #5e6c84;
 
   @include for-mobile-layout {
@@ -118,4 +145,5 @@ h3.workspace-logo {
     margin-bottom: em(2px);
     font-size: em(12px);
   }
+}
 }
