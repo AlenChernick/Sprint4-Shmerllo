@@ -1,9 +1,8 @@
-<template lang="">
+<template>
   <button class="notification-btn" @click="openNotifications">
     <font-awesome-icon icon="fa-solid fa-bell" />
     <span v-if="getNewNotifications !== 0" class="new-notification">{{ getNewNotifications }}</span>
   </button>
-
   <section :style="{ display: displayNotifications }" class="notifications">
     <span @click="displayNotifications = 'none'" class="close-icon"></span>
     <h4>Notifications</h4>
@@ -50,7 +49,7 @@ export default {
       this.displayNotifications = 'block'
       this.$store.commit({ type: 'cleanNotification' })
     },
-     openTaskDetails(notification) {
+    openTaskDetails(notification) {
       this.$router.push(`/board/${notification.boardId}/${notification.groupId}/${notification.taskId}`)
       this.displayNotifications = 'none'
     },

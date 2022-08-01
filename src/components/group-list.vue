@@ -10,14 +10,20 @@
       group-name="cols"
       @drop="onDrop($event)"
     >
-  
       <Draggable v-if="cols" v-for="col in cols" :key="col.id">
         <group-preview class="group-preview" @updateGroup="updateGroups" :group="col" :key="col.id" />
       </Draggable>
       <div class="add-new-group-btn-warp">
-        <div v-if="!addGroupModal" class="add-new-group-btn flex" @click="addGroupModal = !addGroupModal">
+        <div
+          v-if="!addGroupModal"
+          :style="{ color: getTxtColor, getAvgColor, transition: 'color 0.4s' }"
+          class="add-new-group-btn flex"
+          @click="addGroupModal = !addGroupModal"
+        >
           <font-awesome-icon icon="fa-solid fa-plus" class="task-adding-btn" />
-          <div class="add-new-group-list">Add another list</div>
+          <div :style="{ color: getTxtColor, getAvgColor, transition: 'color 0.4s' }" class="add-new-group-list">
+            Add another list
+          </div>
         </div>
         <div v-else class="new-group-add-modal">
           <textarea
@@ -40,6 +46,7 @@
 import groupPreview from '../components/group-preview.vue'
 import { Container, Draggable } from 'vue3-smooth-dnd'
 import { applyDrag } from '../../services/dnd-service.js'
+import { FastAverageColor } from 'fast-average-color'
 
 export default {
   name: 'group-list',
@@ -55,6 +62,7 @@ export default {
       addGroupModal: false,
       newGroupSubject: '',
       groupsStack: [],
+      txtColor: '',
     }
   },
   async created() {
@@ -106,6 +114,24 @@ export default {
         animationDuration: '150',
         showOnTop: false,
       }
+    },
+    getCurrBoard() {
+      return this.$store.getters.getCurrBoard
+    },
+    async getAvgColor() {
+      try {
+        const imgUrl = await this.getCurrBoard.style.bgImgUrl
+        const fac = new FastAverageColor()
+        const color = await fac.getColorAsync(imgUrl)
+        if (color.isLight) this.txtColor = '#000000'
+        else this.txtColor = '#fff'
+      } catch (err) {
+        console.log('Cannot load avg color', err)
+        throw err
+      }
+    },
+    getTxtColor() {
+      return this.txtColor
     },
   },
   components: {

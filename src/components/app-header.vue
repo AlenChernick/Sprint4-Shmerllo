@@ -10,6 +10,7 @@
       <div class="boards-page-btn" @click="goToBoardsPage"><span>Boards</span></div>
       <work-space-drop-down class="work-space-btn"> </work-space-drop-down>
     </div>
+
     <notifications />
     <div class="active-user-conteiner">
       <img :src="getActiveUser" class="active-user" @click="isUserModalOpen = !isUserModalOpen" />
@@ -60,7 +61,7 @@ export default {
     },
     async getAvgColor() {
       try {
-        if (this.getCurrBoard.style?.bgImgUrl === undefined ) return
+        if (this.getCurrBoard.style?.bgImgUrl === undefined) return
         if (this.getCurrBoard === undefined && this.getCurrGroup === undefined) {
           this.headerColor = '#026aa7'
           return
