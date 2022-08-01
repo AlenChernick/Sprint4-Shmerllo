@@ -3,27 +3,45 @@
     <div class="dashboardScreen"></div>
     <div class="main-dashbord">
       <span @click="closeDashboard" class="close-icon"></span>
-      <h3>Board "{{ currBoard.title }}" in numbers</h3>
+      <h3>{{ currBoard.title }} Dashboard</h3>
+      <div class="dashboard-numbers">
+        <div class="task-data total">
+          <h3>Total tasks </h3>
+          <h4>{{datesData.toatlTasks}}</h4>
+        </div>
+        <div class="task-data complete">
+          <h3 >Complete </h3>
+          <h4>{{checkedData.complete}}</h4>         
+        </div>
+        <div class="task-data due-soon">
+          <h3>Due soon </h3>
+           <h4>{{datesData.dueSoon}}</h4>              
+        </div>
+        <div class="task-data over-due">
+          <h3>Over due</h3>  
+          <h4>{{datesData.overDue}}</h4>       
+        </div>
+      </div>
       <div class="charts-container">
-        <div class="doughnut-chart">
+        <!-- <div class="doughnut-chart">
           <h4>Timeline overview</h4>
           <DoughnutChart :chartData="datesData" />
         </div>
         <div class="doughnut-chart">
           <h4>Exacution status</h4>
           <DoughnutChart :chartData="checkedData" />
-        </div>
+        </div> -->
         <div class="bar-chart">
-          <h4>Cards per list</h4>
+          <h4>Tasks per list</h4>
           <BarChart :chartData="tasksListLoad" :options="optionsY" />
         </div>
         <div class="bar-chart">
           <h4>Load per team-member</h4>
           <BarChart :chartData="memberLoadData" :options="optionsX" />
         </div>
-        <div class="bar-chart">
-          <h4>Cards per label</h4>
-          <BarChart :chartData="labelLoadData" :options="optionsX" />
+        <div class="pie-chart">
+          <h4>Tasks per label</h4>
+          <PieChart :chartData="labelLoadData" :options="optionsZ" />
         </div>
       </div>
     </div>
@@ -69,6 +87,18 @@ export default {
         },
       }
     },
+    optionsZ() {
+      return {
+        indexAxis: 'y',
+        skipNull: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'left',
+          },
+        },
+      }
+    },
     memberLoadData() {
       const board = this.currBoard
       let tasksPerMember = { Unassigned: 0 }
@@ -88,7 +118,7 @@ export default {
         datasets: [
           {
             data: Object.values(tasksPerMember),
-            backgroundColor: ['#E55039', '#F6B93B', '#60A3BC', '#B8E994', '#4A69BD', '#3C6382', '#079992'],
+            backgroundColor: ['#264653', '#2a9d8f', '#e63946'],
           },
         ],
       }
@@ -116,17 +146,17 @@ export default {
           {
             data: Object.values(tasksPerLabel),
             backgroundColor: [
-              '#FAD390',
-              '#F8C291',
-              '#6A89CC',
+              '#277da1',
+              '#577590',
+              '#4d908e',
               '#82CCDD',
-              '#B8E994',
-              '#F6B93B',
-              '#E55039',
-              '#4A69BD',
-              '#60A3BC',
-              '#78E08F',
-              '#FA983A',
+              '#43aa8b',
+              '#90be6d',
+              '#f9c74f',
+              '#f9844a',
+              '#f8961e',
+              '#f3722c',
+              '#f94144',
             ],
           },
         ],
@@ -143,64 +173,78 @@ export default {
         datasets: [
           {
             data: Object.values(tasksPerGroup),
-            backgroundColor: ['#E55039', '#F8C291', '#6A89CC', '#82CCDD', '#78E08F', '#3C6382', '#079992'],
+            backgroundColor: ['#264653', '#2a9d8f', '#e63946', "#84a59d", "#335c67"],
           },
         ],
       }
     },
     datesData() {
       const board = this.currBoard
-      let tasksDue = { 'Date unassigned': 0, 'Over due': 0, 'Due soon': 0, 'On track': 0 }
+      let tasksDue = { toatlTasks: 0, dueUnassigned: 0, overDue: 0, dueSoon: 0, onTrack: 0 }
       board.groups.forEach((group, idx) => {
         group.tasks.forEach((task) => {
-          if (!task.dueDate) tasksDue['Date unassigned']++
+          if (!task.dueDate) {
+            tasksDue.dueUnassigned++
+            tasksDue.toatlTasks++
+          } 
           else {
             const due = Date.parse(task.dueDate)
-            if (due > Date.now()) tasksDue['Over due']++
-            else if (due > Date.now() + 3 * 24 * 60 * 60 * 1000) tasksDue['Due soon']++
-            else tasksDue['On track']++
+            if (due > Date.now()) {
+              tasksDue.overDue++
+              tasksDue.toatlTasks++
+            }  
+            else if (due > Date.now() + 3 * 24 * 60 * 60 * 1000) {
+              tasksDue.dueSoon++
+              tasksDue.toatlTasks++
+            }
+            else {
+              tasksDue.onTrack++
+              tasksDue.toatlTasks++
+            }  
           }
         })
       })
-      return {
-        labels: Object.keys(tasksDue),
-        datasets: [
-          {
-            data: Object.values(tasksDue),
-            backgroundColor: ['#7E909A', '#D32D41', '#EA6A47', '#6AB187'],
-          },
-        ],
-      }
+      return tasksDue
+
+        // labels: Object.keys(tasksDue),
+        // datasets: [
+        //   {
+        //     data: Object.values(tasksDue),
+        //     backgroundColor: ['#264653', '#2a9d8f', '#e63946', "#84a59d", "#335c67"],
+        //   },
+        // ],
+      // }
     },
     checkedData() {
       const board = this.currBoard
-      let checkedData = { Complete: 0, Uncomplete: 0 }
+      let checkedData = { complete: 0, uncomplete: 0 }
       board.groups.forEach((group, idx) => {
         group.tasks.forEach((task) => {
           if (!task.checklists.length) return
           else {
             task.checklists.forEach((checklist) => {
               checklist.todos.forEach((todo) => {
-                if (todo.isDone) checkedData['Complete']++
-                else checkedData['Uncomplete']++
+                if (todo.isDone) checkedData['complete']++
+                else checkedData['uncomplete']++
               })
             })
           }
         })
       })
-      return {
-        labels: Object.keys(checkedData),
-        datasets: [
-          {
-            data: Object.values(checkedData),
-            backgroundColor: ['#6AB187', '#7E909A'],
-          },
-        ],
-        title: {
-          display: true,
-          text: 'Chart.js Doughnut Chart',
-        },
-      }
+      return checkedData
+      // return {
+      //   labels: Object.keys(checkedData),
+      //   datasets: [
+      //     {
+      //       data: Object.values(checkedData),
+      //       backgroundColor: ['#6AB187', '#7E909A'],
+      //     },
+      //   ],
+      //   title: {
+      //     display: true,
+      //     text: 'Chart.js Doughnut Chart',
+      //   },
+      // }
     },
   },
   components: { BarChart, PieChart, DoughnutChart },
