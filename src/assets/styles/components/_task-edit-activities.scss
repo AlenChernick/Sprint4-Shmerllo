@@ -48,6 +48,10 @@
       color: #172b4d;
       font-family: $font;
       background-color: white;
+
+      @include for-mobile-layout {
+        font-size: em(16px);
+      }
     }
 
     .task-edit-comment-btns {
@@ -105,7 +109,7 @@
     padding: 6px 8px 5px 8px;
     margin-bottom: em(1px);
     @include for-mobile-layout {
-      width: 356px;
+      width: 347px;
       max-width: 356px;
     }
   }
