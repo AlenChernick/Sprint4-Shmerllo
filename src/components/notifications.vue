@@ -15,9 +15,9 @@
         class="cover-color"
         :style="{ 'background-color': notification.style.bgColor }"
       ></div>
-      <h5>{{ notification.byUserId }}</h5>
+      <h5>{{ notification.mentionedBy }}</h5>
       <h4>{{ getUserAction(notification) }}</h4>
-      <h3>{{ notification.taskTitle }}</h3>
+      <h3 @click="openTaskDetails(notification)">{{ notification.taskTitle }}</h3>
       <p>{{ timeFormat(notification.time) }}</p>
     </div>
   </section>
@@ -49,6 +49,10 @@ export default {
     openNotifications() {
       this.displayNotifications = 'block'
       this.$store.commit({ type: 'cleanNotification' })
+    },
+     openTaskDetails(notification) {
+      this.$router.push(`/board/${notification.boardId}/${notification.groupId}/${notification.taskId}`)
+      this.displayNotifications = 'none'
     },
   },
   computed: {

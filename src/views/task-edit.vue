@@ -211,15 +211,19 @@
   </div>
 </template>
 <script>
-import editTaskActivity from "../components/edit-task-activity.vue"
-import editTaskActions from "../components/edit-task-actions.vue"
-import attachmentTaskEdit from "../components/attachment-task-edit.vue"
-import memberPicker from "../components/member-picker.vue"
-import labelPicker from "../components/label-picker.vue"
-import { utilService } from "../../services/util-service"
-import { userService } from "../../services/user-service"
-import { FastAverageColor } from "fast-average-color"
-import { socketService, SOCKET_EMIT_MEMBER_ACTION } from "../../services/socket.service"
+import editTaskActivity from '../components/edit-task-activity.vue'
+import editTaskActions from '../components/edit-task-actions.vue'
+import attachmentTaskEdit from '../components/attachment-task-edit.vue'
+import memberPicker from '../components/member-picker.vue'
+import labelPicker from '../components/label-picker.vue'
+import { utilService } from '../../services/util-service'
+import { userService } from '../../services/user-service'
+import { FastAverageColor } from 'fast-average-color'
+import { socketService, 
+          SOCKET_EMIT_MEMBER_ACTION, 
+          SOCKET_EMIT_SET_TASK, 
+          SOCKET_EVENT_UPDATE_TASK,
+          SOCKET_EVENT_TASK_UPDATED } from '../../services/socket.service'
 
 export default {
   name: "task-edit",
@@ -264,13 +268,19 @@ export default {
         boardId,
         groupId,
       })
+      socketService.emit(SOCKET_EMIT_SET_TASK, taskId)
+      socketService.on(SOCKET_EVENT_UPDATE_TASK, this.onUpdateTask)
     } catch (err) {
       console.log("Cannot load task", err)
       throw err
     }
   },
   methods: {
-    saveTask(userAction = "Task update") {
+    onUpdateTask(task) {
+      this.$store.commit({ type: 'setCurrTask', currTask: task })
+      this.taskToEdit = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
+    },
+    saveTask(userAction = 'Task update') {
       this.$store.dispatch({
         type: "saveTask",
         task: this.taskToEdit,
@@ -279,6 +289,7 @@ export default {
         currBoard: this.getCurrBoard,
         userAction,
       })
+      socketService.emit(SOCKET_EVENT_TASK_UPDATED, this.taskToEdit)
     },
     editTask(editData) {
       let idx
@@ -302,7 +313,12 @@ export default {
             taskTitle: this.taskToEdit.title,
             time: Date.now(),
             style: this.taskToEdit.style,
+            mentionedBy: userService.getLoggedInUser().fullname || "Guest",
+            taskId: this.taskToEdit.id,
+            groupId: this.groupId,
+            boardId: this.getCurrBoard._id,
           }
+          console.log(notification)
           socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
           break
 
@@ -363,14 +379,15 @@ export default {
     onEdit(evt) {
       this.taskToEdit.description = evt.target.innerText
       this.isEdit = true
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Description updated",
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Description updated')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Description updated',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     onSaveDescription() {
       this.isEdit = false
@@ -386,27 +403,29 @@ export default {
       if (newCheckListItem.id === checkListItem.id) newCheckListItem.id = utilService.makeId()
       const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checkListId)
       this.taskToEdit.checklists[checkListIdx].todos.push(newCheckListItem)
-      checkListItem.todoTitle = ""
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Added checklist item",
-        taskTitle: this.taskToEdit.title,
-      })
+      checkListItem.todoTitle = ''
+      this.saveTask('Added checklist item')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Added checklist item',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     addCheckList(checklist) {
       if (checklist.checkListTitle === "") return
       this.taskToEdit.checklists.push(checklist)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Added checklist",
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Added checklist')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Added checklist',
+      //   taskTitle: this.taskToEdit.title,
+      // })
       this.isCheckListAdded = false
       this.checkListTitle = ""
     },
@@ -414,14 +433,15 @@ export default {
       const checkListIdx = this.taskToEdit.checklists.findIndex((checklist) => checklist.id === checklistId)
       const checklist = this.taskToEdit.checklists
       checklist.splice(checkListIdx, 1)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Removed checklist",
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Removed checklist')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Removed checklist',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     removeCheckListItem(todoId, checkListId) {
       this.checkListMenuToggle = !this.checkListMenuToggle
@@ -429,15 +449,16 @@ export default {
       const todoIdx = this.taskToEdit.checklists[checkListIdx].todos.findIndex((todo) => todo.id === todoId)
       const todos = this.taskToEdit.checklists[checkListIdx].todos
       todos.splice(todoIdx, 1)
+      this.saveTask('Removed checklist item')
 
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Removed checklist item",
-        taskTitle: this.taskToEdit.title,
-      })
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Removed checklist item',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     // toggleLabel(labelId) {
     //   const labels = this.taskToEdit.labelIds
@@ -492,14 +513,15 @@ export default {
     // },
     setTaskStyle(style) {
       this.taskToEdit.style = style
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Changed cover",
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask('Changed cover')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Changed cover',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     // addAttachment(attachment) {
     //   this.taskToEdit.attachments.push(attachment)
@@ -547,30 +569,32 @@ export default {
     //   })
     // },
     removeDate() {
-      this.taskToEdit.dueDate = ""
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Removed due date",
-        taskTitle: this.taskToEdit.title,
-      })
+      this.taskToEdit.dueDate = ''
+      this.saveTask('Removed due date')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Removed due date',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     onCheckListItemAdded(checkListId) {
       this.isCheckListItemAdded = checkListId
     },
     removeAttachemnt(attachemntIdx) {
       this.taskToEdit.attachments.splice(attachemntIdx, 1)
-      this.taskToEdit.style = { bgColor: "", bgImgUrl: "" }
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: "Removed attachment",
-        taskTitle: this.taskToEdit.title,
-      })
+      this.taskToEdit.style = { bgColor: '', bgImgUrl: '' }
+      this.saveTask('Removed attachment')
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: 'Removed attachment',
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     saveComment(comment) {
       let newComment = {
@@ -580,26 +604,28 @@ export default {
       }
 
       this.taskToEdit.comments.unshift(newComment)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: `Add comment - task: ${this.taskToEdit.id}`,
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask(`Add comment - task: ${this.taskToEdit.id}`)
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: `Add comment - task: ${this.taskToEdit.id}`,
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     removeComment(commentId) {
       let commentIdx = this.taskToEdit.comments.findIndex((comment) => comment.id === commentId)
       this.taskToEdit.comments.splice(commentIdx, 1)
-      this.$store.dispatch({
-        type: "saveTask",
-        task: this.taskToEdit,
-        groupId: this.groupId,
-        boardId: this.boardId,
-        userAction: `Remove comment - task: ${this.taskToEdit.id}`,
-        taskTitle: this.taskToEdit.title,
-      })
+      this.saveTask(`Remove comment - task: ${this.taskToEdit.id}`)
+      // this.$store.dispatch({
+      //   type: 'saveTask',
+      //   task: this.taskToEdit,
+      //   groupId: this.groupId,
+      //   boardId: this.boardId,
+      //   userAction: `Remove comment - task: ${this.taskToEdit.id}`,
+      //   taskTitle: this.taskToEdit.title,
+      // })
     },
     onCheckListMenuToggle(todoId) {
       this.checkListMenuToggle = todoId

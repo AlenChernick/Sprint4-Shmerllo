@@ -43,6 +43,7 @@ import coverPicker from '../components/cover-picker.vue'
 import taskPreviewDetails from '../components/task-preview-details.vue'
 import { utilService } from '../../services/util-service.js'
 import { socketService, SOCKET_EMIT_MEMBER_ACTION } from '../../services/socket.service'
+import { userService } from '../../services/user-service'
 
 export default {
   name: 'task-preview',
@@ -110,7 +111,12 @@ export default {
             taskTitle: this.taskToEdit.title,
             time: Date.now(),
             style: this.taskToEdit.style,
+            mentionedBy: userService.getLoggedInUser().fullname || "Guest",
+            taskId: this.taskToEdit.id,
+            groupId: this.groupId,
+            boardId: this.getCurrBoard._id,
           }
+          console.log(notification)
           socketService.emit(SOCKET_EMIT_MEMBER_ACTION, notification)
           break
 
