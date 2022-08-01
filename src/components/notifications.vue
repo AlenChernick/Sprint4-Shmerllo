@@ -7,7 +7,7 @@
     <span @click="displayNotifications = 'none'" class="close-icon"></span>
     <h4>Notifications</h4>
     <h5 v-if="getNewNotifications === 0">No new notifications...</h5>
-    <div class="notification-details" v-for="notification in getUserNotifications">
+    <div class="notification-details" v-for="notification in getUserNotifications"  @click="openTaskDetails(notification)">
       <img v-if="notification.style.bgImgUrl" :src="notification.style.bgImgUrl" />
       <div
         v-if="notification.style.bgColor && !notification.style.bgImgUrl"
