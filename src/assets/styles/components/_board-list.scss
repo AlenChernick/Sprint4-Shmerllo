@@ -6,9 +6,9 @@
   grid-auto-flow: dense;
   background-color: white;
 
-  @include for-mobile-layout {
-    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-  }
+  // @include for-mobile-layout {
+  //   grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  // }
 
   .add-new-board {
     display: flex;

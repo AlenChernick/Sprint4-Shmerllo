@@ -128,14 +128,8 @@
   }
   h3.workspace-logo {
     margin: 0 em(1px) 0 0;
-    // margin-left: em(30px);
-    // margin-bottom: em(8px);
     font-size: em(25px);
     color: #5e6c84;
-
-    @include for-mobile-layout {
-      margin-inline-end: 50px;
-    }
 
     .workspace-icon {
       margin-right: em(5px);

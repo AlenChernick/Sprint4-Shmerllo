@@ -1,8 +1,6 @@
 <template>
   <section class="task-preview-container" @click="openTaskDetails">
-    <span @click.stop="quickEditDisplay = 'block'" class="edit-icon">
-      <font-awesome-icon class="edit-icon-font-awesome" icon="fa-solid fa-pen"
-    /></span>
+    <span @click.stop="quickEditDisplay = 'block'" class="edit-icon"> <font-awesome-icon class="edit-icon-font-awesome" icon="fa-solid fa-pen" /></span>
     <div class="task-preview-img" v-if="task.style?.bgImgUrl">
       <img :src="task.style.bgImgUrl" alt="" />
     </div>
@@ -16,7 +14,6 @@
         <img v-if="task.style?.bgImgUrl" :src="task.style.bgImgUrl" />
         <textarea placeholder="Enter a title for this card..." v-model="taskToEdit.title" @click.stop></textarea>
       </div>
-
       <div class="action-buttons">
         <button @click="openTaskDetails"><span class="card-icon"></span>Open card</button>
 
@@ -24,9 +21,7 @@
           <span :class="btn.icon"></span>
           {{ btn.txt }}
         </button>
-
         <component :is="cmpType" @closeModal="closeModal" @editTask="editTask"> </component>
-
         <div @click.stop="removeTask"><span class="archive-icon"></span>Archive</div>
       </div>
       <div class="save-button">
@@ -111,7 +106,7 @@ export default {
             taskTitle: this.taskToEdit.title,
             time: Date.now(),
             style: this.taskToEdit.style,
-            mentionedBy: userService.getLoggedInUser().fullname || "Guest",
+            mentionedBy: userService.getLoggedInUser().fullname || 'Guest',
             taskId: this.taskToEdit.id,
             groupId: this.groupId,
             boardId: this.getCurrBoard._id,

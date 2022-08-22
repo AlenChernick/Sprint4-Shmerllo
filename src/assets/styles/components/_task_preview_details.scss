@@ -1,5 +1,6 @@
 .task-prev-details-conteiner {
   padding: 7px 10px 2px 10px;
+  transition: 0.2s;
 
   // position: relative;
   .label-task-preview-container {
@@ -11,18 +12,18 @@
       border-radius: em(10px);
       font-size: em(12px);
       font-weight: 700;
-      min-height: 8px;
-      max-height: 16px;
       line-height: 100px;
       margin: 0 4px 4px 0;
+      min-height: 8px;
       min-width: 40px;
-      max-width: fit-content;
       padding: 0;
       text-shadow: none;
+      transition-delay: 0s, 0.1s;
+      transition-duration: 0.2s, 0.2s;
+      transition-property: all;
     }
+
     .label-task-preview-full {
-      height: 16px;
-      width: 100%;
       border-radius: 3px;
       display: flex;
       justify-content: center;
@@ -30,6 +31,11 @@
       font-weight: 600;
       color: white;
       font-size: 12px;
+      min-height: 16px;
+      min-width: 46px;
+      transition-delay: 0s, 0.1s;
+      transition-duration: 0.2s, 0.2s;
+      transition-property: all;
     }
   }
 

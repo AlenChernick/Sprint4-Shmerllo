@@ -9,23 +9,11 @@
     </div>
 
     <!-- Dynamic component oppened when button is clicked -->
-    <component
-      :is="cmpType"
-      @closeModal="closeModal"
-      @editTask="editTask"
-    ></component>
+    <component :is="cmpType" @closeModal="closeModal" @editTask="editTask"></component>
   </section>
 </template>
 
 <script>
-// Import dynamic components
-import labelPicker from '../components/label-picker.vue'
-import memberPicker from '../components/member-picker.vue'
-import addCheckList from '../components/add-checklist.vue'
-import datePicker from '../components/date-picker.vue'
-import addAttachment from '../components/add-attachment.vue'
-import coverPicker from '../components/cover-picker.vue'
-
 export default {
   data() {
     return {
@@ -49,7 +37,7 @@ export default {
     closeModal() {
       this.cmpType = null
     },
-    editTask(editData){
+    editTask(editData) {
       this.$emit('editTask', editData)
     },
   },
@@ -69,42 +57,27 @@ export default {
 <template>
   <section class="actions-modal-container member-picker">
     <h4>Members</h4>
-    <span @click.stop="closeModal" class="close-icon"></span>
-    <ul class="clean-list" v-for="member in membersToEdit">
-      <li class="member-picker-list" @click.stop="toggleMember(member)">
-        <img :src="member.imgUrl" />
-        <h5>{{ member.fullname }}</h5>
-      </li>
-    </ul>
   </section>
 </template>
 
 <script>
 export default {
   name: 'member-picker',
-  data() {
-    return {
-      membersToEdit: null,
-    }
-  },
   methods: {
     toggleMember(member) {
-      this.$emit('editTask', {type: 'toggleMember', data: member})
+      this.$emit('editTask', { type: 'toggleMember', data: member })
     },
     closeModal() {
       this.$emit('closeModal')
     },
   },
-  
 }
 </script>
 
 <!-- Task-edit component (part of) -->
 
 <template>
- <edit-task-actions
-      @editTask="editTask"
-      />
+  <edit-task-actions @editTask="editTask" />
 </template>
 
 <script>
@@ -116,39 +89,36 @@ export default {
     }
   },
   methods: {
-    editTask(editData){
-      
+    editTask(editData) {
       let userAction
 
       switch (editData.type) {
-        
-          case 'toggleMember':
-            const member = editData.data
-            const members = this.taskToEdit.members
-            idx = members.findIndex((m) => m.id === member.id)
-            if (idx === -1) {
-                members.push(member)
-                userAction = 'Added member'
-            } else {
-                members.splice(idx, 1)
-                userAction = 'Removed member'
-            }
-            break    
-        
-        case 'toggleLabel':  
-          
+        case 'toggleMember':
+          const member = editData.data
+          const members = this.taskToEdit.members
+          idx = members.findIndex((m) => m.id === member.id)
+          if (idx === -1) {
+            members.push(member)
+            userAction = 'Added member'
+          } else {
+            members.splice(idx, 1)
+            userAction = 'Removed member'
+          }
+          break
+
+        case 'toggleLabel':
+
         case 'addCheckList':
 
         case 'setDate':
-  
+
         case 'addAttachment':
-    
+
         case 'setTaskStyle':
-  
-        }
-        this.saveTask(userAction)
-    },  
-   
+      }
+      this.saveTask(userAction)
+    },
+
     saveTask(userAction) {
       this.$store.dispatch({
         type: 'saveTask',

@@ -5,13 +5,16 @@
 }
 
 .board-app {
+  overflow-y: auto;
   .boards-container {
     height: 100vh;
     margin-inline-start: 28%;
     margin-inline-end: 28%;
 
     @include for-mobile-layout {
-      margin: em(37px);
+      display: flex;
+      flex-direction: column;
+      margin: 0 em(50px);
     }
   }
 }

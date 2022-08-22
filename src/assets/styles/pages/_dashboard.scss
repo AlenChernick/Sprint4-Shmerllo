@@ -2,16 +2,18 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // background-color: darkgray;
-  // opacity: 0.9;
-  width: 1400px;
-  height: 900px;
   color: $clr1;
   position: fixed;
-  left: calc((100% - 1400px)/2);
-  top: 108px;
+  left: calc((100% - 1400px) / 2);
+  top: em(45px);
   border-radius: 3px;
   z-index: 50;
+
+  @include for-mobile-layout {
+    transform: scale(0.3);
+    top: -100px;
+  }
+
   h3 {
     margin-top: 25px;
     text-align: center;
@@ -41,10 +43,10 @@
     }
   }
 
-  .dashboard-numbers{
+  .dashboard-numbers {
     display: flex;
 
-    >*{
+    > * {
       width: 430px;
       height: 120px;
       background-color: white;
@@ -54,16 +56,15 @@
       margin-left: 20px;
     }
 
-    .task-data{
+    .task-data {
       width: 325px;
       height: 140px;
       margin: 10px;
       position: relative;
       &:first-child {
         margin-left: 20px;
-
       }
-      h3{
+      h3 {
         text-align: left;
         font-size: em(30px);
         padding-bottom: 0;
@@ -75,36 +76,28 @@
         position: absolute;
         right: 25px;
         bottom: 0;
-        
       }
-
-      
     }
 
     .total {
-        background-color: #264653e3;
-        color: white;
-
+      background-color: #264653e3;
+      color: white;
     }
 
-    .complete{
+    .complete {
       background-color: #1e7268e8;
       color: white;
     }
 
-    .due-soon{
+    .due-soon {
       background-color: #f3b31d77;
       color: white;
     }
 
-    .over-due{
-      background-color:#e6394783;
+    .over-due {
+      background-color: #e6394783;
       color: white;
     }
-
-
-   
-
   }
 
   .charts-container {
@@ -133,19 +126,17 @@
     height: 480px;
     padding: 20px 20px;
     margin: 10px;
-    background-color:white;
+    background-color: white;
     border-radius: 3px;
-    
-}
+  }
 
-.pie-chart {
-  width: 440px;
-  height: 480px;
-  padding: 20px 40px;
-  margin: 10px;
-  background-color: white;
-  border-radius: 3px;
-  
+  .pie-chart {
+    width: 440px;
+    height: 480px;
+    padding: 20px 40px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 3px;
   }
 }
 

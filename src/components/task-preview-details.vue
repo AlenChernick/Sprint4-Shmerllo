@@ -1,8 +1,8 @@
 <template>
   <div class="task-prev-details-conteiner" v-if="task">
     <div v-if="task?.labelIds" class="label-task-preview-container">
-      <ul v-for="labelId in task.labelIds" class="clean-list flex">
-        <li :class="labelStaus" @click.stop="openLables" :style="{ 'background-color': labelColor(labelId) }">
+      <ul class="clean-list flex flex-warp">
+        <li v-for="labelId in task.labelIds" :class="labelStaus" @click.stop="openLables" :style="{ 'background-color': labelColor(labelId) }">
           <span v-if="boardToEdit.isLabelsOpen">{{ labelTxt(labelId) }}</span>
         </li>
       </ul>
@@ -31,15 +31,7 @@
         <span class="prev-task-checklists-count">{{ todosCount(task.checklists) }}</span>
       </div>
 
-      <Container
-        @click.stop
-        v-if="task.members"
-        @drop="onDrop($event)"
-        :get-child-payload="getChildPayload"
-        orientation="horizontal"
-        group-name="members"
-        class="drag-img-conteiner-big prev-members-imgs"
-      >
+      <Container @click.stop v-if="task.members" @drop="onDrop($event)" :get-child-payload="getChildPayload" orientation="horizontal" group-name="members" class="drag-img-conteiner-big prev-members-imgs">
         <Draggable class="members-imgs-draggble" v-for="member in task.members" :key="member._id">
           <ul class="clean-list">
             <img class="prev-member-img" :src="member.imgUrl" />
@@ -124,7 +116,7 @@ export default {
       return this.$store.getters.getCurrBoard
     },
     labelStaus() {
-      if (this.boardToEdit.isLabelsOpen === false) return 'label-task-preview'
+      if (!this.boardToEdit.isLabelsOpen) return 'label-task-preview'
       if (this.boardToEdit.isLabelsOpen) return 'label-task-preview-full'
     },
     doneTodos() {
