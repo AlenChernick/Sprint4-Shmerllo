@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://shmerllo.herokuapp.com">
+  <a href="https://shmerllo.onrender.com">
     <img src="https://res.cloudinary.com/dhrtde6px/image/upload/v1661942029/Shmerllo/Shmerllo-logo_iszt8t.png" alt="Logo" width="100%" height="100%">
   </a>
 
@@ -11,7 +11,7 @@
     Shmerllo is a project management tool Inspired by Trello.
     <br />
     <br />
-    <a href="https://shmerllo.herokuapp.com">View Demo</a>
+    <a href="https://shmerllo.onrender.com">View Demo</a>
   </p>
 </p>
 
@@ -30,7 +30,7 @@
 
 ## About The Project
 
-[![Home Screen Shot][home-screenshot]](https://shmerllo.herokuapp.com)
+[![Home Screen Shot][home-screenshot]](https://shmerllo.onrender.com)
 ![Board Screen Shot][board-screenshot]
 ![Task Details][task-screenshot]
 ![Quick Edit][quick-edit-screenshot]
